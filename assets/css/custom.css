@@ -1,0 +1,509 @@
+/* =============================================================================
+   C0mput33 Dev Log — Custom Theme
+   Chirpy 7.x override: Pretendard + JetBrains Mono + Indigo/Purple palette
+   ============================================================================= */
+
+/* ── READING PROGRESS BAR ─────────────────────────────────────────────────── */
+#reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #6d28d9, #7c3aed, #8b5cf6, #a78bfa);
+  z-index: 99999;
+  transition: width 80ms linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── TYPOGRAPHY ───────────────────────────────────────────────────────────── */
+body,
+.navbar,
+.sidebar-toggle,
+.sidebar .site-title,
+.sidebar .site-subtitle,
+.post-title,
+.post-content,
+.page-title {
+  font-family:
+    'Pretendard Variable', 'Pretendard',
+    -apple-system, BlinkMacSystemFont,
+    'Segoe UI', 'Noto Sans KR',
+    sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, pre, kbd, samp,
+.filepath, .highlighter-rouge code {
+  font-family:
+    'JetBrains Mono', 'Fira Code',
+    'Cascadia Code', 'Consolas',
+    'SF Mono', monospace !important;
+  font-variant-ligatures: common-ligatures;
+}
+
+/* Heading weight & tracking */
+h1, h2, h3, h4, h5, h6,
+.post-title, .page-title {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Body text */
+body {
+  font-size: 16px;
+  letter-spacing: -0.005em;
+}
+
+.post-content {
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+/* ── DARK THEME COLORS ────────────────────────────────────────────────────── */
+
+/* Main backgrounds */
+[data-mode='dark'] body,
+[data-mode='dark'] #main-wrapper,
+[data-mode='dark'] main,
+[data-mode='dark'] #core-wrapper {
+  background-color: #0c0c18 !important;
+}
+
+[data-mode='dark'] #sidebar {
+  background-color: #08080f !important;
+  border-right: 1px solid rgba(139, 92, 246, 0.12) !important;
+}
+
+/* Also cover system-dark with no explicit mode set */
+@media (prefers-color-scheme: dark) {
+  html:not([data-mode]) body,
+  html:not([data-mode]) #main-wrapper,
+  html:not([data-mode]) main,
+  html:not([data-mode]) #core-wrapper {
+    background-color: #0c0c18 !important;
+  }
+
+  html:not([data-mode]) #sidebar {
+    background-color: #08080f !important;
+    border-right: 1px solid rgba(139, 92, 246, 0.12) !important;
+  }
+}
+
+/* ── LIGHT THEME COLORS ───────────────────────────────────────────────────── */
+[data-mode='light'] body,
+[data-mode='light'] #main-wrapper,
+[data-mode='light'] main {
+  background-color: #f7f7fc !important;
+}
+
+[data-mode='light'] #sidebar {
+  background: linear-gradient(180deg, #6d28d9 0%, #7c3aed 100%) !important;
+  border-right: none !important;
+}
+
+[data-mode='light'] #sidebar .site-title a,
+[data-mode='light'] #sidebar .site-subtitle,
+[data-mode='light'] #sidebar .sidebar-bottom,
+[data-mode='light'] #sidebar .nav-link {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+[data-mode='light'] #sidebar .nav-link.active,
+[data-mode='light'] #sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ── TOPBAR ───────────────────────────────────────────────────────────────── */
+#topbar-wrapper {
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+
+[data-mode='dark'] #topbar-wrapper {
+  background-color: rgba(8, 8, 15, 0.75) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: none !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-mode]) #topbar-wrapper {
+    background-color: rgba(8, 8, 15, 0.75) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+}
+
+/* ── SIDEBAR ──────────────────────────────────────────────────────────────── */
+#sidebar .site-title {
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+}
+
+#sidebar .site-subtitle {
+  font-size: 0.72rem !important;
+  opacity: 0.55 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.5 !important;
+}
+
+#sidebar .nav-link {
+  border-radius: 8px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  transition: all 0.15s ease !important;
+  margin: 1px 0 !important;
+}
+
+[data-mode='dark'] #sidebar .nav-link {
+  color: rgba(226, 232, 240, 0.7) !important;
+}
+
+[data-mode='dark'] #sidebar .nav-link:hover {
+  background: rgba(139, 92, 246, 0.12) !important;
+  color: #c4b5fd !important;
+}
+
+[data-mode='dark'] #sidebar .nav-link.active {
+  background: rgba(139, 92, 246, 0.18) !important;
+  color: #a78bfa !important;
+}
+
+/* ── POST CARDS (Homepage) ────────────────────────────────────────────────── */
+.post-preview {
+  border-radius: 14px !important;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.22s ease,
+    border-color 0.22s ease !important;
+  overflow: hidden !important;
+}
+
+.post-preview:hover {
+  transform: translateY(-3px) !important;
+}
+
+[data-mode='dark'] .post-preview,
+@media (prefers-color-scheme: dark) {
+  html:not([data-mode]) .post-preview {
+    background: #11111c !important;
+    border-color: rgba(139, 92, 246, 0.12) !important;
+  }
+}
+
+[data-mode='dark'] .post-preview {
+  background: #11111c !important;
+  border-color: rgba(139, 92, 246, 0.12) !important;
+}
+
+[data-mode='dark'] .post-preview:hover {
+  border-color: rgba(167, 139, 250, 0.35) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(167, 139, 250, 0.1) !important;
+}
+
+/* Post title in card */
+.post-preview .post-title a {
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  transition: color 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+[data-mode='dark'] .post-preview .post-title a {
+  color: #e2e8f0 !important;
+}
+
+[data-mode='dark'] .post-preview .post-title a:hover {
+  color: #a78bfa !important;
+}
+
+/* Post excerpt text */
+[data-mode='dark'] .post-preview .post-content {
+  color: #94a3b8 !important;
+}
+
+/* ── POST CONTENT ─────────────────────────────────────────────────────────── */
+.post-content h2 {
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.post-content h3 {
+  margin-top: 2rem;
+}
+
+[data-mode='dark'] .post-content h2 {
+  border-bottom: 1px solid rgba(139, 92, 246, 0.18);
+  color: #e2e8f0 !important;
+}
+
+[data-mode='dark'] .post-content h3,
+[data-mode='dark'] .post-content h4 {
+  color: #cbd5e1 !important;
+}
+
+/* Body text color */
+[data-mode='dark'] .post-content p,
+[data-mode='dark'] .post-content li {
+  color: #b0bec5 !important;
+}
+
+/* ── LINKS ────────────────────────────────────────────────────────────────── */
+[data-mode='dark'] .post-content a:not(.tag):not(.btn):not(.anchor) {
+  color: #a78bfa !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(167, 139, 250, 0.3) !important;
+  text-underline-offset: 3px !important;
+  transition: color 0.15s, text-decoration-color 0.15s !important;
+}
+
+[data-mode='dark'] .post-content a:not(.tag):not(.btn):not(.anchor):hover {
+  color: #c4b5fd !important;
+  text-decoration-color: rgba(196, 181, 253, 0.55) !important;
+}
+
+/* ── CODE BLOCKS ──────────────────────────────────────────────────────────── */
+[data-mode='dark'] .highlight,
+[data-mode='dark'] div.highlight {
+  background: #0a0a15 !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 10px !important;
+}
+
+[data-mode='dark'] .highlight pre {
+  background: transparent !important;
+  font-size: 0.875rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Code block header bar */
+[data-mode='dark'] div.code-header {
+  background: #14142a !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 10px 10px 0 0 !important;
+  font-size: 0.78rem !important;
+  color: #64748b !important;
+}
+
+/* Inline code */
+[data-mode='dark'] code:not([class]):not(.filepath),
+[data-mode='dark'] :not(pre) > code {
+  background: rgba(139, 92, 246, 0.12) !important;
+  color: #c4b5fd !important;
+  border: 1px solid rgba(139, 92, 246, 0.2) !important;
+  border-radius: 5px !important;
+  padding: 0.15em 0.45em !important;
+  font-size: 0.875em !important;
+}
+
+/* Line numbers */
+[data-mode='dark'] .lineno {
+  color: #2d2d4e !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ── BLOCKQUOTE ───────────────────────────────────────────────────────────── */
+[data-mode='dark'] blockquote {
+  border-left: 3px solid #7c3aed !important;
+  background: rgba(124, 58, 237, 0.06) !important;
+  color: #94a3b8 !important;
+  border-radius: 0 8px 8px 0 !important;
+}
+
+/* ── TAGS ─────────────────────────────────────────────────────────────────── */
+.post-tag,
+.tag {
+  border-radius: 6px !important;
+  font-size: 0.72rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+  transition: all 0.15s ease !important;
+}
+
+[data-mode='dark'] .post-tag,
+[data-mode='dark'] .tag {
+  background: rgba(139, 92, 246, 0.1) !important;
+  border: 1px solid rgba(139, 92, 246, 0.2) !important;
+  color: #c4b5fd !important;
+}
+
+[data-mode='dark'] .post-tag:hover,
+[data-mode='dark'] .tag:hover {
+  background: rgba(139, 92, 246, 0.2) !important;
+  border-color: rgba(167, 139, 250, 0.4) !important;
+  color: #ddd6fe !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ── TOC ──────────────────────────────────────────────────────────────────── */
+[data-mode='dark'] #toc-wrapper {
+  font-size: 0.8rem !important;
+}
+
+[data-mode='dark'] #toc a {
+  color: #475569 !important;
+  transition: color 0.15s, padding-left 0.15s !important;
+  text-decoration: none !important;
+}
+
+[data-mode='dark'] #toc a:hover {
+  color: #a78bfa !important;
+  padding-left: 2px !important;
+}
+
+[data-mode='dark'] #toc li.active > a,
+[data-mode='dark'] #toc a.active {
+  color: #a78bfa !important;
+  font-weight: 600 !important;
+}
+
+/* ── CUSTOM SCROLLBAR ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-mode='dark'] ::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.22);
+  border-radius: 3px;
+}
+
+[data-mode='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.42);
+}
+
+/* ── POST META (date, author, read time) ─────────────────────────────────── */
+[data-mode='dark'] .post-meta,
+[data-mode='dark'] .post-meta i,
+[data-mode='dark'] .post-meta span,
+[data-mode='dark'] .post-meta a {
+  color: #475569 !important;
+  font-size: 0.8rem !important;
+}
+
+/* ── CATEGORIES / ARCHIVES ────────────────────────────────────────────────── */
+[data-mode='dark'] .category-item a {
+  color: #94a3b8 !important;
+  transition: color 0.15s !important;
+}
+
+[data-mode='dark'] .category-item a:hover {
+  color: #a78bfa !important;
+}
+
+/* ── BACK TO TOP BUTTON ───────────────────────────────────────────────────── */
+#back-to-top {
+  background: rgba(124, 58, 237, 0.75) !important;
+  backdrop-filter: blur(4px) !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(167, 139, 250, 0.3) !important;
+  transition: all 0.2s ease !important;
+  width: 38px !important;
+  height: 38px !important;
+}
+
+#back-to-top:hover {
+  background: rgba(139, 92, 246, 0.9) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4) !important;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────────── */
+footer {
+  font-size: 0.78rem !important;
+  opacity: 0.45 !important;
+}
+
+/* ── SEARCH ───────────────────────────────────────────────────────────────── */
+[data-mode='dark'] #search-input {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(139, 92, 246, 0.2) !important;
+  color: #e2e8f0 !important;
+  border-radius: 8px !important;
+  font-family: 'Pretendard Variable', sans-serif !important;
+}
+
+[data-mode='dark'] #search-input:focus {
+  border-color: rgba(139, 92, 246, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+  outline: none !important;
+}
+
+[data-mode='dark'] #search-hints .card,
+[data-mode='dark'] #search-result-wrapper .card {
+  background: #11111c !important;
+  border-color: rgba(139, 92, 246, 0.15) !important;
+  border-radius: 10px !important;
+}
+
+/* ── PAGINATION ───────────────────────────────────────────────────────────── */
+[data-mode='dark'] .page-item .page-link {
+  background: transparent !important;
+  border-color: rgba(139, 92, 246, 0.2) !important;
+  color: #94a3b8 !important;
+  border-radius: 7px !important;
+  margin: 0 2px !important;
+  transition: all 0.15s !important;
+}
+
+[data-mode='dark'] .page-item .page-link:hover {
+  background: rgba(139, 92, 246, 0.12) !important;
+  color: #a78bfa !important;
+}
+
+[data-mode='dark'] .page-item.active .page-link {
+  background: rgba(139, 92, 246, 0.2) !important;
+  border-color: rgba(139, 92, 246, 0.4) !important;
+  color: #a78bfa !important;
+}
+
+/* ── HORIZONTAL RULE ──────────────────────────────────────────────────────── */
+[data-mode='dark'] hr {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── TABLES ───────────────────────────────────────────────────────────────── */
+[data-mode='dark'] table {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+[data-mode='dark'] thead th {
+  background: rgba(139, 92, 246, 0.12) !important;
+  color: #c4b5fd !important;
+  font-weight: 600 !important;
+  border-color: rgba(139, 92, 246, 0.15) !important;
+}
+
+[data-mode='dark'] tbody td {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+  color: #94a3b8 !important;
+}
+
+[data-mode='dark'] tbody tr:hover td {
+  background: rgba(139, 92, 246, 0.05) !important;
+}
+
+/* ── IMAGES ───────────────────────────────────────────────────────────────── */
+[data-mode='dark'] .post-content img {
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── SMOOTH SCROLL ────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── FOCUS OUTLINE (accessibility) ───────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6) !important;
+  outline-offset: 2px !important;
+}
