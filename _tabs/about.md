@@ -4,5 +4,44 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+## 안녕하세요
+
+저는 AI 엔지니어링과 소프트웨어 개발을 공부하고 있는 개발자 **C0mput33**입니다.
+
+이 블로그는 제가 직접 만들고, 부수고, 다시 고쳐가는 과정을 기록하는 공간입니다.
+"잘 작동한다"는 결과보다 "왜 그렇게 생각했고, 무엇이 틀렸고, 어떻게 고쳤는가"를 더 중요하게 여깁니다.
+
+---
+
+## 주로 다루는 것들
+
+- **Agentic AI / LLM 시스템** — 에이전트 설계, 컨텍스트 엔지니어링, 멀티모달
+- **백엔드 & 인프라** — FastAPI, Docker, Google Cloud Run, GitHub Actions
+- **머신러닝 / 딥러닝** — Computer Vision, Object Detection, Segmentation
+- **개발 도구 & 자동화** — AI 보조 개발 워크플로우, 에이전트 기반 작업 자동화
+
+---
+
+## 경험
+
+| 기간 | 활동 |
+|------|------|
+| 2026.04 ~ | **SW Maestro** 연수 중 |
+| 2024 ~ 2025 | NAVER AI BoostCamp — Multimodal, CV |
+| 2024 | LG Aimers AI Challenge Finals |
+| 2023 ~ | WHS (화이트햇스쿨) 2기 — 보안 |
+
+---
+
+## 블로그 원칙
+
+- 완성된 결과만 쓰지 않는다. **과정과 실수**도 쓴다.
+- **수치로 말한다.** "빨라졌다"가 아니라 "P95 레이턴시가 4.2초 → 1.8초로 줄었다"처럼.
+- 독자가 **직접 재현**할 수 있을 만큼 구체적으로.
+- 공개할 수 없는 내용은 쓰지 않는다.
+
+---
+
+> 이 블로그의 일부 내용은 **AI·SW마에스트로 과정의 지원을 통해 개발된 결과물**을 다룹니다.
+> 해당 성과물은 과학기술정보통신부의 재원으로 정보통신기획평가원(IITP)의 지원을 받아 수행된 결과입니다.
+{: .prompt-info }

@@ -1,0 +1,100 @@
+---
+title: "Agentic AI가 어떻게 발전해왔는가 — Prompt에서 Harness까지"
+date: 2026-04-07 21:00:00 +0900
+categories: [Learning, AI Engineering]
+tags: [agentic-ai, prompt-engineering, context-engineering, harness-engineering, llm]
+description: 2022년부터 2026년까지 AI 에이전틱 패턴이 어떻게 발전했는지, 직접 시스템을 만들면서 그 흐름을 이해하게 된 과정을 정리합니다.
+---
+
+SW Maestro 멘토링 자료 중에 ["프롬프트에서 하네스까지"](https://bits-bytes-nn.github.io/insights/agentic-ai/2026/04/05/evolution-of-ai-agentic-patterns.html)라는 아티클을 읽었다. AI 에이전트를 만들면서 막연하게 느끼던 것들이 정리되는 느낌이었다.
+
+세 단계로 나누어 설명하는데, 내 경험에 대입하니까 이해가 훨씬 잘 됐다.
+
+---
+
+## Stage 1 (2022~2023): Prompt Engineering
+
+"좋은 질문을 하면 좋은 답이 나온다."
+
+Chain-of-Thought[^1] 이 나왔고, "Let's think step by step."이 GSM8K 벤치마크에서 17.9% → 58.1%로 끌어올렸다. 엄밀함의 위치가 모델 자체에서 **프롬프트**로 이동하기 시작한 시기다.
+
+ReAct[^2] 는 이 시기의 정점이다. Thought → Action → Observation 루프. 오늘날 모든 AI 에이전트의 원형이다.
+
+나는 처음에 이 방식에 집중했다. System prompt를 정교하게 짜면 다 해결될 것 같았다. 그런데 현실에서는 프롬프트가 길어질수록 모델이 뒤쪽 내용을 잘 따르지 않는 "Lost in the Middle" 현상이 있었다.[^3]
+
+---
+
+## Stage 2 (2024~2025): Context Engineering
+
+"무엇을 LLM에게 보여주는가가 무엇을 말하는가보다 중요하다."
+
+프롬프트 엔지니어링의 한계가 드러나면서, 관심이 **컨텍스트 윈도우 전체 관리**로 이동했다.
+
+Manus의 사례[^4] 가 인상적이다. 그들이 발견한 가장 중요한 단일 메트릭은 **KV-cache hit rate**였다. 비용과 속도 모두에 직접 영향을 준다. 나도 Prompt Caching을 적용하면서 이 관점이 맞다는 걸 체감했다.
+
+컨텍스트 엔지니어링의 핵심 전략 4가지[^5]:
+- **Write**: 메모리/스크래패드에 상태를 저장
+- **Select**: 관련 정보만 선별해서 전달
+- **Compress**: 요약으로 토큰을 절약
+- **Isolate**: 에이전트별로 독립된 컨텍스트 유지
+
+내 봇에서 가장 약한 부분이 **Select**다. 지금은 모든 대화 히스토리를 그대로 넣는다. 롤링 윈도우로 자르는데, 중요한 컨텍스트가 잘릴 수 있다.
+
+---
+
+## Stage 3 (2026~): Harness Engineering
+
+"에이전트가 실수하면 모델이 아니라 **하네스**를 고쳐라."[^6]
+
+하네스(harness)는 말(horse)의 힘을 수레에 연결하는 장치에서 온 비유다. 모델(=말)이 제아무리 강력해도, 그 힘을 올바르게 연결하는 구조가 없으면 쓸 수 없다.
+
+Anthropic의 3-에이전트 아키텍처[^7] — Planner + Generator + Evaluator — 가 이 개념의 구체적 구현이다. 내가 만드는 시스템은 아직 Stage 2.5 정도다.
+
+흥미로운 점은 "엄밀함은 사라지지 않고 이동한다"[^8]는 표현이다.
+
+```
+2022: 엄밀함 → 프롬프트에
+2025: 엄밀함 → 컨텍스트 선택/압축에
+2026: 엄밀함 → 하네스 설계에
+```
+
+---
+
+## 내 시스템에 대입하면
+
+| 내 시스템 요소 | 해당하는 엔지니어링 단계 |
+|---------------|------------------------|
+| System prompt 설계 | Stage 1 (Prompt) |
+| Prompt Caching, 슬라이딩 윈도우 | Stage 2 (Context) |
+| 멀티 모델 라우팅, CONFIRM_TOOLS | Stage 2.5 (Context + 초기 Harness) |
+| 오케스트레이터/서브에이전트 구조 | Stage 3 (Harness) |
+
+Stage 3로 가려면 단순히 "멀티 에이전트를 붙이면 된다"가 아니다. 에이전트 간의 인터페이스, 실패 격리, 컨텍스트 분리를 설계해야 한다. 현재 사용 패턴(단순 도구 호출 중심)에서 Stage 3를 강제로 적용하면 레이턴시 3배, 비용 3배만 늘어날 수 있다.
+
+---
+
+## 결론
+
+좋은 AI 시스템은 좋은 프롬프트가 아니라 좋은 **하네스**에서 나온다. 그리고 하네스는 실제로 써보면서 발견한 문제들을 하나씩 고쳐가며 만들어진다.
+
+아직 갈 길이 멀지만, 방향은 잡힌 것 같다.
+
+---
+
+## 각주 & 참고
+
+[^1]: Wei et al. (2022), [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903). GSM8K에서 few-shot CoT가 standard prompting 대비 17.9% → 58.1% 향상.
+
+[^2]: Yao et al. (2022), [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629). Thought-Action-Observation 루프의 원형.
+
+[^3]: Liu et al. (2023), [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172). 컨텍스트 중간 정보를 잘 활용하지 못하는 현상을 실증.
+
+[^4]: Manus Team (2025), [Context Engineering for AI Agents: Lessons from Building Manus](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus). KV-cache hit rate를 핵심 메트릭으로 제안.
+
+[^5]: Anthropic (2025), [Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). Write/Select/Compress/Isolate 4대 전략.
+
+[^6]: Mitchell Hashimoto (2026), [My AI Adoption Journey](https://mitchellh.com/writing/my-ai-adoption-journey). "Harness Engineering" 용어의 탄생지.
+
+[^7]: Anthropic (2026), [Harness Design for Long-Running Apps](https://www.anthropic.com/engineering/harness-design-long-running-apps). Planner + Generator + Evaluator 3-에이전트 아키텍처.
+
+[^8]: Chad Fowler (2026), [Relocating Rigor](https://www.honeycomb.io/blog/production-is-where-the-rigor-goes). "엄밀함은 사라지지 않고 이동한다" — AI 시대 소프트웨어 엔지니어링의 철학.
