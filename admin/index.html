@@ -1,0 +1,687 @@
+---
+layout: null
+permalink: /admin/
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 Admin — C0mput33</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <style>
+    :root {
+      --bg:      #1e1e2e;
+      --bg2:     #2a2a3e;
+      --bg3:     #313147;
+      --text:    #cdd6f4;
+      --text2:   #a6adc8;
+      --accent:  #89b4fa;
+      --accent2: #cba6f7;
+      --green:   #a6e3a1;
+      --red:     #f38ba8;
+      --yellow:  #f9e2af;
+      --border:  #45475a;
+      --r: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    code{background:var(--bg3);padding:.1em .4em;border-radius:4px;font-size:.85em;font-family:monospace}
+
+    /* ── AUTH SCREENS ── */
+    .auth-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1rem}
+    .auth-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2.5rem;width:100%;max-width:400px;box-shadow:var(--shadow)}
+    .auth-card h1{font-size:1.5rem;margin-bottom:.4rem}
+    .auth-card p{color:var(--text2);font-size:.9rem;margin-bottom:1.75rem;line-height:1.5}
+    .form-group{margin-bottom:1.1rem}
+    .form-group label{display:block;font-size:.82rem;color:var(--text2);margin-bottom:.35rem}
+    input[type=password],input[type=text]{width:100%;padding:.7rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:.95rem;transition:border-color .2s}
+    input:focus{outline:none;border-color:var(--accent)}
+    .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.65rem 1.25rem;border:none;border-radius:var(--r);cursor:pointer;font-size:.88rem;font-weight:500;transition:opacity .15s,transform .1s}
+    .btn:active{transform:scale(.98)}
+    .btn:hover{opacity:.88}
+    .btn-primary{background:var(--accent);color:#1e1e2e}
+    .btn-secondary{background:var(--bg3);color:var(--text);border:1px solid var(--border)}
+    .btn-danger{background:var(--red);color:#1e1e2e}
+    .btn-full{width:100%;justify-content:center}
+    .err{color:var(--red);font-size:.82rem;margin-top:.4rem;min-height:1.2em}
+    .ok{color:var(--green);font-size:.82rem;margin-top:.4rem}
+
+    /* ── HEADER ── */
+    .dash-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .dash-header h1{font-size:1.1rem;display:flex;align-items:center;gap:.6rem}
+    .dash-header .site-badge{font-size:.75rem;color:var(--text2);background:var(--bg3);padding:.2rem .6rem;border-radius:100px;border:1px solid var(--border)}
+    .header-right{display:flex;align-items:center;gap:.5rem}
+
+    /* ── TABS ── */
+    .tab-nav{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;padding:0 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .tab-btn{background:none;border:none;color:var(--text2);padding:.8rem 1.1rem;cursor:pointer;font-size:.88rem;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s}
+    .tab-btn:hover{color:var(--text)}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+    /* ── CONTENT ── */
+    .tab-content{display:none;padding:1.5rem;max-width:1100px;margin:0 auto;width:100%}
+    .tab-content.active{display:block}
+
+    /* ── STAT CARDS ── */
+    .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem}
+    .stat-card .s-label{font-size:.78rem;color:var(--text2);margin-bottom:.4rem}
+    .stat-card .s-val{font-size:2rem;font-weight:700;color:var(--accent);line-height:1.1}
+    .stat-card .s-sub{font-size:.73rem;color:var(--text2);margin-top:.25rem}
+
+    /* ── SECTIONS ── */
+    .section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:1.1rem}
+    .section h2{font-size:.95rem;margin-bottom:.875rem;padding-bottom:.625rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.4rem}
+
+    /* ── BAR ROWS ── */
+    .bar-row{margin-bottom:.7rem}
+    .bar-row:last-child{margin-bottom:0}
+    .bar-label{display:flex;justify-content:space-between;font-size:.83rem;margin-bottom:.28rem;gap:1rem}
+    .bar-label .bname{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+    .bar-label .bcount{color:var(--accent);font-weight:600;white-space:nowrap}
+    .bar-track{background:var(--bg3);border-radius:3px;height:5px;overflow:hidden}
+    .bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .5s ease}
+
+    /* ── POSTS ── */
+    .post-row{display:flex;align-items:center;gap:.875rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+    .post-row:last-child{border-bottom:none}
+    .post-num{font-size:.78rem;color:var(--text2);width:22px;text-align:center;flex-shrink:0}
+    .post-info{flex:1;min-width:0}
+    .post-title{font-size:.88rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .post-meta{font-size:.73rem;color:var(--text2);margin-top:.18rem;display:flex;gap:.6rem;flex-wrap:wrap}
+    .post-views{font-size:.88rem;font-weight:600;color:var(--accent);white-space:nowrap}
+    .post-actions{display:flex;gap:.4rem;flex-shrink:0}
+    .mini-btn{padding:.3rem .6rem;font-size:.72rem;background:var(--bg3);border:1px solid var(--border);border-radius:5px;color:var(--text2);cursor:pointer}
+    .mini-btn:hover{color:var(--text);border-color:var(--accent)}
+
+    /* ── TWO COL ── */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+    @media(max-width:640px){.two-col{grid-template-columns:1fr}}
+
+    /* ── SETTINGS ── */
+    .settings-group{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;margin-bottom:1.1rem}
+    .settings-group h3{font-size:.9rem;color:var(--text2);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+    .quick-links{display:flex;flex-wrap:wrap;gap:.6rem}
+
+    /* ── NOTICES ── */
+    .notice{background:rgba(137,180,250,.1);border:1px solid rgba(137,180,250,.25);border-radius:var(--r);padding:.875rem 1rem;font-size:.83rem;color:var(--text2);margin-bottom:1.1rem;line-height:1.7}
+    .notice-warn{background:rgba(249,226,175,.1);border-color:rgba(249,226,175,.3)}
+
+    /* ── LOADING / EMPTY ── */
+    .loading{display:flex;align-items:center;gap:.5rem;color:var(--text2);font-size:.85rem;padding:.75rem 0}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spinner{width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+    .empty{text-align:center;padding:1.5rem;color:var(--text2);font-size:.85rem}
+
+    /* ── DIVIDER ── */
+    .divider{border:none;border-top:1px solid var(--border);margin:1rem 0}
+    .refresh-info{font-size:.72rem;color:var(--text2);text-align:right;margin-bottom:.75rem}
+
+    /* ── TAG ── */
+    .tag{display:inline-block;padding:.15rem .5rem;border-radius:100px;font-size:.7rem;background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ SETUP SCREEN ═══════════════ -->
+<div id="setup-screen" class="auth-wrap">
+  <div class="auth-card">
+    <h1>🔧 관리자 초기 설정</h1>
+    <p>처음 접속했습니다. 이 페이지에 접근할 비밀번호를 설정하세요.<br>비밀번호는 이 브라우저에만 저장됩니다.</p>
+    <div class="form-group">
+      <label>비밀번호 (6자 이상)</label>
+      <input type="password" id="setup-pw" placeholder="새 비밀번호" autocomplete="new-password">
+    </div>
+    <div class="form-group">
+      <label>비밀번호 확인</label>
+      <input type="password" id="setup-pw2" placeholder="비밀번호 재입력" autocomplete="new-password"
+             onkeydown="if(event.key==='Enter')setupPassword()">
+    </div>
+    <div id="setup-err" class="err"></div>
+    <button class="btn btn-primary btn-full" onclick="setupPassword()">설정 완료 →</button>
+  </div>
+</div>
+
+<!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
+<div id="login-screen" class="auth-wrap" hidden>
+  <div class="auth-card">
+    <h1>🔐 관리자 로그인</h1>
+    <p>C0mput33's Dev Log 관리자 페이지입니다.<br>외부에 URL을 공유하지 마세요.</p>
+    <div class="form-group">
+      <label>비밀번호</label>
+      <input type="password" id="login-pw" placeholder="비밀번호 입력" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter')login()">
+    </div>
+    <div id="login-err" class="err"></div>
+    <button class="btn btn-primary btn-full" onclick="login()">로그인</button>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="dashboard" hidden>
+
+  <header class="dash-header">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <h1>📊 Admin Dashboard</h1>
+      <span class="site-badge">c0mput33.github.io</span>
+    </div>
+    <div class="header-right">
+      <a href="https://c0mput33.github.io" target="_blank" class="btn btn-secondary" style="padding:.45rem .8rem;font-size:.78rem">↗ 블로그</a>
+      <button class="btn btn-secondary" onclick="refreshData()" style="padding:.45rem .8rem;font-size:.78rem">⟳ 새로고침</button>
+      <button class="btn btn-secondary" onclick="logout()" style="padding:.45rem .8rem;font-size:.78rem">로그아웃</button>
+    </div>
+  </header>
+
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('overview',this)">📈 개요</button>
+    <button class="tab-btn" onclick="switchTab('posts',this)">📝 포스트</button>
+    <button class="tab-btn" onclick="switchTab('audience',this)">🌍 방문자</button>
+    <button class="tab-btn" onclick="switchTab('settings',this)">⚙️ 설정</button>
+  </nav>
+
+  <!-- ── TAB: 개요 ── -->
+  <div id="tab-overview" class="tab-content active">
+    <div id="ov-loading" class="loading"><div class="spinner"></div> 데이터 불러오는 중…</div>
+    <div id="ov-no-config" class="notice" hidden>
+      📡 Analytics가 연결되지 않았습니다.
+      <a href="#" onclick="switchTabByName('settings');return false">⚙️ 설정 탭</a>에서 GoatCounter를 연결하면 실시간 방문자 통계를 볼 수 있습니다.
+    </div>
+    <div id="ov-content" hidden>
+      <div class="refresh-info" id="ov-updated"></div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-label">오늘 방문자</div><div class="s-val" id="s-today">—</div><div class="s-sub" id="s-today-pv">— 페이지뷰</div></div>
+        <div class="stat-card"><div class="s-label">이번 주 (7일)</div><div class="s-val" id="s-week">—</div><div class="s-sub" id="s-week-pv">— 페이지뷰</div></div>
+        <div class="stat-card"><div class="s-label">이번 달 (30일)</div><div class="s-val" id="s-month">—</div><div class="s-sub" id="s-month-pv">— 페이지뷰</div></div>
+        <div class="stat-card"><div class="s-label">전체 누적</div><div class="s-val" id="s-total">—</div><div class="s-sub">방문자 합계</div></div>
+      </div>
+
+      <div class="section">
+        <h2>🏆 인기 페이지 <small style="font-size:.75rem;color:var(--text2);font-weight:400">(최근 30일)</small></h2>
+        <div id="top-pages"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+
+      <div class="section">
+        <h2>🔗 유입 경로 <small style="font-size:.75rem;color:var(--text2);font-weight:400">(최근 30일)</small></h2>
+        <div id="refs"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: 포스트 ── -->
+  <div id="tab-posts" class="tab-content">
+    <div class="section">
+      <h2>📝 전체 포스트 <span id="posts-count" style="font-size:.78rem;color:var(--text2);font-weight:400"></span></h2>
+      <div id="posts-list"><div class="loading"><div class="spinner"></div> 포스트 목록 불러오는 중…</div></div>
+    </div>
+  </div>
+
+  <!-- ── TAB: 방문자 ── -->
+  <div id="tab-audience" class="tab-content">
+    <div id="aud-no-config" class="notice" hidden>
+      📡 Analytics가 연결되지 않았습니다.
+      <a href="#" onclick="switchTabByName('settings');return false">⚙️ 설정 탭</a>에서 GoatCounter를 연결하세요.
+    </div>
+    <div id="aud-content">
+      <div class="two-col">
+        <div class="section">
+          <h2>🌍 방문 국가 <small style="font-size:.75rem;color:var(--text2);font-weight:400">(30일)</small></h2>
+          <div id="countries"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+        <div class="section">
+          <h2>🖥️ 브라우저 <small style="font-size:.75rem;color:var(--text2);font-weight:400">(30일)</small></h2>
+          <div id="browsers"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="section">
+          <h2>🌐 언어 설정 <small style="font-size:.75rem;color:var(--text2);font-weight:400">(30일)</small></h2>
+          <div id="languages"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+        <div class="section">
+          <h2>📐 화면 크기 <small style="font-size:.75rem;color:var(--text2);font-weight:400">(30일)</small></h2>
+          <div id="sizes"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB: 설정 ── -->
+  <div id="tab-settings" class="tab-content">
+
+    <div class="settings-group">
+      <h3>📡 GoatCounter 연동 (무료 Analytics)</h3>
+      <div class="notice">
+        <strong>설정 방법:</strong><br>
+        1. <a href="https://goatcounter.com" target="_blank">goatcounter.com</a>에서 무료 계정 생성<br>
+        2. 사이트 코드 선택 (예: <code>c0mput33</code> → 대시보드: <code>c0mput33.goatcounter.com</code>)<br>
+        3. Settings → API tokens → 새 토큰 발급<br>
+        4. 아래에 입력 후 저장<br>
+        5. 블로그 <code>_config.yml</code>의 <code>analytics.goatcounter.id</code>에 사이트 코드 추가<br>
+        6. <code>pageviews.provider: goatcounter</code> 설정 시 각 포스트에 조회수도 표시됨
+      </div>
+      <div class="form-group">
+        <label>GoatCounter 사이트 코드</label>
+        <input type="text" id="gc-code" placeholder="예: c0mput33">
+      </div>
+      <div class="form-group">
+        <label>GoatCounter API 토큰</label>
+        <input type="password" id="gc-token" placeholder="Settings → API tokens에서 발급">
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="saveGC()">저장 및 연결 테스트</button>
+        <span id="gc-result" style="font-size:.83rem"></span>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <h3>🔗 빠른 링크</h3>
+      <div class="quick-links">
+        <a href="https://github.com/C0mput33/C0mput33.github.io" target="_blank" class="btn btn-secondary">📁 블로그 레포</a>
+        <a href="https://github.com/C0mput33/C0mput33.github.io/actions" target="_blank" class="btn btn-secondary">⚙️ Actions (배포)</a>
+        <a href="https://github.com/C0mput33/C0mput33.github.io/tree/main/_posts" target="_blank" class="btn btn-secondary">✏️ 포스트 폴더</a>
+        <a href="https://search.google.com/search-console" target="_blank" class="btn btn-secondary">🔍 Search Console</a>
+        <a href="https://analytics.google.com" target="_blank" class="btn btn-secondary">📊 Google Analytics</a>
+        <a id="gc-dashboard-link" href="#" target="_blank" class="btn btn-secondary">📈 GoatCounter 대시보드</a>
+        <a href="https://c0mput33.github.io" target="_blank" class="btn btn-secondary">↗ 블로그 보기</a>
+      </div>
+    </div>
+
+    <div class="settings-group">
+      <h3>🔑 비밀번호 변경</h3>
+      <div class="form-group">
+        <label>현재 비밀번호</label>
+        <input type="password" id="curr-pw" placeholder="현재 비밀번호">
+      </div>
+      <div class="form-group">
+        <label>새 비밀번호 (6자 이상)</label>
+        <input type="password" id="new-pw" placeholder="새 비밀번호">
+      </div>
+      <div class="form-group">
+        <label>새 비밀번호 확인</label>
+        <input type="password" id="new-pw2" placeholder="새 비밀번호 재입력">
+      </div>
+      <div id="pw-msg" class="err"></div>
+      <button class="btn btn-secondary" onclick="changePw()">비밀번호 변경</button>
+    </div>
+
+    <div class="settings-group">
+      <h3 style="color:var(--red)">🗑️ 데이터 초기화</h3>
+      <p style="font-size:.83rem;color:var(--text2);margin-bottom:.875rem">저장된 비밀번호와 GoatCounter 설정을 이 브라우저에서 삭제합니다. 블로그 자체에는 영향이 없습니다.</p>
+      <button class="btn btn-danger" onclick="resetAll()">모든 설정 초기화</button>
+    </div>
+
+  </div><!-- /settings -->
+</div><!-- /dashboard -->
+
+<script>
+// ── STORAGE KEYS ──
+const K_PW    = 'adm_pw';
+const K_SESS  = 'adm_sess';
+const K_CODE  = 'gc_code';
+const K_TOKEN = 'gc_token';
+
+// ── CRYPTO ──
+async function sha256(s) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ── INIT ──
+async function init() {
+  const hasPw = localStorage.getItem(K_PW);
+  const sess  = sessionStorage.getItem(K_SESS);
+  if (!hasPw) {
+    show('setup-screen');
+  } else if (sess === '1') {
+    show('dashboard');
+    onDashboardLoad();
+  } else {
+    show('login-screen');
+    setTimeout(() => document.getElementById('login-pw')?.focus(), 50);
+  }
+}
+
+function show(id) {
+  ['setup-screen','login-screen','dashboard'].forEach(i => {
+    const el = document.getElementById(i);
+    if (el) el.hidden = (i !== id);
+  });
+}
+
+// ── SETUP ──
+async function setupPassword() {
+  const pw  = document.getElementById('setup-pw').value;
+  const pw2 = document.getElementById('setup-pw2').value;
+  const err = document.getElementById('setup-err');
+  err.textContent = '';
+  if (pw.length < 6)  { err.textContent = '비밀번호는 6자 이상이어야 합니다.'; return; }
+  if (pw !== pw2)     { err.textContent = '비밀번호가 일치하지 않습니다.'; return; }
+  localStorage.setItem(K_PW, await sha256(pw));
+  sessionStorage.setItem(K_SESS, '1');
+  show('dashboard');
+  onDashboardLoad();
+}
+
+// ── LOGIN ──
+async function login() {
+  const pw  = document.getElementById('login-pw').value;
+  const err = document.getElementById('login-err');
+  if (!pw) return;
+  const hash = await sha256(pw);
+  if (hash === localStorage.getItem(K_PW)) {
+    sessionStorage.setItem(K_SESS, '1');
+    show('dashboard');
+    onDashboardLoad();
+  } else {
+    err.textContent = '비밀번호가 올바르지 않습니다.';
+    document.getElementById('login-pw').value = '';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem(K_SESS);
+  location.reload();
+}
+
+// ── CHANGE PW ──
+async function changePw() {
+  const curr = document.getElementById('curr-pw').value;
+  const nw   = document.getElementById('new-pw').value;
+  const nw2  = document.getElementById('new-pw2').value;
+  const msg  = document.getElementById('pw-msg');
+  msg.textContent = '';
+  if (await sha256(curr) !== localStorage.getItem(K_PW)) {
+    msg.textContent = '현재 비밀번호가 올바르지 않습니다.'; return;
+  }
+  if (nw.length < 6)  { msg.textContent = '6자 이상으로 설정하세요.'; return; }
+  if (nw !== nw2)     { msg.textContent = '새 비밀번호가 일치하지 않습니다.'; return; }
+  localStorage.setItem(K_PW, await sha256(nw));
+  msg.style.color = 'var(--green)';
+  msg.textContent = '✅ 비밀번호가 변경되었습니다.';
+  ['curr-pw','new-pw','new-pw2'].forEach(id => document.getElementById(id).value = '');
+}
+
+function resetAll() {
+  if (!confirm('모든 설정을 초기화하시겠습니까?')) return;
+  [K_PW, K_CODE, K_TOKEN].forEach(k => localStorage.removeItem(k));
+  sessionStorage.clear();
+  location.reload();
+}
+
+// ── GOATCOUNTER SETTINGS ──
+function gcCode()  { return localStorage.getItem(K_CODE)  || ''; }
+function gcToken() { return localStorage.getItem(K_TOKEN) || ''; }
+
+async function saveGC() {
+  const code  = document.getElementById('gc-code').value.trim();
+  const token = document.getElementById('gc-token').value.trim();
+  const res   = document.getElementById('gc-result');
+  if (!code || !token) {
+    res.style.color = 'var(--red)';
+    res.textContent = '❌ 코드와 토큰을 모두 입력하세요.';
+    return;
+  }
+  localStorage.setItem(K_CODE, code);
+  localStorage.setItem(K_TOKEN, token);
+  updateGCDashboardLink(code);
+  res.style.color = 'var(--text2)';
+  res.textContent = '🔄 연결 테스트 중…';
+  const ok = await testGC(code, token);
+  res.style.color = ok ? 'var(--green)' : 'var(--red)';
+  res.textContent = ok ? '✅ 연결 성공! 데이터를 불러옵니다.' : '❌ 연결 실패. 코드·토큰을 확인하세요.';
+  if (ok) refreshData();
+}
+
+async function testGC(code, token) {
+  try {
+    const r = await fetch(`https://${code}.goatcounter.com/api/v0/me`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return r.ok;
+  } catch { return false; }
+}
+
+function updateGCDashboardLink(code) {
+  const el = document.getElementById('gc-dashboard-link');
+  if (el && code) el.href = `https://${code}.goatcounter.com`;
+}
+
+// ── GOATCOUNTER FETCH ──
+async function gcFetch(path, params = {}) {
+  const code = gcCode(), token = gcToken();
+  if (!code || !token) return null;
+  const url = new URL(`https://${code}.goatcounter.com/api/v0/${path}`);
+  Object.entries(params).forEach(([k,v]) => url.searchParams.set(k, v));
+  try {
+    const r = await fetch(url.toString(), {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    return r.ok ? await r.json() : null;
+  } catch { return null; }
+}
+
+function todayStr() { return new Date().toISOString().slice(0,10); }
+function daysAgoStr(n) {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return d.toISOString().slice(0,10);
+}
+
+// ── DASHBOARD INIT ──
+function onDashboardLoad() {
+  const code = gcCode();
+  if (code) {
+    document.getElementById('gc-code').value  = code;
+    document.getElementById('gc-token').value = gcToken();
+    updateGCDashboardLink(code);
+  }
+  loadPosts();
+  if (!code || !gcToken()) {
+    document.getElementById('ov-loading').hidden     = true;
+    document.getElementById('ov-no-config').hidden   = false;
+    document.getElementById('aud-no-config').hidden  = false;
+  } else {
+    loadOverview();
+    loadAudience();
+  }
+}
+
+function refreshData() {
+  const code = gcCode(), token = gcToken();
+  document.getElementById('ov-loading').hidden   = false;
+  document.getElementById('ov-content').hidden   = true;
+  document.getElementById('ov-no-config').hidden = true;
+  if (!code || !token) {
+    document.getElementById('ov-loading').hidden   = true;
+    document.getElementById('ov-no-config').hidden = false;
+    document.getElementById('aud-no-config').hidden = false;
+    return;
+  }
+  document.getElementById('aud-no-config').hidden = true;
+  loadOverview();
+  loadAudience();
+  loadPosts();
+}
+
+// ── OVERVIEW ──
+async function loadOverview() {
+  const end = todayStr();
+  const [d0, d7, d30, dall, pages, refs] = await Promise.all([
+    gcFetch('stats/total', { start: end,           end }),
+    gcFetch('stats/total', { start: daysAgoStr(7),  end }),
+    gcFetch('stats/total', { start: daysAgoStr(30), end }),
+    gcFetch('stats/total', { start: '2020-01-01',   end }),
+    gcFetch('stats/pages', { start: daysAgoStr(30), end, limit: 12 }),
+    gcFetch('stats/refs',  { start: daysAgoStr(30), end, limit: 12 }),
+  ]);
+
+  document.getElementById('ov-loading').hidden = true;
+  if (!dall) { document.getElementById('ov-no-config').hidden = false; return; }
+
+  document.getElementById('ov-content').hidden = false;
+  document.getElementById('ov-updated').textContent =
+    '마지막 업데이트: ' + new Date().toLocaleString('ko-KR');
+
+  const f = n => (n ?? 0).toLocaleString();
+  setText('s-today',    f(d0?.total_unique));
+  setText('s-today-pv', f(d0?.total) + ' 페이지뷰');
+  setText('s-week',     f(d7?.total_unique));
+  setText('s-week-pv',  f(d7?.total) + ' 페이지뷰');
+  setText('s-month',    f(d30?.total_unique));
+  setText('s-month-pv', f(d30?.total) + ' 페이지뷰');
+  setText('s-total',    f(dall?.total_unique));
+
+  renderBarPages('top-pages', pages?.pages);
+  renderBarRefs('refs', refs?.refs);
+}
+
+function renderBarPages(elId, items) {
+  const el = document.getElementById(elId);
+  if (!items?.length) { el.innerHTML = '<div class="empty">데이터 없음</div>'; return; }
+  const max = items[0].count || 1;
+  el.innerHTML = items.map((p, i) => {
+    const pv = p.count || 0, uv = p.count_unique || 0;
+    const pct = Math.round((pv / max) * 100);
+    const label = p.title || p.path || '/';
+    return `<div class="bar-row">
+      <div class="bar-label">
+        <span class="bname">${i+1}. <a href="https://c0mput33.github.io${p.path}" target="_blank" style="color:var(--text)">${label}</a></span>
+        <span class="bcount">${pv.toLocaleString()} PV · ${uv.toLocaleString()} UV</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderBarRefs(elId, items) {
+  const el = document.getElementById(elId);
+  if (!items?.length) { el.innerHTML = '<div class="empty">데이터 없음</div>'; return; }
+  const max = items[0].count || 1;
+  el.innerHTML = items.map(r => {
+    const pct = Math.round(((r.count||0) / max) * 100);
+    const name = r.ref || '직접 방문 (direct)';
+    return `<div class="bar-row">
+      <div class="bar-label">
+        <span class="bname">${name}</span>
+        <span class="bcount">${(r.count||0).toLocaleString()}</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ── AUDIENCE ──
+async function loadAudience() {
+  const params = { start: daysAgoStr(30), end: todayStr(), limit: 15 };
+  const [countries, browsers, langs, sizes] = await Promise.all([
+    gcFetch('stats/countries', params),
+    gcFetch('stats/browsers',  params),
+    gcFetch('stats/languages', params),
+    gcFetch('stats/sizes',     params),
+  ]);
+  renderGenericBars('countries', countries?.countries, 'country');
+  renderGenericBars('browsers',  browsers?.browsers,   'browser');
+  renderGenericBars('languages', langs?.languages,     'language');
+  renderGenericBars('sizes',     sizes?.sizes,         'size');
+}
+
+function renderGenericBars(elId, items, nameKey) {
+  const el = document.getElementById(elId);
+  if (!items?.length) { el.innerHTML = '<div class="empty">데이터 없음</div>'; return; }
+  const max = items[0].count || 1;
+  el.innerHTML = items.slice(0, 10).map(item => {
+    const name  = item[nameKey] || item.name || '기타';
+    const count = item.count || 0;
+    const pct   = Math.round((count / max) * 100);
+    return `<div class="bar-row">
+      <div class="bar-label">
+        <span class="bname">${name}</span>
+        <span class="bcount">${count.toLocaleString()}</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+// ── POSTS ──
+async function loadPosts() {
+  const el = document.getElementById('posts-list');
+  try {
+    const r = await fetch('/admin/posts.json?' + Date.now());
+    if (!r.ok) throw new Error();
+    const posts = await r.json();
+    document.getElementById('posts-count').textContent = `(총 ${posts.length}개)`;
+
+    // 포스트별 조회수 (GoatCounter 연결 시)
+    let pvMap = {};
+    if (gcCode() && gcToken()) {
+      const pd = await gcFetch('stats/pages', {
+        start: '2020-01-01', end: todayStr(), limit: 200
+      });
+      (pd?.pages || []).forEach(p => { pvMap[p.path] = p.count || 0; });
+    }
+
+    if (!posts.length) {
+      el.innerHTML = '<div class="empty">작성된 포스트가 없습니다.</div>';
+      return;
+    }
+
+    el.innerHTML = posts.map((p, i) => {
+      const views    = pvMap[p.url];
+      const viewsHtml = views != null
+        ? `<span class="post-views">${views.toLocaleString()} PV</span>`
+        : '';
+      const cats = (p.categories || []).map(c => `<span class="tag">${c}</span>`).join('');
+      const tags = (p.tags || []).slice(0,3).map(t => `<span class="tag">${t}</span>`).join('');
+      return `<div class="post-row">
+        <span class="post-num">${i+1}</span>
+        <div class="post-info">
+          <div class="post-title">
+            <a href="https://c0mput33.github.io${p.url}" target="_blank" style="color:var(--text)">${p.title}</a>
+          </div>
+          <div class="post-meta">
+            <span>${p.date}</span>
+            ${cats}${tags}
+          </div>
+        </div>
+        ${viewsHtml}
+        <div class="post-actions">
+          <a href="https://github.com/C0mput33/C0mput33.github.io/blob/main/_posts/${p.filename}" target="_blank" class="mini-btn">✏️ 편집</a>
+        </div>
+      </div>`;
+    }).join('');
+  } catch {
+    el.innerHTML = '<div class="empty">포스트 데이터를 불러올 수 없습니다. <code>/admin/posts.json</code> 확인 필요.</div>';
+  }
+}
+
+// ── TABS ──
+function switchTab(name, btnEl) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  const tab = document.getElementById('tab-' + name);
+  if (tab) tab.classList.add('active');
+  if (btnEl) btnEl.classList.add('active');
+}
+function switchTabByName(name) {
+  const btn = [...document.querySelectorAll('.tab-btn')]
+    .find(b => b.getAttribute('onclick')?.includes(`'${name}'`));
+  switchTab(name, btn);
+}
+
+// ── UTILS ──
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val ?? '—';
+}
+
+// ── START ──
+init();
+</script>
+</body>
+</html>
