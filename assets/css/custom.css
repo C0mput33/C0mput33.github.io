@@ -61,6 +61,84 @@ body {
   line-height: 1.85;
 }
 
+/* ── CHIRPY CSS VARIABLE OVERRIDES ───────────────────────────────────────── */
+/* Override Chirpy's built-in CSS variables for maximum theme effect         */
+[data-mode='dark'] {
+  --main-bg:                  #0c0c18;
+  --mask-bg:                  rgba(20, 20, 35, 0.9);
+  --main-border-color:        rgba(139, 92, 246, 0.12);
+  --text-color:               #b8c0cc;
+  --text-muted-color:         #6b7280;
+  --text-muted-highlight-color: #9ca3af;
+  --heading-color:            #e2e8f0;
+  --label-color:              #9ca3af;
+  --blockquote-border-color:  rgba(139, 92, 246, 0.45);
+  --blockquote-text-color:    #8b949e;
+  --link-color:               #a78bfa;
+  --link-underline-color:     rgba(167, 139, 250, 0.3);
+  --button-bg:                #13131f;
+  --btn-border-color:         rgba(139, 92, 246, 0.15);
+  --btn-backtotop-color:      #a78bfa;
+  --btn-backtotop-border-color: rgba(139, 92, 246, 0.2);
+  --card-bg:                  #111120;
+  --card-header-bg:           #16162a;
+  --card-hover-bg:            #1a1a30;
+  --card-shadow:              0 4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(139, 92, 246, 0.08);
+  --img-bg:                   radial-gradient(circle, #0c0c18 0%, #111120 100%);
+  --site-title-color:         #c4b5fd;
+  --site-subtitle-color:      #7c6a96;
+  --sidebar-bg:               #08080f;
+  --sidebar-border-color:     rgba(139, 92, 246, 0.18);
+  --sidebar-muted-color:      #4b5563;
+  --sidebar-active-color:     #a78bfa;
+  --sidebar-hover-bg:         rgba(139, 92, 246, 0.08);
+  --sidebar-btn-bg:           #111120;
+  --sidebar-btn-color:        #6b7280;
+  --avatar-border-color:      rgba(167, 139, 250, 0.6);
+  --topbar-bg:                rgba(8, 8, 15, 0.75);
+  --topbar-text-color:        #b8c0cc;
+  --search-border-color:      rgba(139, 92, 246, 0.2);
+  --search-icon-color:        #6b7280;
+  --input-focus-border-color: #7c3aed;
+  --post-list-text-color:     #b8c0cc;
+  --btn-patinator-text-color: #b8c0cc;
+  --btn-paginator-hover-color: #1a1a30;
+  --toc-highlight:            #a78bfa;
+  --toc-popup-border-color:   rgba(139, 92, 246, 0.2);
+  --tag-border:               rgba(139, 92, 246, 0.2);
+  --tag-shadow:               rgba(0, 0, 0, 0.3);
+  --tag-hover:                rgba(139, 92, 246, 0.12);
+  --search-tag-bg:            #13131f;
+  --dash-color:               rgba(139, 92, 246, 0.15);
+  --tb-odd-bg:                #111120;
+  --tb-even-bg:               #0c0c18;
+  --tb-border-color:          rgba(139, 92, 246, 0.1);
+  --footnote-target-bg:       rgba(109, 40, 217, 0.3);
+  --btn-share-color:          #6b7280;
+  --btn-share-hover-color:    #a78bfa;
+  --kbd-wrap-color:           #6b7280;
+  --kbd-text-color:           #e2e8f0;
+  --kbd-bg-color:             #1a1a30;
+  --prompt-info-bg:           rgba(109, 40, 217, 0.15);
+  --prompt-info-icon-color:   #7c3aed;
+  --categories-border:        rgba(139, 92, 246, 0.15);
+  --categories-hover-bg:      rgba(139, 92, 246, 0.1);
+  --categories-icon-hover-color: #a78bfa;
+  --timeline-node-bg:         #7c3aed;
+  --timeline-color:           rgba(139, 92, 246, 0.2);
+  --language-border-color:    rgba(139, 92, 246, 0.15);
+  --highlight-bg-color:       #0a0a14;
+  --highlighter-rouge-color:  #c4b5fd;
+  --highlight-lineno-color:   #4b5563;
+  --inline-code-bg:           rgba(139, 92, 246, 0.1);
+  --code-color:               #e2e8f0;
+  --code-header-text-color:   #6b7280;
+  --code-header-muted-color:  #1a1a30;
+  --code-header-icon-color:   #4b5563;
+  --clipboard-checked-color:  #a78bfa;
+  --filepath-text-color:      #c4b5fd;
+}
+
 /* ── DARK THEME COLORS ────────────────────────────────────────────────────── */
 
 /* Main backgrounds */
