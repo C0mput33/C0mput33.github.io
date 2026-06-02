@@ -57,7 +57,7 @@ analytics:
   google:
     id: # fill in your Google Analytics ID (선택)
   goatcounter:
-    id: # GoatCounter 사이트 코드 입력 (예: c0mput33)
+    id: comput33
   umami:
     id: # fill in your Umami ID
     domain: # fill in your Umami domain
