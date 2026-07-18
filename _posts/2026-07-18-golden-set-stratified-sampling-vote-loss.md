@@ -1,6 +1,6 @@
 ---
 title: "30쌍 평가하다 10표가 증발했다 — 골든셋 층화 표집과 사람 투표 잃지 않기 (평가 시스템 개발기 7편·完)"
-date: 2026-07-18 23:50:00 +0900
+date: 2026-07-18 16:40:00 +0900
 categories: [LLM Evaluation]
 tags: [llm-evaluation, stratified-sampling, human-eval, golden-set, indexeddb, backup, data-loss]
 description: >-

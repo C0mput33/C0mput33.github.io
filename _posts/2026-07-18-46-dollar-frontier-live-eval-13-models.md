@@ -1,6 +1,6 @@
 ---
 title: "$46.76을 쓴 프론티어 13모델 실측 — 중단 사고 속에서 건진 발견들 (평가 시스템 개발기 4편)"
-date: 2026-07-18 19:00:00 +0900
+date: 2026-07-18 16:10:00 +0900
 categories: [LLM Evaluation]
 tags: [llm-evaluation, live-run, localstorage, elo, bradley-terry, judge-bias, postmortem]
 description: >-

@@ -1,6 +1,6 @@
 ---
 title: "문서를 앱 안에 넣었다 — 원리·근거 탭 29장이 자라온 과정 (평가 시스템 개발기 번외편)"
-date: 2026-07-18 23:58:00 +0900
+date: 2026-07-18 16:50:00 +0900
 categories: [LLM Evaluation]
 tags: [llm-evaluation, documentation, transparency, deep-research, single-file-app]
 description: >-

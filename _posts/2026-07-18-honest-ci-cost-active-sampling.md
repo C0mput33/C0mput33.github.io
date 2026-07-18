@@ -1,6 +1,6 @@
 ---
 title: "신뢰구간을 정직하게 고치자 결론이 하나 사라졌다 — 넓어진 CI의 대가와 능동 표집 (평가 시스템 개발기 6편)"
-date: 2026-07-18 23:00:00 +0900
+date: 2026-07-18 16:30:00 +0900
 categories: [LLM Evaluation]
 tags: [llm-evaluation, bootstrap, confidence-interval, active-sampling, successive-elimination, statistics]
 description: >-
