@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 430" font-family="-apple-system,BlinkMacSystemFont,'Pretendard','Segoe UI',sans-serif">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6d28d9"/>
+    </marker>
+  </defs>
+  <style>
+    .box{fill:#f6f4fc;stroke:#c9bff0;stroke-width:1.4;}
+    .box2{fill:#ffffff;stroke:#d9d6e8;stroke-width:1.3;}
+    .hd{font-size:15px;font-weight:800;fill:#2b2440;}
+    .t{font-size:12.5px;font-weight:700;fill:#3b3358;}
+    .s{font-size:10.5px;fill:#6b6584;}
+    .lab{font-size:10px;font-weight:700;fill:#6d28d9;letter-spacing:.06em;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;fill:#3b3358;}
+    .flow{stroke:#6d28d9;stroke-width:2;fill:none;marker-end:url(#a2);}
+  </style>
+
+  <rect x="1" y="1" width="858" height="428" rx="18" fill="#fbfaff" stroke="#e6e2f5" stroke-width="1.5"/>
+  <text x="28" y="38" class="hd">한 쌍(pair)의 판정 여정 — 양방향 swap × 다계열 jury → Bradley-Terry</text>
+  <text x="28" y="56" class="s">위치 편향은 방향 평균으로 상쇄되고, 심판 셋의 판정은 각각 하나의 contest로 BT에 들어간다.</text>
+
+  <!-- pair -->
+  <rect x="28" y="86" width="150" height="86" rx="12" class="box"/>
+  <text x="44" y="110" class="lab">동화 쌍</text>
+  <text x="44" y="132" class="t">모델 a의 동화 A</text>
+  <text x="44" y="152" class="t">모델 b의 동화 B</text>
+
+  <!-- judges column -->
+  <g>
+    <rect x="228" y="70" width="252" height="66" rx="10" class="box2"/>
+    <text x="242" y="90" class="t">심판 j₁ (예: GPT 계열)</text>
+    <text x="242" y="107" class="mono">judge(A,B) → w₁  ·  judge(B,A) → w₂</text>
+    <text x="242" y="124" class="s">temp 0 · 모델명 익명 · 자기 계열이면 이 쌍에서 제외</text>
+
+    <rect x="228" y="146" width="252" height="66" rx="10" class="box2"/>
+    <text x="242" y="166" class="t">심판 j₂ (예: Anthropic 계열)</text>
+    <text x="242" y="183" class="mono">judge(A,B) → w₁  ·  judge(B,A) → w₂</text>
+    <text x="242" y="200" class="s">정방향·역방향 각 1콜 = 쌍당 심판당 2콜</text>
+
+    <rect x="228" y="222" width="252" height="66" rx="10" class="box2"/>
+    <text x="242" y="242" class="t">심판 j₃ (예: Google 계열)</text>
+    <text x="242" y="259" class="mono">judge(A,B) → w₁  ·  judge(B,A) → w₂</text>
+    <text x="242" y="276" class="s">parseWin: "Winner: A|B|Tie" 마지막 라인</text>
+  </g>
+  <path class="flow" d="M178 118 L226 103"/>
+  <path class="flow" d="M178 129 L226 179"/>
+  <path class="flow" d="M178 140 L226 255"/>
+
+  <!-- swap average -->
+  <rect x="512" y="146" width="180" height="66" rx="10" class="box"/>
+  <text x="528" y="168" class="lab">양방향 평균</text>
+  <text x="528" y="188" class="mono">s = (v(w₁)+v(w₂ 뒤집기))/2</text>
+  <text x="528" y="204" class="s">v: A→1, tie→½, B→0 → s ∈ {0,¼,½,¾,1}</text>
+  <path class="flow" d="M480 103 L510 168"/>
+  <path class="flow" d="M480 179 L510 179"/>
+  <path class="flow" d="M480 255 L510 191"/>
+
+  <!-- contests -->
+  <rect x="724" y="146" width="108" height="66" rx="10" class="box2"/>
+  <text x="738" y="168" class="lab">CONTESTS</text>
+  <text x="738" y="186" class="mono">(a,b,s)×3</text>
+  <text x="738" y="202" class="s">심판당 1개</text>
+  <path class="flow" d="M692 179 L722 179"/>
+
+  <!-- BT -->
+  <rect x="228" y="318" width="464" height="82" rx="12" class="box"/>
+  <text x="244" y="342" class="lab">BRADLEY-TERRY (MM, Hunter 2004) — 전 쌍·전 프롬프트의 contests를 한 번에</text>
+  <text x="244" y="364" class="mono">pᵢ ← (Wᵢ+r) / [ Σⱼ nᵢⱼ/(pᵢ+pⱼ) + 2r/(pᵢ+1) ]   (기하평균=1 정규화)</text>
+  <text x="244" y="386" class="t">Arena = 1000 + (400/ln10)·ln pᵢ  ± 쌍 클러스터 부트스트랩 95% CI</text>
+  <path class="flow" d="M778 212 C778 290 700 316 692 316"/>
+
+  <!-- position bias note -->
+  <rect x="28" y="318" width="176" height="82" rx="12" class="box2"/>
+  <text x="44" y="342" class="lab">왜 두 번 묻나</text>
+  <text x="44" y="362" class="s">먼저 보인 글을 선호하는</text>
+  <text x="44" y="377" class="s">위치 편향이 A,B / B,A에서</text>
+  <text x="44" y="392" class="s">반대로 작용 → 평균에서 상쇄</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 470" font-family="-apple-system,BlinkMacSystemFont,'Pretendard','Segoe UI',sans-serif">
+  <defs>
+    <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="a3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <style>
+    .box{fill:#f6f4fc;stroke:#c9bff0;stroke-width:1.4;}
+    .box2{fill:#ffffff;stroke:#d9d6e8;stroke-width:1.3;}
+    .warn{fill:#fdf6ec;stroke:#e4c988;stroke-width:1.3;}
+    .hd{font-size:15px;font-weight:800;fill:#2b2440;}
+    .t{font-size:12.5px;font-weight:700;fill:#3b3358;}
+    .s{font-size:10.5px;fill:#6b6584;}
+    .lab{font-size:10px;font-weight:700;fill:#6d28d9;letter-spacing:.06em;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;fill:#3b3358;}
+    .flow{stroke:#6d28d9;stroke-width:2;fill:none;marker-end:url(#a3);}
+    .side{stroke:#94a3b8;stroke-width:1.6;fill:none;marker-end:url(#a3g);stroke-dasharray:5 4;}
+    .yes{font-size:11px;font-weight:800;fill:#166534;}
+    .no{font-size:11px;font-weight:800;fill:#9a3412;}
+  </style>
+
+  <rect x="1" y="1" width="858" height="468" rx="18" fill="#fbfaff" stroke="#e6e2f5" stroke-width="1.5"/>
+  <text x="28" y="38" class="hd">retire2 — 배치 단위 순차 은퇴 (successive elimination)</text>
+  <text x="28" y="56" class="s">확실히 밀린 모델의 판정 예산을 접전 상위로 재배치한다. 은퇴 판정은 "CI 분리 2연속"만 신뢰.</text>
+
+  <!-- batch loop -->
+  <rect x="28" y="84" width="230" height="96" rx="12" class="box"/>
+  <text x="44" y="108" class="lab">배치 k (프롬프트 5권)</text>
+  <text x="44" y="130" class="t">생존자만 생성 + 판정</text>
+  <text x="44" y="148" class="s">첫 배치는 전원 완전그래프</text>
+  <text x="44" y="164" class="s">(비교 그래프 연결 보장)</text>
+
+  <rect x="298" y="84" width="240" height="96" rx="12" class="box"/>
+  <text x="314" y="108" class="lab">배치 경계 — 재적합</text>
+  <text x="314" y="130" class="t">BT(MM) → Arena 점수</text>
+  <text x="314" y="148" class="t">쌍 클러스터 부트스트랩 CI</text>
+  <text x="314" y="166" class="s">동적 top-k: 1위와 CI 겹치는 클러스터+버퍼</text>
+
+  <path class="flow" d="M258 132 L296 132"/>
+
+  <!-- decision -->
+  <g transform="translate(648,132)">
+    <polygon points="0,-46 108,0 0,46 -108,0" fill="#fff" stroke="#c9bff0" stroke-width="1.6"/>
+    <text x="0" y="-8" text-anchor="middle" class="t">CI 상한 &lt; 클러스터 최저 하한</text>
+    <text x="0" y="12" text-anchor="middle" class="t">2연속?</text>
+  </g>
+  <path class="flow" d="M538 132 L540 132"/>
+
+  <!-- outcomes -->
+  <rect x="560" y="222" width="176" height="72" rx="12" class="box2"/>
+  <text x="576" y="246" class="yes">YES → 은퇴</text>
+  <text x="576" y="264" class="s">은퇴 시점 점수·CI로</text>
+  <text x="576" y="279" class="s">리더보드에 잔류</text>
+  <path class="flow" d="M648 178 L648 220"/>
+
+  <rect x="560" y="318" width="176" height="64" rx="12" class="warn"/>
+  <text x="576" y="342" class="lab">옵션: 부활전</text>
+  <text x="576" y="360" class="s">은퇴자 × 경계 생존자 1권</text>
+  <text x="576" y="375" class="s">CI 회복 시 복귀 (기본 OFF)</text>
+  <path class="side" d="M648 294 L648 316"/>
+
+  <rect x="298" y="222" width="220" height="72" rx="12" class="box2"/>
+  <text x="314" y="246" class="no">NO → 유지 (지목만 누적)</text>
+  <text x="314" y="264" class="s">1회 지목은 streak에 기록,</text>
+  <text x="314" y="279" class="s">다음 배치서 끊기면 리셋 (confirm=2)</text>
+  <path class="flow" d="M594 168 C560 200 520 226 520 226"/>
+
+  <!-- loop back -->
+  <path class="flow" d="M298 258 C170 258 143 220 143 182"/>
+  <text x="160 " y="240" class="s">생존자로 배치 k+1</text>
+
+  <!-- results strip -->
+  <rect x="28" y="386" width="804" height="62" rx="12" fill="#f3f1fa" stroke="#d9d2ef" stroke-width="1.4"/>
+  <text x="44" y="408" class="lab">검증 결과 (시뮬 + 실측 재생)</text>
+  <text x="44" y="426" class="t">5권+ 예산서 full보다 정확 (Spearman 0.931 vs 0.883 · 280쌍 0.957 vs 0.932) · 오은퇴 0% (confirm=2)</text>
+  <text x="44" y="442" class="s">48~59% 예산으로 top3 100% 재현 · 실전($46.76 런): 배치 2에서 9/13 은퇴 → 생존 4 · 797쌍(full이면 3,900쌍)</text>
+</svg>

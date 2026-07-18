@@ -56,6 +56,21 @@ for _ in range(max_iter):
 
 Elo가 아니라 BT를 고른 이유는 따로 있다. Elo는 경기마다 레이팅을 순차 갱신하는 온라인 방식이라 **경기 순서에 따라 최종 값이 달라진다.** 내 상황은 고정된 모델 셋을 오프라인으로 평가하는 것이므로, 순서와 무관하게 전체 승패를 한 번에 설명하는 BT가 원리적으로 맞다. Chatbot Arena도 2023년 12월에 Elo에서 BT로 갈아탔다.[^arena]
 
+### 수식을 한 걸음만 더
+
+구현하면서 확실히 붙잡아둔 지점 네 개를 적어둔다. 나중에 버그를 잡을 때 전부 다시 꺼내 쓰게 된 것들이다.
+
+**우도가 목적함수다.** contest 하나(모델 i가 j를 상대로 점수 s를 얻음)의 우도는 `[p_i/(p_i+p_j)]^s · [p_j/(p_i+p_j)]^(1-s)`이고, 전체 로그우도를 최대화하는 p를 찾는 게 BT 적합이다. Hunter의 MM은 이 로그우도를 매 반복 단조증가시키는 갱신식이라, 수렴 판정(연속 반복 간 최대 변화 < 1e-9)을 걸어두면 멈춘 지점이 곧 MLE다.[^hunter]
+
+**정규화는 멋이 아니라 식별성 문제다.** BT 확률은 p 전체에 상수를 곱해도 변하지 않는다(β로는 평행이동 불변). 제약을 하나 걸어야 해가 유일해지는데, 매 반복 기하평균을 1로 맞췄다 — β의 평균이 0이 되고, Arena 평균이 정확히 1000에 고정된다. "평균 1000짜리 리그"라는 해석이 수식에서 보장되는 셈이다.
+
+**Arena 점수 차는 곧 승률이다.** 변환을 `400/ln10` 스케일로 잡으면 두 모델의 Arena 차 Δ에 대해 BT 승률이 정확히 `1/(1+10^(-Δ/400))`이 된다 — 체스 Elo의 기대승률 공식과 같은 꼴이라 점수를 읽는 직관을 그대로 가져올 수 있다. Δ=100 → 0.640, Δ=400 → 0.909. 이 두 값은 회귀 테스트에 상수로 박아뒀다. 변환 코드를 누가 건드리면 테스트가 먼저 안다.
+
+**무승부는 공짜가 아니다.** 위 우도에서 s=0.5(무승부)는 편법이다 — 순수 BT는 P(tie)=0이라, 무승부가 관측된 데이터에 제대로 적합하려면 로그우도가 발산한다. 그래서 v1.1 분석 러너에는 무승부 성향을 파라미터 δ로 직접 모델링하는 **Davidson 확장**을 넣어, 주 순위(0.5 처리)와 동점-인식 순위가 갈리지 않는지 교차 확인한다.[^davidson] 지금까지는 순위가 갈린 적이 없어서 본선 집계는 단순한 쪽을 유지하고 있다.
+
+![한 쌍의 판정 여정 — 양방향 swap과 다계열 jury가 Bradley-Terry로 합쳐지는 흐름](/assets/img/posts/2026-07/pair-judgment-flow.svg)
+_그림 1. 동화 쌍 하나가 순위에 반영되기까지. 심판마다 정방향·역방향 2번 물어 평균 내고(위치 편향 상쇄), 심판별 점수가 각각 하나의 contest로 BT에 들어간다._
+
 ---
 
 ## 심판도 편향된다 — 4중 통제
@@ -67,7 +82,7 @@ LLM을 심판으로 쓰면(LLM-as-a-judge) 편향 문제가 따라온다. 문헌
 | 위치 편향 (먼저 보인 글 선호) | 같은 쌍을 A,B / B,A **양방향으로 2번** 물어 평균 |
 | 자기 선호 (자기 계열 모델 편애) | 심판이 후보와 같은 계열이면 **그 쌍에서 자동 제외** |
 | 단일 심판의 취향 | 서로 다른 계열 심판 여러 명(**jury**)의 판정을 각각 BT에 투입 |
-| 장문 선호 | 판정 입력의 길이 절단 |
+| 장문 선호 | 판정 입력을 4,000자에서 절단 (양쪽 동일 적용) |
 
 양방향 swap이 핵심이다. 위치 편향은 A,B 순서와 B,A 순서에서 반대로 작용하므로 평균 내면 상쇄된다. 나중에 실측에서 이 장치들이 실제로 얼마나 필요했는지 수치로 확인하게 되는데(자기 계열 편향이 통계적으로 유의하게 검출됐다), 그 얘기는 4편에서 한다.
 
@@ -93,6 +108,23 @@ LLM을 심판으로 쓰면(LLM-as-a-judge) 편향 문제가 따라온다. 문헌
 
 ---
 
+## 이 설계는 기존 벤치마크 사이 어디에 서 있나
+
+만들기 전에 기존 시스템 셋을 뜯어봤고, 각각에서 가져온 것과 일부러 다르게 간 것을 표로 정리해뒀다. 차이의 대부분은 "일반 챗봇"이 아니라 **아동 동화라는 좁은 도메인**이라는 데서 나온다 — 안전성·연령 적합·난이도 같은 축은 일반 벤치마크에 기준이 없어서 자체 루브릭이 필요했다.
+
+| | Chatbot Arena[^arena] | EQ-Bench CW v3[^eqbench] | G-Eval 계열[^geval] | 이 시스템 |
+|---|---|---|---|---|
+| 선호 신호 | 사람 크라우드 (수십만 표) | LLM 심판 pairwise | LLM 절대 루브릭 점수 | LLM 다계열 jury + 소량 사람 골든셋 |
+| 집계 | Bradley-Terry | Glicko(레이팅) | 축별 점수 평균 | Bradley-Terry + 부트스트랩 CI |
+| 자기 계열 편향 | (심판이 사람이라 없음) | 통제 안 함 (문서에서 위험 경고만) | 통제 안 함 | **자기 계열 쌍 자동 제외 + 사후 정량 진단** |
+| 위치 편향 | 무작위 배치 | swap | — | **양방향 swap을 집계 단위에 내장** (쌍·심판별 평균) |
+| 신빙성 검증 | 사람이 곧 기준 | 사람 상관 보고 | 사람 상관 보고 | **골든셋 κ·α를 파이프라인 산출물로** |
+| 도메인 | 일반 챗봇 | 일반 창작 | 요약·대화 등 | 아동 영어 동화 (안전·난이도 축 자체 설계) |
+
+한 줄로 줄이면 — 순위 수학은 Arena에서, pairwise 전환의 교훈은 EQ-Bench에서, 루브릭의 축 개념은 G-Eval 계열에서 가져오되, **사람 표가 수십만 개 없는 개인 프로젝트라는 제약**을 "다계열 LLM jury + 구조적 편향 통제 + 소량 골든셋 검증"으로 메꾼 설계다. 이 선택들이 실제로 버텼는지는 4편(실측)에서 숫자로 돌아온다.
+
+---
+
 ## 정리
 
 - 창작물 평가에서 절대 점수 루브릭은 포화·저해상도·드리프트·편향 때문에 순위용으로 부적합하다. **순위는 pairwise + BT, 루브릭은 진단용** — 이 분리가 이 시스템의 뼈대다.
@@ -107,4 +139,6 @@ LLM을 심판으로 쓰면(LLM-as-a-judge) 편향 문제가 따라온다. 문헌
 [^arena]: Chiang et al. (2024), [Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference](https://arxiv.org/abs/2403.04132) — 사람 선호 pairwise를 Bradley-Terry로 집계. 2023년 12월 온라인 Elo에서 BT로 전환했다.
 [^mtbench]: Zheng et al. (2023), [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) — LLM 심판의 위치 편향·장황 편향과 그 통제를 다룬 기준 논문.
 [^bt1952]: Bradley, R.A. & Terry, M.E. (1952), Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons. Biometrika 39.
-[^hunter]: Hunter, D.R. (2004), [MM algorithms for generalized Bradley-Terry models](https://projecteuclid.org/journals/annals-of-statistics/volume-32/issue-1/MM-algorithms-for-generalized-Bradley-Terry-models/10.1214/aos/1079120141.full). Annals of Statistics 32(1).
+[^hunter]: Hunter, D.R. (2004), [MM algorithms for generalized Bradley-Terry models](https://projecteuclid.org/journals/annals-of-statistics/volume-32/issue-1/MM-algorithms-for-generalized-Bradley-Terry-models/10.1214/aos/1079120141.full). Annals of Statistics 32(1). MM(Minorize-Maximize)은 매 반복 로그우도의 하한을 최대화해 목적함수를 단조증가시키는 알고리즘 부류다.
+[^davidson]: Davidson, R.R. (1970), On Extending the Bradley-Terry Model to Accommodate Ties in Paired Comparison Experiments. JASA 65(329). 무승부 성향 파라미터 δ를 도입해 P(tie)를 명시적으로 모델링한다. 이 프로젝트의 v1.1 러너(`eval/run_v1_1.py`)가 관측 tie 수·δ 추정치·Davidson 순위를 함께 출력한다.
+[^geval]: Liu et al. (2023), [G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment](https://arxiv.org/abs/2303.16634) — CoT 기반 절대 루브릭 채점. 이 시스템은 그 절대 점수를 순위에 쓰지 않고, 루브릭을 pairwise 판정의 축별 진단으로만 쓴다(본문의 "순위/진단 분리").
