@@ -54,6 +54,8 @@ while |선택| < n:
 
 이름을 정확히 해두면 이건 stratified k-fold 교차검증이 아니다. k개 폴드를 회전시키는 CV가 아니라, 각 폴드가 비율을 보존한다는 층화 원리를 대표 부분집합 1개 추출에 적용한 것이다. <span class="term" data-tip="데이터를 특성별 그룹(층)으로 나눈 뒤 각 층에서 비율대로 뽑는 표본 추출. 무작위로만 뽑으면 우연히 한쪽에 쏠릴 수 있는데, 층화는 표본이 전체의 축소판이 되도록 보장한다.">층화 표집</span>(stratified sampling)이고, 문서에도 "계열"이라고만 적었다. 용도가 사람에게 보여줄 대표 표본 뽑기라서 이게 맞는 도구다.
 
+층화가 단순 무작위보다 나은 이유는 통계학의 고전 결과다. 층 안이 서로 비슷할수록(동질) 같은 표본 크기로 추정 분산이 줄어든다. 최적 배분까지 거슬러 가면 Neyman(1934)의 결과인데, 여기서는 비례 배분만으로도 목적(어느 모델·주제·길이도 빠지지 않는 대표성)이 충분히 달성된다. 이 표본 위에서 재는 일치도 지표의 원 출처도 적어두면, 2명 일치도 κ는 Cohen(1960), N명 일치도 α는 Krippendorff의 내용분석 방법론에서 왔다.[^kappa]
+
 ---
 
 ## 사고: 평가한 투표가 사라졌다
@@ -100,5 +102,6 @@ GitHub 백업에는 목록 UI도 붙였다. 평가 화면에 들어가면 저장
 
 다음 실측은 자기평가 제외를 켜고, temp 0 심판과 쌍 클러스터 CI로 돌린다. 그 결과가 이번 순위와 얼마나 달라지는지가 지금 제일 궁금하다.
 
+[^kappa]: Cohen, J. (1960), A Coefficient of Agreement for Nominal Scales. Educational and Psychological Measurement 20(1) — κ의 원 논문. Krippendorff, K., Content Analysis: An Introduction to Its Methodology — α의 표준 참고서. 층화 최적 배분은 Neyman, J. (1934), On the Two Different Aspects of the Representative Method. JRSS 97(4).
 [^strata]: 층화 표집 커밋 [`88a3eaa`](https://github.com/C0mput33/little-bard/commit/88a3eaa) — 3차원 층 + 고정 시드 셔플, 797쌍 검증 수치 포함. 표본 선택은 `STATE.reviewIds`로 저장돼 백업 계층에 함께 보존된다.
 [^recover]: 투표 백업·자동 복구 커밋 [`e68c8e8`](https://github.com/C0mput33/little-bard/commit/e68c8e8), GitHub 백업 목록·이어하기 커밋 [`d7ad37b`](https://github.com/C0mput33/little-bard/commit/d7ad37b). 복구 시나리오 단위 테스트 9종 포함.
