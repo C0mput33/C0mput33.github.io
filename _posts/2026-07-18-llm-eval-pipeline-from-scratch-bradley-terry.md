@@ -26,7 +26,7 @@ description: >-
 3. 기준 드리프트. 절대 채점은 답을 하나씩 따로 보니 평가 기준이 매번 흔들린다. 같은 글도 어제와 오늘 점수가 다르다.
 4. 평가자 편향. 관대한 심판과 엄격한 심판의 성향이 점수에 그대로 실린다.
 
-당시 문서에 적어둔 비유가 있다. 두 사람의 키를 눈대중으로 "178cm? 181cm?" 맞히기는 어렵다. 나란히 세워놓고 누가 더 큰지 물으면 1cm 차이도 거의 안 틀린다. pairwise 비교가 그 '나란히 세우기'다. 사람이든 LLM이든 "몇 점?"은 들쭉날쭉해도 "둘 중 뭐가 나아?"는 일관적이다.
+당시 문서에 적어둔 비유가 있다. 두 사람의 키를 눈대중으로 "178cm? 181cm?" 맞히기는 어렵다. 나란히 세워놓고 누가 더 큰지 물으면 1cm 차이도 거의 안 틀린다. pairwise 비교가 그 '나란히 세우기'다. 사람이든 LLM이든 "몇 점?"은 들쭉날쭉해도 "둘 중 뭐가 나아?"는 일관적이다. 이 직관은 새것이 아니다. 심리측정학에서 Thurstone이 1927년에 정립한 비교판단의 법칙이 정확히 이 지점이다. 절대 강도를 매기는 것보다 상대 비교가 쉽고, 쌍대 비교만으로도 신뢰할 수 있는 척도를 만들 수 있다는 것.[^thurstone] Bradley-Terry(1952)는 이 계보 위에서 나온 확률 모델이고, 결국 이 시스템의 방법 선택은 100년 된 측정 이론의 결론을 LLM 평가에 다시 쓰는 일이다.
 
 그래서 구조를 정했다. 순위는 pairwise 비교로 내고, 루브릭 축은 순위에 넣지 않고 진단용으로만 쓴다. "누가 더 나은가"와 "어디가 약한가"를 분리한 것이다. <span class="term" data-tip="사람들이 익명의 두 챗봇 답변 중 나은 쪽에 투표하는 공개 평가 플랫폼. 수십만 표의 pairwise 선호를 Bradley-Terry로 집계하며, LLM 순위의 사실상 표준으로 쓰인다.">Chatbot Arena</span>(전체 선호를 Bradley-Terry로 집계)와 EQ-Bench v3(포화 때문에 pairwise로 전환)가 각자 같은 결론에 도달해 있었다는 점이 이 선택의 근거가 됐다.[^arena][^mtbench]
 
@@ -96,7 +96,7 @@ LLM을 심판으로 쓰면 편향 문제가 따라온다. 문헌과 조사에서
 | 단일 심판의 취향 | 서로 다른 계열 심판 여러 명(jury)의 판정을 각각 BT에 투입 |
 | 장문 선호 | 판정 입력을 4,000자에서 절단 (양쪽 동일 적용) |
 
-핵심은 <span class="term" data-tip="같은 쌍을 A,B 순서와 B,A 순서로 두 번 물어 평균 내는 기법. 위치 편향은 두 방향에서 서로 반대로 작용하므로 평균에서 상쇄된다. 판정 비용이 2배가 되지만 편향 제거가 그 값어치를 한다.">양방향 swap</span>이다. 위치 편향은 A,B 순서와 B,A 순서에서 반대로 작용하니 평균 내면 상쇄된다. 이 장치들이 실제로 얼마나 필요했는지는 나중에 실측에서 수치로 확인하게 된다. 자기 계열 편향이 통계적으로 유의하게 검출된 이야기는 4편에 있다.
+핵심은 <span class="term" data-tip="같은 쌍을 A,B 순서와 B,A 순서로 두 번 물어 평균 내는 기법. 위치 편향은 두 방향에서 서로 반대로 작용하므로 평균에서 상쇄된다. 판정 비용이 2배가 되지만 편향 제거가 그 값어치를 한다.">양방향 swap</span>이다. 위치 편향은 A,B 순서와 B,A 순서에서 반대로 작용하니 평균 내면 상쇄된다. 이 장치들이 실제로 얼마나 필요했는지는 나중에 실측에서 수치로 확인하게 된다. 자기 계열 편향이 통계적으로 유의하게 검출된 이야기는 4편에 있다. 표의 각 행에는 각각의 근거가 있다. 위치 편향과 장문 선호는 MT-Bench가 LLM 심판에서 체계적으로 보고한 편향이고,[^mtbench] 다계열 jury는 서로 다른 계열의 모델 패널이 단일 대형 심판보다 계열 내 편향이 적고 사람 판단과의 상관도 높다는 PoLL 연구의 결론을 따른 것이다.[^poll] 자기 계열 제외는 LLM이 자기 출력을 알아보고 편애한다는 자기 선호 편향 연구가 근거인데, 그 편향이 우리 실측에서 실제로 어떤 크기로 검출됐는지도 4편에서 숫자로 다룬다.
 
 사람은 어디에 들어가나. 전부를 사람이 볼 수는 없으니, 같은 동화 쌍 일부를 사람도 평가하고 `pair_id`로 매칭해 심판단과의 일치도(Cohen's κ)를 잰다. 심판 LLM이 사람만큼 일관적인지 확인하는 <span class="term" data-tip="사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다.">골든셋</span>이다.
 
@@ -147,6 +147,8 @@ LLM을 심판으로 쓰면 편향 문제가 따라온다. 문헌과 조사에서
 [^eqbench]: [EQ-Bench Creative Writing](https://eqbench.com/creative_writing.html) — v2의 점수 포화 문제와 v3의 pairwise 전환. 이 프로젝트의 축 설계도 EQ-Bench CW v3 방법론을 참고했다(축 정의는 자체 작성).
 [^arena]: Chiang et al. (2024), [Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference](https://arxiv.org/abs/2403.04132) — 사람 선호 pairwise를 Bradley-Terry로 집계. 2023년 12월 온라인 Elo에서 BT로 전환했다.
 [^mtbench]: Zheng et al. (2023), [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685) — LLM 심판의 위치 편향·장황 편향과 그 통제를 다룬 기준 논문.
+[^thurstone]: Thurstone, L.L. (1927), A Law of Comparative Judgment. Psychological Review 34, 273–286. 쌍대 비교로 심리적 속성의 척도를 구성할 수 있음을 보인 측정 이론의 고전. 절대 판단보다 상대 비교가 쉽고 안정적이라는 이 글의 대전제가 여기서 온다.
+[^poll]: Verga et al. (2024), [Replacing Judges with Juries: Evaluating LLM Generations with a Panel of Diverse Models](https://arxiv.org/abs/2404.18796) — 서로 다른 계열의 작은 모델 패널(PoLL)이 단일 대형 심판보다 계열 내 편향이 적고, 사람 판단과의 상관이 높으며, 7배 이상 저렴함을 보였다.
 [^bt1952]: Bradley, R.A. & Terry, M.E. (1952), Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons. Biometrika 39.
 [^hunter]: Hunter, D.R. (2004), [MM algorithms for generalized Bradley-Terry models](https://projecteuclid.org/journals/annals-of-statistics/volume-32/issue-1/MM-algorithms-for-generalized-Bradley-Terry-models/10.1214/aos/1079120141.full). Annals of Statistics 32(1). MM(Minorize-Maximize)은 매 반복 로그우도의 하한을 최대화해 목적함수를 단조증가시키는 알고리즘 부류다.
 [^davidson]: Davidson, R.R. (1970), On Extending the Bradley-Terry Model to Accommodate Ties in Paired Comparison Experiments. JASA 65(329). 무승부 성향 파라미터 δ를 도입해 P(tie)를 명시적으로 모델링한다. 이 프로젝트의 v1.1 러너(`eval/run_v1_1.py`)가 관측 tie 수·δ 추정치·Davidson 순위를 함께 출력한다.
