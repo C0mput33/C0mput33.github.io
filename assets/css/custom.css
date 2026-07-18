@@ -774,7 +774,7 @@ html[data-bs-theme='dark'] .term {
   bottom: calc(100% + 9px);
   z-index: 90;
   width: max-content;
-  max-width: min(300px, 78vw);
+  max-width: min(360px, 82vw);
   background: #241f33;
   color: #f5f3ff;
   font-size: 0.775rem;
