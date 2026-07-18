@@ -63,7 +63,7 @@ body {
 
 /* ── CHIRPY CSS VARIABLE OVERRIDES ───────────────────────────────────────── */
 /* Override Chirpy's built-in CSS variables for maximum theme effect         */
-[data-mode='dark'] {
+[data-bs-theme='dark'] {
   --main-bg:                  #0c0c18;
   --mask-bg:                  rgba(20, 20, 35, 0.9);
   --main-border-color:        rgba(139, 92, 246, 0.12);
@@ -142,54 +142,54 @@ body {
 /* ── DARK THEME COLORS ────────────────────────────────────────────────────── */
 
 /* Main backgrounds */
-[data-mode='dark'] body,
-[data-mode='dark'] #main-wrapper,
-[data-mode='dark'] main,
-[data-mode='dark'] #core-wrapper {
+[data-bs-theme='dark'] body,
+[data-bs-theme='dark'] #main-wrapper,
+[data-bs-theme='dark'] main,
+[data-bs-theme='dark'] #core-wrapper {
   background-color: #0c0c18 !important;
 }
 
-[data-mode='dark'] #sidebar {
+[data-bs-theme='dark'] #sidebar {
   background-color: #08080f !important;
   border-right: 1px solid rgba(139, 92, 246, 0.12) !important;
 }
 
 /* Also cover system-dark with no explicit mode set */
 @media (prefers-color-scheme: dark) {
-  html:not([data-mode]) body,
-  html:not([data-mode]) #main-wrapper,
-  html:not([data-mode]) main,
-  html:not([data-mode]) #core-wrapper {
+  html:not([data-bs-theme]) body,
+  html:not([data-bs-theme]) #main-wrapper,
+  html:not([data-bs-theme]) main,
+  html:not([data-bs-theme]) #core-wrapper {
     background-color: #0c0c18 !important;
   }
 
-  html:not([data-mode]) #sidebar {
+  html:not([data-bs-theme]) #sidebar {
     background-color: #08080f !important;
     border-right: 1px solid rgba(139, 92, 246, 0.12) !important;
   }
 }
 
 /* ── LIGHT THEME COLORS ───────────────────────────────────────────────────── */
-[data-mode='light'] body,
-[data-mode='light'] #main-wrapper,
-[data-mode='light'] main {
+[data-bs-theme='light'] body,
+[data-bs-theme='light'] #main-wrapper,
+[data-bs-theme='light'] main {
   background-color: #f7f7fc !important;
 }
 
-[data-mode='light'] #sidebar {
+[data-bs-theme='light'] #sidebar {
   background: linear-gradient(180deg, #6d28d9 0%, #7c3aed 100%) !important;
   border-right: none !important;
 }
 
-[data-mode='light'] #sidebar .site-title a,
-[data-mode='light'] #sidebar .site-subtitle,
-[data-mode='light'] #sidebar .sidebar-bottom,
-[data-mode='light'] #sidebar .nav-link {
+[data-bs-theme='light'] #sidebar .site-title a,
+[data-bs-theme='light'] #sidebar .site-subtitle,
+[data-bs-theme='light'] #sidebar .sidebar-bottom,
+[data-bs-theme='light'] #sidebar .nav-link {
   color: rgba(255, 255, 255, 0.92) !important;
 }
 
-[data-mode='light'] #sidebar .nav-link.active,
-[data-mode='light'] #sidebar .nav-link:hover {
+[data-bs-theme='light'] #sidebar .nav-link.active,
+[data-bs-theme='light'] #sidebar .nav-link:hover {
   background: rgba(255, 255, 255, 0.15) !important;
 }
 
@@ -199,14 +199,14 @@ body {
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
 }
 
-[data-mode='dark'] #topbar-wrapper {
+[data-bs-theme='dark'] #topbar-wrapper {
   background-color: rgba(8, 8, 15, 0.75) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
   box-shadow: none !important;
 }
 
 @media (prefers-color-scheme: dark) {
-  html:not([data-mode]) #topbar-wrapper {
+  html:not([data-bs-theme]) #topbar-wrapper {
     background-color: rgba(8, 8, 15, 0.75) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
   }
@@ -234,16 +234,16 @@ body {
   margin: 1px 0 !important;
 }
 
-[data-mode='dark'] #sidebar .nav-link {
+[data-bs-theme='dark'] #sidebar .nav-link {
   color: rgba(226, 232, 240, 0.7) !important;
 }
 
-[data-mode='dark'] #sidebar .nav-link:hover {
+[data-bs-theme='dark'] #sidebar .nav-link:hover {
   background: rgba(139, 92, 246, 0.12) !important;
   color: #c4b5fd !important;
 }
 
-[data-mode='dark'] #sidebar .nav-link.active {
+[data-bs-theme='dark'] #sidebar .nav-link.active {
   background: rgba(139, 92, 246, 0.18) !important;
   color: #a78bfa !important;
 }
@@ -262,20 +262,20 @@ body {
   transform: translateY(-3px) !important;
 }
 
-[data-mode='dark'] .post-preview,
+[data-bs-theme='dark'] .post-preview,
 @media (prefers-color-scheme: dark) {
-  html:not([data-mode]) .post-preview {
+  html:not([data-bs-theme]) .post-preview {
     background: #11111c !important;
     border-color: rgba(139, 92, 246, 0.12) !important;
   }
 }
 
-[data-mode='dark'] .post-preview {
+[data-bs-theme='dark'] .post-preview {
   background: #11111c !important;
   border-color: rgba(139, 92, 246, 0.12) !important;
 }
 
-[data-mode='dark'] .post-preview:hover {
+[data-bs-theme='dark'] .post-preview:hover {
   border-color: rgba(167, 139, 250, 0.35) !important;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(167, 139, 250, 0.1) !important;
 }
@@ -288,16 +288,16 @@ body {
   text-decoration: none !important;
 }
 
-[data-mode='dark'] .post-preview .post-title a {
+[data-bs-theme='dark'] .post-preview .post-title a {
   color: #e2e8f0 !important;
 }
 
-[data-mode='dark'] .post-preview .post-title a:hover {
+[data-bs-theme='dark'] .post-preview .post-title a:hover {
   color: #a78bfa !important;
 }
 
 /* Post excerpt text */
-[data-mode='dark'] .post-preview .post-content {
+[data-bs-theme='dark'] .post-preview .post-content {
   color: #94a3b8 !important;
 }
 
@@ -311,24 +311,24 @@ body {
   margin-top: 2rem;
 }
 
-[data-mode='dark'] .post-content h2 {
+[data-bs-theme='dark'] .post-content h2 {
   border-bottom: 1px solid rgba(139, 92, 246, 0.18);
   color: #e2e8f0 !important;
 }
 
-[data-mode='dark'] .post-content h3,
-[data-mode='dark'] .post-content h4 {
+[data-bs-theme='dark'] .post-content h3,
+[data-bs-theme='dark'] .post-content h4 {
   color: #cbd5e1 !important;
 }
 
 /* Body text color */
-[data-mode='dark'] .post-content p,
-[data-mode='dark'] .post-content li {
+[data-bs-theme='dark'] .post-content p,
+[data-bs-theme='dark'] .post-content li {
   color: #b0bec5 !important;
 }
 
 /* ── LINKS ────────────────────────────────────────────────────────────────── */
-[data-mode='dark'] .post-content a:not(.tag):not(.btn):not(.anchor) {
+[data-bs-theme='dark'] .post-content a:not(.tag):not(.btn):not(.anchor) {
   color: #a78bfa !important;
   text-decoration: underline !important;
   text-decoration-color: rgba(167, 139, 250, 0.3) !important;
@@ -336,27 +336,27 @@ body {
   transition: color 0.15s, text-decoration-color 0.15s !important;
 }
 
-[data-mode='dark'] .post-content a:not(.tag):not(.btn):not(.anchor):hover {
+[data-bs-theme='dark'] .post-content a:not(.tag):not(.btn):not(.anchor):hover {
   color: #c4b5fd !important;
   text-decoration-color: rgba(196, 181, 253, 0.55) !important;
 }
 
 /* ── CODE BLOCKS ──────────────────────────────────────────────────────────── */
-[data-mode='dark'] .highlight,
-[data-mode='dark'] div.highlight {
+[data-bs-theme='dark'] .highlight,
+[data-bs-theme='dark'] div.highlight {
   background: #0a0a15 !important;
   border: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 10px !important;
 }
 
-[data-mode='dark'] .highlight pre {
+[data-bs-theme='dark'] .highlight pre {
   background: transparent !important;
   font-size: 0.875rem !important;
   line-height: 1.7 !important;
 }
 
 /* Code block header bar */
-[data-mode='dark'] div.code-header {
+[data-bs-theme='dark'] div.code-header {
   background: #14142a !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
   border-radius: 10px 10px 0 0 !important;
@@ -365,8 +365,8 @@ body {
 }
 
 /* Inline code */
-[data-mode='dark'] code:not([class]):not(.filepath),
-[data-mode='dark'] :not(pre) > code {
+[data-bs-theme='dark'] code:not([class]):not(.filepath),
+[data-bs-theme='dark'] :not(pre) > code {
   background: rgba(139, 92, 246, 0.12) !important;
   color: #c4b5fd !important;
   border: 1px solid rgba(139, 92, 246, 0.2) !important;
@@ -376,13 +376,13 @@ body {
 }
 
 /* Line numbers */
-[data-mode='dark'] .lineno {
+[data-bs-theme='dark'] .lineno {
   color: #2d2d4e !important;
   border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 /* ── BLOCKQUOTE ───────────────────────────────────────────────────────────── */
-[data-mode='dark'] blockquote {
+[data-bs-theme='dark'] blockquote {
   border-left: 3px solid #7c3aed !important;
   background: rgba(124, 58, 237, 0.06) !important;
   color: #94a3b8 !important;
@@ -399,15 +399,15 @@ body {
   transition: all 0.15s ease !important;
 }
 
-[data-mode='dark'] .post-tag,
-[data-mode='dark'] .tag {
+[data-bs-theme='dark'] .post-tag,
+[data-bs-theme='dark'] .tag {
   background: rgba(139, 92, 246, 0.1) !important;
   border: 1px solid rgba(139, 92, 246, 0.2) !important;
   color: #c4b5fd !important;
 }
 
-[data-mode='dark'] .post-tag:hover,
-[data-mode='dark'] .tag:hover {
+[data-bs-theme='dark'] .post-tag:hover,
+[data-bs-theme='dark'] .tag:hover {
   background: rgba(139, 92, 246, 0.2) !important;
   border-color: rgba(167, 139, 250, 0.4) !important;
   color: #ddd6fe !important;
@@ -415,23 +415,23 @@ body {
 }
 
 /* ── TOC ──────────────────────────────────────────────────────────────────── */
-[data-mode='dark'] #toc-wrapper {
+[data-bs-theme='dark'] #toc-wrapper {
   font-size: 0.8rem !important;
 }
 
-[data-mode='dark'] #toc a {
+[data-bs-theme='dark'] #toc a {
   color: #475569 !important;
   transition: color 0.15s, padding-left 0.15s !important;
   text-decoration: none !important;
 }
 
-[data-mode='dark'] #toc a:hover {
+[data-bs-theme='dark'] #toc a:hover {
   color: #a78bfa !important;
   padding-left: 2px !important;
 }
 
-[data-mode='dark'] #toc li.active > a,
-[data-mode='dark'] #toc a.active {
+[data-bs-theme='dark'] #toc li.active > a,
+[data-bs-theme='dark'] #toc a.active {
   color: #a78bfa !important;
   font-weight: 600 !important;
 }
@@ -446,31 +446,31 @@ body {
   background: transparent;
 }
 
-[data-mode='dark'] ::-webkit-scrollbar-thumb {
+[data-bs-theme='dark'] ::-webkit-scrollbar-thumb {
   background: rgba(139, 92, 246, 0.22);
   border-radius: 3px;
 }
 
-[data-mode='dark'] ::-webkit-scrollbar-thumb:hover {
+[data-bs-theme='dark'] ::-webkit-scrollbar-thumb:hover {
   background: rgba(167, 139, 250, 0.42);
 }
 
 /* ── POST META (date, author, read time) ─────────────────────────────────── */
-[data-mode='dark'] .post-meta,
-[data-mode='dark'] .post-meta i,
-[data-mode='dark'] .post-meta span,
-[data-mode='dark'] .post-meta a {
+[data-bs-theme='dark'] .post-meta,
+[data-bs-theme='dark'] .post-meta i,
+[data-bs-theme='dark'] .post-meta span,
+[data-bs-theme='dark'] .post-meta a {
   color: #475569 !important;
   font-size: 0.8rem !important;
 }
 
 /* ── CATEGORIES / ARCHIVES ────────────────────────────────────────────────── */
-[data-mode='dark'] .category-item a {
+[data-bs-theme='dark'] .category-item a {
   color: #94a3b8 !important;
   transition: color 0.15s !important;
 }
 
-[data-mode='dark'] .category-item a:hover {
+[data-bs-theme='dark'] .category-item a:hover {
   color: #a78bfa !important;
 }
 
@@ -498,7 +498,7 @@ footer {
 }
 
 /* ── SEARCH ───────────────────────────────────────────────────────────────── */
-[data-mode='dark'] #search-input {
+[data-bs-theme='dark'] #search-input {
   background: rgba(255, 255, 255, 0.04) !important;
   border-color: rgba(139, 92, 246, 0.2) !important;
   color: #e2e8f0 !important;
@@ -506,21 +506,21 @@ footer {
   font-family: 'Pretendard Variable', sans-serif !important;
 }
 
-[data-mode='dark'] #search-input:focus {
+[data-bs-theme='dark'] #search-input:focus {
   border-color: rgba(139, 92, 246, 0.5) !important;
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
   outline: none !important;
 }
 
-[data-mode='dark'] #search-hints .card,
-[data-mode='dark'] #search-result-wrapper .card {
+[data-bs-theme='dark'] #search-hints .card,
+[data-bs-theme='dark'] #search-result-wrapper .card {
   background: #11111c !important;
   border-color: rgba(139, 92, 246, 0.15) !important;
   border-radius: 10px !important;
 }
 
 /* ── PAGINATION ───────────────────────────────────────────────────────────── */
-[data-mode='dark'] .page-item .page-link {
+[data-bs-theme='dark'] .page-item .page-link {
   background: transparent !important;
   border-color: rgba(139, 92, 246, 0.2) !important;
   color: #94a3b8 !important;
@@ -529,48 +529,48 @@ footer {
   transition: all 0.15s !important;
 }
 
-[data-mode='dark'] .page-item .page-link:hover {
+[data-bs-theme='dark'] .page-item .page-link:hover {
   background: rgba(139, 92, 246, 0.12) !important;
   color: #a78bfa !important;
 }
 
-[data-mode='dark'] .page-item.active .page-link {
+[data-bs-theme='dark'] .page-item.active .page-link {
   background: rgba(139, 92, 246, 0.2) !important;
   border-color: rgba(139, 92, 246, 0.4) !important;
   color: #a78bfa !important;
 }
 
 /* ── HORIZONTAL RULE ──────────────────────────────────────────────────────── */
-[data-mode='dark'] hr {
+[data-bs-theme='dark'] hr {
   border-color: rgba(255, 255, 255, 0.06) !important;
 }
 
 /* ── TABLES ───────────────────────────────────────────────────────────────── */
-[data-mode='dark'] table {
+[data-bs-theme='dark'] table {
   border-radius: 8px !important;
   overflow: hidden !important;
   border-collapse: separate !important;
   border-spacing: 0 !important;
 }
 
-[data-mode='dark'] thead th {
+[data-bs-theme='dark'] thead th {
   background: rgba(139, 92, 246, 0.12) !important;
   color: #c4b5fd !important;
   font-weight: 600 !important;
   border-color: rgba(139, 92, 246, 0.15) !important;
 }
 
-[data-mode='dark'] tbody td {
+[data-bs-theme='dark'] tbody td {
   border-color: rgba(255, 255, 255, 0.05) !important;
   color: #94a3b8 !important;
 }
 
-[data-mode='dark'] tbody tr:hover td {
+[data-bs-theme='dark'] tbody tr:hover td {
   background: rgba(139, 92, 246, 0.05) !important;
 }
 
 /* ── IMAGES ───────────────────────────────────────────────────────────────── */
-[data-mode='dark'] .post-content img {
+[data-bs-theme='dark'] .post-content img {
   border-radius: 10px !important;
   border: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
@@ -607,7 +607,7 @@ html {
   color: #a78bfa !important;
 }
 
-[data-mode='dark'] #post-list .pin {
+[data-bs-theme='dark'] #post-list .pin {
   background: linear-gradient(90deg, rgba(139, 92, 246, 0.18), rgba(139, 92, 246, 0.04)) !important;
   border-radius: 6px !important;
   padding: 2px 8px !important;
@@ -621,4 +621,134 @@ html {
 
 .post-preview .post-meta a:hover {
   color: #c4b5fd !important;
+}
+
+/* =============================================================================
+   LIGHT MODE — "라벤더 미스트" 팔레트 (기본 테마)
+   근거: Chirpy v7.6.0 :root[data-bs-theme] 매트릭스 · 전 조합 WCAG AA 검증
+   (#6d28d9 on #fff = 7.10:1 AAA · 본문 #211d2e on #f7f6fb = 15.26:1)
+   ============================================================================= */
+html[data-bs-theme='light'] {
+  color-scheme: light;
+
+  /* 프레임 */
+  --main-bg:                  #f7f6fb;
+  --main-border-color:        #e5e1f2;
+  --mask-bg:                  rgba(33, 29, 46, 0.4);
+
+  /* 텍스트 — 순흑 대신 퍼플 색조 근사흑 (hue-tinted neutrals) */
+  --text-color:               #211d2e;
+  --text-muted-color:         #5f5a72;
+  --text-muted-highlight-color: #4a4560;
+  --heading-color:            #1b1727;
+  --label-color:              #5f5a72;
+
+  /* 링크 — #a78bfa는 라이트에서 대비 미달(2.72:1)이라 진한 퍼플로 */
+  --link-color:               #6d28d9;
+  --link-underline-color:     #d8ccf1;
+
+  /* 카드 — 흰 카드 + 퍼플 틴트 링·그림자 */
+  --card-bg:                  #ffffff;
+  --card-hover-bg:            #efeafa;
+  --card-header-bg:           #f4f1fb;
+  --card-shadow:              rgba(109, 40, 217, 0.05) 0 2px 8px 0,
+                              rgba(109, 40, 217, 0.10) 0 0 0 1px;
+
+  /* 버튼·인터랙션 */
+  --button-bg:                #ffffff;
+  --btn-border-color:         #e5e1f2;
+  --btn-backtotop-color:      #6d28d9;
+  --btn-backtotop-border-color: #e5e1f2;
+  --btn-paginator-hover-color: #efeafa;
+  --sidebar-hover-bg:         rgba(255, 255, 255, 0.15);
+
+  /* 탑바 — 프로스티드 라이트 */
+  --topbar-bg:                rgba(247, 246, 251, 0.72);
+  --topbar-text-color:        #211d2e;
+  --search-border-color:      #e5e1f2;
+  --search-icon-color:        #5f5a72;
+  --input-focus-border-color: #8b5cf6;
+
+  /* 본문 요소 */
+  --blockquote-border-color:  #c9bff0;
+  --blockquote-text-color:    #5f5a72;
+  --toc-highlight:            #6d28d9;
+  --tb-odd-bg:                #faf9fd;
+  --tb-even-bg:               #ffffff;
+  --tb-border-color:          #e5e1f2;
+  --tag-hover:                #efeafa;
+  --categories-hover-bg:      #efeafa;
+  --footnote-target-bg:       #efeafa;
+
+  /* 인라인 코드만 퍼플 틴트 — 블록 문법색은 순정 라이트(rouge) 신뢰 */
+  --inline-code-bg:           #f1edfa;
+  --highlighter-rouge-color:  #5b21b6;
+}
+
+/* 라이트 본문 배경 보정 (다크 하드코딩과 대칭) */
+html[data-bs-theme='light'] body,
+html[data-bs-theme='light'] #main-wrapper,
+html[data-bs-theme='light'] main,
+html[data-bs-theme='light'] #core-wrapper {
+  background-color: #f7f6fb !important;
+}
+
+/* 라이트 포스트 카드 — 부상 + 퍼플 링 강화 */
+html[data-bs-theme='light'] .post-preview {
+  background: #ffffff !important;
+  border-color: #e5e1f2 !important;
+}
+
+html[data-bs-theme='light'] .post-preview:hover {
+  border-color: rgba(109, 40, 217, 0.35) !important;
+  box-shadow:
+    rgba(109, 40, 217, 0.10) 0 14px 36px,
+    rgba(109, 40, 217, 0.14) 0 0 0 1px !important;
+}
+
+html[data-bs-theme='light'] .post-preview .post-title a {
+  color: #1b1727 !important;
+}
+
+html[data-bs-theme='light'] .post-preview .post-title a:hover {
+  color: #6d28d9 !important;
+}
+
+html[data-bs-theme='light'] .post-preview .post-meta a {
+  color: #6d28d9 !important;
+}
+
+/* 라이트 사이드바 = 퍼플 브랜드 레일 위 흰 아바타 링 */
+html[data-bs-theme='light'] #avatar {
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.85),
+    0 0 24px rgba(76, 29, 149, 0.45) !important;
+}
+
+html[data-bs-theme='light'] #sidebar .site-title a {
+  color: #ffffff !important;
+}
+
+/* 핀 뱃지 라이트 */
+html[data-bs-theme='light'] #post-list .pin {
+  background: linear-gradient(90deg, rgba(109, 40, 217, 0.10), rgba(109, 40, 217, 0.03)) !important;
+  border-radius: 6px !important;
+  padding: 2px 8px !important;
+}
+
+html[data-bs-theme='light'] #post-list .pin i,
+html[data-bs-theme='light'] #post-list .pin > span {
+  color: #6d28d9 !important;
+}
+
+/* 선택 영역 틴트 */
+html[data-bs-theme='light'] ::selection {
+  background: #ddd0f5;
+}
+
+/* ── 한글 타이포 (모드 공통) — 어절 단위 줄바꿈 + 넘침 방지 ─────────────── */
+body {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  font-kerning: normal;
 }
