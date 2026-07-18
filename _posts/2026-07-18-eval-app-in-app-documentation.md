@@ -1,7 +1,7 @@
 ---
 title: "문서를 앱 안에 넣었다 — 원리·근거 탭 29장이 자라온 과정 (평가 시스템 개발기 번외편)"
 date: 2026-07-18 23:58:00 +0900
-categories: [Projects, AI Engineering]
+categories: [LLM Evaluation]
 tags: [llm-evaluation, documentation, transparency, deep-research, single-file-app]
 description: >-
   LLM 평가 앱의 절반은 통계 엔진이 아니라 문서다. 설계 근거 카드 29장(원리·근거 탭), 실제 전송 프롬프트를

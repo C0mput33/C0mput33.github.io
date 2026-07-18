@@ -585,3 +585,40 @@ html {
   outline: 2px solid rgba(139, 92, 246, 0.6) !important;
   outline-offset: 2px !important;
 }
+
+/* ── AVATAR (Homepage sidebar) ────────────────────────────────────────────── */
+#avatar {
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.55),
+    0 0 24px rgba(139, 92, 246, 0.35) !important;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease !important;
+}
+
+#avatar:hover {
+  transform: rotate(-6deg) scale(1.06) !important;
+  box-shadow:
+    0 0 0 3px rgba(167, 139, 250, 0.85),
+    0 0 36px rgba(139, 92, 246, 0.55) !important;
+}
+
+/* ── PINNED BADGE (Homepage) ──────────────────────────────────────────────── */
+#post-list .pin i,
+#post-list .pin > span {
+  color: #a78bfa !important;
+}
+
+[data-mode='dark'] #post-list .pin {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.18), rgba(139, 92, 246, 0.04)) !important;
+  border-radius: 6px !important;
+  padding: 2px 8px !important;
+}
+
+/* ── CATEGORY CHIPS on post meta (Homepage cards) ─────────────────────────── */
+.post-preview .post-meta a {
+  color: #a78bfa !important;
+  font-weight: 600 !important;
+}
+
+.post-preview .post-meta a:hover {
+  color: #c4b5fd !important;
+}

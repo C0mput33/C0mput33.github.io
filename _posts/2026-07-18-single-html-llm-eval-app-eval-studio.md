@@ -1,7 +1,7 @@
 ---
 title: "480줄이 3,400줄이 될 때까지 — 단일 HTML 파일로 만든 LLM 평가 앱 (평가 시스템 개발기 2편)"
 date: 2026-07-18 13:00:00 +0900
-categories: [Projects, AI Engineering]
+categories: [LLM Evaluation]
 tags: [llm-evaluation, single-file-app, javascript, llm-as-a-judge, human-eval, side-project]
 description: >-
   파이썬 평가 파이프라인이 있는데 왜 브라우저 앱을 또 만들었나. 설치 없이 더블클릭으로 열리는

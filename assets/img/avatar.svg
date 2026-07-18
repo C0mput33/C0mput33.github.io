@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="C0mput33 avatar">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4c1d95"/>
+      <stop offset="0.55" stop-color="#6d28d9"/>
+      <stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.02"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" rx="120" fill="url(#bg)"/>
+  <rect width="240" height="240" rx="120" fill="url(#shine)"/>
+  <!-- terminal prompt: > _ 모티프 -->
+  <g stroke="#f5f3ff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M76 88 L112 120 L76 152"/>
+    <line x1="132" y1="152" x2="172" y2="152"/>
+  </g>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="#c4b5fd" stroke-opacity="0.35" stroke-width="3"/>
+</svg>

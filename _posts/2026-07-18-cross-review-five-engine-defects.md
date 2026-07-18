@@ -1,7 +1,7 @@
 ---
 title: "심판의 자기평가를 금지해놓고 내 코드는 셀프 리뷰하고 있었다 — 교차 리뷰로 찾은 엔진 결함 5종 (평가 시스템 개발기 5편)"
 date: 2026-07-18 21:30:00 +0900
-categories: [Projects, Debugging]
+categories: [LLM Evaluation]
 tags: [llm-evaluation, code-review, bootstrap, temperature, regex, statistics, ai-agent]
 description: >-
   LLM 심판의 자기 계열 평가를 금지하는 평가 시스템을 만들면서 정작 그 코드는 스스로만 검토하고 있었다.

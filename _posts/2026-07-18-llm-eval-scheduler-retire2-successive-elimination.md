@@ -1,7 +1,7 @@
 ---
 title: "리그전을 다 돌려야 하나 — 판정 예산을 반으로 줄인 retire2 스케줄러 (평가 시스템 개발기 3편)"
 date: 2026-07-18 16:00:00 +0900
-categories: [Projects, AI Engineering]
+categories: [LLM Evaluation]
 tags: [llm-evaluation, successive-elimination, bradley-terry, simulation, cost-optimization, scheduler]
 description: >-
   13개 모델 페어와이즈 평가는 프롬프트당 78쌍, 판정 수만 콜이 든다. "완전그래프를 꼭 다 돌려야 하나"라는
