@@ -1,5 +1,5 @@
 ---
-title: "10개 모델 공개 성능 지표 전수 대조 — 처리량·지연·실효단가, 그리고 동시성 환산"
+title: "10개 모델 공개 성능 지표 전수 대조 — 처리량·지연·실효단가·동시성 환산"
 date: 2026-07-19 22:10:00 +0900
 categories: [LLM Evaluation, Live Run]
 tags: [llm-evaluation, throughput, latency, openrouter, benchmark, capacity]

@@ -1,5 +1,5 @@
 ---
-title: "캐시를 켜고 다시 쟀다 — 실측 히트율과 벤치마크 사이트의 대조"
+title: "캐시 히트율 실측과 벤치마크 사이트 대조"
 date: 2026-07-19 18:40:00 +0900
 categories: [LLM Evaluation, Live Run]
 tags: [llm-evaluation, prompt-caching, openrouter, benchmark, cost, throughput]
