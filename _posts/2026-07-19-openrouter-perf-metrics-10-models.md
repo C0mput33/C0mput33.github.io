@@ -21,7 +21,7 @@ description: >-
 | Artificial Analysis[^aa] | ✓ (출력 tok/s) | ✓ (TTFT) | 태스크당 비용 | ✗ | ✗ | 모델 |
 | LMArena[^lmarena] | ✗ | ✗ | ✗ | ✗ | ✗ | 모델(품질 선호) |
 
-결론: **공급자 단위의 운영 지표(캐시·에러율 포함)는 오픈라우터가 유일하고, 모델 단위의 중립 속도·지능 비교는 Artificial Analysis가 담당**한다. 벤더 쿼터로서의 ITPM/OTPM(분당 입·출력 토큰 한도)은 각 계정 대시보드에만 있어서 공개 세계에는 없다 — 그래서 아래에서 실측으로 직접 환산했다.
+결론: **이번에 확인한 주요 사이트 중** 공급자 단위의 운영 지표(캐시·에러율 포함)는 오픈라우터가 가장 완전했고, 모델 단위의 중립 속도·지능 비교는 Artificial Analysis가 담당했다. 인터넷 전체에 대한 유일성 주장은 아니다. 벤더 쿼터로서의 ITPM/OTPM은 각 계정 대시보드에만 있어서 아래에서 실측으로 직접 환산했다.
 
 ## 전수 대조 — 실측 vs 오픈라우터 공개값 (10모델)
 
@@ -37,13 +37,15 @@ description: >-
 | glm-5.2 | 95 | 42.4s | 171 | 0.36s | $0.206 ($0.279) |
 | gpt-5.2 | 69 | 49.6s | 52 | 2.42s | $1.47 ($1.75) |
 | gemma-4-31b | 54 | 57.9s | 133 | 0.31s | $0.168 ($0.22) |
-| qwen3.6-35b-a3b | 170 | 133.9s | 162 | 0.25s | $0.099 ($0.14) |
+| qwen3.6-35b-a3b | 165 | 61.4s | 162 | 0.25s | $0.099 ($0.14) |
 | kimi-k2.6 | 48 | 372.5s | **194** | **0.17s** | $0.353 ($0.68) |
 
 ![오픈라우터 Kimi K2.6 Performance](/assets/img/posts/2026-07/or-kimi-perf.png)
 _Kimi K2.6: 사이트 기준 스루풋 194 tok/s·지연 0.17s로 10개 중 최상급 — 그런데 실측 권당 시간은 372초로 최하위다 (openrouter.ai/moonshotai/kimi-k2.6, 2026-07-19 캡처)[^orpage]_
 
 관찰 세 가지.
+
+Qwen3.6의 실측 열은 사용 가능한 3/5 결과만으로 계산한 조건부 속도다. 실패를 포함한 운영 원가는 권당 $0.03034였고, 빈 응답 한 번이 65,536 completion tokens와 $0.06576을 소비했다. 따라서 이 행은 다른 모델의 5/5 표본과 같은 안정도로 비교할 수 없다.
 
 1. **사이트 스루풋만 보면 안 된다 — Kimi가 반례다.** 공개값은 194 tok/s·0.17s로 전체 1위급인데, 실측은 권당 372초로 꼴찌다. 사이트 지표는 "토큰을 얼마나 빨리 찍어내는가"고, 체감을 지배하는 건 "토큰을 얼마나 많이 찍는가"다. Kimi는 권당 추론 포함 1.2만 토큰을 쓴다. 빠른 프린터라도 1만 장을 찍으면 오래 걸린다.
 2. **반대 방향의 괴리도 있다.** flash-lite는 실측 263 tok/s로 사이트 최고치(94)의 2.8배가 나왔다. 사이트 값은 최근 트래픽의 롤링 집계라 우리 콜 시점·페이로드와 다를 수 있다 — 이런 지표는 참고선이지 보증이 아니다.
@@ -65,7 +67,7 @@ _Gemini 3.5 Flash Performance: 공급자별 주간 평균(AI Studio 136 vs Verte
 |---|---|---|---|---|
 | gemini-3.1-flash-lite | 1,669 | 6.9s | 14,513 | 145,130 |
 | gemini-3.5-flash | 5,055 | 27.5s | 11,029 | 110,290 |
-| qwen3.6-35b-a3b | 22,548 | 133.9s | 10,103 | 101,030 |
+| qwen3.6-35b-a3b | 8,218 | 61.4s | 8,030 | 80,300 |
 | claude-haiku-4.5 | 2,563 | 18.2s | 8,450 | 84,500 |
 | gemini-3.1-pro | 5,532 | 40.7s | 8,155 | 81,550 |
 | claude-opus-4.8 | 2,624 | 34.1s | 4,617 | 46,170 |
@@ -83,4 +85,4 @@ _Gemini 3.5 Flash Performance: 공급자별 주간 평균(AI Studio 136 vs Verte
 [^orpage]: 오픈라우터 모델 페이지의 Performance(스루풋·지연 p50·E2E)·Effective Pricing(30일 가중 실효단가·캐시 히트율) 섹션. 캡처 원본: [kimi-k2.6](https://openrouter.ai/moonshotai/kimi-k2.6) · [gemini-3.1-flash-lite](https://openrouter.ai/google/gemini-3.1-flash-lite) · [gemini-3.5-flash](https://openrouter.ai/google/gemini-3.5-flash) · [qwen3.6-35b-a3b](https://openrouter.ai/qwen/qwen3.6-35b-a3b) · [gemma-4-31b-it](https://openrouter.ai/google/gemma-4-31b-it) · [claude-haiku-4.5](https://openrouter.ai/anthropic/claude-haiku-4.5) · [gemini-3.1-pro-preview](https://openrouter.ai/google/gemini-3.1-pro-preview) · [claude-opus-4.8](https://openrouter.ai/anthropic/claude-opus-4.8) · [gpt-5.2](https://openrouter.ai/openai/gpt-5.2) · [glm-5.2](https://openrouter.ai/z-ai/glm-5.2) (전부 2026-07-19 접근, 요약 카드 수치는 원본 해상도 캡처에서 판독)
 [^aa]: [Artificial Analysis — Comparison of Models](https://artificialanalysis.ai/models) (2026-07-19 접근): 지능 지수·출력 속도(tokens/s)·지연(TTFT)·태스크당 비용. 캐시 히트율 항목 없음.
 [^lmarena]: [LMArena](https://arena.ai/leaderboard/text) — 사용자 선호 투표 기반 품질 리더보드. 성능(속도·지연) 지표는 다루지 않음.
-[^repo]: 실측 원시 데이터: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/analysis/cost-per-book/results_20260719T094911Z.json` — 콜별 prompt/completion/cached 토큰·실청구액·서빙 공급자·지연. 측정 원리·신빙성은 [캐시편](/posts/cache-hit-measured-vs-benchmark-sites/) 참조.
+[^repo]: 실측 원시 데이터: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/analysis/cost-per-book/results_20260719T094911Z.json` — 콜별 prompt/completion/cached 토큰·실청구액·서빙 공급자·지연. 2026-07-20 점검 현재 저장소는 비공개다.
