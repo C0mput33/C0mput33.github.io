@@ -103,5 +103,5 @@ GitHub 백업에는 목록 UI도 붙였다. 평가 화면에 들어가면 저장
 다음 실측은 자기평가 제외를 켜고, temp 0 심판과 쌍 클러스터 CI로 돌린다. 그 결과가 이번 순위와 얼마나 달라지는지가 지금 제일 궁금하다.
 
 [^kappa]: Cohen, J. (1960), A Coefficient of Agreement for Nominal Scales. Educational and Psychological Measurement 20(1) — κ의 원 논문. Krippendorff, K., Content Analysis: An Introduction to Its Methodology — α의 표준 참고서. 층화 최적 배분은 Neyman, J. (1934), On the Two Different Aspects of the Representative Method. JRSS 97(4).
-[^strata]: 층화 표집 커밋 [`88a3eaa`](https://github.com/C0mput33/little-bard/commit/88a3eaa) — 3차원 층 + 고정 시드 셔플, 797쌍 검증 수치 포함. 표본 선택은 `STATE.reviewIds`로 저장돼 백업 계층에 함께 보존된다.
-[^recover]: 투표 백업·자동 복구 커밋 [`e68c8e8`](https://github.com/C0mput33/little-bard/commit/e68c8e8), GitHub 백업 목록·이어하기 커밋 [`d7ad37b`](https://github.com/C0mput33/little-bard/commit/d7ad37b). 복구 시나리오 단위 테스트 9종 포함.
+[^strata]: 층화 표집 커밋 [`88a3eaa`](https://github.com/C0mput33/little-bard/commit/88a3eaa) — 3차원 층 + 고정 시드 셔플, 797쌍 검증 수치 포함. 저장소가 비공개라 권한이 필요하다.
+[^recover]: 투표 백업·자동 복구 커밋 [`e68c8e8`](https://github.com/C0mput33/little-bard/commit/e68c8e8), GitHub 백업 목록·이어하기 커밋 [`d7ad37b`](https://github.com/C0mput33/little-bard/commit/d7ad37b). 비공개 저장소 링크다.

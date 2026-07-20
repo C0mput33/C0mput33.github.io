@@ -53,10 +53,10 @@ description: >-
 
 ## 남은 것
 
-프롬프트·분석 스크립트·단가 스냅샷·리포트는 저장소에 올렸다.[^repo] 다음은 새 프롬프트로 모델당 10권을 실제 생성하며 캐시 비포/애프터와 25페이지 기준 권당 단가를 확정하는 것, 그리고 품질 점수와 붙여 "합격선 이상 중 최저가" 모델을 고르는 것이다. 표의 숫자만 보면 gemma-4-31b가 압도적이지만, 5편에서 봤듯 품질 순위는 정반대 극단에 있다. 싼 모델이 아니라 충분히 좋은 모델 중 가장 싼 모델 — 다음 글은 그 교차점이 될 것이다.
+프롬프트·분석 스크립트·단가 스냅샷·리포트는 저장소에 올렸다.[^repo] 다만 현재 저장소는 비공개라 공개 재현성은 아직 성립하지 않는다. 다음은 새 프롬프트로 모델당 10권을 실제 생성하며 캐시 비포/애프터와 25페이지 기준 권당 단가를 확정하는 것, 그리고 품질 점수와 붙여 "합격선 이상 중 최저가" 모델을 고르는 것이다. 표의 숫자만 보면 gemma-4-31b가 압도적이지만, 5편에서 봤듯 품질 순위는 정반대 극단에 있다. 싼 모델이 아니라 충분히 좋은 모델 중 가장 싼 모델 — 다음 글은 그 교차점이 될 것이다.
 
 [^ua]: OpenRouter Usage Accounting — 모든 응답의 `usage`에 토큰 수·`cached_tokens`·`cost`(계정에 실제 청구된 금액)가 포함된다. <https://openrouter.ai/docs/use-cases/usage-accounting> (2026-07-19 확인)
-[^ckpt]: 실측 아카이브: [little-bard 저장소](https://github.com/C0mput33/little-bard)의 `eval/runs/studio-20260714-live13-797p/`. 런 전체 규모는 5,070콜 · 입력 4,445,210/출력 3,583,365토큰 · $46.76(`run_meta.json`).
+[^ckpt]: 실측 아카이브: [little-bard 저장소](https://github.com/C0mput33/little-bard)의 `eval/runs/studio-20260714-live13-797p/`. 런 전체 규모는 5,070콜 · 입력 4,445,210/출력 3,583,365토큰 · $46.76(`run_meta.json`). 2026-07-20 현재 비공개 저장소라 권한이 필요하다.
 [^models]: OpenRouter Models API(`GET /api/v1/models`)의 모델별 입력/출력/캐시 읽기 단가. 2026-07-19 07:25 UTC 접근, 스냅샷을 저장소에 동봉. 공급자별 단가 범위는 Endpoints API(`GET /api/v1/models/{slug}/endpoints`)로 확인.
 [^approx]: 근사 토크나이즈(문자수/4)는 검증용 재계산에만 사용했다. 본문 표의 1차 수치는 전부 실청구액이다.
 [^route]: OpenRouter Provider Routing — 기본값은 최근 30초 무장애 공급자 중 가격 역제곱 가중 로드밸런싱. <https://openrouter.ai/docs/guides/routing/provider-selection> (2026-07-19 확인)
