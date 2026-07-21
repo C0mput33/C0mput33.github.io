@@ -753,9 +753,9 @@ body {
   font-kerning: normal;
 }
 
-/* ── 용어 툴팁 (.term) — 호버 시 쉬운 설명 ──────────────────────────────────
-   마크업: <span class="term" data-tip="설명">용어</span>
-   데스크톱 hover + 키보드 focus, 모바일은 탭(active) 시 표시 */
+/* ── 용어 툴팁 (.term) ───────────────────────────────────────────────────────
+   설명은 JS가 실제 role=tooltip DOM으로 만든다. CSS generated content에
+   중요한 정보를 두지 않는다. */
 .term {
   border-bottom: 1px dotted rgba(109, 40, 217, 0.55);
   cursor: help;
@@ -766,13 +766,15 @@ html[data-bs-theme='dark'] .term {
   border-bottom-color: rgba(167, 139, 250, 0.6);
 }
 
-.term::after {
-  content: attr(data-tip);
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  bottom: calc(100% + 9px);
-  z-index: 90;
+.term:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid var(--accent, #6d28d9);
+  outline-offset: 3px;
+}
+
+.term-tooltip {
+  position: fixed;
+  z-index: 9999;
   width: max-content;
   max-width: min(360px, 82vw);
   background: #241f33;
@@ -792,30 +794,14 @@ html[data-bs-theme='dark'] .term {
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.15s ease, transform 0.15s ease;
+  transform: translateY(4px);
 }
 
-.term::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(100% + 3px);
-  border: 6px solid transparent;
-  border-top-color: #241f33;
-  z-index: 91;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.15s ease;
-}
-
-.term:hover::after, .term:focus::after, .term:active::after,
-.term:hover::before, .term:focus::before, .term:active::before {
+.term-tooltip[data-open='true'] {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
-
-/* 표 안 등 좁은 곳에서 왼쪽 정렬 폴백은 브라우저가 max-width로 처리 */
 
 /* =============================================================================
    섹션 디자인 폴리싱 — 헤딩·카테고리·본문 장식 (리서치 §1~§9)

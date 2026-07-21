@@ -19,7 +19,9 @@ description: >-
 
 진행 중인 프로젝트는 아동용 영어 동화를 생성하는 모델을 다룬다. 좋은 동화의 축은 일반 텍스트 품질과 겹치지 않는 것이 많다. 목표 독자 연령에 맞는 어휘와 문장 난이도(<span class="term" data-tip="영어 텍스트의 읽기 난이도를 나타내는 지수(대략 0~1800L). 단어 빈도와 문장 길이를 회귀로 결합해 만들며, 독자 수준과 텍스트 수준이 같으면 약 75% 이해율을 예측한다.">Lexile</span>), 연령 적합성, 안전성, 그리고 뻔하지 않은 이야기. 이 축들은 일반 벤치마크의 채점 기준에 없다.
 
-이게 우리만의 불평이 아니라는 건 문헌이 보여준다. EMNLP 2024의 KidLM 연구는 LLM이 아동용 도구로 유망함에도 언어적 뉘앙스, 인지 발달 단계, 안전 기준 같은 아동 특화 속성을 유지하는 데 상당한 과제가 남아 있다고 지적했고,[^kidlm] 아동 대상 콘텐츠 위험을 다룬 MinorBench 연구는 현행 AI 안전 연구가 미성년자 특유의 위험을 충분히 다루지 못하며, 6개 주요 LLM의 아동 안전 준수 수준이 모델과 설정에 따라 크게 들쭉날쭉하다고 보고했다.[^minorbench] 아동용 창작 품질을 재는 공개 벤치마크는 조사 범위에서 찾지 못했다. 재야 하는 축이 있는데 재는 자가 없으면, 만드는 수밖에 없다.
+KidLM은 LLM이 아동 특화 언어, 인지 단계, 안전 기준을 유지하는 데 과제가 남아 있다고 지적한다.[^kidlm]
+MinorBench는 6개 LLM의 아동 안전 준수가 모델과 설정에 따라 달랐다고 보고한다.[^minorbench]
+조사 범위에서는 아동용 창작 품질을 직접 재는 공개 벤치마크를 찾지 못했다.
 
 ## 공개 벤치마크의 세 가지 한계
 
@@ -27,11 +29,13 @@ description: >-
 
 첫째, 포화. MMLU-Pro 논문에 따르면 2023년 3월 GPT-4가 MMLU에서 86.4%를 기록한 뒤 유의미한 진전이 없었고, 2024년의 프론티어 모델들은 전부 86~87% 구간에 몰렸다. 다른 벤치마크에서 10%p 이상 오른 모델도 MMLU에서는 1%p 올랐다.[^mmlupro] 상위권이 천장에 붙으면 그 벤치마크로는 상위권끼리 비교할 수 없다. 창작 평가 쪽도 같은 일을 겪었다 — eqbench.com은 창작 평가 v2가 포화되어 심판이 최상위권 모델들을 더 이상 구별하지 못하게 됐다고 밝히고 v3에서 절대 점수 대신 쌍대 비교로 전환했다.[^eqbench]
 
-둘째, 오염. 벤치마크 문제가 학습 데이터에 새어 들어가면 점수는 실력이 아니라 암기를 잰다. 벤치마크 유출이 평가 점수를 극적으로 부풀려 평가 자체를 신뢰할 수 없게 만든다는 지적이 있고,[^cheater] 실증도 있다 — <span class="term" data-tip="초등학교 수준 수학 서술형 문제 약 8,500개로 다단계 추론을 재는 벤치마크. 공개된 지 오래돼 학습 데이터 오염 논쟁의 대표 사례가 됐다.">GSM8K</span>와 난이도를 맞춰 새로 만든 문제집 GSM1k로 재평가하자 주요 모델들의 정확도가 최대 8%p 떨어졌고 일부 모델 계열은 체계적 과적합의 증거를 보였다.[^gsm1k] 우리가 직접 만든 프롬프트로 직접 생성시켜 비교하는 평가에는 이 문제가 구조적으로 없다.
+둘째, 오염. 공개 문제가 학습 데이터에 들어가면 점수가 암기를 반영할 수 있다.[^cheater]
+<span class="term" data-tip="초등학교 수준 수학 서술형 문제 약 8,500개로 다단계 추론을 재는 벤치마크. 공개된 지 오래돼 학습 데이터 오염 논쟁의 대표 사례가 됐다.">GSM8K</span>와 난이도를 맞춘 GSM1k에서는 주요 모델 정확도가 최대 8%p 낮아졌고 일부 계열에 과적합 증거가 있었다.[^gsm1k]
+비공개로 만든 새 프롬프트는 알려진 공개 문항의 직접 암기 위험을 줄인다. 다만 유사 문항 노출 가능성까지 없앤다는 뜻은 아니다.
 
-셋째, 순위가 이전되지 않는다. 40여 개 주요 벤치마크를 비교한 연구는 벤치마크끼리 실제로 불일치하며 비교 방법의 선택이 결론을 뒤집을 수 있다고 보고했고,[^benchbench] <span class="term" data-tip="사람들이 익명의 두 챗봇 답변 중 나은 쪽에 투표하는 공개 평가 플랫폼. 수십만 표의 pairwise 선호를 Bradley-Terry로 집계하며, LLM 순위의 사실상 표준으로 쓰인다.">Chatbot Arena</span> 운영진 스스로 카테고리 분석에서 전체 리더보드 상위권 모델이 어려운 프롬프트 카테고리에서는 크게 밀리는 사례를 보였다.[^hardprompts] 일반 순위는 일반 순위일 뿐이다.
+셋째, 순위가 이전되지 않는다. 40여 개 벤치마크를 비교한 연구는 벤치마크 간 불일치와 분석 방법에 따른 결론 변화를 보고했다.[^benchbench] <span class="term" data-tip="사람들이 익명의 두 챗봇 답변 중 나은 쪽에 투표하는 공개 평가 플랫폼. 수십만 표의 pairwise 선호를 Bradley-Terry로 집계하며, LLM 순위의 사실상 표준으로 쓰인다.">Chatbot Arena</span>에서도 전체 상위권 모델이 어려운 프롬프트 범주에서는 순위가 내려간 사례가 있다.[^hardprompts]
 
-이건 나중에 우리 실측에서도 그대로 재현됐다. 같은 회사의 최신판(Opus 4.8)이 이전판(4.7)보다 우리 도메인 리그에서 신뢰구간이 겹치지 않게 낮았다 — 4위와 10위.[^ourrun] 범용 능력의 서열이 특정 도메인의 서열을 보장하지 않는다는 것을, 문헌이 아니라 우리 데이터로 확인한 순간이었다.
+우리 레거시 실측에서는 같은 회사의 Opus 4.8이 4.7보다 낮게 나온 탐색 신호가 있었다.[^ourrun] 쌍-군집 주변 CI는 겹치지 않았지만 프롬프트-군집 참고 구간은 겹쳤고, 프롬프트 13개와 적응형 은퇴 경로에 조건부다. 따라서 범용 순위가 도메인 순위로 그대로 옮겨지지 않을 수 있다는 재검증 가설로만 사용한다.
 
 ## 기성 API 모델이 이미 잘하는데, 굳이?
 
@@ -51,7 +55,7 @@ description: >-
 
 ## 그래서 어떤 저울을 만들었나
 
-요약하면 이렇게 됐다. 절대 점수 루브릭 대신 두 동화를 나란히 놓고 어느 쪽이 나은지만 묻는 쌍대 비교, 그 승패를 <span class="term" data-tip="맞대결 승패만으로 각 후보의 숨은 실력을 추정하는 통계 모델(1952). 실력 차가 승률을 정한다고 가정하고, 관측된 모든 승패를 가장 잘 설명하는 실력값을 최우도로 찾는다. 경기 순서와 무관하게 같은 답이 나오는 배치 방식이라, 고정된 대전 기록의 순위에 적합하다.">Bradley-Terry</span> 모델로 집계한 순위, 모든 점수에 <span class="term" data-tip="가진 데이터에서 복원추출로 여러 번 가짜 표본을 만들어 같은 계산을 반복하고, 그 결과들의 흩어짐으로 추정치의 불확실성을 재는 방법. 표본이 모집단을 대표한다면 재표집의 흔들림이 실제 추정 오차와 비슷하다는 원리다.">부트스트랩</span> <span class="term" data-tip="진짜 값이 이 범위 안에 있을 것이라고 정해진 신뢰 수준(예: 95%)으로 말할 수 있는 구간. 같은 실험을 100번 반복하면 그중 95번은 구간이 진짜 값을 포함한다는 뜻이다. 두 후보의 구간이 겹치면 우열을 통계적으로 단정할 수 없다.">신뢰구간</span>, 심판 편향은 구조로 상쇄, 소량의 사람 평가로 심판을 검증. 같은 문제를 먼저 겪은 시스템들이 도달한 결론과 수렴한다 — 창작 평가는 포화 때문에 쌍대 비교로 옮겼고,[^eqbench] Chatbot Arena는 순위 안정성과 신뢰구간 때문에 2023년 12월 <span class="term" data-tip="경기가 끝날 때마다 결과와 기대승률의 차이만큼 점수를 즉시 조정하는 체스식 레이팅. 실력이 변하는 선수를 추적하는 데 좋지만, 경기 순서에 따라 최종 값이 달라져 고정된 대전 기록의 순위에는 부적합하다.">Elo</span>에서 Bradley-Terry로 갈아탔다.[^arena-bt]
+만든 저울은 두 동화를 나란히 놓는 쌍대 비교, 그 승패를 <span class="term" data-tip="맞대결 승패만으로 각 후보의 숨은 실력을 추정하는 통계 모델(1952). 실력 차가 승률을 정한다고 가정하고, 관측된 모든 승패를 가장 잘 설명하는 실력값을 최우도로 찾는다. 경기 순서와 무관하게 같은 답이 나오는 배치 방식이라, 고정된 대전 기록의 순위에 적합하다.">Bradley-Terry</span>로 집계한 순위, 불확실성을 표시하는 <span class="term" data-tip="가진 데이터에서 복원추출로 여러 번 가짜 표본을 만들어 같은 계산을 반복하고, 그 결과들의 흩어짐으로 추정치의 불확실성을 재는 방법. 표본이 모집단을 대표한다면 재표집의 흔들림이 실제 추정 오차와 비슷하다는 원리다.">부트스트랩</span> <span class="term" data-tip="같은 절차로 표본을 반복 수집할 때 정해진 비율만큼 모수를 포함하도록 만든 구간. 두 개의 95% 신뢰구간이 겹치는지만으로 차이의 유의성을 판정할 수는 없다.">신뢰구간</span>으로 구성했다. 심판 편향은 평가 순서와 심판 계열을 분리해 줄이고, 소량의 사람 평가로 남은 오차를 확인한다. 창작 평가가 포화 뒤 쌍대 비교로 옮겨간 사례가 있고,[^eqbench] Chatbot Arena도 순위 안정성과 신뢰구간을 위해 2023년 12월 <span class="term" data-tip="경기가 끝날 때마다 결과와 기대승률의 차이만큼 점수를 즉시 조정하는 체스식 레이팅. 실력이 변하는 선수를 추적하는 데 좋지만, 경기 순서에 따라 최종 값이 달라져 고정된 대전 기록의 순위에는 부적합하다.">Elo</span>에서 Bradley-Terry로 전환했다.[^arena-bt]
 
 그 선택들을 하나씩 왜 그렇게 했는지가 [2편](/posts/llm-eval-pipeline-from-scratch-bradley-terry/)부터의 내용이다. 방법 선택(2편), 단일 HTML 앱(3편), 스케줄러(4편), $46.76 실측(5편), 교차 리뷰로 찾은 결함(6편), 신뢰구간 교정(7편), <span class="term" data-tip="사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다.">골든셋</span>과 데이터 유실(8편)로 이어진다.
 
@@ -73,7 +77,7 @@ description: >-
 [^gsm1k]: Zhang et al. (2024), [A Careful Examination of Large Language Model Performance on Grade School Arithmetic](https://arxiv.org/abs/2405.00332), NeurIPS 2024. GSM1k 재평가에서 "accuracy drops of up to 8%", 일부 계열은 "systematic overfitting"의 증거. 프론티어 모델들은 과적합 징후가 미미했다는 것도 같은 논문의 보고다.
 [^benchbench]: Perlitz et al. (2024), [Do These LLM Benchmarks Agree? Fixing Benchmark Evaluation with BenchBench](https://arxiv.org/abs/2407.13696) — 벤치마크 간 일치도 검정의 방법론 선택이 결론을 뒤집을 수 있음을 40여 개 벤치마크에서 확인.
 [^hardprompts]: LMSYS 블로그 (2024-05-17), [Introducing Hard Prompts Category in Chatbot Arena](https://lmsys.org/blog/2024-05-17-category-hard/) — 전체 영어 리더보드에서 GPT-4-0314급이던 Llama-3-8B-Instruct가 Hard Prompts 카테고리에서 "drops significantly in ranking".
-[^ourrun]: [5편 — 프론티어 13개 모델 실측 기록](/posts/46-dollar-frontier-live-eval-13-models/). Opus 4.7 4위(1052, CI 1023~1077) vs Opus 4.8 10위(953, CI 923~977) — CI 비겹침. 5위 qwen3.6-35b(1050, CI 1028~1072)와 4위는 CI 겹침.
+[^ourrun]: [5편 — 프론티어 13개 모델 실측 기록](/posts/46-dollar-frontier-live-eval-13-models/). 정책 버전 도입 전 중단 런의 탐색 결과다. Opus 4.7은 1052, Opus 4.8은 953이었고 쌍-군집 주변 CI는 비겹침이었지만, 2026-07-20 프롬프트-군집 참고 구간은 겹쳤다. 레거시 파싱과 자기평가가 섞여 있어 `aligned-v2`·`strict-v2` 결과와 직접 비교하지 않는다.
 [^drift]: Chen, Zaharia & Zou (2023), [How Is ChatGPT's Behavior Changing over Time?](https://arxiv.org/abs/2307.09009) — 현행판 기준 GPT-4의 소수/합성수 판별 정확도 84%(2023-03) → 51%(2023-06). "the behavior of the 'same' LLM service can change substantially in a relatively short amount of time."
 [^deprecation]: [OpenAI Deprecations](https://developers.openai.com/api/docs/deprecations) — GA 모델 최소 6개월 전 고지. [Anthropic Model deprecations](https://platform.claude.com/docs/en/docs/about-claude/model-deprecations) — 최소 60일 전 고지, "Requests to models past the retirement date will fail."
 [^cost]: [동화 한 권 생성 원가, 모델마다 240배 차이 났다](/posts/cost-per-storybook-13-models/) — 13모델 실청구액 기준 권당 $0.000109~$0.0262.

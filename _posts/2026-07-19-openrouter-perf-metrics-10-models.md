@@ -59,9 +59,9 @@ _Gemini 3.5 Flash Performance: 공급자별 주간 평균(AI Studio 136 vs Verte
 
 ## 실효단가·캐시 히트율 — 캡처로 채운 6개 모델 (2026-07-21 재조회)
 
-위 표의 "OR 실효 입력가" 열은 오픈라우터 모델 페이지의 **Effective Pricing** 섹션에서 읽은 값이다. 처음엔 kimi·flash-lite·gemini-flash 세 장만 캡처했었는데, 전수 조사가 목적이었으니 나머지 여섯 모델을 다시 캡처해 채웠다. Effective Pricing 캡처 한 장은 세 곳만 보면 된다.
+위 표의 "OR 실효 입력가" 열은 오픈라우터 모델 페이지의 **<span class="term" data-tip="오픈라우터 모델 페이지가 공개하는 실효 단가. 정가에 실제 사용자들의 캐시 히트율을 반영해 실질 지불액이 얼마인지 보여주며, 서빙 공급자별 히트율까지 공개돼 자기 실측과 대조할 수 있다.">Effective Pricing</span>** 섹션에서 읽은 값이다. 처음엔 kimi·flash-lite·gemini-flash 세 장만 캡처했었는데, 전수 조사가 목적이었으니 나머지 여섯 모델을 다시 캡처해 채웠다. Effective Pricing 캡처 한 장은 세 곳만 보면 된다.
 
-- **Weighted Avg Input/Output Price** — 정가가 아니라, 전 세계 고객이 프롬프트 캐싱을 반영해 실제로 낸 30일 가중 평균 단가다. 반복되는 앞부분이 캐시되면 그만큼 싸지므로 늘 정가보다 낮게 찍힌다.
+- **Weighted Avg Input/Output Price** — 정가가 아니라, 전 세계 고객이 <span class="term" data-tip="같은 프롬프트 앞부분(프리픽스)이 반복 요청되면 공급자가 이전 계산을 재사용해 할인 과금하는 기능. 단, 프리픽스가 모델별 최소 길이를 넘어야만 캐시 대상이 된다.">프롬프트 캐싱</span>을 반영해 실제로 낸 30일 가중 평균 단가다. 반복되는 앞부분이 캐시되면 그만큼 싸지므로 늘 정가보다 낮게 찍힌다.
 - **Cache hit rate 열** — 공급자별 캐시 히트율. 같은 모델이라도 어느 <span class="term" data-tip="오픈라우터가 같은 모델을 여러 서빙 공급자 가운데 가격·가용성 기준으로 골라 보내는 것. 공급자가 바뀌면 캐시가 이어지지 않으므로, 라우팅 분산과 캐시 히트율은 서로 상충한다.">라우팅</span> 공급자에 걸리느냐에 따라 0%에서 80%대까지 벌어진다.
 - **Token share 열** — 그 공급자로 실제 흘러간 트래픽 비중. 위의 가중 평균은 이 비중으로 가중한 값이다.
 
@@ -96,7 +96,7 @@ _Kimi K2.6: 정가 $0.66/$3.41 → 가중 $0.373/$3.61. SiliconFlow 85%·Moonsho
 
 이틀 만에 gemma 정가가 절반이 됐고, qwen·haiku의 실효 입력가는 15~45% 올랐다. 캐시 히트율은 공급자 라우팅에 따라 매일 달라지니 실효단가도 함께 흔들린다. 공개 단가를 한 번 보고 고정값으로 믿으면 안 되는 이유이고, [1편](/posts/why-build-own-eval-system/)에서 자체 평가가 필요한 근거로 든 "빌린 모델은 값도 동작도 변한다"가 가격에서 그대로 나타난 셈이다.
 
-나머지 네 모델(claude-opus-4.8·gpt-5.2·gemini-3.5-flash·glm-5.2)의 Effective Pricing 캡처는 [캐시편](/posts/cache-hit-measured-vs-benchmark-sites/)에 있다 — 열 모델 전부의 캡처가 두 글에 나뉘어 담겼다.
+나머지 네 모델의 Effective Pricing 캡처는 [캐시편](/posts/cache-hit-measured-vs-benchmark-sites/)에 있다. 대상은 claude-opus-4.8, gpt-5.2, gemini-3.5-flash, glm-5.2다.
 
 ## 동시성 환산 — "동시 N권이면 분당 토큰이 얼마 필요한가"
 
@@ -121,7 +121,7 @@ _Kimi K2.6: 정가 $0.66/$3.41 → 가중 $0.373/$3.61. SiliconFlow 85%·Moonsho
 
 ## 정리
 
-공개 지표의 지형은 셋으로 요약된다 — 공급자 운영 지표는 오픈라우터, 모델 중립 비교는 Artificial Analysis, 품질 선호는 LMArena. 그리고 그 지표들은 참고선이다: Kimi의 194 tok/s와 실측 372초 사이의 간격이 보여주듯, **서비스 설계는 결국 자기 워크로드의 실측으로 닫아야 한다**. 우리 파이프라인 기준의 캐파시티 표는 위와 같고, 합격선 후보(glm-5.2)의 동시 10권 요구량은 분당 4.4만 토큰 수준 — 이 숫자를 들고 쿼터·Provisioned 판단으로 넘어간다.
+공급자 운영 지표는 <span class="term" data-tip="여러 회사의 LLM을 하나의 API와 결제로 호출하게 해주는 중계 서비스. 모델마다 계정을 따로 만들 필요가 없어 다모델 비교 실험에 편하다.">OpenRouter</span>, 모델 중립 비교는 Artificial Analysis, 품질 선호는 LMArena에서 확인할 수 있다. 다만 Kimi의 공개 처리량 194 tok/s와 우리 워크로드의 372초 응답처럼 공개 지표와 실제 체감은 다를 수 있다. 위 캐파시티 표를 기준으로 보면 합격선 후보(glm-5.2)가 동화 10권을 동시에 처리할 때 필요한 용량은 분당 약 4.4만 토큰이다. 쿼터와 Provisioned 용량은 이 실측을 기준으로 정한다.
 
 [^orpage]: 오픈라우터 모델 페이지의 Performance(스루풋·지연 p50·E2E)·Effective Pricing(30일 가중 실효단가·캐시 히트율) 섹션. 캡처 원본: [kimi-k2.6](https://openrouter.ai/moonshotai/kimi-k2.6) · [gemini-3.1-flash-lite](https://openrouter.ai/google/gemini-3.1-flash-lite) · [gemini-3.5-flash](https://openrouter.ai/google/gemini-3.5-flash) · [qwen3.6-35b-a3b](https://openrouter.ai/qwen/qwen3.6-35b-a3b) · [gemma-4-31b-it](https://openrouter.ai/google/gemma-4-31b-it) · [claude-haiku-4.5](https://openrouter.ai/anthropic/claude-haiku-4.5) · [gemini-3.1-pro-preview](https://openrouter.ai/google/gemini-3.1-pro-preview) · [claude-opus-4.8](https://openrouter.ai/anthropic/claude-opus-4.8) · [gpt-5.2](https://openrouter.ai/openai/gpt-5.2) · [glm-5.2](https://openrouter.ai/z-ai/glm-5.2) (전부 2026-07-19 접근, 요약 카드 수치는 원본 해상도 캡처에서 판독)
 [^aa]: [Artificial Analysis — Comparison of Models](https://artificialanalysis.ai/models) (2026-07-19 접근): 지능 지수·출력 속도(tokens/s)·지연(TTFT)·태스크당 비용. 캐시 히트율 항목 없음.

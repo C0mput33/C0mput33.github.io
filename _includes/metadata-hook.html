@@ -46,3 +46,61 @@
     window.addEventListener('scroll', update, { passive: true });
   })();
 </script>
+
+<!-- Accessible term tooltips: hover/focus, Escape close, real DOM text. -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var terms = document.querySelectorAll('.term[data-tip]');
+    terms.forEach(function (term, index) {
+      if (term.dataset.tooltipBound === 'true') return;
+      term.dataset.tooltipBound = 'true';
+      if (!term.hasAttribute('tabindex')) term.setAttribute('tabindex', '0');
+
+      var tooltip = document.createElement('span');
+      tooltip.id = 'term-tooltip-' + index;
+      tooltip.className = 'term-tooltip';
+      tooltip.setAttribute('role', 'tooltip');
+      tooltip.textContent = term.dataset.tip;
+      tooltip.hidden = true;
+      document.body.appendChild(tooltip);
+      term.setAttribute('aria-describedby', tooltip.id);
+
+      function place() {
+        if (tooltip.hidden) return;
+        var trigger = term.getBoundingClientRect();
+        var box = tooltip.getBoundingClientRect();
+        var margin = 10;
+        var left = trigger.left + trigger.width / 2 - box.width / 2;
+        left = Math.max(margin, Math.min(left, window.innerWidth - box.width - margin));
+        var top = trigger.top - box.height - margin;
+        if (top < margin) top = trigger.bottom + margin;
+        tooltip.style.left = Math.round(left) + 'px';
+        tooltip.style.top = Math.round(top) + 'px';
+      }
+
+      function show() {
+        tooltip.hidden = false;
+        tooltip.dataset.open = 'true';
+        place();
+      }
+
+      function hide() {
+        tooltip.dataset.open = 'false';
+        tooltip.hidden = true;
+      }
+
+      term.addEventListener('mouseenter', show);
+      term.addEventListener('mouseleave', hide);
+      term.addEventListener('focus', show);
+      term.addEventListener('blur', hide);
+      term.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          hide();
+          term.blur();
+        }
+      });
+      window.addEventListener('resize', place, { passive: true });
+      window.addEventListener('scroll', place, { passive: true });
+    });
+  });
+</script>
