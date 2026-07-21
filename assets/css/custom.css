@@ -56,6 +56,33 @@ body {
   letter-spacing: -0.005em;
 }
 
+/* 표와 코드 블록은 자체 스크롤을 사용하고 페이지 전체 폭은 늘리지 않는다. */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+#main-wrapper,
+#main-wrapper main,
+#main-wrapper article,
+#main-wrapper .content {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.content .table-wrapper,
+.content .highlighter-rouge,
+.content .highlight {
+  max-width: 100%;
+}
+
+.content .table-wrapper,
+.content .highlight {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .post-content {
   font-size: 1.05rem;
   line-height: 1.85;
