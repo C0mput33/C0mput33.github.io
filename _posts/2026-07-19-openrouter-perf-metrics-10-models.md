@@ -55,6 +55,47 @@ _Gemini 3.1 Flash Lite: 사이트 94 tok/s·0.59s vs 실측 263 tok/s·권당 6.
 ![오픈라우터 Gemini 3.5 Flash Performance](/assets/img/posts/2026-07/or-gemflash-perf.png)
 _Gemini 3.5 Flash Performance: 공급자별 주간 평균(AI Studio 136 vs Vertex 75 tok/s)까지 공급자 단위로 갈라서 보여준다 (2026-07-19 캡처)[^orpage]_
 
+## 실효단가·캐시 히트율 — 캡처로 채운 6개 모델 (2026-07-21 재조회)
+
+위 표의 "OR 실효 입력가" 열은 오픈라우터 모델 페이지의 **Effective Pricing** 섹션에서 읽은 값이다. 처음엔 kimi·flash-lite·gemini-flash 세 장만 캡처했었는데, 전수 조사가 목적이었으니 나머지 여섯 모델을 다시 캡처해 채웠다. Effective Pricing 캡처 한 장은 세 곳만 보면 된다.
+
+- **Weighted Avg Input/Output Price** — 정가가 아니라, 전 세계 고객이 프롬프트 캐싱을 반영해 실제로 낸 30일 가중 평균 단가다. 반복되는 앞부분이 캐시되면 그만큼 싸지므로 늘 정가보다 낮게 찍힌다.
+- **Cache hit rate 열** — 공급자별 캐시 히트율. 같은 모델이라도 어느 <span class="term" data-tip="오픈라우터가 같은 모델을 여러 서빙 공급자 가운데 가격·가용성 기준으로 골라 보내는 것. 공급자가 바뀌면 캐시가 이어지지 않으므로, 라우팅 분산과 캐시 히트율은 서로 상충한다.">라우팅</span> 공급자에 걸리느냐에 따라 0%에서 80%대까지 벌어진다.
+- **Token share 열** — 그 공급자로 실제 흘러간 트래픽 비중. 위의 가중 평균은 이 비중으로 가중한 값이다.
+
+![오픈라우터 Claude Haiku 4.5 Effective Pricing](/assets/img/posts/2026-07/or-haiku-pricing.png)
+_Claude Haiku 4.5: 정가 $1/$5 → 캐시 반영 가중 $0.678/$5.00. 캐시 히트가 Anthropic 47%·Vertex 55%·Vertex(EU) 77%로 공급자마다 갈린다 (openrouter.ai/anthropic/claude-haiku-4.5, 2026-07-21)_
+
+![오픈라우터 Gemini 3.1 Pro Effective Pricing](/assets/img/posts/2026-07/or-gempro-pricing.png)
+_Gemini 3.1 Pro: 정가 $2/$12 → 가중 $1.43/$12.05. 공급자가 Vertex·AI Studio 둘뿐이라(캐시 37%·56%) 라우팅 폭이 좁고, 그만큼 실효단가가 정가에 가깝게 붙어 있다 (2026-07-21)_
+
+![오픈라우터 Qwen3.6-35B-A3B Effective Pricing](/assets/img/posts/2026-07/or-qwen36-pricing.png)
+_Qwen3.6-35B-A3B: 정가 $0.13/$1 → 가중 $0.143/$1.07. Weights & Biases 65%·Parasail 64% 캐시가 있지만 히트 0% 공급자도 셋 섞여 있다 (2026-07-21)_
+
+![오픈라우터 Gemma 4 31B Effective Pricing](/assets/img/posts/2026-07/or-gemma-pricing.png)
+_Gemma 4 31B: 정가 $0.10/$0.35 → 가중 $0.150/$0.416. 공급자가 16곳이나 붙어 캐시 히트가 0%~60%로 열 모델 중 가장 넓게 산개한다 (2026-07-21)_
+
+![오픈라우터 Gemini 3.1 Flash Lite Effective Pricing](/assets/img/posts/2026-07/or-flashlite-pricing.png)
+_Gemini 3.1 Flash Lite: 정가 $0.25/$1.50 → 가중 $0.175/$1.46. 위 표의 07-19 실효 입력가($0.177)와 거의 같아, 이 모델만 이틀간 드리프트가 없었다 (2026-07-21)_
+
+![오픈라우터 Kimi K2.6 Effective Pricing](/assets/img/posts/2026-07/or-kimi-pricing.png)
+_Kimi K2.6: 정가 $0.66/$3.41 → 가중 $0.373/$3.61. SiliconFlow 85%·Moonshot 80% 캐시가 실효 입력가를 정가의 56%까지 끌어내렸다 (2026-07-21)_
+
+여섯 장을 07-19 표와 나란히 놓으면 이틀 사이의 움직임이 드러난다.
+
+| 모델 | 정가 in/out | 캐시 반영 가중 in/out | 대표 캐시 히트 | 07-19 표 대비 |
+|---|---|---|---|---|
+| gemini-3.1-flash-lite | $0.25 / $1.50 | $0.175 / $1.46 | AI Studio 45.9% | 실효입력 $0.177→$0.175, 거의 동일 |
+| gemma-4-31b | $0.10 / $0.35 | $0.150 / $0.416 | Cerebras 60.1% | **정가 $0.22→$0.10 반토막** |
+| qwen3.6-35b-a3b | $0.13 / $1.00 | $0.143 / $1.07 | W&B 65.2% | 실효입력 $0.099→$0.143 상승 |
+| gemini-3.1-pro | $2.00 / $12.00 | $1.43 / $12.05 | AI Studio 55.6% | 실효입력 $1.53→$1.43 소폭↓ |
+| claude-haiku-4.5 | $1.00 / $5.00 | $0.678 / $5.00 | Vertex(EU) 76.6% | 실효입력 $0.565→$0.678 상승 |
+| kimi-k2.6 | $0.66 / $3.41 | $0.373 / $3.61 | SiliconFlow 84.7% | 실효입력 $0.353→$0.373 소폭↑ |
+
+이틀 만에 gemma 정가가 절반이 됐고, qwen·haiku의 실효 입력가는 15~45% 올랐다. 캐시 히트율은 공급자 라우팅에 따라 매일 달라지니 실효단가도 함께 흔들린다. 공개 단가를 한 번 보고 고정값으로 믿으면 안 되는 이유이고, [1편](/posts/why-build-own-eval-system/)에서 자체 평가가 필요한 근거로 든 "빌린 모델은 값도 동작도 변한다"가 가격에서 그대로 나타난 셈이다.
+
+나머지 네 모델(claude-opus-4.8·gpt-5.2·gemini-3.5-flash·glm-5.2)의 Effective Pricing 캡처는 [캐시편](/posts/cache-hit-measured-vs-benchmark-sites/)에 있다 — 열 모델 전부의 캡처가 두 글에 나뉘어 담겼다.
+
 ## 동시성 환산 — "동시 N권이면 분당 토큰이 얼마 필요한가"
 
 벤더 rate limit은 보통 분당 토큰(TPM)으로 걸린다. 실측값(권당 출력 토큰과 권당 시간)이 있으면 워크로드가 요구하는 OTPM을 바로 환산할 수 있다:
