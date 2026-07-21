@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="742" viewBox="0 0 860 742" font-family="-apple-system,BlinkMacSystemFont,'Pretendard','Segoe UI',sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="arg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <style>
+    .panel{fill:#ffffff;stroke:#e2e0ec;stroke-width:1.5;}
+    .box{fill:#f6f4fc;stroke:#c9bff0;stroke-width:1.4;}
+    .box2{fill:#fff;stroke:#d9d6e8;stroke-width:1.3;}
+    .boxw{fill:#fdf6f1;stroke:#ecc7ab;stroke-width:1.3;}
+    .hd{font-size:15px;font-weight:800;fill:#2b2440;}
+    .ph{font-size:12.5px;font-weight:800;fill:#6d28d9;letter-spacing:.02em;}
+    .t{font-size:12px;font-weight:700;fill:#3b3358;}
+    .s{font-size:10px;fill:#6b6584;}
+    .n{font-size:10.5px;font-weight:800;fill:#6d28d9;}
+    .flow{stroke:#6d28d9;stroke-width:2;fill:none;marker-end:url(#ar);}
+    .side{stroke:#94a3b8;stroke-width:1.6;fill:none;marker-end:url(#arg);stroke-dasharray:5 4;}
+  </style>
+
+  <rect x="1" y="1" width="858" height="740" rx="18" fill="#fbfaff" stroke="#e6e2f5" stroke-width="1.5"/>
+  <text x="28" y="36" class="hd">자체 sLLM 투입 아키텍처 — 요청 경로와 오프라인 게이트</text>
+  <text x="28" y="54" class="s">생성은 큐 뒤의 워커에서, 모델은 어댑터 스위치로, 교체 판정은 평가 리그(오프라인)에서.</text>
+
+  <!-- Panel A: runtime -->
+  <rect x="20" y="68" width="820" height="252" rx="14" class="panel"/>
+  <text x="36" y="90" class="ph">A. 요청 경로 — 런타임 (항상 도는 것)</text>
+
+  <rect x="36" y="104" width="100" height="62" rx="10" class="box2"/>
+  <text x="86" y="130" text-anchor="middle" class="t">모바일 앱</text>
+  <text x="86" y="146" text-anchor="middle" class="s">요청 후 화면 유지</text>
+
+  <rect x="168" y="104" width="98" height="62" rx="10" class="box2"/>
+  <text x="217" y="130" text-anchor="middle" class="t">게이트웨이</text>
+  <text x="217" y="146" text-anchor="middle" class="s">인증 · 요청 추적</text>
+
+  <rect x="298" y="104" width="148" height="62" rx="10" class="box"/>
+  <text x="372" y="124" text-anchor="middle" class="t">API 서버 (헥사고날)</text>
+  <text x="372" y="140" text-anchor="middle" class="s">job 발행 Port · 멱등</text>
+  <text x="372" y="154" text-anchor="middle" class="s">즉시 응답 후 종료</text>
+
+  <rect x="478" y="104" width="136" height="62" rx="10" class="box"/>
+  <text x="546" y="124" text-anchor="middle" class="t">Redis</text>
+  <text x="546" y="140" text-anchor="middle" class="s">작업 큐 · ACK/DLQ</text>
+  <text x="546" y="154" text-anchor="middle" class="s">진행률 키(TTL)</text>
+
+  <rect x="646" y="92" width="180" height="106" rx="10" class="box"/>
+  <text x="736" y="112" text-anchor="middle" class="t">텍스트 생성 워커</text>
+  <text x="736" y="130" text-anchor="middle" class="s">생성 Port → 모델 어댑터</text>
+  <text x="736" y="144" text-anchor="middle" class="s">검증 client (안전 · 난이도)</text>
+  <text x="736" y="158" text-anchor="middle" class="s">미달 시 재생성 루프</text>
+  <text x="736" y="172" text-anchor="middle" class="s">실패 재시도 · DLQ 격리</text>
+  <text x="736" y="189" text-anchor="middle" class="n">sLLM이 꽂히는 자리</text>
+
+  <rect x="298" y="228" width="148" height="52" rx="10" class="box2"/>
+  <text x="372" y="250" text-anchor="middle" class="t">PostgreSQL</text>
+  <text x="372" y="266" text-anchor="middle" class="s">상태 · 산출물 저장</text>
+
+  <rect x="478" y="228" width="136" height="52" rx="10" class="box2"/>
+  <text x="546" y="250" text-anchor="middle" class="t">삽화 워커 → S3</text>
+  <text x="546" y="266" text-anchor="middle" class="s">텍스트 확정 후 별도 job</text>
+
+  <rect x="168" y="228" width="98" height="52" rx="10" class="box2"/>
+  <text x="217" y="250" text-anchor="middle" class="t">푸시 알림</text>
+  <text x="217" y="266" text-anchor="middle" class="s">완료 · 실패 통지</text>
+
+  <!-- Panel A arrows -->
+  <path class="flow" d="M136 135 L164 135"/><text x="143" y="128" class="n">①</text>
+  <path class="flow" d="M266 135 L294 135"/><text x="273" y="128" class="n">②</text>
+  <path class="flow" d="M446 135 L474 135"/><text x="453" y="128" class="n">③</text>
+  <path class="flow" d="M614 135 L642 135"/><text x="621" y="128" class="n">④</text>
+  <path class="flow" d="M646 198 C 560 216 470 210 448 166"/><text x="530" y="212" class="n">⑤ gRPC 성공·실패 보고</text>
+  <path class="flow" d="M372 166 L372 224"/><text x="380" y="200" class="n">⑥</text>
+  <path class="flow" d="M446 254 L474 254"/><text x="452" y="247" class="n">⑦</text>
+  <path class="flow" d="M298 254 L270 254"/><text x="277" y="247" class="n">⑧</text>
+  <path class="side" d="M217 228 C 217 196 150 180 110 166"/>
+  <path class="side" d="M86 166 C 86 210 300 292 478 268"/>
+  <text x="120" y="292" class="s">ⓟ 진행률 폴링(앱 → Redis 키 조회) — 재접속해도 이어짐</text>
+
+  <!-- Panel B: model layer -->
+  <rect x="20" y="336" width="820" height="120" rx="14" class="panel"/>
+  <text x="36" y="358" class="ph">B. 모델 계층 — 워커의 어댑터가 가리키는 곳 (코드 수정 없이 설정으로 교체)</text>
+
+  <rect x="60" y="372" width="220" height="68" rx="10" class="box2"/>
+  <text x="170" y="394" text-anchor="middle" class="t">Bedrock 기성 모델</text>
+  <text x="170" y="410" text-anchor="middle" class="s">Converse API · 지금의 기본값</text>
+  <text x="170" y="424" text-anchor="middle" class="s">권당 실측 $0.003~0.070 기준선</text>
+
+  <rect x="320" y="372" width="240" height="68" rx="10" class="box"/>
+  <text x="440" y="394" text-anchor="middle" class="t">자체 sLLM — Bedrock CMI</text>
+  <text x="440" y="410" text-anchor="middle" class="s">Qwen3-4B · Qwen3-30B-A3B (InvokeModel)</text>
+  <text x="440" y="424" text-anchor="middle" class="s">유휴 5분 후 0원 · 콜드스타트 ≤1분</text>
+
+  <rect x="590" y="372" width="234" height="68" rx="10" class="boxw"/>
+  <text x="707" y="394" text-anchor="middle" class="t">35B급 예외 경로</text>
+  <text x="707" y="410" text-anchor="middle" class="s">Qwen3.6-35B-A3B는 CMI 불가 →</text>
+  <text x="707" y="424" text-anchor="middle" class="s">vLLM + g6e.xlarge(L40S 48GB) $1.861/h</text>
+
+  <path class="flow" d="M736 198 L736 330 L560 396"/>
+  <text x="746" y="290" class="n">어댑터 스위치</text>
+
+  <!-- Panel C: offline loop -->
+  <rect x="20" y="472" width="820" height="248" rx="14" class="panel"/>
+  <text x="36" y="494" class="ph">C. 오프라인 루프 — 학습과 판정 (요청 경로 밖, 배포 전에만 돈다)</text>
+
+  <rect x="36" y="508" width="196" height="112" rx="10" class="box"/>
+  <text x="134" y="528" text-anchor="middle" class="t">맥북 로컬 랩 (M5 Pro 48GB)</text>
+  <text x="134" y="546" text-anchor="middle" class="s">MLX QLoRA — 4bit 베이스 17.2GB</text>
+  <text x="134" y="560" text-anchor="middle" class="s">batch 1~2 · seq ≤2K · grad-ckpt</text>
+  <text x="134" y="574" text-anchor="middle" class="s">DPO: mlx-lm-lora · mlx-tune</text>
+  <text x="134" y="588" text-anchor="middle" class="s">데이터: 평가 리그 산출 선호쌍</text>
+  <text x="134" y="602" text-anchor="middle" class="s">소형 실험: Ollama 4B~0.6B</text>
+
+  <rect x="262" y="508" width="182" height="112" rx="10" class="box2"/>
+  <text x="353" y="528" text-anchor="middle" class="t">가중치 변환</text>
+  <text x="353" y="546" text-anchor="middle" class="s">fuse --dequantize (16bit 머지)</text>
+  <text x="353" y="560" text-anchor="middle" class="s">MoE experts 언스택</text>
+  <text x="353" y="574" text-anchor="middle" class="s">(switch_mlp → HF 레이아웃)</text>
+  <text x="353" y="588" text-anchor="middle" class="s">→ HF safetensors + config</text>
+  <text x="353" y="602" text-anchor="middle" class="s">재양자화는 서빙 직전 1회만</text>
+
+  <rect x="474" y="508" width="144" height="112" rx="10" class="box2"/>
+  <text x="546" y="528" text-anchor="middle" class="t">S3 → CMI 임포트</text>
+  <text x="546" y="546" text-anchor="middle" class="s">임포트 무료 · 15~30분</text>
+  <text x="546" y="560" text-anchor="middle" class="s">CMU 수 확정</text>
+  <text x="546" y="574" text-anchor="middle" class="s">= 비용표 확정</text>
+  <text x="546" y="588" text-anchor="middle" class="s">호출 스키마 test</text>
+
+  <rect x="646" y="508" width="180" height="112" rx="10" class="box"/>
+  <text x="736" y="528" text-anchor="middle" class="t">평가 리그 (BT + 95% CI)</text>
+  <text x="736" y="546" text-anchor="middle" class="s">튜닝 전후 개선폭 정량화</text>
+  <text x="736" y="560" text-anchor="middle" class="s">기성 모델 대비 교체 판정</text>
+  <text x="736" y="574" text-anchor="middle" class="s">(CI 겹침 = 교체 보류)</text>
+  <text x="736" y="588" text-anchor="middle" class="s">회귀 감지 — 나빠지면 롤백</text>
+  <text x="736" y="602" text-anchor="middle" class="s">상시 아님 · 판정 시점에만</text>
+
+  <path class="flow" d="M232 564 L258 564"/><text x="237" y="557" class="n">ⓐ</text>
+  <path class="flow" d="M444 564 L470 564"/><text x="449" y="557" class="n">ⓑ</text>
+  <path class="flow" d="M618 564 L642 564"/><text x="623" y="557" class="n">ⓒ</text>
+  <path class="side" d="M736 508 L736 462 L560 430"/>
+  <text x="620" y="456" class="n">ⓓ 통과 시에만 어댑터 설정 전환</text>
+
+  <text x="36" y="648" class="s">눈으로 접전을 가를 수 없어서 리그가 게이트다 — 실측에서 5위(1050, CI 1028~1072)와 4위(1052, CI 1023~1077)는 구간이 겹쳤다.</text>
+  <text x="36" y="666" class="s">리그가 만드는 것: ① 파인튜닝이 실제로 개선됐는지(전후 점수 차) ② 기성 모델을 교체해도 되는지(CI 분리) — 두 결정의 근거.</text>
+  <text x="36" y="694" class="s">A·B는 항상 돌고, C는 모델을 바꾸고 싶을 때만 돈다. C의 산출물은 가중치가 아니라 "B의 어댑터 설정을 바꿔도 된다는 근거"다.</text>
+</svg>
