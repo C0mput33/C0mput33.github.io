@@ -130,7 +130,37 @@ def _is_protected(start: int, end: int, spans: list[tuple[int, int]]) -> bool:
     return any(span_start < end and span_end > start for span_start, span_end in spans)
 
 
-def find_slot(text: str, term: str, spans: list[tuple[int, int]]):
+def _inside_longer_dictionary_term(
+    text: str,
+    start: int,
+    term: str,
+    dictionary: dict[str, str],
+) -> bool:
+    """Return whether a match is part of a more specific glossary surface form.
+
+    This prevents a later ``CI/CD`` occurrence from receiving the statistical
+    ``CI`` tooltip merely because the post already used its one ``CI/CD``
+    tooltip earlier.
+    """
+    for longer_term in dictionary:
+        if len(longer_term) <= len(term) or term not in longer_term:
+            continue
+        offset = longer_term.find(term)
+        while offset >= 0:
+            longer_start = start - offset
+            longer_end = longer_start + len(longer_term)
+            if longer_start >= 0 and text[longer_start:longer_end] == longer_term:
+                return True
+            offset = longer_term.find(term, offset + 1)
+    return False
+
+
+def find_slot(
+    text: str,
+    term: str,
+    spans: list[tuple[int, int]],
+    dictionary: dict[str, str],
+):
     escaped = re.escape(term)
     previous = r'(?<![A-Za-z0-9_가-힣&-])'
     if re.search(r'[A-Za-z0-9]$', term):
@@ -138,7 +168,10 @@ def find_slot(text: str, term: str, spans: list[tuple[int, int]]):
     else:
         following = rf'(?:(?![A-Za-z0-9_가-힣-])|(?=(?:{PARTICLE_PATTERN})(?![가-힣])))'
     for match in re.finditer(previous + escaped + following, text):
-        if not _is_protected(match.start(), match.end(), spans):
+        if (
+            not _is_protected(match.start(), match.end(), spans)
+            and not _inside_longer_dictionary_term(text, match.start(), term, dictionary)
+        ):
             return match
     return None
 
@@ -168,7 +201,7 @@ def transform(text: str, dictionary: dict[str, str]) -> tuple[str, int, int]:
     for term in sorted(dictionary, key=lambda value: (-len(value), value.casefold())):
         if re.search(rf'<span class="term" data-tip="[^"]*">{re.escape(term)}</span>', text):
             continue
-        match = find_slot(text, term, protected_spans(text))
+        match = find_slot(text, term, protected_spans(text), dictionary)
         if not match:
             continue
         text = text[:match.start()] + _canonical_span(term, dictionary[term]) + text[match.end():]

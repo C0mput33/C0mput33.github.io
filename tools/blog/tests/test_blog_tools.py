@@ -11,7 +11,7 @@ TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 
 from insert_tooltips import transform, validate_text  # noqa: E402
-from sync_tooltip_dictionary import render  # noqa: E402
+from sync_tooltip_dictionary import load_sources, render  # noqa: E402
 from validate_post import check_post  # noqa: E402
 
 
@@ -62,8 +62,29 @@ class TooltipTests(unittest.TestCase):
         self.assertIn("[DPO]: /reference", transformed)
         self.assertIn("본문 <span", transformed)
 
+    def test_short_term_is_not_inserted_inside_more_specific_term(self):
+        dictionary = {
+            "CI": "통계적 신뢰구간.",
+            "CI/CD": "지속적 통합과 배포.",
+        }
+        source = "CI/CD를 먼저 구성했다. 다음 CI/CD 파이프라인도 같은 설정이다."
+        transformed, added, _ = transform(source, dictionary)
+        self.assertEqual(added, 1)
+        self.assertIn(">CI/CD</span>를", transformed)
+        self.assertNotIn(">CI</span>/CD", transformed)
+
     def test_dictionary_render_is_deterministic(self):
         self.assertEqual(render({"B": "둘", "a": "하나"}), render({"a": "하나", "B": "둘"}))
+
+    def test_every_dictionary_term_requires_a_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "sources.json"
+            path.write_text(
+                '{"version":1,"reviewed":"2026-07-22","groups":['
+                '{"id":"documented","terms":["DPO"],"references":["https://example.com"]}]}'
+            )
+            with self.assertRaisesRegex(ValueError, "without sources: 부트스트랩"):
+                load_sources(path, self.dictionary)
 
 
 class ValidatorTests(unittest.TestCase):

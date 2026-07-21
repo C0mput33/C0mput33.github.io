@@ -108,7 +108,7 @@ async def impl_bulk_create_events(events: list) -> dict:
 IndentationError: unexpected indent (llm_client.py, line 303)
 ```
 
-`replace_string_in_file`로 코드를 수정하는 과정에서 `elif` 블록 뒤에 중복 코드가 남았다. `IndentationError`는 모듈을 파싱하거나 import할 때 잡히지만 당시 로컬·CI에 `compileall`이나 import 검사가 없었다. 빌드 뒤 애플리케이션이 시작될 때 처음 드러났다.
+`replace_string_in_file`로 코드를 수정하는 과정에서 `elif` 블록 뒤에 중복 코드가 남았다. `IndentationError`는 모듈을 파싱하거나 import할 때 잡히지만 당시 로컬·지속적 통합 환경에 `compileall`이나 import 검사가 없었다. 빌드 뒤 애플리케이션이 시작될 때 처음 드러났다.
 
 중복 블록을 제거하고 다시 배포했다. 배포 시도는 두 번이었고 첫 실패 후 6분 만에 복구했다.
 
@@ -134,7 +134,7 @@ IndentationError: unexpected indent (llm_client.py, line 303)
 
 ## 남은 설계 한계
 
-이 버그는 메시지 텍스트만으로 의도를 분류할 수 없는 경우를 보여줬다.[^1] 현재 구현은 직전 문장의 확인 표현을 문자열 목록으로 찾기 때문에 새로운 표현을 놓칠 수 있다. 장기적으로는 확인 대기 상태를 명시적인 상태값으로 저장하고, LLM <span class="term" data-tip="오픈라우터가 같은 모델을 여러 서빙 공급자 가운데 가격·가용성 기준으로 골라 보내는 것. 공급자가 바뀌면 캐시가 이어지지 않으므로, 라우팅 분산과 캐시 히트율은 서로 상충한다.">라우팅</span> 전에 그 상태를 확인하는 편이 안전하다.
+이 버그는 메시지 텍스트만으로 의도를 분류할 수 없는 경우를 보여줬다.[^1] 현재 구현은 직전 문장의 확인 표현을 문자열 목록으로 찾기 때문에 새로운 표현을 놓칠 수 있다. 장기적으로는 확인 대기 상태를 명시적인 상태값으로 저장하고, <span class="term" data-tip="Large Language Model. 많은 텍스트에서 토큰의 조건부 분포를 학습해 문장을 생성하거나 분류·요약·추론 작업을 수행하는 언어 모델을 뜻한다.">LLM</span> <span class="term" data-tip="오픈라우터가 같은 모델을 여러 서빙 공급자 가운데 가격·가용성 기준으로 골라 보내는 것. 공급자가 바뀌면 캐시가 이어지지 않으므로, 라우팅 분산과 캐시 히트율은 서로 상충한다.">라우팅</span> 전에 그 상태를 확인하는 편이 안전하다.
 
 동일 시나리오 테스트와 `compileall`을 배포 게이트에 함께 두어 같은 경로의 회귀를 막아야 한다.
 

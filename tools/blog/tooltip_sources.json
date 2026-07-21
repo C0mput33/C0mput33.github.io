@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "reviewed": "2026-07-22",
+  "groups": [
+    {
+      "id": "project-eval-runtime",
+      "terms": ["A/B", "Arena 점수", "Match Rate", "contest", "jury", "retire2", "top-k", "골든셋", "능동 표집", "반응성 β", "부활전", "오은퇴", "양방향 swap", "위치 편향", "자기 선호", "체크포인트"],
+      "references": [
+        "project:C0mput33/little-bard/eval/app/index.html",
+        "project:C0mput33/little-bard/eval/aggregate/bradley_terry.py",
+        "project:C0mput33/little-bard/eval/config/rubric.yaml"
+      ]
+    },
+    {
+      "id": "statistics-and-ranking",
+      "terms": ["BT", "Bradley-Terry", "CI", "Cohen's κ", "Davidson", "E-value", "Elo", "Fisher-Yates", "Glicko", "K-팩터", "Krippendorff α", "MAE", "MLE", "MM 알고리즘", "Spearman", "Swiss", "anytime-valid", "expander", "pairwise", "racing", "t-검정", "결정론적", "라운드로빈", "몬테카를로", "백분위", "부트스트랩", "순서통계량", "스펙트럴 갭", "신뢰구간", "완전그래프", "최우도", "층화 표집"],
+      "references": [
+        "https://www.itl.nist.gov/div898/handbook/",
+        "https://doi.org/10.2307/2334029",
+        "https://doi.org/10.1214/aos/1079120141",
+        "https://doi.org/10.2307/2334441",
+        "http://www.glicko.net/glicko/glicko.pdf",
+        "https://doi.org/10.1177/001316446002000104",
+        "https://arxiv.org/abs/1906.07801"
+      ]
+    },
+    {
+      "id": "llm-evaluation-primary",
+      "terms": ["Chatbot Arena", "CoT", "EQ-Bench", "G-Eval", "GSM8K", "IFEval", "InfoBench", "LLM-as-a-Judge", "LMArena", "MMLU", "루브릭"],
+      "references": [
+        "https://arxiv.org/abs/2403.04132",
+        "https://arxiv.org/abs/2201.11903",
+        "https://arxiv.org/abs/2110.14168",
+        "https://arxiv.org/abs/2303.16634",
+        "https://arxiv.org/abs/2311.07911",
+        "https://arxiv.org/abs/2401.03601",
+        "https://arxiv.org/abs/2009.03300",
+        "https://arxiv.org/abs/2306.05685",
+        "https://eqbench.com/creative_writing.html"
+      ]
+    },
+    {
+      "id": "browser-storage-and-web-standards",
+      "terms": ["API", "HTML", "HTTP", "IndexedDB", "JSON", "TTL", "localStorage", "비동기", "캐시 미스"],
+      "references": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria",
+        "https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API",
+        "https://developer.mozilla.org/en-US/docs/Glossary/API",
+        "https://www.rfc-editor.org/rfc/rfc9110",
+        "https://www.rfc-editor.org/rfc/rfc8259",
+        "https://html.spec.whatwg.org/",
+        "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS/Introducing"
+      ]
+    },
+    {
+      "id": "application-and-delivery",
+      "terms": ["CI/CD", "Cloud Run", "DLQ", "FastAPI", "SLA", "gRPC", "webhook", "게이트웨이", "멱등", "콜드스타트", "헥사고날"],
+      "references": [
+        "https://docs.github.com/en/actions/get-started/continuous-integration",
+        "https://cloud.google.com/run/docs/overview/what-is-cloud-run",
+        "https://cloud.google.com/run/docs/tips/general",
+        "https://fastapi.tiangolo.com/",
+        "https://grpc.io/docs/what-is-grpc/introduction/",
+        "https://sre.google/sre-book/service-level-objectives/",
+        "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/hexagonal-architecture.html",
+        "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html",
+        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html",
+        "https://docs.stripe.com/webhooks"
+      ]
+    },
+    {
+      "id": "llm-core-and-inference",
+      "terms": ["GPU", "KV 캐시", "LLM", "P95", "TTFT", "VRAM", "temperature", "시스템 프롬프트", "추론 토큰", "처리량", "토큰", "프리픽스", "하네스"],
+      "references": [
+        "https://huggingface.co/docs/transformers/tokenizer_summary",
+        "https://huggingface.co/docs/transformers/llm_tutorial",
+        "https://platform.openai.com/docs/api-reference/chat/object",
+        "https://platform.openai.com/docs/guides/reasoning",
+        "https://docs.vllm.ai/en/latest/design/paged_attention/",
+        "https://www.brendangregg.com/methodology.html",
+        "https://blog.nelhage.com/post/computers-can-be-understood/"
+      ]
+    },
+    {
+      "id": "openrouter-runtime",
+      "terms": ["Effective Pricing", "ITPM", "OTPM", "OpenRouter", "RPM", "TPM", "slug", "라우팅", "실청구액", "캐시 히트율", "쿼터", "프롬프트 캐싱"],
+      "references": [
+        "https://openrouter.ai/docs/faq",
+        "https://openrouter.ai/docs/cookbook/administration/usage-accounting",
+        "https://openrouter.ai/docs/guides/routing/provider-selection",
+        "https://openrouter.ai/docs/guides/best-practices/prompt-caching",
+        "project:C0mput33/little-bard/eval/analysis/cost-per-book/"
+      ]
+    },
+    {
+      "id": "readability-primary",
+      "terms": ["ARI", "Coleman–Liau", "FKGL", "Lexile"],
+      "references": [
+        "https://apps.dtic.mil/sti/citations/AD0667273",
+        "https://doi.org/10.1037/h0076540",
+        "https://stars.library.ucf.edu/istlibrary/56/",
+        "https://metametricsinc.com/wp-content/uploads/2017/07/Stenner_Burdick_Sanford__Burdick-_The_LFR_Technical_Report.pdf"
+      ]
+    },
+    {
+      "id": "model-formats-and-serving",
+      "terms": ["AWQ", "GGUF", "L40S", "MTP", "MoE", "Ollama", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "양자화", "통합 메모리", "활성 파라미터"],
+      "references": [
+        "https://arxiv.org/abs/2306.00978",
+        "https://arxiv.org/abs/2404.19737",
+        "https://arxiv.org/abs/2101.03961",
+        "https://github.com/ggml-org/ggml/blob/master/docs/gguf.md",
+        "https://github.com/ggml-org/llama.cpp",
+        "https://docs.vllm.ai/",
+        "https://ollama.com/blog/openai-compatibility",
+        "https://www.nvidia.com/en-us/data-center/l40s/",
+        "https://support.apple.com/guide/activity-monitor/view-memory-usage-actmntr1004/mac",
+        "project:C0mput33/little-bard/eval/config/models.yaml"
+      ]
+    },
+    {
+      "id": "post-training-and-model-files",
+      "terms": ["DPO", "LoRA", "MLX", "QLoRA", "TRL", "safetensors", "transformers"],
+      "references": [
+        "https://arxiv.org/abs/2305.18290",
+        "https://arxiv.org/abs/2106.09685",
+        "https://arxiv.org/abs/2305.14314",
+        "https://huggingface.co/docs/transformers/",
+        "https://huggingface.co/docs/trl/",
+        "https://huggingface.co/docs/safetensors/",
+        "https://ml-explore.github.io/mlx/build/html/index.html"
+      ]
+    },
+    {
+      "id": "aws-bedrock-and-cost",
+      "terms": ["CMI", "CMU", "Converse", "InvokeModel", "관리형 API", "손익분기", "스팟", "온디맨드"],
+      "references": [
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html",
+        "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_CustomModelUnits.html",
+        "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference-call.html",
+        "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html",
+        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
+        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html",
+        "project:C0mput33/little-bard/eval/analysis/cost-per-book/"
+      ]
+    },
+    {
+      "id": "external-benchmark-services",
+      "terms": ["Artificial Analysis"],
+      "references": ["https://artificialanalysis.ai/methodology"]
+    }
+  ]
+}

@@ -14,7 +14,7 @@ bundle install
 bundle exec jekyll serve
 ```
 
-새 용어는 `tools/blog/tooltip_dict.json`에만 추가한다. 문서와 본문은 동기화 도구로 갱신한다.
+새 용어는 `tools/blog/tooltip_dict.json`에 정의를, `tools/blog/tooltip_sources.json`에 공식·1차·프로젝트 근거를 함께 추가한다. 문서와 본문은 동기화 도구로 갱신한다.
 글의 문제 해결 흐름과 유형별 골격은 [`tools/blog/developer-blog-patterns.md`](tools/blog/developer-blog-patterns.md)에 정리했다.
 
 ## 배포
