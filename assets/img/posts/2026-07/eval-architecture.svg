@@ -34,24 +34,24 @@
 
   <rect x="238" y="78" width="180" height="112" rx="12" class="box"/>
   <text x="254" y="102" class="lab">생성 (프롬프트 × 생존자)</text>
-  <text x="254" y="122" class="t">orCall · temp 0.7</text>
-  <text x="254" y="139" class="s">OpenRouter / Ollama(로컬)</text>
-  <text x="254" y="154" class="s">출력 정제 → 한국어 번역</text>
-  <text x="254" y="169" class="s">모델별 토큰·비용 누적</text>
+  <text x="254" y="122" class="t">temp 0.7 · 출력 토큰 상한</text>
+  <text x="254" y="139" class="s">통합 요청: 주제·형식·길이</text>
+  <text x="254" y="154" class="s">연령·Lexile → 영어 원문</text>
+  <text x="254" y="169" class="s">한국어 번역(표시) · 비용 누적</text>
 
   <rect x="448" y="78" width="196" height="112" rx="12" class="box"/>
   <text x="464" y="102" class="lab">판정 (쌍 × 심판, 자기계열 제외)</text>
   <text x="464" y="122" class="t">temp 0 · 양방향 swap</text>
-  <text x="464" y="139" class="s">judge(A,B) + judge(B,A)</text>
-  <text x="464" y="154" class="s">parseWin → 평균 score 0/½/1</text>
-  <text x="464" y="169" class="s">parse_ok 집계(침묵 tie 감시)</text>
+  <text x="464" y="139" class="s">요청·연령·Lexile·실측 단어 수</text>
+  <text x="464" y="154" class="s">strict WINNER → contest 평균</text>
+  <text x="464" y="169" class="s">파싱 실패는 invalid 제외</text>
 
   <rect x="674" y="78" width="158" height="112" rx="12" class="box"/>
   <text x="690" y="102" class="lab">③ 결과</text>
   <text x="690" y="122" class="t">Arena(BT) + 95% CI</text>
   <text x="690" y="139" class="s">Elo(보조·진단)</text>
   <text x="690" y="154" class="s">축 진단 · 자기편향 카드</text>
-  <text x="690" y="169" class="s">난이도 β(반응성)</text>
+  <text x="690" y="169" class="s">가독성·β(별도, BT 미사용)</text>
 
   <path class="flow" d="M208 134 L236 134"/>
   <path class="flow" d="M418 134 L446 134"/>
