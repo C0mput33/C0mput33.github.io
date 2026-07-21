@@ -3,12 +3,10 @@ title: "Telegram AI 비서를 만들면서 배운 것들"
 date: 2026-04-20 22:00:00 +0900
 categories: [Projects, AI Engineering]
 tags: [telegram-bot, fastapi, claude, gemini, cloud-run, python]
-description: FastAPI + Claude API로 Telegram 봇을 만들고, 실제로 쓰면서 발견한 구조적 문제들과 그 해결 과정을 정리합니다.
+description: FastAPI와 Claude API로 Telegram 봇을 만든 뒤 실제 사용에서 발견한 비용·지연·컨텍스트 문제와 모델 라우팅, 캐시, 배포 선택을 기록한다.
 ---
 
-SW Maestro에 합격하고 처음 한 것이 "나를 위한 AI 비서"를 만드는 것이었다. GitHub, Calendar, Notion, GCS를 모두 Telegram 하나로 제어하고, 프로젝트 현황도 물어보면 바로 알 수 있는 그런 시스템.
-
-구현 자체는 어렵지 않을 것 같았다. Claude API가 tool use를 지원하고, FastAPI로 webhook을 받으면 되니까. 실제로 첫 버전은 이틀 만에 동작했다. 그런데 "동작한다"와 "실제로 쓸 만하다"는 완전히 다른 이야기였다.
+SW Maestro 합격 뒤 GitHub, Calendar, Notion, GCS를 Telegram에서 다루는 개인용 AI 비서를 만들었다. Claude의 tool use와 FastAPI webhook을 연결한 첫 버전은 이틀 만에 동작했지만, 모든 요청을 같은 모델로 보내자 단순 질문에도 3~5초와 건당 $0.02~0.05가 들었다. 이 글은 모델 라우팅과 prompt caching을 도입한 이유, Cloud Run 배포, 실제 사용 뒤 남은 문제를 기록한다.
 
 ---
 
@@ -20,7 +18,7 @@ SW Maestro에 합격하고 처음 한 것이 "나를 위한 AI 비서"를 만드
 Telegram → FastAPI webhook → Claude API (with tools) → 응답
 ```
 
-모든 메시지를 Claude로 보내고, Claude가 판단해서 도구를 쓰거나 텍스트로 답한다. 심플하고 직관적이었다.
+모든 메시지를 Claude로 보내고, Claude가 판단해서 도구를 쓰거나 텍스트로 답하는 구조였다.
 
 문제는 비용이었다. "오늘 뭐야?" 같은 단순 질문도 Claude Sonnet을 거치면서 **건당 $0.02~0.05**가 나갔다. 하루에 50번 물어보면 $1~2.5. 한 달이면 $30~75.
 
@@ -30,7 +28,7 @@ Telegram → FastAPI webhook → Claude API (with tools) → 응답
 
 ## 멀티 모델 라우팅 도입
 
-고민 끝에 내린 결론은 **작업 유형에 따라 다른 모델을 쓰자**는 것이었다.
+비용과 지연을 함께 줄이기 위해 작업 유형별로 모델을 나눴다.
 
 | 작업 유형 | 사용 모델 | 이유 |
 |-----------|-----------|------|
@@ -78,7 +76,7 @@ _CACHED_SYSTEM: list[dict] = [
 
 ## 배포: Cloud Run
 
-로컬에서 잘 되는 걸 배포하는 과정이 항상 문제다. 처음엔 Railway를 고려했는데, 아래 이유로 Cloud Run을 선택했다.
+배포 후보로 Railway와 Cloud Run을 검토했고 다음 조건 때문에 Cloud Run을 선택했다.
 
 - Google Calendar/Drive/GCS API를 쓰는데, GCP 서비스가 VPC 내에서 더 빠르다
 - 트래픽이 없을 때 0으로 스케일다운 → 비용 절감
@@ -92,7 +90,7 @@ _CACHED_SYSTEM: list[dict] = [
 
 ## 아직 남은 문제들
 
-솔직히 지금도 완벽하지 않다.
+현재 구현에는 세 가지 문제가 남아 있다.
 
 1. **컨텍스트 관리**: 긴 대화를 하다 보면 토큰 한도에 가까워진다. 현재는 단순 슬라이딩 윈도우로 자르는데, 중요한 정보가 잘릴 수 있다.
 2. **분류 오류**: 키워드 기반 분류는 "오늘 날씨 어때?"를 `TOOL_TASK`로 잘못 분류할 수 있다. (날씨 API는 없어서 결국 Claude가 "날씨를 알 수 없습니다"라고 한다.)
@@ -102,11 +100,9 @@ _CACHED_SYSTEM: list[dict] = [
 
 ---
 
-## 결론
+## 현재 기준과 다음 작업
 
-기본 구조가 돌아가는 건 생각보다 빨랐다. 그런데 실제로 매일 쓰면서 느끼는 불편함을 고쳐나가는 게 훨씬 오래 걸렸고, 그게 더 배우는 게 많다.
-
-"잘 만든 AI 비서"가 아니라 "내가 실제로 매일 쓰는 도구"를 만드는 게 목표다. 그 기준으로 보면 아직 갈 길이 멀다.
+첫 버전보다 모델 라우팅과 캐시 적용 뒤의 비용·지연은 줄었다. 반면 키워드 분류는 짧은 확인 응답의 문맥을 읽지 못하고, 슬라이딩 윈도우는 중요한 정보를 자를 수 있다. 다음 작업은 단답형 응답의 문맥 유실을 재현하고 라우터가 직전 확인 상태를 읽게 만드는 것이다.
 
 ---
 
