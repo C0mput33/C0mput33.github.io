@@ -38,7 +38,7 @@ Telegram → FastAPI webhook → Claude API (with tools) → 응답
 | `TOOL_TASK` — 도구 호출 필요 | Claude Sonnet 4.5 | Tool use 지원 |
 | `DEEP_TASK` — 코드 분석/설계 | Claude Sonnet 4.5 + Thinking | 정확도 우선 |
 
-분류 로직은 키워드 기반이다. "이슈", "캘린더", "일정", "드라이브" 등이 있으면 `TOOL_TASK`, 그 외 단순 질문은 `FAST_QA`로 라우팅.
+분류 로직은 키워드 기반이다. "이슈", "캘린더", "일정", "드라이브" 등이 있으면 `TOOL_TASK`, 그 외 단순 질문은 `FAST_QA`로 <span class="term" data-tip="오픈라우터가 같은 모델을 여러 서빙 공급자 가운데 가격·가용성 기준으로 골라 보내는 것. 공급자가 바뀌면 캐시가 이어지지 않으므로, 라우팅 분산과 캐시 히트율은 서로 상충한다.">라우팅</span>.
 
 ```python
 _TOOL_KEYWORDS = frozenset([
@@ -72,7 +72,7 @@ _CACHED_SYSTEM: list[dict] = [
 ]
 ```
 
-캐시 TTL이 5분이라 대화가 뜸하면 캐시 미스가 나지만, 집중적으로 쓸 때는 효과가 크다.
+캐시 <span class="term" data-tip="Time To Live. 데이터에 걸어 두는 유효 시간으로, 지나면 자동 삭제된다. 진행률처럼 잠깐만 의미 있는 값을 별도 청소 코드 없이 관리할 수 있다.">TTL</span>이 5분이라 대화가 뜸하면 캐시 미스가 나지만, 집중적으로 쓸 때는 효과가 크다.
 
 ---
 
