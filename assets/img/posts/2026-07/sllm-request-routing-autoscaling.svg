@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="860" viewBox="0 0 1200 860" role="img" aria-labelledby="title desc">
+  <title id="title">비동기 sLLM 요청 처리와 오토스케일링 설계</title>
+  <desc id="desc">모바일 요청이 게이트웨이와 Job API, 내구성 큐를 거쳐 생성 워커와 캐시 인지 라우터로 전달된다. 유휴 시 GPU는 0개이고, 급증 시 여러 vLLM 복제본으로 늘어난다. 작업 상태와 메트릭은 GPU 밖에 저장된다.</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 15px -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; fill: #64748b; }
+      .section { font: 700 16px -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; fill: #334155; letter-spacing: .5px; }
+      .label { font: 700 17px -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; fill: #0f172a; }
+      .body { font: 400 14px -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; fill: #475569; }
+      .small { font: 400 12px -apple-system, BlinkMacSystemFont, "Pretendard", "Noto Sans KR", sans-serif; fill: #64748b; }
+      .mono { font: 600 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #1e3a8a; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 14; filter: url(#shadow); }
+      .flow { fill: none; stroke: #475569; stroke-width: 2; marker-end: url(#arrow); }
+      .control { fill: none; stroke: #2563eb; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#arrowBlue); }
+    </style>
+  </defs>
+
+  <rect width="1200" height="860" rx="24" fill="#f8fafc"/>
+  <text x="48" y="54" class="title">동화 생성 요청을 운영 경로로 바꾸기</text>
+  <text x="48" y="82" class="subtitle">설계안 · 앱은 모델을 직접 호출하지 않고, 비싼 GPU만 트래픽에 따라 늘고 줄어든다</text>
+
+  <text x="48" y="126" class="section">요청과 작업 상태</text>
+
+  <rect x="48" y="148" width="150" height="116" class="box"/>
+  <circle cx="123" cy="184" r="18" fill="#dbeafe"/>
+  <path d="M116 181h14M116 187h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/>
+  <text x="123" y="222" text-anchor="middle" class="label">모바일 앱</text>
+  <text x="123" y="245" text-anchor="middle" class="small">생성 요청 · 상태 조회</text>
+
+  <rect x="242" y="148" width="170" height="116" class="box"/>
+  <text x="327" y="185" text-anchor="middle" class="label">API 게이트웨이</text>
+  <text x="327" y="214" text-anchor="middle" class="body">인증 · rate limit</text>
+  <text x="327" y="237" text-anchor="middle" class="body">요청 크기 · 추적 ID</text>
+
+  <rect x="456" y="148" width="188" height="116" class="box"/>
+  <text x="550" y="180" text-anchor="middle" class="label">Job API</text>
+  <text x="550" y="207" text-anchor="middle" class="mono">202 + job_id</text>
+  <text x="550" y="232" text-anchor="middle" class="body">검증 · 멱등 키</text>
+  <text x="550" y="252" text-anchor="middle" class="small">외부 계약은 모델과 분리</text>
+
+  <rect x="688" y="148" width="202" height="116" class="box"/>
+  <text x="789" y="180" text-anchor="middle" class="label">내구성 큐 + DB</text>
+  <text x="789" y="207" text-anchor="middle" class="body">queued → running → done</text>
+  <text x="789" y="231" text-anchor="middle" class="body">재시도 · 취소 · DLQ</text>
+  <text x="789" y="252" text-anchor="middle" class="small">GPU가 꺼져도 작업은 보존</text>
+
+  <rect x="934" y="148" width="218" height="116" class="box"/>
+  <text x="1043" y="180" text-anchor="middle" class="label">생성 워커</text>
+  <text x="1043" y="207" text-anchor="middle" class="body">모델 어댑터 호출</text>
+  <text x="1043" y="231" text-anchor="middle" class="body">결과 저장 · 단계 갱신</text>
+  <text x="1043" y="252" text-anchor="middle" class="small">CMI ↔ vLLM 교체 가능</text>
+
+  <path d="M198 206H232" class="flow"/>
+  <path d="M412 206H446" class="flow"/>
+  <path d="M644 206H678" class="flow"/>
+  <path d="M890 206H924" class="flow"/>
+
+  <text x="48" y="326" class="section">모델 실행과 용량 제어</text>
+
+  <rect x="48" y="348" width="220" height="174" class="box"/>
+  <text x="70" y="382" class="label">오토스케일러</text>
+  <text x="70" y="414" class="body">입력</text>
+  <text x="88" y="440" class="body">• 실행·대기 요청</text>
+  <text x="88" y="464" class="body">• 가장 오래된 작업 나이</text>
+  <text x="88" y="488" class="body">• 목표 동시성 · 상한</text>
+  <text x="70" y="510" class="small">결정 시점과 GPU 준비 시점은 따로 측정</text>
+
+  <rect x="312" y="348" width="234" height="174" class="box"/>
+  <text x="334" y="382" class="label">캐시 인지 라우터</text>
+  <text x="334" y="413" class="body">1. healthy·버전 일치</text>
+  <text x="334" y="439" class="body">2. 과부하 replica 제외</text>
+  <text x="334" y="465" class="body">3. 프리픽스 캐시 + 현재 부하</text>
+  <text x="334" y="491" class="body">4. 실패 시 다음 후보로 폴백</text>
+  <text x="334" y="511" class="small">사용자 고정만으로 라우팅하지 않음</text>
+
+  <rect x="604" y="348" width="168" height="174" class="box"/>
+  <rect x="622" y="366" width="132" height="30" rx="8" fill="#dbeafe"/>
+  <text x="688" y="387" text-anchor="middle" class="mono">vLLM A</text>
+  <text x="688" y="425" text-anchor="middle" class="body">GPU replica</text>
+  <text x="688" y="452" text-anchor="middle" class="body">local KV cache</text>
+  <text x="688" y="480" text-anchor="middle" class="small">running · waiting</text>
+  <text x="688" y="502" text-anchor="middle" class="small">drain 후 축소</text>
+
+  <rect x="792" y="348" width="168" height="174" class="box"/>
+  <rect x="810" y="366" width="132" height="30" rx="8" fill="#dcfce7"/>
+  <text x="876" y="387" text-anchor="middle" class="mono" style="fill:#166534">vLLM B</text>
+  <text x="876" y="425" text-anchor="middle" class="body">GPU replica</text>
+  <text x="876" y="452" text-anchor="middle" class="body">local KV cache</text>
+  <text x="876" y="480" text-anchor="middle" class="small">0→N일 때 추가</text>
+  <text x="876" y="502" text-anchor="middle" class="small">부하와 캐시 동시 고려</text>
+
+  <rect x="980" y="348" width="172" height="174" class="box"/>
+  <rect x="998" y="366" width="136" height="30" rx="8" fill="#fef3c7"/>
+  <text x="1066" y="387" text-anchor="middle" class="mono" style="fill:#92400e">vLLM N</text>
+  <text x="1066" y="425" text-anchor="middle" class="body">최대 replica 상한</text>
+  <text x="1066" y="452" text-anchor="middle" class="body">예산·GPU quota</text>
+  <text x="1066" y="480" text-anchor="middle" class="small">무한 확장 금지</text>
+  <text x="1066" y="502" text-anchor="middle" class="small">준비 전 요청은 큐에 대기</text>
+
+  <path d="M1043 264V304H429V338" class="flow"/>
+  <path d="M546 420H570V320H1066" fill="none" stroke="#475569" stroke-width="2"/>
+  <path d="M688 320V338" class="flow"/>
+  <path d="M876 320V338" class="flow"/>
+  <path d="M1066 320V338" class="flow"/>
+  <path d="M268 434H302" class="control"/>
+  <path d="M158 348V304H789V274" class="control"/>
+
+  <text x="48" y="586" class="section">트래픽 상태별 동작</text>
+
+  <rect x="48" y="608" width="330" height="126" rx="16" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="70" y="642" class="label" style="fill:#1d4ed8">IDLE · 요청 없음</text>
+  <text x="70" y="672" class="body">API·큐·DB는 유지, GPU replica는 0개</text>
+  <text x="70" y="697" class="body">첫 작업은 큐에서 모델 시작을 기다림</text>
+  <text x="70" y="718" class="small">콜드스타트가 SLO를 넘으면 최소 1개 유지</text>
+
+  <rect x="404" y="608" width="352" height="126" rx="16" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="426" y="642" class="label" style="fill:#15803d">NORMAL · 평시</text>
+  <text x="426" y="672" class="body">측정한 목표 동시성 안에서 1개 replica 처리</text>
+  <text x="426" y="697" class="body">큐 나이·TTFT·KV cache 사용률 관측</text>
+  <text x="426" y="718" class="small">단일 replica에는 고급 라우터를 두지 않음</text>
+
+  <rect x="782" y="608" width="370" height="126" rx="16" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="804" y="642" class="label" style="fill:#c2410c">BURST · 요청 급증</text>
+  <text x="804" y="672" class="body">큐가 먼저 흡수, 준비된 GPU로 1→N 확장</text>
+  <text x="804" y="697" class="body">상한을 넘으면 rate limit·429·재시도 안내</text>
+  <text x="804" y="718" class="small">캐시 이득보다 과부하 방지가 먼저</text>
+
+  <rect x="48" y="770" width="1104" height="54" rx="14" fill="#0f172a"/>
+  <text x="70" y="794" class="small" style="fill:#cbd5e1">관측 경계</text>
+  <text x="70" y="814" class="body" style="fill:#f8fafc">queue age · desired/ready replica · cold start · TTFT · P95 · KV cache hit · fallback · 권당 GPU 초 · 정책 버전</text>
+</svg>

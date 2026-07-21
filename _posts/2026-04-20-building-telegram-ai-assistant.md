@@ -36,7 +36,7 @@ Telegram → FastAPI webhook → Claude API (with tools) → 응답
 | `TOOL_TASK` — 도구 호출 필요 | Claude Sonnet 4.5 | Tool use 지원 |
 | `DEEP_TASK` — 코드 분석/설계 | Claude Sonnet 4.5 + Thinking | 정확도 우선 |
 
-분류 로직은 키워드 기반이다. "이슈", "캘린더", "일정", "드라이브" 등이 있으면 `TOOL_TASK`, 그 외 단순 질문은 `FAST_QA`로 <span class="term" data-tip="오픈라우터가 같은 모델을 여러 서빙 공급자 가운데 가격·가용성 기준으로 골라 보내는 것. 공급자가 바뀌면 캐시가 이어지지 않으므로, 라우팅 분산과 캐시 히트율은 서로 상충한다.">라우팅</span>.
+분류 로직은 키워드 기반이다. "이슈", "캘린더", "일정", "드라이브" 등이 있으면 `TOOL_TASK`, 그 외 단순 질문은 `FAST_QA`로 <span class="term" data-tip="들어온 요청을 여러 서버·모델·공급자 후보 중 하나로 보내는 선택 과정. 가용성, 현재 부하, 비용, 캐시 재사용 가능성처럼 목적에 맞는 기준과 실패 시 대체 경로가 필요하다.">라우팅</span>.
 
 ```python
 _TOOL_KEYWORDS = frozenset([

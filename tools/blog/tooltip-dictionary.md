@@ -85,6 +85,7 @@
 | safetensors | 텐서와 메타데이터를 저장하는 포맷과 라이브러리. pickle처럼 로드 중 임의 코드를 실행하지 않도록 설계됐으며 지연 로딩과 부분 읽기를 지원한다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | SLA | Service Level Agreement. 제공자와 고객이 가용성·응답·지원 같은 서비스 수준과 측정 조건을 합의한 계약이다. 내부 목표인 SLO와는 구분한다. | [`application-and-delivery`](#application-and-delivery) |
 | sLLM | 보통 Small Language Model을 뜻하지만 공식적으로 고정된 크기 기준은 없다. 이 블로그에서는 프론티어 API 모델보다 작고 직접 배포할 수 있는 후보 모델을 가리킨다. | [`model-formats-and-serving`](#model-formats-and-serving) |
+| SLO | Service Level Objective. 지연·가용성·성공률처럼 사용자가 체감하는 서비스 수준에 대해 팀이 내부적으로 정한 측정 가능한 목표다. 고객과 맺는 계약인 SLA와 구분한다. | [`application-and-delivery`](#application-and-delivery) |
 | slug | API에서 모델을 지정하는 고유 식별 문자열(예: openai/gpt-5.2). 오타가 나면 호출 시점에야 404로 드러난다. | [`openrouter-runtime`](#openrouter-runtime) |
 | Spearman | 두 변수의 순위를 비교하는 비모수 상관계수. 1은 같은 순서, -1은 완전히 반대 순서이며 0은 순위 사이의 단조 관계가 관측되지 않았다는 뜻이다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | Swiss | 체스 대회처럼 매 라운드 비슷한 성적끼리만 매칭하는 방식. 접전 정보를 빨리 모으지만, 다음 대진이 중간 성적에 좌우되는 적응형이라 통계적 보정 없이는 승률과 신뢰구간이 편향될 수 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
@@ -104,18 +105,21 @@
 | 골든셋 | 사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 관리형 API | 이 글에서 사업자가 호스팅하는 기성 모델을 요청량에 따라 과금받아 호출하는 방식을 가리킨다. GPU 운영 부담은 줄지만 지원 모델·가격·버전·데이터 정책은 공급자 조건에 따른다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 능동 표집 | 아무 쌍이나 무작위로 고르지 않고, 정보가 많은 비교(아직 순위가 갈리지 않은 접전 쌍)를 우선 고르는 표집 전략. 이미 확실히 갈린 쌍을 또 비교하는 낭비를 줄인다. | [`project-eval-runtime`](#project-eval-runtime) |
-| 라우팅 | 오픈라우터가 같은 모델을 여러 서빙 공급자 가운데 가격·가용성 기준으로 골라 보내는 것. 공급자가 바뀌면 캐시가 이어지지 않으므로, 라우팅 분산과 캐시 히트율은 서로 상충한다. | [`openrouter-runtime`](#openrouter-runtime) |
+| 동시성 | 같은 시점에 처리 중인 요청 수. 단위 시간당 완료량인 처리량과 다르며, 한도를 지나치게 높이면 각 요청의 지연과 메모리 사용량이 함께 늘 수 있다. | [`application-and-delivery`](#application-and-delivery) |
+| 라우팅 | 들어온 요청을 여러 서버·모델·공급자 후보 중 하나로 보내는 선택 과정. 가용성, 현재 부하, 비용, 캐시 재사용 가능성처럼 목적에 맞는 기준과 실패 시 대체 경로가 필요하다. | [`application-and-delivery`](#application-and-delivery) |
 | 라운드로빈 | 여러 목록을 돌아가며 하나씩 공평하게 뽑는 순회 방식. 각 목록의 비율을 자연스럽게 유지한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 루브릭 | 평가할 기준과 각 기준의 판단 수준을 미리 적은 채점 지침. 이름만 나열하지 않고 기준 설명과 점수 앵커를 함께 줘야 평가자마다 뜻이 달라지는 문제를 줄일 수 있다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
 | 멱등 | 같은 요청이 실수로 두 번 와도 결과는 한 번 처리한 것과 같게 만드는 성질. 재시도와 중복 클릭이 존재하는 분산 시스템에서 중복 생성·중복 과금을 막는 기본 장치다. | [`application-and-delivery`](#application-and-delivery) |
 | 몬테카를로 | 난수를 반복해서 뽑아 확률·기댓값·분포처럼 직접 계산하기 어려운 값을 근사하는 방법. 반복 횟수를 늘리면 시뮬레이션 오차는 보통 줄지만 잘못된 모델이나 표집 편향까지 고쳐주지는 않는다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 반응성 β | 목표 레벨을 한 단계 바꿨을 때 측정 난이도가 실제로 몇 단계 움직였는지의 회귀 기울기. 1.0이면 지시한 만큼 정확히 반응한다는 뜻. 절대 눈금이 틀린 자로도 변화량은 잴 수 있다는 발상이다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 백분위 | 데이터를 작은 순서로 놓았을 때 일정 비율이 그 값 이하에 놓이도록 정한 경계값. 표본에서 백분위를 계산하는 보간 규칙은 도구마다 조금 다를 수 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
+| 백프레셔 | 처리하는 쪽이 감당할 수 없을 때 요청을 무한히 받지 않고 대기·제한·거절 신호로 유입 속도를 낮추는 제어. 큐의 메모리 고갈과 연쇄 장애를 막는 데 쓴다. | [`application-and-delivery`](#application-and-delivery) |
 | 부트스트랩 | 가진 데이터에서 복원추출로 여러 번 가짜 표본을 만들어 같은 계산을 반복하고, 그 결과들의 흩어짐으로 추정치의 불확실성을 재는 방법. 표본이 모집단을 대표한다면 재표집의 흔들림이 실제 추정 오차와 비슷하다는 원리다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 부활전 | 은퇴한 후보에게 배치 경계마다 생존자와 소량 재대결 기회를 줘서, 신뢰구간이 회복되면 복귀시키는 보험 옵션. 오은퇴 위험을 줄이지만 추가 비용이 든다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 비동기 | 작업 완료를 기다리며 실행 흐름 전체를 막지 않고, 결과를 나중에 받도록 분리하는 방식. 비동기라고 해서 자동으로 병렬 실행되거나 더 빨라지는 것은 아니다. | [`browser-storage-and-web-standards`](#browser-storage-and-web-standards) |
 | 손익분기 | 두 선택지의 총비용이 같아지는 지점. 여기서는 GPU 월 고정비를 관리형 API의 권당 변동비로 나눠 몇 권부터 GPU가 싸지는지를 계산한다. 대체 대상이 쌀수록 분기점은 뒤로 밀린다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 순서통계량 | 표본을 작은 순서로 정렬했을 때 k번째 값처럼 위치로 정의되는 통계량. 최솟값, 중앙값, 최댓값과 표본 백분위가 여기에 포함된다. | [`statistics-and-ranking`](#statistics-and-ranking) |
+| 스케일 제로 | 유휴 시간에는 실행 인스턴스를 0개로 줄였다가 새 요청이 오면 다시 시작하는 운영 방식. 유휴 비용을 줄이는 대신 첫 요청에는 컨테이너 시작과 모델 적재 지연이 붙는다. | [`application-and-delivery`](#application-and-delivery) |
 | 스팟 | AWS의 여유 용량을 정가보다 싸게 쓰는 대신 회수될 수 있는 인스턴스. 상태를 밖에 저장해 두면 중단-재시작형 워크로드에 쓸 수 있다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 스펙트럴 갭 | 그래프가 얼마나 고르게 잘 연결돼 있는지 나타내는 수학 지표. 클수록 적은 비교로도 순위 추정이 정밀해진다는 이론적 근거가 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 시스템 프롬프트 | 대화 전체에 적용할 역할·행동 규칙·출력 제약을 모델에 전달하는 상위 지시. 공급자 API에 따라 system 또는 developer 메시지로 표현된다. | [`llm-core-and-inference`](#llm-core-and-inference) |
@@ -124,6 +128,7 @@
 | 양방향 swap | 같은 두 답을 A/B와 B/A 순서로 각각 평가해 순서에 따른 변화를 확인하는 방법. 두 결과를 함께 쓰면 위치 편향을 줄일 수 있지만 완전히 없어진다고 보장되지는 않는다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 양자화 | 가중치나 활성값을 더 적은 비트로 근사해 메모리와 연산량을 줄이는 기법. 절감 폭과 품질 손실은 양자화 방식·비트 수·하드웨어에 따라 달라지며 Q4 같은 이름도 포맷별 세부 규칙을 확인해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 오은퇴 | 실제로는 상위권인 후보를 데이터 부족이나 우연한 연패 때문에 잘못 조기 탈락시키는 것. 순차 은퇴 기법의 가장 큰 위험이라, 시뮬레이션으로 발생률을 직접 재서 검증했다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 오토스케일링 | 관측한 요청량이나 대기 작업 수에 맞춰 실행 인스턴스 수를 자동으로 늘리거나 줄이는 방식. 시작 시간과 상한을 잘못 잡으면 급증한 요청이 먼저 대기하거나 비용이 예상보다 커질 수 있다. | [`application-and-delivery`](#application-and-delivery) |
 | 온디맨드 | 예약 없이 쓴 시간만큼 정가로 내는 클라우드 요금제. 언제든 켜고 끌 수 있는 대신 시간 단가가 가장 비싸다. 스팟(회수 가능 할인)·예약(약정 할인)과 대비되는 기준 가격이다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 완전그래프 | 모든 후보 쌍을 빠짐없이 비교하는 구성. N개 모델이면 N(N−1)/2쌍이라 비용이 제곱으로 는다. 가장 정보가 많지만 가장 비싸다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 위치 편향 | 내용과 무관하게 먼저 보여준 답을 더 좋게 평가하는 경향. LLM 심판에게 일관되게 관측되는 대표적 편향이라, 순서를 바꿔 두 번 묻는 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
@@ -134,9 +139,10 @@
 | 추론 토큰 | 일부 추론 모델이 최종 답을 내기 전에 사용하는 내부 계산 토큰으로 API usage에 별도 집계될 수 있다. 과금 포함 여부와 단가는 모델·공급자 정책을 확인해야 한다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 층화 표집 | 모집단을 미리 정한 층으로 나눈 뒤 각 층에서 표본을 뽑는 방법. 중요한 하위 집단의 누락을 줄일 수 있지만 층 안의 대표성과 전체 가중치는 별도로 설계해야 한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 캐시 미스 | 요청한 데이터나 프롬프트 상태가 캐시에 없어 원래 계산이나 저장소 조회를 다시 수행하는 경우. 캐시 키·만료·라우팅이 달라져도 발생할 수 있다. | [`browser-storage-and-web-standards`](#browser-storage-and-web-standards) |
-| 캐시 히트율 | 재사용 가능한 입력 중 실제 캐시에서 읽힌 비율. 계산법과 할인율은 공급자마다 다르므로 cached token 수와 실제 청구액을 함께 확인해야 한다. | [`openrouter-runtime`](#openrouter-runtime) |
+| 캐시 히트율 | 캐시 조회 또는 재사용 대상 중 실제 캐시에서 처리된 비율. 토큰·블록·요청 중 무엇을 분모로 삼는지는 구현마다 달라 같은 이름의 수치를 바로 비교하면 안 된다. | [`openrouter-runtime`](#openrouter-runtime) |
 | 콜드스타트 | 유휴 인스턴스가 없는 상태에서 새 컨테이너나 모델 서버를 시작해 첫 요청을 처리할 때 생기는 추가 지연. 이미지 시작, 런타임 초기화, 모델 적재 등이 포함될 수 있다. | [`application-and-delivery`](#application-and-delivery) |
 | 쿼터 | 클라우드·API가 계정별로 거는 사용 한도(분당 요청 수 RPM, 분당 토큰 TPM 등). 돈을 낼 수 있어도 쿼터가 없으면 호출 자체가 거부되므로 용량 계획에서 가장 먼저 확인할 항목이다. | [`openrouter-runtime`](#openrouter-runtime) |
+| 큐 깊이 | 아직 소비되지 않고 큐에서 기다리는 작업 수. 순간 부하를 보여 주지만 오래 걸린 작업 하나를 놓칠 수 있어 가장 오래된 작업의 대기 시간과 함께 본다. | [`application-and-delivery`](#application-and-delivery) |
 | 토큰 | 모델의 토크나이저가 텍스트를 나눈 처리 단위. 한 토큰은 단어 하나와 같지 않으며 같은 문장도 모델별 토크나이저에 따라 토큰 수가 달라질 수 있다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 통합 메모리 | 애플 실리콘에서 CPU와 GPU가 같은 물리 메모리 풀을 공유하는 구조. 별도 VRAM으로 복사하는 비용을 줄일 수 있지만 운영체제와 다른 프로세스가 쓰는 몫까지 고려해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 프롬프트 캐싱 | 반복되는 프롬프트 앞부분의 계산 결과를 재사용해 지연이나 입력 비용을 줄이는 기능. 자동·명시형 여부, 최소 길이, 만료 시간, 할인율은 모델과 공급자마다 다르다. | [`openrouter-runtime`](#openrouter-runtime) |
@@ -151,7 +157,7 @@
 
 ### application-and-delivery
 
-Terms: `CI/CD`, `Cloud Run`, `DLQ`, `FastAPI`, `SLA`, `gRPC`, `webhook`, `게이트웨이`, `멱등`, `콜드스타트`, `헥사고날`
+Terms: `CI/CD`, `Cloud Run`, `DLQ`, `FastAPI`, `SLA`, `SLO`, `gRPC`, `webhook`, `게이트웨이`, `동시성`, `라우팅`, `멱등`, `백프레셔`, `스케일 제로`, `오토스케일링`, `큐 깊이`, `콜드스타트`, `헥사고날`
 
 - <https://docs.github.com/en/actions/get-started/continuous-integration>
 - <https://cloud.google.com/run/docs/overview/what-is-cloud-run>
@@ -159,6 +165,11 @@ Terms: `CI/CD`, `Cloud Run`, `DLQ`, `FastAPI`, `SLA`, `gRPC`, `webhook`, `게이
 - <https://fastapi.tiangolo.com/>
 - <https://grpc.io/docs/what-is-grpc/introduction/>
 - <https://sre.google/sre-book/service-level-objectives/>
+- <https://docs.ray.io/en/latest/serve/advanced-guides/advanced-autoscaling.html>
+- <https://knative.dev/docs/serving/autoscaling/scale-to-zero/>
+- <https://knative.dev/docs/serving/autoscaling/concurrency/>
+- <https://www.reactive-streams.org/>
+- <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-available-cloudwatch-metrics.html>
 - <https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/hexagonal-architecture.html>
 - <https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html>
 - <https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html>
@@ -237,12 +248,13 @@ Terms: `AWQ`, `GGUF`, `L40S`, `MTP`, `MoE`, `Ollama`, `Qwen3.6-35B-A3B`, `linear
 
 ### openrouter-runtime
 
-Terms: `Effective Pricing`, `ITPM`, `OTPM`, `OpenRouter`, `RPM`, `TPM`, `slug`, `라우팅`, `실청구액`, `캐시 히트율`, `쿼터`, `프롬프트 캐싱`
+Terms: `Effective Pricing`, `ITPM`, `OTPM`, `OpenRouter`, `RPM`, `TPM`, `slug`, `실청구액`, `캐시 히트율`, `쿼터`, `프롬프트 캐싱`
 
 - <https://openrouter.ai/docs/faq>
 - <https://openrouter.ai/docs/cookbook/administration/usage-accounting>
 - <https://openrouter.ai/docs/guides/routing/provider-selection>
 - <https://openrouter.ai/docs/guides/best-practices/prompt-caching>
+- <https://docs.vllm.ai/en/latest/design/metrics/>
 - `project:C0mput33/little-bard/eval/analysis/cost-per-book/`
 
 ### post-training-and-model-files

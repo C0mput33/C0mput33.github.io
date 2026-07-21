@@ -54,7 +54,7 @@
     },
     {
       "id": "application-and-delivery",
-      "terms": ["CI/CD", "Cloud Run", "DLQ", "FastAPI", "SLA", "gRPC", "webhook", "게이트웨이", "멱등", "콜드스타트", "헥사고날"],
+      "terms": ["CI/CD", "Cloud Run", "DLQ", "FastAPI", "SLA", "SLO", "gRPC", "webhook", "게이트웨이", "동시성", "라우팅", "멱등", "백프레셔", "스케일 제로", "오토스케일링", "큐 깊이", "콜드스타트", "헥사고날"],
       "references": [
         "https://docs.github.com/en/actions/get-started/continuous-integration",
         "https://cloud.google.com/run/docs/overview/what-is-cloud-run",
@@ -62,6 +62,11 @@
         "https://fastapi.tiangolo.com/",
         "https://grpc.io/docs/what-is-grpc/introduction/",
         "https://sre.google/sre-book/service-level-objectives/",
+        "https://docs.ray.io/en/latest/serve/advanced-guides/advanced-autoscaling.html",
+        "https://knative.dev/docs/serving/autoscaling/scale-to-zero/",
+        "https://knative.dev/docs/serving/autoscaling/concurrency/",
+        "https://www.reactive-streams.org/",
+        "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-available-cloudwatch-metrics.html",
         "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/hexagonal-architecture.html",
         "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/retry-backoff.html",
         "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html",
@@ -83,12 +88,13 @@
     },
     {
       "id": "openrouter-runtime",
-      "terms": ["Effective Pricing", "ITPM", "OTPM", "OpenRouter", "RPM", "TPM", "slug", "라우팅", "실청구액", "캐시 히트율", "쿼터", "프롬프트 캐싱"],
+      "terms": ["Effective Pricing", "ITPM", "OTPM", "OpenRouter", "RPM", "TPM", "slug", "실청구액", "캐시 히트율", "쿼터", "프롬프트 캐싱"],
       "references": [
         "https://openrouter.ai/docs/faq",
         "https://openrouter.ai/docs/cookbook/administration/usage-accounting",
         "https://openrouter.ai/docs/guides/routing/provider-selection",
         "https://openrouter.ai/docs/guides/best-practices/prompt-caching",
+        "https://docs.vllm.ai/en/latest/design/metrics/",
         "project:C0mput33/little-bard/eval/analysis/cost-per-book/"
       ]
     },
