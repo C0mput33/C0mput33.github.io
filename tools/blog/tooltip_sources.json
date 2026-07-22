@@ -13,7 +13,7 @@
     },
     {
       "id": "statistics-and-ranking",
-      "terms": ["BT", "Bradley-Terry", "CI", "Cohen's κ", "Davidson", "E-value", "Elo", "Fisher-Yates", "Glicko", "K-팩터", "Krippendorff α", "MAE", "MLE", "MM 알고리즘", "Spearman", "Swiss", "anytime-valid", "expander", "pairwise", "racing", "t-검정", "결정론적", "라운드로빈", "몬테카를로", "백분위", "부트스트랩", "순서통계량", "스펙트럴 갭", "신뢰구간", "완전그래프", "최우도", "층화 표집"],
+      "terms": ["BT", "Bradley-Terry", "CI", "Cohen's κ", "Davidson", "E-value", "Elo", "Fisher-Yates", "Glicko", "K-팩터", "Krippendorff α", "MAE", "MLE", "MM 알고리즘", "Spearman", "Swiss", "anytime-valid", "expander", "p50", "pairwise", "racing", "t-검정", "결정론적", "라운드로빈", "몬테카를로", "백분위", "부트스트랩", "순서통계량", "순위합", "스펙트럴 갭", "신뢰구간", "완전그래프", "최우도", "층화 표집"],
       "references": [
         "https://www.itl.nist.gov/div898/handbook/",
         "https://doi.org/10.2307/2334029",
@@ -88,7 +88,7 @@
     },
     {
       "id": "openrouter-runtime",
-      "terms": ["Effective Pricing", "ITPM", "OTPM", "OpenRouter", "RPM", "TPM", "slug", "실청구액", "캐시 히트율", "쿼터", "프롬프트 캐싱"],
+      "terms": ["Effective Pricing", "ITPM", "OTPM", "OpenRouter", "OpenRouter 공급자", "RPM", "TPM", "slug", "롤링 평균", "실청구액", "캐시 히트율", "쿼터", "프롬프트 캐싱"],
       "references": [
         "https://openrouter.ai/docs/faq",
         "https://openrouter.ai/docs/cookbook/administration/usage-accounting",

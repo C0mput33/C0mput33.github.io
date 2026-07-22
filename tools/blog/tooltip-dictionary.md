@@ -34,7 +34,7 @@
 | DPO | Direct Preference Optimization. 선택된 응답과 거절된 응답의 선호쌍으로 정책을 최적화하는 학습법. 평가 판정 기록은 품질·정책 버전·누수 여부를 검증한 뒤에만 학습 후보 데이터가 된다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | E-value | 귀무가설 아래 기댓값이 1 이하인 비음수 증거량. 적절한 e-process로 누적하면 데이터를 중간중간 확인하고 멈추더라도 오류 통제를 유지할 수 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | EC2 | AWS에서 가상 서버를 직접 빌려 운영하는 서비스. GPU 인스턴스에 모델 서버를 올리면 런타임과 네트워크를 세밀하게 제어할 수 있지만 시작·보안·모니터링·축소를 직접 책임져야 한다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
-| Effective Pricing | 이 블로그가 2026-07-21에 캡처한 OpenRouter 모델 페이지의 표시 항목. 당시 관측된 캐시 사용을 반영한 실효 입력비로 읽었으며, 현재 페이지의 정의나 값이 바뀔 수 있어 캡처 날짜와 함께 쓴다. | [`openrouter-runtime`](#openrouter-runtime) |
+| Effective Pricing | OpenRouter 모델 페이지가 보여주는 과거 30일의 입력·출력 100만 토큰당 가중 평균 청구 단가. 캐시 사용과 공급자별 가격·트래픽 구성이 함께 들어가므로 대표 정가나 내 계정의 미래 단가와 같지 않다. | [`openrouter-runtime`](#openrouter-runtime) |
 | Elo | 경기가 끝날 때마다 결과와 기대승률의 차이만큼 점수를 즉시 조정하는 체스식 레이팅. 실력이 변하는 선수를 추적하는 데 좋지만, 경기 순서에 따라 최종 값이 달라져 고정된 대전 기록의 순위에는 부적합하다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | EQ-Bench | LLM의 창작·감성 능력을 재는 공개 벤치마크. 창작 부문 v3는 심판 LLM의 pairwise 비교를 Glicko 레이팅으로 집계한다. v2가 상위권에서 포화되자 pairwise로 전환했다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
 | expander | 정점 수에 비해 간선은 적지만 부분집합이 바깥과 잘 연결되는 희소 그래프. 비교 설계에 쓰면 모든 쌍을 평가하지 않고도 연결성을 유지할 수 있지만 정밀도는 그래프와 데이터 조건에 따라 달라진다. | [`statistics-and-ranking`](#statistics-and-ranking) |
@@ -83,7 +83,9 @@
 | MTP | Multi-Token Prediction. 학습할 때 각 위치에서 다음 토큰 하나뿐 아니라 여러 미래 토큰을 예측하도록 보조 목표를 두는 방식. 추론 가속에 활용할 수 있지만 검증 절차는 구현마다 다르다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Ollama | 오픈 웨이트 모델을 로컬 장비에서 내려받아 실행하고 API로 호출하게 해주는 도구. 외부 모델 API의 호출 요금은 없지만 장비·전력·운영 비용은 별도다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | OpenRouter | 여러 회사의 LLM을 하나의 API와 결제로 호출하게 해주는 중계 서비스. 모델마다 계정을 따로 만들 필요가 없어 다모델 비교 실험에 편하다. | [`openrouter-runtime`](#openrouter-runtime) |
+| OpenRouter 공급자 | OpenRouter가 같은 모델 요청을 넘기는 실제 상류 API 또는 호스팅 엔드포인트. Anthropic, Amazon Bedrock, Google Vertex처럼 모델이 같아도 지역·가격·속도·캐시 정책이 다를 수 있다. | [`openrouter-runtime`](#openrouter-runtime) |
 | OTPM | Output Tokens Per Minute. 분당 출력 토큰 처리량 또는 한도. 동시에 여러 건을 생성할 때 분당 총 몇 토큰이 필요한지로 환산하면 쿼터 신청과 동시성 계획의 근거가 된다. | [`openrouter-runtime`](#openrouter-runtime) |
+| p50 | 측정값의 50번째 백분위인 중앙값. 절반은 이 값 이하, 나머지 절반은 이 값 이상이며 산술평균이나 최악 지연을 뜻하지 않는다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | P95 | 측정값을 작은 순서로 놓았을 때 95%가 이 값 이하에 들어오는 백분위. 응답 시간 P95가 3초라면 요청의 약 5%는 3초보다 느렸다는 뜻이다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | pairwise | 후보를 둘씩 제시하고 어느 쪽을 선호하는지 기록하는 비교 방식. 절대 점수보다 판단 부담을 줄일 수 있지만 순서 효과와 평가자 편향은 별도로 통제해야 한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | PEFT | Parameter-Efficient Fine-Tuning. 전체 가중치 대신 작은 일부나 어댑터만 학습하는 방법과 도구 모음. 저장된 어댑터는 베이스 모델 ID·리비전·대상 층 정보가 맞아야 다시 로드할 수 있다. | [`post-training-and-model-files`](#post-training-and-model-files) |
@@ -127,6 +129,7 @@
 | 동시성 | 같은 시점에 처리 중인 요청 수. 단위 시간당 완료량인 처리량과 다르며, 한도를 지나치게 높이면 각 요청의 지연과 메모리 사용량이 함께 늘 수 있다. | [`application-and-delivery`](#application-and-delivery) |
 | 라우팅 | 들어온 요청을 여러 서버·모델·공급자 후보 중 하나로 보내는 선택 과정. 가용성, 현재 부하, 비용, 캐시 재사용 가능성처럼 목적에 맞는 기준과 실패 시 대체 경로가 필요하다. | [`application-and-delivery`](#application-and-delivery) |
 | 라운드로빈 | 여러 목록을 돌아가며 하나씩 공평하게 뽑는 순회 방식. 각 목록의 비율을 자연스럽게 유지한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
+| 롤링 평균 | 고정 길이의 최근 구간을 계속 앞으로 이동시키며 다시 계산한 평균. 새 관측이 들어오고 오래된 관측이 빠지므로 같은 페이지도 조회 날짜에 따라 값이 바뀐다. | [`openrouter-runtime`](#openrouter-runtime) |
 | 루브릭 | 평가할 기준과 각 기준의 판단 수준을 미리 적은 채점 지침. 이름만 나열하지 않고 기준 설명과 점수 앵커를 함께 줘야 평가자마다 뜻이 달라지는 문제를 줄일 수 있다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
 | 멱등 | 같은 요청이 실수로 두 번 와도 결과는 한 번 처리한 것과 같게 만드는 성질. 재시도와 중복 클릭이 존재하는 분산 시스템에서 중복 생성·중복 과금을 막는 기본 장치다. | [`application-and-delivery`](#application-and-delivery) |
 | 모델 가중치 | 신경망 파라미터를 저장한 수치 배열. 모델 파일에는 주로 이 값이 들어가며, 실행 중에는 가중치 외에도 활성값과 캐시·작업 버퍼가 메모리를 쓴다. | [`model-formats-and-serving`](#model-formats-and-serving) |
@@ -144,6 +147,7 @@
 | 선호쌍 | 같은 입력에 대한 두 응답 중 어느 쪽을 더 선호하는지 표시한 데이터 한 쌍. DPO에 쓰려면 승자·패자뿐 아니라 생성 정책·판정 유효성·중복·누수를 함께 관리해야 한다. | [`data-splitting-and-preferences`](#data-splitting-and-preferences) |
 | 손익분기 | 두 선택지의 총비용이 같아지는 지점. 여기서는 GPU 월 고정비를 관리형 API의 권당 변동비로 나눠 몇 권부터 GPU가 싸지는지를 계산한다. 대체 대상이 쌀수록 분기점은 뒤로 밀린다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 순서통계량 | 표본을 작은 순서로 정렬했을 때 k번째 값처럼 위치로 정의되는 통계량. 최솟값, 중앙값, 최댓값과 표본 백분위가 여기에 포함된다. | [`statistics-and-ranking`](#statistics-and-ranking) |
+| 순위합 | 여러 지표에서 얻은 등수를 더한 값. 단위가 다른 지표를 간단히 합칠 수 있지만 지표 간 간격과 중요도 차이를 버리므로 의사결정 가중치가 정해진 정식 종합점수는 아니다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 스케일 제로 | 유휴 시간에는 실행 인스턴스를 0개로 줄였다가 새 요청이 오면 다시 시작하는 운영 방식. 유휴 비용을 줄이는 대신 첫 요청에는 컨테이너 시작과 모델 적재 지연이 붙는다. | [`application-and-delivery`](#application-and-delivery) |
 | 스팟 | AWS의 여유 용량을 정가보다 싸게 쓰는 대신 회수될 수 있는 인스턴스. 상태를 밖에 저장해 두면 중단-재시작형 워크로드에 쓸 수 있다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 스펙트럴 갭 | 그래프가 얼마나 고르게 잘 연결돼 있는지 나타내는 수학 지표. 클수록 적은 비교로도 순위 추정이 정밀해진다는 이론적 근거가 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
@@ -297,7 +301,7 @@ Terms: `A3B`, `AWQ`, `BF16`, `CUDA`, `FP8`, `GGUF`, `Gated DeltaNet`, `L4`, `L40
 
 ### openrouter-runtime
 
-Terms: `Effective Pricing`, `ITPM`, `OTPM`, `OpenRouter`, `RPM`, `TPM`, `slug`, `실청구액`, `캐시 히트율`, `쿼터`, `프롬프트 캐싱`
+Terms: `Effective Pricing`, `ITPM`, `OTPM`, `OpenRouter`, `OpenRouter 공급자`, `RPM`, `TPM`, `slug`, `롤링 평균`, `실청구액`, `캐시 히트율`, `쿼터`, `프롬프트 캐싱`
 
 - <https://openrouter.ai/docs/faq>
 - <https://openrouter.ai/docs/cookbook/administration/usage-accounting>
@@ -339,7 +343,7 @@ Terms: `ARI`, `Coleman–Liau`, `FKGL`, `Lexile`
 
 ### statistics-and-ranking
 
-Terms: `BT`, `Bradley-Terry`, `CI`, `Cohen's κ`, `Davidson`, `E-value`, `Elo`, `Fisher-Yates`, `Glicko`, `K-팩터`, `Krippendorff α`, `MAE`, `MLE`, `MM 알고리즘`, `Spearman`, `Swiss`, `anytime-valid`, `expander`, `pairwise`, `racing`, `t-검정`, `결정론적`, `라운드로빈`, `몬테카를로`, `백분위`, `부트스트랩`, `순서통계량`, `스펙트럴 갭`, `신뢰구간`, `완전그래프`, `최우도`, `층화 표집`
+Terms: `BT`, `Bradley-Terry`, `CI`, `Cohen's κ`, `Davidson`, `E-value`, `Elo`, `Fisher-Yates`, `Glicko`, `K-팩터`, `Krippendorff α`, `MAE`, `MLE`, `MM 알고리즘`, `Spearman`, `Swiss`, `anytime-valid`, `expander`, `p50`, `pairwise`, `racing`, `t-검정`, `결정론적`, `라운드로빈`, `몬테카를로`, `백분위`, `부트스트랩`, `순서통계량`, `순위합`, `스펙트럴 갭`, `신뢰구간`, `완전그래프`, `최우도`, `층화 표집`
 
 - <https://www.itl.nist.gov/div898/handbook/>
 - <https://doi.org/10.2307/2334029>

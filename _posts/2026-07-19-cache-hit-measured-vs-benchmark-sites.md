@@ -48,7 +48,7 @@ Qwen 행은 별도 주의가 필요하다. 5회 시도 중 과금 기록은 4회
 
 ## 벤치마크 사이트에는 캐시 히트율이 이미 있었다
 
-확인한 주요 공개 사이트 중 <span class="term" data-tip="여러 AI 모델의 품질 지표와 API 가격·처리량·지연을 독립적으로 측정해 공개하는 서비스. 이 블로그에서는 그중 API 서빙 성능 자료를 실측 대조에 사용했다.">Artificial Analysis</span>는 속도·지연·지능 지수를 다루지만 캐시는 없고,[^aa] <span class="term" data-tip="Chatbot Arena의 현재 이름. 익명 A/B 대결에 사람들이 투표한 선호를 Bradley-Terry로 집계해 공개하는 품질 리더보드다.">LMArena</span>는 선호 투표다. **조사 범위에서는** 오픈라우터의 <span class="term" data-tip="이 블로그가 2026-07-21에 캡처한 OpenRouter 모델 페이지의 표시 항목. 당시 관측된 캐시 사용을 반영한 실효 입력비로 읽었으며, 현재 페이지의 정의나 값이 바뀔 수 있어 캡처 날짜와 함께 쓴다.">Effective Pricing</span> 섹션만 공급자별 캐시 히트율을 공개했다. 이는 인터넷 전체에 대한 유일성 증명이 아니라 2026-07-19에 확인한 사이트 범위의 결과다.
+확인한 주요 공개 사이트 중 <span class="term" data-tip="여러 AI 모델의 품질 지표와 API 가격·처리량·지연을 독립적으로 측정해 공개하는 서비스. 이 블로그에서는 그중 API 서빙 성능 자료를 실측 대조에 사용했다.">Artificial Analysis</span>는 속도·지연·지능 지수를 다루지만 캐시는 없고,[^aa] <span class="term" data-tip="Chatbot Arena의 현재 이름. 익명 A/B 대결에 사람들이 투표한 선호를 Bradley-Terry로 집계해 공개하는 품질 리더보드다.">LMArena</span>는 선호 투표다. **조사 범위에서는** 오픈라우터의 <span class="term" data-tip="OpenRouter 모델 페이지가 보여주는 과거 30일의 입력·출력 100만 토큰당 가중 평균 청구 단가. 캐시 사용과 공급자별 가격·트래픽 구성이 함께 들어가므로 대표 정가나 내 계정의 미래 단가와 같지 않다.">Effective Pricing</span> 섹션만 공급자별 캐시 히트율을 공개했다. 이는 인터넷 전체에 대한 유일성 증명이 아니라 2026-07-19에 확인한 사이트 범위의 결과다.
 
 ![오픈라우터 Opus 4.8 Effective Pricing — 공급자별 캐시 히트율](/assets/img/posts/2026-07/or-opus48-pricing.png)
 _Opus 4.8의 Effective Pricing: 정가 $5인 입력이 가중 평균 $1.67로, 공급자별 캐시힛은 Anthropic 81.5% · Bedrock(US) 78.9% · Azure 0.0% (openrouter.ai/anthropic/claude-opus-4.8, 2026-07-19 캡처)[^orpage]_
@@ -94,7 +94,7 @@ _Sonnet 4.6 Performance 라이브: 47 tok/s · 0.84s (2026-07-19 캡처)[^orpage
 
 우리 실측 모델들의 속도도 공개값과 나란히 놓았다. 정의가 다르다는 점을 먼저 밝힌다 — 사이트의 스루풋은 공급자별 스트리밍 생성 속도(최고 공급자 기준)고, 내 값은 25페이지 한 권의 벽시계 실효 속도다. 참고로 벤더 <span class="term" data-tip="클라우드·API가 계정별로 거는 사용 한도(분당 요청 수 RPM, 분당 토큰 TPM 등). 돈을 낼 수 있어도 쿼터가 없으면 호출 자체가 거부되므로 용량 계획에서 가장 먼저 확인할 항목이다.">쿼터</span> 개념인 <span class="term" data-tip="Input Tokens Per Minute. 분당 입력 토큰 한도. 프롬프트가 길고 호출이 잦은 워크로드에서는 출력보다 입력 한도가 먼저 바닥나 병목이 되기도 한다.">ITPM</span>/<span class="term" data-tip="Output Tokens Per Minute. 분당 출력 토큰 처리량 또는 한도. 동시에 여러 건을 생성할 때 분당 총 몇 토큰이 필요한지로 환산하면 쿼터 신청과 동시성 계획의 근거가 된다.">OTPM</span>(분당 입·출력 토큰)은 계정 대시보드에만 있는 값이라 공개 벤치마크에는 존재하지 않는다. 공개 세계에서 그 역할을 하는 게 바로 이 tok/s·지연 지표다.
 
-| 모델 | 실측 tok/s (25p 실효) | 오픈라우터 스루풋(최고 공급자) | 오픈라우터 지연 p50 |
+| 모델 | 실측 tok/s (25p 실효) | 오픈라우터 스루풋(최고 공급자) | 오픈라우터 지연 <span class="term" data-tip="측정값의 50번째 백분위인 중앙값. 절반은 이 값 이하, 나머지 절반은 이 값 이상이며 산술평균이나 최악 지연을 뜻하지 않는다.">p50</span> |
 |---|---|---|---|
 | claude-opus-4.8 | 77 | 63 | 0.72s |
 | gpt-5.2 | 69 | 52 | 2.42s |
