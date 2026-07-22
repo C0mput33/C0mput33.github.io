@@ -116,15 +116,18 @@
 | vLLM | 오픈소스 LLM 추론·서빙 엔진. PagedAttention과 연속 배칭 같은 기법으로 KV 캐시와 동시 요청을 관리하며 OpenAI 호환 서버를 제공한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | VRAM | GPU가 가중치·활성값·KV 캐시 등에 사용하는 전용 메모리. 모델 파일이 VRAM보다 작아도 실행 중 임시 메모리가 필요해 전체 용량을 모두 가중치에 쓸 수는 없다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | webhook | 어떤 이벤트가 생겼을 때 서비스가 미리 등록된 HTTP 주소로 데이터를 보내 알리는 방식. 받는 서버는 재시도와 중복 전송을 고려해야 한다. | [`application-and-delivery`](#application-and-delivery) |
+| 가독성 | 글을 얼마나 수월하게 읽고 이해할 수 있는지를 뜻한다. 문장·단어 표면값으로 계산한 가독성 공식은 정량 단서일 뿐 의미 구조, 배경지식, 독자와 읽기 목적 전체를 대신하지 않는다. | [`readability-primary`](#readability-primary) |
 | 게이트웨이 | 모든 외부 요청이 거쳐 가는 단일 관문 서버. 인증과 요청 추적을 한 곳에서 처리해, 뒤의 서비스들이 같은 검증 로직을 중복 구현하지 않게 한다. | [`application-and-delivery`](#application-and-delivery) |
 | 결정론적 | 같은 입력과 상태에서 같은 결과를 내는 성질. 시드 고정은 난수 경로를 통제하는 한 조건일 뿐이며 구현·하드웨어·외부 서비스가 바뀌면 재현이 깨질 수 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 골든셋 | 사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 관리형 API | 이 글에서 사업자가 호스팅하는 기성 모델을 요청량에 따라 과금받아 호출하는 방식을 가리킨다. GPU 운영 부담은 줄지만 지원 모델·가격·버전·데이터 정책은 공급자 조건에 따른다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
+| 구성 타당도 | 점수의 차이를 의도한 개념의 차이로 해석할 수 있는지를 뒷받침하는 근거. 창작 품질 점수에 수치 난이도 제어가 섞이면 무엇이 좋아졌는지 해석하기 어려워진다. | [`readability-primary`](#readability-primary) |
 | 그래디언트 | 손실을 각 학습 파라미터로 미분한 값. 옵티마이저가 어느 방향으로 얼마나 가중치를 바꿀지 계산하는 데 쓰며 학습 중 추가 메모리를 차지한다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 그래디언트 누적 | 작은 미니배치 여러 번의 그래디언트를 모은 뒤 한 번 가중치를 갱신하는 방법. 메모리는 작은 배치 수준으로 유지하면서 더 큰 유효 배치를 흉내 낼 수 있다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 그래디언트 체크포인팅 | 순전파의 모든 중간값을 저장하지 않고 일부를 역전파 때 다시 계산해 학습 메모리를 줄이는 기법. 메모리를 아끼는 대신 계산 시간이 늘어난다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 능동 표집 | 아무 쌍이나 무작위로 고르지 않고, 정보가 많은 비교(아직 순위가 갈리지 않은 접전 쌍)를 우선 고르는 표집 전략. 이미 확실히 갈린 쌍을 또 비교하는 낭비를 줄인다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 데이터 누수 | 평가에만 있어야 할 정보나 매우 가까운 중복이 학습 과정에 들어가 성능이 부풀려지는 문제. 분할 단위를 개별 판정이 아니라 원본 프롬프트·이야기로 잡아야 막을 수 있다. | [`data-splitting-and-preferences`](#data-splitting-and-preferences) |
+| 독립 읽기 | 아이가 어른의 실시간 도움이나 낭독 없이 직접 글자를 해독하고 내용을 이어 가는 읽기 방식. 같은 아이도 읽어주는 글을 이해하는 수준과 혼자 읽는 수준이 다를 수 있다. | [`readability-primary`](#readability-primary) |
 | 동등성 테스트 | 변환 전후 모델에 고정 입력을 넣어 토큰·로그 확률·최종 출력이 허용 범위 안에서 같은지 확인하는 검사. 파일이 로드된다는 사실만으로 변환이 올바르다고 보지 않기 위해 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 동시성 | 같은 시점에 처리 중인 요청 수. 단위 시간당 완료량인 처리량과 다르며, 한도를 지나치게 높이면 각 요청의 지연과 메모리 사용량이 함께 늘 수 있다. | [`application-and-delivery`](#application-and-delivery) |
 | 라우팅 | 들어온 요청을 여러 서버·모델·공급자 후보 중 하나로 보내는 선택 과정. 가용성, 현재 부하, 비용, 캐시 재사용 가능성처럼 목적에 맞는 기준과 실패 시 대체 경로가 필요하다. | [`application-and-delivery`](#application-and-delivery) |
@@ -163,6 +166,7 @@
 | 옵티마이저 상태 | Adam 같은 옵티마이저가 파라미터마다 유지하는 이동평균 등 보조 값. 전체 파인튜닝에서는 가중치와 그래디언트 외에 이 상태도 커져 메모리 요구량이 크게 늘어난다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 완전그래프 | 모든 후보 쌍을 빠짐없이 비교하는 구성. N개 모델이면 N(N−1)/2쌍이라 비용이 제곱으로 는다. 가장 정보가 많지만 가장 비싸다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 위치 편향 | 내용과 무관하게 먼저 보여준 답을 더 좋게 평가하는 경향. LLM 심판에게 일관되게 관측되는 대표적 편향이라, 순서를 바꿔 두 번 묻는 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 읽어주기 | 어른이 글을 소리 내어 읽고 아이는 주로 듣는 방식. 아이가 직접 해독하기 어려운 글도 들으며 이해할 수 있어 독립 읽기와 같은 난이도로 취급하면 안 된다. | [`readability-primary`](#readability-primary) |
 | 자기 선호 | LLM이 자기(또는 같은 계열 모델)가 쓴 글을 알아보고 더 높게 평가하는 편향. 심판과 후보가 같은 계열이면 그 쌍에서 심판을 제외하는 구조적 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 처리량 | 초당 생성 토큰 수(tok/s). 한 요청의 체감 속도를 좌우하지만, 추론 토큰을 많이 쓰는 모델은 처리량이 높아도 완료까지는 오래 걸릴 수 있어 완료 시간과 함께 봐야 한다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 체크포인트 | 진행 상태를 통째로 저장해둔 지점. 중단되거나 크레딧이 떨어져도 완료분을 다시 호출하지 않고 그 지점부터 이어서 실행할 수 있다. | [`project-eval-runtime`](#project-eval-runtime) |
@@ -178,9 +182,13 @@
 | 토큰 | 모델의 토크나이저가 텍스트를 나눈 처리 단위. 한 토큰은 단어 하나와 같지 않으며 같은 문장도 모델별 토크나이저에 따라 토큰 수가 달라질 수 있다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 통합 메모리 | 애플 실리콘에서 CPU와 GPU가 같은 물리 메모리 풀을 공유하는 구조. 별도 VRAM으로 복사하는 비용을 줄일 수 있지만 운영체제와 다른 프로세스가 쓰는 몫까지 고려해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 파인튜닝 | 사전학습된 모델을 특정 데이터와 목적에 맞게 추가 학습하는 과정. 전체 가중치를 바꾸는 방식과 LoRA처럼 일부만 학습하는 방식은 메모리·이식성이 다르다. | [`post-training-and-model-files`](#post-training-and-model-files) |
+| 프롬프트 provenance | 어떤 정책 버전의 system·user 메시지가 실제 API에 전달됐는지 남기는 출처 기록. 결과와 함께 저장해야 과거 프롬프트를 현재 프롬프트로 잘못 재구성하지 않는다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 프롬프트 뱅크 | 평가 때 앱이 꺼내 조합하는 사전 정의 과제 모음. 주제·테마·길이·독서 방식의 분포와 순서가 모델별 노출 조건을 좌우한다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 프롬프트 캐싱 | 반복되는 프롬프트 앞부분의 계산 결과를 재사용해 지연이나 입력 비용을 줄이는 기능. 자동·명시형 여부, 최소 길이, 만료 시간, 할인율은 모델과 공급자마다 다르다. | [`openrouter-runtime`](#openrouter-runtime) |
 | 프리픽스 | 프롬프트의 앞부분에 반복해서 붙는 공통 입력 구간. 프롬프트 캐시는 이 구간이 같고 공급자의 최소 길이·라우팅 조건을 충족할 때 재사용될 수 있다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 하네스 | 모델을 감싸는 실행 구조물. 도구 호출, 재시도, 컨텍스트 관리, 검증을 모델 밖에서 통제한다. 같은 모델이라도 하네스가 좋으면 체감 성능이 달라진다. | [`llm-core-and-inference`](#llm-core-and-inference) |
+| 하드 게이트 | 다른 장점으로 상쇄하지 않는 필수 통과 조건. 이 평가에서는 한 이야기만 명백한 연령 안전 위반을 보이면 문학적 장점이 있어도 전체 승자가 될 수 없다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 함께 읽기 | 아이와 어른이 같은 글을 함께 보며 읽고 질문·예측·설명을 나눌 수 있는 방식. 독립 읽기와 달리 상호작용이 이해를 지원할 수 있다. | [`readability-primary`](#readability-primary) |
 | 헥사고날 | 도메인 로직을 중심에 두고 바깥세상(DB·외부 API·UI)과의 접점을 전부 Port(인터페이스)와 Adapter(구현)로 분리하는 아키텍처. 외부 기술을 갈아끼워도 중심 코드가 바뀌지 않게 하는 것이 목적이다. | [`application-and-delivery`](#application-and-delivery) |
 | 홀드아웃 | 학습과 모델 선택에 쓰지 않고 마지막 평가까지 따로 보관하는 데이터. 같은 이야기나 프롬프트의 변형이 양쪽에 섞이면 성능을 실제보다 높게 볼 수 있다. | [`data-splitting-and-preferences`](#data-splitting-and-preferences) |
 | 활성 파라미터 | MoE 모델이 토큰 하나를 처리할 때 라우팅으로 선택되어 계산에 참여하는 파라미터 규모. 총 파라미터보다 작아 계산량을 줄일 수 있지만 속도·메모리·품질이 같은 크기의 밀집 모델과 같다는 뜻은 아니다. | [`model-formats-and-serving`](#model-formats-and-serving) |
@@ -326,7 +334,7 @@ Terms: `DPO`, `LoRA`, `LoRA rank`, `MLX`, `PEFT`, `QLoRA`, `SFT`, `TRL`, `그래
 
 ### project-eval-runtime
 
-Terms: `A/B`, `Arena 점수`, `Match Rate`, `contest`, `jury`, `retire2`, `top-k`, `골든셋`, `능동 표집`, `동등성 테스트`, `반응성 β`, `부활전`, `오은퇴`, `양방향 swap`, `위치 편향`, `자기 선호`, `체크포인트`
+Terms: `A/B`, `Arena 점수`, `Match Rate`, `contest`, `jury`, `retire2`, `top-k`, `골든셋`, `능동 표집`, `동등성 테스트`, `반응성 β`, `부활전`, `오은퇴`, `양방향 swap`, `위치 편향`, `자기 선호`, `체크포인트`, `하드 게이트`, `프롬프트 뱅크`, `프롬프트 provenance`
 
 - `project:C0mput33/little-bard/eval/app/index.html`
 - `project:C0mput33/little-bard/eval/aggregate/bradley_terry.py`
@@ -334,12 +342,17 @@ Terms: `A/B`, `Arena 점수`, `Match Rate`, `contest`, `jury`, `retire2`, `top-k
 
 ### readability-primary
 
-Terms: `ARI`, `Coleman–Liau`, `FKGL`, `Lexile`
+Terms: `ARI`, `Coleman–Liau`, `FKGL`, `Lexile`, `가독성`, `구성 타당도`, `독립 읽기`, `함께 읽기`, `읽어주기`
 
 - <https://apps.dtic.mil/sti/citations/AD0667273>
 - <https://doi.org/10.1037/h0076540>
 - <https://stars.library.ucf.edu/istlibrary/56/>
 - <https://metametricsinc.com/wp-content/uploads/2017/07/Stenner_Burdick_Sanford__Burdick-_The_LFR_Technical_Report.pdf>
+- <https://www.aera.net/Publications/Books/Standards-for-Educational-Psychological-Testing-2014-Edition>
+- <https://ies.ed.gov/ncee/wwc/PracticeGuide/21>
+- <https://ies.ed.gov/ncee/wwc/Docs/PracticeGuide/readingcomp_pg_092810.pdf>
+- <https://www.thecorestandards.org/ELA-Literacy/standard-10-range-quality-complexity/measuring-text-complexity-three-factors/>
+- <https://metametricsinc.com/wp-content/uploads/2019/11/Introductory-Guide-for-Publishers-and-Content-Developers-v3.pdf>
 
 ### statistics-and-ranking
 

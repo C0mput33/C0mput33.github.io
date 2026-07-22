@@ -4,7 +4,7 @@
   "groups": [
     {
       "id": "project-eval-runtime",
-      "terms": ["A/B", "Arena 점수", "Match Rate", "contest", "jury", "retire2", "top-k", "골든셋", "능동 표집", "동등성 테스트", "반응성 β", "부활전", "오은퇴", "양방향 swap", "위치 편향", "자기 선호", "체크포인트"],
+      "terms": ["A/B", "Arena 점수", "Match Rate", "contest", "jury", "retire2", "top-k", "골든셋", "능동 표집", "동등성 테스트", "반응성 β", "부활전", "오은퇴", "양방향 swap", "위치 편향", "자기 선호", "체크포인트", "하드 게이트", "프롬프트 뱅크", "프롬프트 provenance"],
       "references": [
         "project:C0mput33/little-bard/eval/app/index.html",
         "project:C0mput33/little-bard/eval/aggregate/bradley_terry.py",
@@ -100,12 +100,17 @@
     },
     {
       "id": "readability-primary",
-      "terms": ["ARI", "Coleman–Liau", "FKGL", "Lexile"],
+      "terms": ["ARI", "Coleman–Liau", "FKGL", "Lexile", "가독성", "구성 타당도", "독립 읽기", "함께 읽기", "읽어주기"],
       "references": [
         "https://apps.dtic.mil/sti/citations/AD0667273",
         "https://doi.org/10.1037/h0076540",
         "https://stars.library.ucf.edu/istlibrary/56/",
-        "https://metametricsinc.com/wp-content/uploads/2017/07/Stenner_Burdick_Sanford__Burdick-_The_LFR_Technical_Report.pdf"
+        "https://metametricsinc.com/wp-content/uploads/2017/07/Stenner_Burdick_Sanford__Burdick-_The_LFR_Technical_Report.pdf",
+        "https://www.aera.net/Publications/Books/Standards-for-Educational-Psychological-Testing-2014-Edition",
+        "https://ies.ed.gov/ncee/wwc/PracticeGuide/21",
+        "https://ies.ed.gov/ncee/wwc/Docs/PracticeGuide/readingcomp_pg_092810.pdf",
+        "https://www.thecorestandards.org/ELA-Literacy/standard-10-range-quality-complexity/measuring-text-complexity-three-factors/",
+        "https://metametricsinc.com/wp-content/uploads/2019/11/Introductory-Guide-for-Publishers-and-Content-Developers-v3.pdf"
       ]
     },
     {
