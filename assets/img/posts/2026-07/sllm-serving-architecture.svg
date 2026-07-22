@@ -137,8 +137,8 @@
   <rect x="496" y="572" width="194" height="150" rx="10" class="box"/>
   <text x="593" y="596" text-anchor="middle" class="head">③ AWS 단일 GPU 스모크</text>
   <text x="593" y="617" text-anchor="middle" class="text">G6e · L40S 48GB · 공식 FP8</text>
-  <text x="593" y="634" text-anchor="middle" class="text">vLLM · language-model-only · MTP off</text>
-  <text x="593" y="651" text-anchor="middle" class="text">8K → 16K 문맥 단계 확대</text>
+  <text x="593" y="634" text-anchor="middle" class="text">vLLM · text-only · thinking off</text>
+  <text x="593" y="651" text-anchor="middle" class="text">8K → 16K 문맥 · MTP off</text>
   <text x="593" y="668" text-anchor="middle" class="text">TTFT · tok/s · GPU memory</text>
   <text x="593" y="685" text-anchor="middle" class="text">실패율 · 권당 비용 측정</text>
   <text x="593" y="704" text-anchor="middle" class="note">이후 Async/scale-to-zero 판단</text>
