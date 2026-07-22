@@ -2,8 +2,9 @@
 """Insert and validate the first glossary occurrence in each Markdown post.
 
 The JSON dictionary is the only hand-edited tooltip source. Existing tooltip
-spans are refreshed from it, and --check-coverage fails when a post is stale or
-is missing an insertable first occurrence.
+spans are refreshed from it, and --check-coverage fails when a post is stale,
+is missing an insertable first occurrence, or does not meet its declared
+``tooltip_min_unique`` target.
 """
 from __future__ import annotations
 
@@ -27,6 +28,7 @@ PARTICLE_PATTERN = "|".join(map(re.escape, sorted(PARTICLES, key=len, reverse=Tr
 TERM_SPAN_RE = re.compile(
     r'<span class="term" data-tip="([^"]*)">([^<]+)</span>'
 )
+FRONT_MATTER_RE = re.compile(r'^---\r?\n(.*?)\r?\n---\r?\n', re.S)
 
 
 def load_dict(path: str | os.PathLike[str]) -> dict[str, str]:
@@ -42,6 +44,24 @@ def load_dict(path: str | os.PathLike[str]) -> dict[str, str]:
         if any(char in tip for char in ('"', '<', '>')):
             raise ValueError(f"tooltip definition has an unsafe character: {term}")
     return data
+
+
+def minimum_unique_from_front_matter(text: str) -> int | None:
+    """Read the optional per-post tooltip density target.
+
+    The field is deliberately a simple non-negative integer so this tool does
+    not need a second YAML parser just to enforce coverage.
+    """
+    front_matter = FRONT_MATTER_RE.match(text)
+    if not front_matter:
+        return None
+    field = re.search(r'^tooltip_min_unique:\s*([^#\s]+)', front_matter.group(1), re.M)
+    if not field:
+        return None
+    raw_value = field.group(1)
+    if not raw_value.isdigit():
+        raise ValueError("tooltip_min_unique must be a non-negative integer")
+    return int(raw_value)
 
 
 def _merge_spans(spans: list[tuple[int, int]]) -> list[tuple[int, int]]:
@@ -209,7 +229,11 @@ def transform(text: str, dictionary: dict[str, str]) -> tuple[str, int, int]:
     return text, added, updated
 
 
-def validate_text(text: str, dictionary: dict[str, str] | None = None) -> tuple[int, list[str]]:
+def validate_text(
+    text: str,
+    dictionary: dict[str, str] | None = None,
+    minimum_unique: int | None = None,
+) -> tuple[int, list[str]]:
     errors: list[str] = []
     if re.search(r'data-tip="[^"]*data-tip', text):
         errors.append("nested data-tip")
@@ -222,8 +246,15 @@ def validate_text(text: str, dictionary: dict[str, str] | None = None) -> tuple[
     if dictionary is not None:
         for match in matched:
             tip, term = html.unescape(match.group(1)), match.group(2)
-            if term in dictionary and tip != dictionary[term]:
+            if term not in dictionary:
+                errors.append(f"tooltip term missing from dictionary: {term}")
+            elif tip != dictionary[term]:
                 errors.append(f"stale tooltip definition: {term}")
+    unique_terms = {match.group(2) for match in matched}
+    if minimum_unique is not None and len(unique_terms) < minimum_unique:
+        errors.append(
+            f"tooltip density below declared minimum: {len(unique_terms)}<{minimum_unique}"
+        )
     return opened, errors
 
 
@@ -251,8 +282,13 @@ def main() -> None:
 
     for path in sorted(Path(args.posts_dir).glob("*.md")):
         original = path.read_text(encoding="utf-8")
+        minimum_unique = minimum_unique_from_front_matter(original)
         transformed, added, updated = transform(original, dictionary)
-        count, errors = validate_text(original if args.check else transformed, dictionary)
+        count, errors = validate_text(
+            original if args.check else transformed,
+            dictionary,
+            minimum_unique=minimum_unique,
+        )
         if args.check_coverage and (added or updated):
             errors.append(f"tooltip coverage drift: +{added}, refresh={updated}")
         if not args.check and not args.check_coverage and transformed != original:
@@ -261,7 +297,11 @@ def main() -> None:
         total_updated += updated
         failed = failed or bool(errors)
         state = "OK" if not errors else "FAIL: " + "; ".join(errors)
-        print(f"{path.name}: +{added}, refresh={updated}, total={count} {state}")
+        target = "-" if minimum_unique is None else str(minimum_unique)
+        print(
+            f"{path.name}: +{added}, refresh={updated}, total={count}, "
+            f"min_unique={target} {state}"
+        )
 
     print(f"tooltip check complete: added={total_added}, refreshed={total_updated}")
     raise SystemExit(1 if failed else 0)

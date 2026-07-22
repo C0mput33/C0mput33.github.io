@@ -10,7 +10,11 @@ from pathlib import Path
 TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 
-from insert_tooltips import transform, validate_text  # noqa: E402
+from insert_tooltips import (  # noqa: E402
+    minimum_unique_from_front_matter,
+    transform,
+    validate_text,
+)
 from sync_tooltip_dictionary import load_sources, render  # noqa: E402
 from validate_post import check_post  # noqa: E402
 
@@ -72,6 +76,29 @@ class TooltipTests(unittest.TestCase):
         self.assertEqual(added, 1)
         self.assertIn(">CI/CD</span>를", transformed)
         self.assertNotIn(">CI</span>/CD", transformed)
+
+    def test_declared_minimum_unique_tooltips_is_enforced(self):
+        source = """---
+title: test
+tooltip_min_unique: 2
+---
+본문 DPO
+"""
+        transformed, _, _ = transform(source, self.dictionary)
+        minimum = minimum_unique_from_front_matter(transformed)
+        self.assertEqual(minimum, 2)
+        _, errors = validate_text(transformed, self.dictionary, minimum_unique=minimum)
+        self.assertIn("tooltip density below declared minimum: 1<2", errors)
+
+    def test_invalid_minimum_unique_tooltips_is_rejected(self):
+        source = "---\ntooltip_min_unique: many\n---\n본문\n"
+        with self.assertRaisesRegex(ValueError, "non-negative integer"):
+            minimum_unique_from_front_matter(source)
+
+    def test_tooltip_term_removed_from_dictionary_is_rejected(self):
+        source = '<span class="term" data-tip="old">old term</span>'
+        _, errors = validate_text(source, {"new term": "new"})
+        self.assertEqual(errors, ["tooltip term missing from dictionary: old term"])
 
     def test_dictionary_render_is_deterministic(self):
         self.assertEqual(render({"B": "둘", "a": "하나"}), render({"a": "하나", "B": "둘"}))

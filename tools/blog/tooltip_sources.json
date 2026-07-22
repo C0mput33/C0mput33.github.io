@@ -4,7 +4,7 @@
   "groups": [
     {
       "id": "project-eval-runtime",
-      "terms": ["A/B", "Arena 점수", "Match Rate", "contest", "jury", "retire2", "top-k", "골든셋", "능동 표집", "반응성 β", "부활전", "오은퇴", "양방향 swap", "위치 편향", "자기 선호", "체크포인트"],
+      "terms": ["A/B", "Arena 점수", "Match Rate", "contest", "jury", "retire2", "top-k", "골든셋", "능동 표집", "동등성 테스트", "반응성 β", "부활전", "오은퇴", "양방향 swap", "위치 편향", "자기 선호", "체크포인트"],
       "references": [
         "project:C0mput33/little-bard/eval/app/index.html",
         "project:C0mput33/little-bard/eval/aggregate/bradley_terry.py",
@@ -110,43 +110,64 @@
     },
     {
       "id": "model-formats-and-serving",
-      "terms": ["AWQ", "GGUF", "L40S", "MTP", "MoE", "Ollama", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "양자화", "통합 메모리", "활성 파라미터"],
+      "terms": ["A3B", "AWQ", "BF16", "CUDA", "FP8", "GGUF", "Gated DeltaNet", "L4", "L40S", "MTP", "Metal", "MoE", "Ollama", "Qwen3-30B-A3B", "Qwen3.5-35B-A3B", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "모델 가중치", "모델 체크포인트", "모델 파라미터", "비전 인코더", "양자화", "컨텍스트 길이", "통합 메모리", "활성값", "활성 파라미터"],
       "references": [
         "https://arxiv.org/abs/2306.00978",
         "https://arxiv.org/abs/2404.19737",
         "https://arxiv.org/abs/2101.03961",
         "https://github.com/ggml-org/ggml/blob/master/docs/gguf.md",
         "https://github.com/ggml-org/llama.cpp",
+        "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
+        "https://huggingface.co/Qwen/Qwen3-30B-A3B",
         "https://docs.vllm.ai/",
         "https://ollama.com/blog/openai-compatibility",
+        "https://developer.apple.com/metal/",
+        "https://docs.nvidia.com/cuda/",
         "https://www.nvidia.com/en-us/data-center/l40s/",
+        "https://www.nvidia.com/en-us/data-center/l4/",
+        "https://support.apple.com/en-us/126318",
         "https://support.apple.com/guide/activity-monitor/view-memory-usage-actmntr1004/mac",
         "project:C0mput33/little-bard/eval/config/models.yaml"
       ]
     },
     {
       "id": "post-training-and-model-files",
-      "terms": ["DPO", "LoRA", "MLX", "QLoRA", "TRL", "safetensors", "transformers"],
+      "terms": ["DPO", "LoRA", "LoRA rank", "MLX", "PEFT", "QLoRA", "SFT", "TRL", "그래디언트", "그래디언트 누적", "그래디언트 체크포인팅", "모델 리비전", "어댑터", "옵티마이저 상태", "파인튜닝", "safetensors", "transformers"],
       "references": [
         "https://arxiv.org/abs/2305.18290",
         "https://arxiv.org/abs/2106.09685",
         "https://arxiv.org/abs/2305.14314",
+        "https://huggingface.co/docs/peft/main/en/developer_guides/checkpoint",
         "https://huggingface.co/docs/transformers/",
         "https://huggingface.co/docs/trl/",
         "https://huggingface.co/docs/safetensors/",
+        "https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/LORA.md",
         "https://ml-explore.github.io/mlx/build/html/index.html"
       ]
     },
     {
+      "id": "data-splitting-and-preferences",
+      "terms": ["데이터 누수", "선호쌍", "홀드아웃"],
+      "references": [
+        "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage",
+        "https://scikit-learn.org/stable/modules/cross_validation.html",
+        "https://arxiv.org/abs/2305.18290",
+        "project:C0mput33/little-bard/eval/"
+      ]
+    },
+    {
       "id": "aws-bedrock-and-cost",
-      "terms": ["CMI", "CMU", "Converse", "InvokeModel", "관리형 API", "손익분기", "스팟", "온디맨드"],
+      "terms": ["CMI", "CMU", "Converse", "EC2", "InvokeModel", "SageMaker Async Inference", "관리형 API", "손익분기", "스팟", "온디맨드"],
       "references": [
         "https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html",
         "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_CustomModelUnits.html",
         "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference-call.html",
         "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModel.html",
+        "https://aws.amazon.com/ec2/instance-types/g6/",
+        "https://aws.amazon.com/ec2/instance-types/g6e/",
         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html",
+        "https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html",
         "project:C0mput33/little-bard/eval/analysis/cost-per-book/"
       ]
     },
