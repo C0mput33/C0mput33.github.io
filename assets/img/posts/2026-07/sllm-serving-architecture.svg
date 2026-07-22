@@ -30,7 +30,7 @@
   </style>
 
   <rect x="1" y="1" width="958" height="938" rx="18" fill="#fbfaff" stroke="#e6e2f5" stroke-width="1.5"/>
-  <text x="30" y="38" class="title">Qwen3.5-35B-A3B 투입 경로 — 런타임과 학습·이식성 게이트</text>
+  <text x="30" y="38" class="title">Qwen3.6-35B-A3B 투입 경로 — 런타임과 학습·이식성 게이트</text>
   <text x="30" y="57" class="subtitle">사용자 요청은 비동기 워커로 처리하고, 로컬 장기 학습은 MLX → PEFT → vLLM 동등성 검사를 통과한 뒤에만 시작한다.</text>
 
   <!-- A: runtime -->
@@ -97,15 +97,15 @@
   <text x="167" y="462" text-anchor="middle" class="good">평가가 끝날 때까지 기본 경로 유지</text>
 
   <rect x="320" y="384" width="292" height="100" rx="10" class="warn"/>
-  <text x="466" y="407" text-anchor="middle" class="head">Qwen3.5-35B-A3B — 정확한 후보</text>
-  <text x="466" y="426" text-anchor="middle" class="text">35B total · 3B active · 4bit 파일 20.4GB</text>
+  <text x="466" y="407" text-anchor="middle" class="head">Qwen3.6-35B-A3B — 정확한 후보</text>
+  <text x="466" y="426" text-anchor="middle" class="text">35B total · 3B active · MLX 4bit 19.0GiB</text>
   <text x="466" y="442" text-anchor="middle" class="text">qwen3_5_moe · 기본 컨텍스트 262K</text>
   <text x="466" y="462" text-anchor="middle" class="bad">Bedrock CMI 미지원 → GPU vLLM 경로</text>
 
   <rect x="636" y="384" width="286" height="100" rx="10" class="box"/>
   <text x="779" y="407" text-anchor="middle" class="head">AWS 첫 서빙 후보</text>
-  <text x="779" y="426" text-anchor="middle" class="text">EC2 또는 SageMaker · G6e L40S 48GB</text>
-  <text x="779" y="442" text-anchor="middle" class="text">vLLM · text-only · max-model-len 8K부터</text>
+  <text x="779" y="426" text-anchor="middle" class="text">EC2 G6e 48GB($2.288/h) → G7e 96GB</text>
+  <text x="779" y="442" text-anchor="middle" class="text">공식 FP8 · vLLM · text-only · 8K부터</text>
   <text x="779" y="462" text-anchor="middle" class="text">비동기 job API · 지연/메모리/비용 실측</text>
 
   <path class="flow" d="M296 434 L316 434"/>
@@ -118,7 +118,7 @@
 
   <rect x="38" y="572" width="200" height="150" rx="10" class="box"/>
   <text x="138" y="596" text-anchor="middle" class="head">① 데이터·로컬 스모크</text>
-  <text x="138" y="617" text-anchor="middle" class="text">새 aligned-v2 / strict-v2만 사용</text>
+  <text x="138" y="617" text-anchor="middle" class="text">childlit-v3 / childlit-strict-v3만 사용</text>
   <text x="138" y="634" text-anchor="middle" class="text">M5 Pro 48GB · MLX 4bit</text>
   <text x="138" y="651" text-anchor="middle" class="text">LoRA · batch 1 · seq 512</text>
   <text x="138" y="668" text-anchor="middle" class="text">4 layers · rank 8 · 10~20 steps</text>
@@ -136,8 +136,8 @@
 
   <rect x="496" y="572" width="194" height="150" rx="10" class="box"/>
   <text x="593" y="596" text-anchor="middle" class="head">③ AWS 단일 GPU 스모크</text>
-  <text x="593" y="617" text-anchor="middle" class="text">G6e · L40S 48GB</text>
-  <text x="593" y="634" text-anchor="middle" class="text">vLLM · language-model-only</text>
+  <text x="593" y="617" text-anchor="middle" class="text">G6e · L40S 48GB · 공식 FP8</text>
+  <text x="593" y="634" text-anchor="middle" class="text">vLLM · language-model-only · MTP off</text>
   <text x="593" y="651" text-anchor="middle" class="text">8K → 16K 문맥 단계 확대</text>
   <text x="593" y="668" text-anchor="middle" class="text">TTFT · tok/s · GPU memory</text>
   <text x="593" y="685" text-anchor="middle" class="text">실패율 · 권당 비용 측정</text>
@@ -145,7 +145,7 @@
 
   <rect x="716" y="572" width="206" height="150" rx="10" class="gate"/>
   <text x="819" y="596" text-anchor="middle" class="head">④ 평가·교체 게이트</text>
-  <text x="819" y="617" text-anchor="middle" class="text">strict-v2 유효 판정만 사용</text>
+  <text x="819" y="617" text-anchor="middle" class="text">childlit-strict-v3 유효 판정만 사용</text>
   <text x="819" y="634" text-anchor="middle" class="text">창작 순위 / 난이도 진단 분리</text>
   <text x="819" y="651" text-anchor="middle" class="text">튜닝 전후 같은 조건 비교</text>
   <text x="819" y="668" text-anchor="middle" class="text">품질 · 비용 · 지연 · 실패율</text>

@@ -115,7 +115,7 @@
     },
     {
       "id": "model-formats-and-serving",
-      "terms": ["A3B", "AWQ", "BF16", "CUDA", "FP8", "GGUF", "Gated DeltaNet", "L4", "L40S", "MTP", "Metal", "MoE", "Ollama", "Qwen3-30B-A3B", "Qwen3.5-35B-A3B", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "모델 가중치", "모델 체크포인트", "모델 파라미터", "비전 인코더", "양자화", "컨텍스트 길이", "통합 메모리", "활성값", "활성 파라미터"],
+      "terms": ["A3B", "AWQ", "BF16", "CUDA", "FP8", "GGUF", "Gated DeltaNet", "L4", "L40S", "MTP", "NTP", "bpw", "Metal", "MoE", "Ollama", "Qwen3-30B-A3B", "Qwen3.5-35B-A3B", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "모델 가중치", "모델 체크포인트", "모델 파라미터", "비전 인코더", "양자화", "컨텍스트 길이", "통합 메모리", "활성값", "활성 파라미터"],
       "references": [
         "https://arxiv.org/abs/2306.00978",
         "https://arxiv.org/abs/2404.19737",
@@ -123,6 +123,7 @@
         "https://github.com/ggml-org/ggml/blob/master/docs/gguf.md",
         "https://github.com/ggml-org/llama.cpp",
         "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
+        "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
         "https://huggingface.co/Qwen/Qwen3-30B-A3B",
         "https://docs.vllm.ai/",
         "https://ollama.com/blog/openai-compatibility",

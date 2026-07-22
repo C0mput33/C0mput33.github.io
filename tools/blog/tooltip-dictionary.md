@@ -15,6 +15,7 @@
 | Artificial Analysis | 여러 AI 모델의 품질 지표와 API 가격·처리량·지연을 독립적으로 측정해 공개하는 서비스. 이 블로그에서는 그중 API 서빙 성능 자료를 실측 대조에 사용했다. | [`external-benchmark-services`](#external-benchmark-services) |
 | AWQ | Activation-aware Weight Quantization. 보정 데이터의 활성값을 이용해 출력에 중요한 가중치 채널을 보호하는 저비트 weight-only 양자화 방법이다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | BF16 | 지수부는 FP32와 같은 8비트로 두고 가수부를 줄인 16비트 부동소수점 형식. 넓은 값 범위를 유지하면서 가중치와 연산 메모리를 FP32보다 줄인다. | [`model-formats-and-serving`](#model-formats-and-serving) |
+| bpw | Bits Per Weight. 양자화 모델이 가중치 하나를 저장하는 데 평균적으로 쓰는 비트 수다. 낮을수록 파일은 작아지지만 실제 크기·품질·속도는 양자화 방식과 메타데이터, 실행 장치에도 좌우된다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Bradley-Terry | 맞대결 승패만으로 각 후보의 숨은 실력을 추정하는 통계 모델(1952). 실력 차가 승률을 정한다고 가정하고, 관측된 모든 승패를 가장 잘 설명하는 실력값을 최우도로 찾는다. 경기 순서와 무관하게 같은 답이 나오는 배치 방식이라, 고정된 대전 기록의 순위에 적합하다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | BT | Bradley–Terry 모델의 약칭. 두 후보의 상대적 실력으로 맞대결 승률을 설명하고 전체 pairwise 결과에서 실력값을 추정한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | Chatbot Arena | 사용자가 익명화된 두 모델 응답을 비교해 투표하는 공개 평가 플랫폼의 초기 이름. 현재 LMArena는 대규모 사람 선호 데이터를 Bradley–Terry 계열 모델로 집계한다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
@@ -43,7 +44,7 @@
 | FKGL | Flesch–Kincaid Grade Level. 문장당 단어 수와 단어당 음절 수로 영어 텍스트의 미국 학년 수준을 추정한다. | [`readability-primary`](#readability-primary) |
 | FP8 | 8비트 부동소수점 형식 계열. 가중치와 활성값을 더 작게 만들 수 있지만 하드웨어·커널 지원과 보정 방식에 따라 정확도와 실제 메모리 절감 폭이 달라진다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | G-Eval | 평가 기준과 단계별 평가 절차를 LLM에 주고 생성된 점수 확률을 이용해 응답 품질을 채점하는 프레임워크. 이 프로젝트는 그 기준 축을 진단에만 사용하고 전체 순위는 pairwise 결과로 낸다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
-| Gated DeltaNet | Qwen3.5가 긴 문맥 처리를 위해 사용하는 선형 어텐션 계열 층. 표준 full attention과 계산 경로가 달라 학습·서빙 엔진이 이 구조를 실제로 지원하는지 확인해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
+| Gated DeltaNet | Qwen3.5·3.6이 긴 문맥 처리를 위해 사용하는 선형 어텐션 계열 층. 표준 full attention과 계산 경로가 달라 학습·서빙 엔진이 이 구조를 실제로 지원하는지 확인해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | GGUF | llama.cpp 계열에서 쓰는 모델 파일 형식. 가중치와 토크나이저·아키텍처 메타데이터를 한 파일에 담으며 양자화된 가중치 배포에 널리 사용된다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Glicko | Elo의 점수에 Rating Deviation을 더해 현재 레이팅의 불확실성도 추적하는 체계. 정해진 rating period의 경기 결과를 묶어 갱신하며 EQ-Bench가 pairwise 집계에 사용한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | GPU | 대량의 수치 연산을 병렬 처리하는 프로세서. LLM에서는 행렬 연산을 빠르게 수행하지만 모델 적재 가능 크기는 연산 성능뿐 아니라 GPU 메모리에도 제한된다. | [`llm-core-and-inference`](#llm-core-and-inference) |
@@ -81,6 +82,7 @@
 | MMLU | 57개 과목의 객관식 문제로 언어 모델의 지식과 문제 해결 능력을 평가하는 벤치마크. 실제 제품의 창작 품질이나 연령 적합성을 직접 재는 시험은 아니다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
 | MoE | Mixture of Experts. 여러 전문가 중 토큰마다 일부만 선택해 전체 파라미터를 모두 활성화할 때보다 연산량을 줄이는 구조. 같은 활성 크기의 밀집 모델과 품질·지연·메모리가 같다는 뜻은 아니다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | MTP | Multi-Token Prediction. 학습할 때 각 위치에서 다음 토큰 하나뿐 아니라 여러 미래 토큰을 예측하도록 보조 목표를 두는 방식. 추론 가속에 활용할 수 있지만 검증 절차는 구현마다 다르다. | [`model-formats-and-serving`](#model-formats-and-serving) |
+| NTP | Next-Token Prediction. 현재까지의 토큰을 바탕으로 바로 다음 토큰 하나의 확률을 예측하는 일반적인 자기회귀 생성 방식이다. MTP처럼 여러 미래 토큰을 한꺼번에 제안·검증하는 추론과 구분할 때 쓰인다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Ollama | 오픈 웨이트 모델을 로컬 장비에서 내려받아 실행하고 API로 호출하게 해주는 도구. 외부 모델 API의 호출 요금은 없지만 장비·전력·운영 비용은 별도다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | OpenRouter | 여러 회사의 LLM을 하나의 API와 결제로 호출하게 해주는 중계 서비스. 모델마다 계정을 따로 만들 필요가 없어 다모델 비교 실험에 편하다. | [`openrouter-runtime`](#openrouter-runtime) |
 | OpenRouter 공급자 | OpenRouter가 같은 모델 요청을 넘기는 실제 상류 API 또는 호스팅 엔드포인트. Anthropic, Amazon Bedrock, Google Vertex처럼 모델이 같아도 지역·가격·속도·캐시 정책이 다를 수 있다. | [`openrouter-runtime`](#openrouter-runtime) |
@@ -288,7 +290,7 @@ Terms: `Chatbot Arena`, `CoT`, `EQ-Bench`, `G-Eval`, `GSM8K`, `IFEval`, `InfoBen
 
 ### model-formats-and-serving
 
-Terms: `A3B`, `AWQ`, `BF16`, `CUDA`, `FP8`, `GGUF`, `Gated DeltaNet`, `L4`, `L40S`, `MTP`, `Metal`, `MoE`, `Ollama`, `Qwen3-30B-A3B`, `Qwen3.5-35B-A3B`, `Qwen3.6-35B-A3B`, `linear attention`, `llama.cpp`, `sLLM`, `vLLM`, `모델 가중치`, `모델 체크포인트`, `모델 파라미터`, `비전 인코더`, `양자화`, `컨텍스트 길이`, `통합 메모리`, `활성값`, `활성 파라미터`
+Terms: `A3B`, `AWQ`, `BF16`, `CUDA`, `FP8`, `GGUF`, `Gated DeltaNet`, `L4`, `L40S`, `MTP`, `NTP`, `bpw`, `Metal`, `MoE`, `Ollama`, `Qwen3-30B-A3B`, `Qwen3.5-35B-A3B`, `Qwen3.6-35B-A3B`, `linear attention`, `llama.cpp`, `sLLM`, `vLLM`, `모델 가중치`, `모델 체크포인트`, `모델 파라미터`, `비전 인코더`, `양자화`, `컨텍스트 길이`, `통합 메모리`, `활성값`, `활성 파라미터`
 
 - <https://arxiv.org/abs/2306.00978>
 - <https://arxiv.org/abs/2404.19737>
@@ -296,6 +298,7 @@ Terms: `A3B`, `AWQ`, `BF16`, `CUDA`, `FP8`, `GGUF`, `Gated DeltaNet`, `L4`, `L40
 - <https://github.com/ggml-org/ggml/blob/master/docs/gguf.md>
 - <https://github.com/ggml-org/llama.cpp>
 - <https://huggingface.co/Qwen/Qwen3.5-35B-A3B>
+- <https://huggingface.co/Qwen/Qwen3.6-35B-A3B>
 - <https://huggingface.co/Qwen/Qwen3-30B-A3B>
 - <https://docs.vllm.ai/>
 - <https://ollama.com/blog/openai-compatibility>
