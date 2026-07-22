@@ -198,6 +198,29 @@ _Kimi K2.6: $0.373/$3.61. SiliconFlow의 캐시 히트 84.7%와 token share 34.7
 
 공급자 운영 지표는 <span class="term" data-tip="여러 회사의 LLM을 하나의 API와 결제로 호출하게 해주는 중계 서비스. 모델마다 계정을 따로 만들 필요가 없어 다모델 비교 실험에 편하다.">OpenRouter</span>, 모델 중립 비교는 Artificial Analysis, 품질 선호는 LMArena에서 확인할 수 있다. 이 셋은 서로 대신할 수 없다. Kimi의 공개 처리량 194 tok/s와 이 워크로드의 372.5초처럼 공개 운영 지표와 실제 완료 시간은 반대로 움직일 수 있고, 단순 순위합 1위도 창작 품질 1위를 뜻하지 않는다. 위 캐파시티 표에서 glm-5.2가 동화 10권을 동시에 처리할 때의 관측 요구량은 분당 약 4.4만 출력 토큰이다. 실제 용량은 여기에 재시도·피크·p95 여유를 더하고 새 부하 시험으로 확정한다.
 
+## 두 글을 함께 본 최종 판단
+
+[캐시 실측 글](/posts/cache-hit-measured-vs-benchmark-sites/)과 이 글의 결론을 하나로 합치면 **현재 확정 1위 모델은 없다.** 캐시 글의 GLM 1위 표는 구형 797쌍 창작 평가에 새 운영비용을 겹친 탐색표다. 이 글의 Haiku 1위는 품질을 넣지 않은 운영 순위합이다. 서로 답하는 질문이 다르다.
+
+| 후보 | 창작 품질 근거 | 유효 응답·완료 시간 | 권당 실청구액 | 캐시 관측 | 지금 내릴 수 있는 결정 |
+|---|---|---:|---:|---:|---|
+| **glm-5.2** | 레거시 <span class="term" data-tip="Bradley–Terry 모델의 약칭. 두 후보의 상대적 실력으로 맞대결 승률을 설명하고 전체 pairwise 결과에서 실력값을 추정한다.">BT</span> 6위(1033), 현재 정책과 비교 불가 | 5/5 · 42.4s | $0.00907 | 22.0% | 새 평가의 **잠정 기준선**. 이미 품질 관측이 있지만 재검증이 필요하다 |
+| **gemini-3.1-flash-lite** | 레거시 창작 평가 없음 | 5/5 · **6.9s** | **$0.00288** | 0% | 가장 먼저 품질을 확인할 **속도·가격 도전자** |
+| **claude-haiku-4.5** | 레거시 창작 평가 없음 | 5/5 · 18.2s | $0.01440 | 0% | 운영 순위합 1위지만 품질 미측정. Flash Lite와 함께 도전자 |
+| gemini-3.5-flash | 레거시 BT 7위(1018), 현재 정책과 비교 불가 | 5/5 · 27.5s | $0.04775 | 0% | 빠르지만 위 세 후보보다 비싸다. 품질 비교용 대조군 |
+| qwen3.6-35b-a3b | 레거시 BT 5위(1050) | **3/5** · 61.4s(성공 조건부) | $0.03034/유효권 | 0% | 65,536-token 빈 응답을 포함해 안정성 게이트 탈락. 우선 제외 |
+| kimi-k2.6 | 레거시 BT 3위(1130) | 5/5 · **372.5s** | $0.04517 | 17.1% | 공개 tok/s는 빠르지만 실제 완료가 6분대라 대화형 경로에서 제외 |
+
+결정 순서는 다음과 같다.
+
+1. GLM-5.2·Flash Lite·Haiku 세 모델을 동일한 `aligned-v2` 생성 조건과 `strict-v2` 심판으로 작은 smoke run에 넣어 유효 응답과 파싱 실패를 확인한다.
+2. 통과한 후보만 새 창작 pairwise 평가로 비교한다. 읽기 난이도 프로브는 BT 창작 순위와 분리한다.
+3. 창작 합격 후보끼리 같은 프롬프트·공급자 정책에서 p50·p95 완료 시간, 실패율, `usage.cost`, `cached_tokens`를 다시 잰다.
+4. 반복 <span class="term" data-tip="프롬프트의 앞부분에 반복해서 붙는 공통 입력 구간. 프롬프트 캐시는 이 구간이 같고 공급자의 최소 길이·라우팅 조건을 충족할 때 재사용될 수 있다.">프리픽스</span>가 실제로 있고 비용 이득이 확인될 때만 `session_id`·명시 캐싱을 적용한다. 공개 Cache hit rate를 서비스 절감률로 대신하지 않는다.
+5. 이 관문을 통과한 모델을 배포 기준 모델로 확정한다. 현재 데이터만으로는 **GLM은 기준선, Flash Lite·Haiku는 도전자**까지가 근거가 허용하는 결론이다.
+
+이 최종 표도 영구 리더보드가 아니다. 실측은 모델당 5회, 한 프롬프트 계열·한 시점이고 레거시 창작 평가는 현재 정책과 비교할 수 없다. 새 평가가 끝나면 같은 열을 새 정책 버전·날짜와 함께 교체해야 한다.
+
 [^orpage]: 오픈라우터 모델 페이지의 Performance·Effective Pricing 섹션. 캡처 원본은 본문의 각 이미지 바로 아래에 직접 링크했고, 표의 나머지 네 모델은 [캐시편](/posts/cache-hit-measured-vs-benchmark-sites/)에 연결했다. 2026-07-19 또는 2026-07-21 스냅샷이며 현재 값과 다를 수 있다.
 [^ormodels]: [OpenRouter Models 문서](https://openrouter.ai/docs/guides/overview/models)는 `throughput-high-to-low`를 "routing heuristics의 p50 throughput"으로 설명한다. [공급자 통합 문서](https://openrouter.ai/docs/guides/community/for-providers)는 throughput을 `output tokens ÷ generation time`으로 정의하고 공급자 대기·첫 응답·스트리밍 시간이 포함된다고 설명한다. 2026-07-22 확인.
 [^orlatency]: 캡처된 Performance 화면은 `Latency is total round-trip time`이라고 쓰면서 별도 `E2E Latency` 그래프도 보여준다. 반면 [OpenRouter FAQ](https://openrouter.ai/docs/faq)와 [Models 문서](https://openrouter.ai/docs/guides/overview/models)는 모델 페이지 latency를 TTFT로 설명한다. 공식 설명이 불일치하므로 이 글은 해당 열을 완결 시간이나 TTFT로 재명명하지 않고 화면의 `Latency p50` 값으로 보존했다. 2026-07-22 확인.
