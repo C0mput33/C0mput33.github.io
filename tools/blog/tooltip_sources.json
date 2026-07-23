@@ -41,11 +41,13 @@
     },
     {
       "id": "browser-storage-and-web-standards",
-      "terms": ["API", "HTML", "HTTP", "IndexedDB", "JSON", "TTL", "localStorage", "비동기", "캐시 미스"],
+      "terms": ["API", "CORS", "HTML", "HTTP", "IndexedDB", "JSON", "TTL", "localStorage", "비동기", "캐시 미스"],
       "references": [
         "https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria",
         "https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API",
         "https://developer.mozilla.org/en-US/docs/Glossary/API",
+        "https://developer.mozilla.org/en-US/docs/Glossary/Origin",
+        "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS",
         "https://www.rfc-editor.org/rfc/rfc9110",
         "https://www.rfc-editor.org/rfc/rfc8259",
         "https://html.spec.whatwg.org/",
@@ -54,12 +56,13 @@
     },
     {
       "id": "application-and-delivery",
-      "terms": ["CI/CD", "Cloud Run", "DLQ", "FastAPI", "SLA", "SLO", "gRPC", "webhook", "게이트웨이", "동시성", "라우팅", "멱등", "백프레셔", "스케일 제로", "오토스케일링", "큐 깊이", "콜드스타트", "헥사고날"],
+      "terms": ["CI/CD", "Cloud Run", "DLQ", "FastAPI", "Gradio", "Provider Adapter", "SLA", "SLO", "gRPC", "webhook", "게이트웨이", "동시성", "라우팅", "멱등", "백프레셔", "스케일 제로", "오토스케일링", "큐 깊이", "콜드스타트", "헥사고날"],
       "references": [
         "https://docs.github.com/en/actions/get-started/continuous-integration",
         "https://cloud.google.com/run/docs/overview/what-is-cloud-run",
         "https://cloud.google.com/run/docs/tips/general",
         "https://fastapi.tiangolo.com/",
+        "https://www.gradio.app/guides/view-api-page",
         "https://grpc.io/docs/what-is-grpc/introduction/",
         "https://sre.google/sre-book/service-level-objectives/",
         "https://docs.ray.io/en/latest/serve/advanced-guides/advanced-autoscaling.html",
@@ -115,7 +118,7 @@
     },
     {
       "id": "model-formats-and-serving",
-      "terms": ["A3B", "AWQ", "BF16", "CUDA", "FP8", "GGUF", "Gated DeltaNet", "L4", "L40S", "MTP", "NTP", "bpw", "Metal", "MoE", "Ollama", "Qwen3-30B-A3B", "Qwen3.5-35B-A3B", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "모델 가중치", "모델 체크포인트", "모델 파라미터", "비전 인코더", "양자화", "컨텍스트 길이", "통합 메모리", "활성값", "활성 파라미터"],
+      "terms": ["A3B", "AWQ", "BF16", "CUDA", "FP8", "GGUF", "Gated DeltaNet", "L4", "L40S", "MTP", "NTP", "OpenAI 호환 API", "bpw", "Metal", "MoE", "Ollama", "Qwen3-30B-A3B", "Qwen3.5-35B-A3B", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "모델 가중치", "모델 체크포인트", "모델 파라미터", "비전 인코더", "양자화", "컨텍스트 길이", "통합 메모리", "활성값", "활성 파라미터"],
       "references": [
         "https://arxiv.org/abs/2306.00978",
         "https://arxiv.org/abs/2404.19737",
@@ -126,6 +129,7 @@
         "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
         "https://huggingface.co/Qwen/Qwen3-30B-A3B",
         "https://docs.vllm.ai/",
+        "https://docs.vllm.ai/en/latest/serving/openai_compatible_server/",
         "https://ollama.com/blog/openai-compatibility",
         "https://developer.apple.com/metal/",
         "https://docs.nvidia.com/cuda/",

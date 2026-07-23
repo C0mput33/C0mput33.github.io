@@ -28,6 +28,7 @@
 | Coleman–Liau | 글자 수와 문장 수를 사용해 영어 텍스트의 미국 학년 수준을 추정하는 가독성 지수. 음절 수를 직접 세지 않는다는 점이 FKGL과 다르다. | [`readability-primary`](#readability-primary) |
 | contest | 집계의 최소 단위. 한 쌍에 대한 한 심판의 판정 하나(양방향 평균을 마친 점수)를 말한다. 심판 셋이 본 쌍이면 contest 3개가 BT에 들어간다. | [`project-eval-runtime`](#project-eval-runtime) |
 | Converse | Bedrock의 통일 대화 API. 모델마다 다른 요청 형식을 하나로 감춰 주지만 모든 모델이 지원하는 것은 아니라서, 미지원 모델은 원시 형식인 InvokeModel로 호출해야 한다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
+| CORS | Cross-Origin Resource Sharing. 브라우저가 현재 페이지와 다른 scheme·host·port의 서버 응답을 읽어도 되는지 서버 헤더로 허용하는 규칙. 허용 origin을 넓게 잡으면 의도하지 않은 웹페이지도 로컬 API를 호출할 수 있다. | [`browser-storage-and-web-standards`](#browser-storage-and-web-standards) |
 | CoT | Chain-of-Thought. 모델이 최종 답에 이르기 전 중간 추론 단계를 텍스트로 생성하도록 유도하는 프롬프트 방법. 공개 추론문이 모델의 실제 내부 계산을 완전히 보여준다고 가정해서는 안 된다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
 | CUDA | NVIDIA GPU에서 병렬 계산을 실행하는 플랫폼과 프로그래밍 모델. vLLM과 여러 학습 도구의 GPU 커널은 특정 CUDA·드라이버 조합을 요구할 수 있다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Davidson | Bradley-Terry에 무승부 확률을 정식 파라미터로 추가한 확장 모델(1970). 순수 BT는 무승부 확률이 0이라, 무승부가 있는 데이터를 엄밀히 다루려면 이런 확장이 필요하다. | [`statistics-and-ranking`](#statistics-and-ranking) |
@@ -48,6 +49,7 @@
 | GGUF | llama.cpp 계열에서 쓰는 모델 파일 형식. 가중치와 토크나이저·아키텍처 메타데이터를 한 파일에 담으며 양자화된 가중치 배포에 널리 사용된다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Glicko | Elo의 점수에 Rating Deviation을 더해 현재 레이팅의 불확실성도 추적하는 체계. 정해진 rating period의 경기 결과를 묶어 갱신하며 EQ-Bench가 pairwise 집계에 사용한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | GPU | 대량의 수치 연산을 병렬 처리하는 프로세서. LLM에서는 행렬 연산을 빠르게 수행하지만 모델 적재 가능 크기는 연산 성능뿐 아니라 GPU 메모리에도 제한된다. | [`llm-core-and-inference`](#llm-core-and-inference) |
+| Gradio | Python 함수와 모델 데모를 웹 UI로 감싸고, 연결된 이벤트 함수의 호출 문서를 자동 생성하는 오픈소스 도구. 자동 API 노출은 개발 편의 기능이며 인증이나 네트워크 보안 자체를 대신하지 않는다. | [`application-and-delivery`](#application-and-delivery) |
 | gRPC | 서비스와 메시지를 Protocol Buffers로 정의하고 원격 메서드를 호출하는 RPC 프레임워크. 일반적인 전송은 HTTP/2를 사용하며 스트리밍과 코드 생성을 지원한다. | [`application-and-delivery`](#application-and-delivery) |
 | GSM8K | 초등학교 수준의 다단계 수학 서술형 문제 8,500개로 구성된 벤치마크. 모델이 답만 맞히는지보다 여러 계산 단계를 이어갈 수 있는지를 평가한다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
 | HTML | 웹 문서의 구조와 의미를 요소로 표시하는 마크업 언어. CSS는 표현을, JavaScript는 동작을 주로 담당한다. | [`browser-storage-and-web-standards`](#browser-storage-and-web-standards) |
@@ -84,6 +86,7 @@
 | MTP | Multi-Token Prediction. 학습할 때 각 위치에서 다음 토큰 하나뿐 아니라 여러 미래 토큰을 예측하도록 보조 목표를 두는 방식. 추론 가속에 활용할 수 있지만 검증 절차는 구현마다 다르다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | NTP | Next-Token Prediction. 현재까지의 토큰을 바탕으로 바로 다음 토큰 하나의 확률을 예측하는 일반적인 자기회귀 생성 방식이다. MTP처럼 여러 미래 토큰을 한꺼번에 제안·검증하는 추론과 구분할 때 쓰인다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Ollama | 오픈 웨이트 모델을 로컬 장비에서 내려받아 실행하고 API로 호출하게 해주는 도구. 외부 모델 API의 호출 요금은 없지만 장비·전력·운영 비용은 별도다. | [`model-formats-and-serving`](#model-formats-and-serving) |
+| OpenAI 호환 API | OpenAI Chat Completions와 비슷한 URL·JSON 요청·응답 형식을 구현해 같은 클라이언트 코드로 다른 모델 서버를 호출할 수 있게 한 인터페이스. 세부 지원 필드는 서버마다 달라 별도 확인이 필요하다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | OpenRouter | 여러 회사의 LLM을 하나의 API와 결제로 호출하게 해주는 중계 서비스. 모델마다 계정을 따로 만들 필요가 없어 다모델 비교 실험에 편하다. | [`openrouter-runtime`](#openrouter-runtime) |
 | OpenRouter 공급자 | OpenRouter가 같은 모델 요청을 넘기는 실제 상류 API 또는 호스팅 엔드포인트. Anthropic, Amazon Bedrock, Google Vertex처럼 모델이 같아도 지역·가격·속도·캐시 정책이 다를 수 있다. | [`openrouter-runtime`](#openrouter-runtime) |
 | OTPM | Output Tokens Per Minute. 분당 출력 토큰 처리량 또는 한도. 동시에 여러 건을 생성할 때 분당 총 몇 토큰이 필요한지로 환산하면 쿼터 신청과 동시성 계획의 근거가 된다. | [`openrouter-runtime`](#openrouter-runtime) |
@@ -91,6 +94,7 @@
 | P95 | 측정값을 작은 순서로 놓았을 때 95%가 이 값 이하에 들어오는 백분위. 응답 시간 P95가 3초라면 요청의 약 5%는 3초보다 느렸다는 뜻이다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | pairwise | 후보를 둘씩 제시하고 어느 쪽을 선호하는지 기록하는 비교 방식. 절대 점수보다 판단 부담을 줄일 수 있지만 순서 효과와 평가자 편향은 별도로 통제해야 한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | PEFT | Parameter-Efficient Fine-Tuning. 전체 가중치 대신 작은 일부나 어댑터만 학습하는 방법과 도구 모음. 저장된 어댑터는 베이스 모델 ID·리비전·대상 층 정보가 맞아야 다시 로드할 수 있다. | [`post-training-and-model-files`](#post-training-and-model-files) |
+| Provider Adapter | 특정 공급자나 실행 환경의 호출 방식을 공통 인터페이스 뒤에 감추는 구성요소. 평가 로직은 그대로 두고 OpenRouter·Ollama·MLX 같은 실행 경로만 교체할 수 있게 한다. | [`application-and-delivery`](#application-and-delivery) |
 | QLoRA | 동결한 사전학습 모델을 4비트로 저장하고 그 위에 LoRA 어댑터만 학습하는 파인튜닝 방법. 원 논문은 NF4·double quantization·paged optimizer를 함께 사용해 메모리를 줄였다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | Qwen3-30B-A3B | 총 30.5B 파라미터 중 토큰마다 약 3.3B를 활성화하는 Qwen3 계열 MoE 모델. Qwen3.5-35B-A3B와 모델 구조·컨텍스트·도구 호환성이 달라 체크포인트를 섞어 부르면 안 된다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | Qwen3.5-35B-A3B | 총 35B 파라미터 중 토큰마다 약 3B를 활성화하는 Qwen3.5 MoE 모델. A3B는 계산에 참여하는 규모를 뜻하며 전체 가중치가 3B만큼만 메모리에 놓인다는 뜻은 아니다. | [`model-formats-and-serving`](#model-formats-and-serving) |
@@ -202,12 +206,13 @@
 
 ### application-and-delivery
 
-Terms: `CI/CD`, `Cloud Run`, `DLQ`, `FastAPI`, `SLA`, `SLO`, `gRPC`, `webhook`, `게이트웨이`, `동시성`, `라우팅`, `멱등`, `백프레셔`, `스케일 제로`, `오토스케일링`, `큐 깊이`, `콜드스타트`, `헥사고날`
+Terms: `CI/CD`, `Cloud Run`, `DLQ`, `FastAPI`, `Gradio`, `Provider Adapter`, `SLA`, `SLO`, `gRPC`, `webhook`, `게이트웨이`, `동시성`, `라우팅`, `멱등`, `백프레셔`, `스케일 제로`, `오토스케일링`, `큐 깊이`, `콜드스타트`, `헥사고날`
 
 - <https://docs.github.com/en/actions/get-started/continuous-integration>
 - <https://cloud.google.com/run/docs/overview/what-is-cloud-run>
 - <https://cloud.google.com/run/docs/tips/general>
 - <https://fastapi.tiangolo.com/>
+- <https://www.gradio.app/guides/view-api-page>
 - <https://grpc.io/docs/what-is-grpc/introduction/>
 - <https://sre.google/sre-book/service-level-objectives/>
 - <https://docs.ray.io/en/latest/serve/advanced-guides/advanced-autoscaling.html>
@@ -237,11 +242,13 @@ Terms: `CMI`, `CMU`, `Converse`, `EC2`, `InvokeModel`, `SageMaker Async Inferenc
 
 ### browser-storage-and-web-standards
 
-Terms: `API`, `HTML`, `HTTP`, `IndexedDB`, `JSON`, `TTL`, `localStorage`, `비동기`, `캐시 미스`
+Terms: `API`, `CORS`, `HTML`, `HTTP`, `IndexedDB`, `JSON`, `TTL`, `localStorage`, `비동기`, `캐시 미스`
 
 - <https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria>
 - <https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API>
 - <https://developer.mozilla.org/en-US/docs/Glossary/API>
+- <https://developer.mozilla.org/en-US/docs/Glossary/Origin>
+- <https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS>
 - <https://www.rfc-editor.org/rfc/rfc9110>
 - <https://www.rfc-editor.org/rfc/rfc8259>
 - <https://html.spec.whatwg.org/>
@@ -290,7 +297,7 @@ Terms: `Chatbot Arena`, `CoT`, `EQ-Bench`, `G-Eval`, `GSM8K`, `IFEval`, `InfoBen
 
 ### model-formats-and-serving
 
-Terms: `A3B`, `AWQ`, `BF16`, `CUDA`, `FP8`, `GGUF`, `Gated DeltaNet`, `L4`, `L40S`, `MTP`, `NTP`, `bpw`, `Metal`, `MoE`, `Ollama`, `Qwen3-30B-A3B`, `Qwen3.5-35B-A3B`, `Qwen3.6-35B-A3B`, `linear attention`, `llama.cpp`, `sLLM`, `vLLM`, `모델 가중치`, `모델 체크포인트`, `모델 파라미터`, `비전 인코더`, `양자화`, `컨텍스트 길이`, `통합 메모리`, `활성값`, `활성 파라미터`
+Terms: `A3B`, `AWQ`, `BF16`, `CUDA`, `FP8`, `GGUF`, `Gated DeltaNet`, `L4`, `L40S`, `MTP`, `NTP`, `OpenAI 호환 API`, `bpw`, `Metal`, `MoE`, `Ollama`, `Qwen3-30B-A3B`, `Qwen3.5-35B-A3B`, `Qwen3.6-35B-A3B`, `linear attention`, `llama.cpp`, `sLLM`, `vLLM`, `모델 가중치`, `모델 체크포인트`, `모델 파라미터`, `비전 인코더`, `양자화`, `컨텍스트 길이`, `통합 메모리`, `활성값`, `활성 파라미터`
 
 - <https://arxiv.org/abs/2306.00978>
 - <https://arxiv.org/abs/2404.19737>
@@ -301,6 +308,7 @@ Terms: `A3B`, `AWQ`, `BF16`, `CUDA`, `FP8`, `GGUF`, `Gated DeltaNet`, `L4`, `L40
 - <https://huggingface.co/Qwen/Qwen3.6-35B-A3B>
 - <https://huggingface.co/Qwen/Qwen3-30B-A3B>
 - <https://docs.vllm.ai/>
+- <https://docs.vllm.ai/en/latest/serving/openai_compatible_server/>
 - <https://ollama.com/blog/openai-compatibility>
 - <https://developer.apple.com/metal/>
 - <https://docs.nvidia.com/cuda/>
