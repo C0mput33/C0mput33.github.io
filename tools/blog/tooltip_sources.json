@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reviewed": "2026-07-22",
+  "reviewed": "2026-07-24",
   "groups": [
     {
       "id": "project-eval-runtime",
@@ -32,10 +32,14 @@
         "https://arxiv.org/abs/2201.11903",
         "https://arxiv.org/abs/2110.14168",
         "https://arxiv.org/abs/2303.16634",
+        "https://arxiv.org/abs/2404.18796",
+        "https://arxiv.org/abs/2407.18370",
         "https://arxiv.org/abs/2311.07911",
         "https://arxiv.org/abs/2401.03601",
         "https://arxiv.org/abs/2009.03300",
         "https://arxiv.org/abs/2306.05685",
+        "https://aclanthology.org/2024.emnlp-main.427/",
+        "https://aclanthology.org/2024.findings-emnlp.367/",
         "https://eqbench.com/creative_writing.html"
       ]
     },

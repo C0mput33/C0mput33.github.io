@@ -202,7 +202,7 @@
 
 ## Definition source groups
 
-> Last reviewed: 2026-07-22. A source group is evidence for the terms listed under it; it is not a claim that every source uses the blog's exact Korean wording.
+> Last reviewed: 2026-07-24. A source group is evidence for the terms listed under it; it is not a claim that every source uses the blog's exact Korean wording.
 
 ### application-and-delivery
 
@@ -289,10 +289,14 @@ Terms: `Chatbot Arena`, `CoT`, `EQ-Bench`, `G-Eval`, `GSM8K`, `IFEval`, `InfoBen
 - <https://arxiv.org/abs/2201.11903>
 - <https://arxiv.org/abs/2110.14168>
 - <https://arxiv.org/abs/2303.16634>
+- <https://arxiv.org/abs/2404.18796>
+- <https://arxiv.org/abs/2407.18370>
 - <https://arxiv.org/abs/2311.07911>
 - <https://arxiv.org/abs/2401.03601>
 - <https://arxiv.org/abs/2009.03300>
 - <https://arxiv.org/abs/2306.05685>
+- <https://aclanthology.org/2024.emnlp-main.427/>
+- <https://aclanthology.org/2024.findings-emnlp.367/>
 - <https://eqbench.com/creative_writing.html>
 
 ### model-formats-and-serving
