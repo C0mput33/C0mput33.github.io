@@ -23,7 +23,7 @@ description: >-
 | M5 Pro 48GB에서 학습할 수 있나 | MLX 4bit 추론과 작은 LoRA 스모크는 시도할 수 있다. 전체 가중치 파인튜닝은 현실적이지 않다. | 실제 파일 크기와 학습 메모리 구성[^weightbytes][^mlx4] |
 | 맥에서 학습한 뒤 AWS에서 다시 학습해야 하나 | 반드시 그렇지 않다. MLX 어댑터를 PEFT 형식으로 변환하고 vLLM 동등성 검사를 통과하면 재학습 없이 서빙할 수 있다. | PEFT 체크포인트 계약·vLLM LoRA 지원[^peft][^vllmlora] |
 | AWS에서 무엇으로 시작하나 | Bedrock CMI가 아니라 EC2 `g6e.xlarge`의 공식 FP8·텍스트 전용·8K·비사고·MTP 끔 설정부터 검증한다. | Qwen·vLLM·AWS 지원 범위[^qwen36][^vllm][^cmi] |
-| 첫 후보 비용은 얼마인가 | 서울 리전 온디맨드 $2.288/시간, 30시간 $68.64, 730시간 $1,670.24다. 100GB gp3를 더한 상시 단순 합계는 월 $1,679.36부터다. | AWS Price List 고정 스냅샷[^awsprice] |
+| 첫 후보 비용은 얼마인가 | 서울 리전 온디맨드 $2.288/시간이다. 한 달 누적 실행이 8시간이면 컴퓨트 $18.30, 100GB gp3까지 유지하면 월 $27.42부터다. 730시간 상시는 $1,679.36부터다. | AWS Price List 고정 스냅샷[^awsprice] |
 | Reddit 링크는 별도 신모델인가 | 아니다. ByteShape가 공식 Qwen3.6을 llama.cpp용 NTP·MTP GGUF로 만든 커뮤니티 양자화본이다. | 게시물·배포 모델 카드[^reddit] |
 
 ### 확인 수준을 구분한다
@@ -184,7 +184,7 @@ Qwen3.6은 기본적으로 `<think>...</think>`를 먼저 생성한다. Bookkiki
 아래는 2026년 7월 22일 AWS Price List의 서울 리전(`ap-northeast-2`), Linux <span class="term" data-tip="예약 없이 쓴 시간만큼 정가로 내는 클라우드 요금제. 언제든 켜고 끌 수 있는 대신 시간 단가가 가장 비싸다. 스팟(회수 가능 할인)·예약(약정 할인)과 대비되는 기준 가격이다.">온디맨드</span> 단가다.[^awsprice]
 예약·Savings Plans·Spot 할인, 부가세, 네트워크, NAT Gateway, CloudWatch, ECR·S3 저장비는 넣지 않았다. `30시간/월`은 하루 1시간만 실제로 켠 예시이고, `730시간/월`은 24시간 상시 운영이다.
 
-| 경로 | GPU 메모리 | 시간당 | 8시간 실험 | 30시간/월 | 730시간/월 | 생성 60초당 컴퓨트비[^minute] |
+| 경로 | GPU 메모리 | 시간당 | 누적 실행 8시간 | 30시간/월 | 730시간/월 | 생성 60초당 컴퓨트비[^minute] |
 |---|---:|---:|---:|---:|---:|---:|
 | EC2 `g6.xlarge` | L4 24GB | $0.9896 | $7.92 | $29.69 | $722.41 | $0.01649 |
 | EC2 `g6e.xlarge` | L40S 48GB | $2.2880 | $18.30 | $68.64 | $1,670.24 | $0.03813 |
@@ -195,6 +195,65 @@ Qwen3.6은 기본적으로 `<think>...</think>`를 먼저 생성한다. Bookkiki
 
 SageMaker 호스팅의 G6e 최소 표기 단위는 가격 목록상 `ml.g6e.2xlarge`다. EC2의 `g6e.xlarge`와 이름을 맞춰 계산하면 실제보다 싸게 잡힌다. EC2에서 모델과 컨테이너를 보관할 100GB gp3 EBS는 별도로 월 $9.12다. 따라서 `g6e.xlarge` 상시 운영의 단순 합계는 컴퓨트 $1,670.24 + EBS $9.12 = **월 $1,679.36**부터다. G7e에는 1.9TB 로컬 NVMe가 있지만 인스턴스를 종료하면 보존되지 않으므로 영구 원본은 S3나 EBS에 둔다.
 
+### “월 8시간”은 생성 시간 8시간과 다르다
+
+표의 8시간은 AWS가 판매하는 월정액 상품이 아니다. 한 달 동안 EC2가 `running` 상태였던 시간을 모두 합쳐 정확히 8시간이라면 `g6e.xlarge` 컴퓨트비가 **$18.304**라는 뜻이다. 한 번에 8시간을 켜도 되고, 여덟 번에 나눠 1시간씩 켜도 된다. Linux 온디맨드는 실행 초 단위로 계산하되 매번 시작할 때 최소 60초가 적용된다.[^ec2lifecycle]
+
+사용자 요청 때만 서버를 켜는 경우의 청구 시간은 다음처럼 잡아야 한다.
+
+```text
+월 GPU 실행 시간
+= Σ(인스턴스 시작·컨테이너 초기화·모델 적재
+    + 큐의 요청 처리
+    + 마지막 요청 뒤 유휴 대기·정상 종료)
+```
+
+따라서 **순수 생성 시간이 월 8시간이라는 뜻은 아니다.** 예를 들어 서로 멀리 떨어진 요청 100개가 각각 서버 시작 4분, 생성 1분, 재요청을 기다리는 유휴 5분을 쓴다면 예시 청구 시간은 1,000분, 즉 16.7시간이다.
+
+반대로 여러 요청이 같은 실행 구간에 모이면 시작과 모델 적재를 한 번만 부담하고 배칭할 수 있다. 4분·1분·5분은 계산법을 보이기 위한 가정이며 Qwen3.6의 실측값이 아니다.
+
+EC2는 중지하면 인스턴스 컴퓨트비를 내지 않지만, EBS 볼륨은 삭제할 때까지 과금된다. 중지한 인스턴스를 다시 시작하는 데 몇 분이 걸릴 수 있고 공인 IPv4도 바뀔 수 있다.[^ec2lifecycle] 100GB gp3를 한 달 유지한다면 8시간 실행의 최소 단순 합계는 다음과 같다.
+
+```text
+EC2 컴퓨트  $2.288 × 8시간 = $18.304
+100GB gp3                     =  $9.120
+합계                           = $27.424/월
+```
+
+이 합계에는 세금·로그·스냅샷·데이터 전송·제어 API가 없다. 공인 IPv4를 실행 중 8시간만 쓰면 $0.04가 더해지지만, 고정 Elastic IP를 중지 중에도 보유하면 730시간 기준 $3.65가 붙는다.[^ipv4]
+
+저물량 구성에서 NAT Gateway나 상시 Load Balancer를 무심코 두면 GPU를 꺼서 아낀 금액보다 고정 네트워크 비용이 커질 수 있다. 첫 버전은 외부에서 GPU에 직접 접속하지 않고 작업 큐를 폴링하는 워커로 둔다.
+
+8시간 동안 완성한 유효 동화 수가 달라지면 권당 원가도 달라진다.
+
+| 월 유효 동화 | 8시간 컴퓨트만 나눈 값 | 100GB gp3 포함 |
+|---:|---:|---:|
+| 100권 | $0.18304/권 | $0.27424/권 |
+| 500권 | $0.03661/권 | $0.05485/권 |
+| 1,000권 | $0.01830/권 | $0.02742/권 |
+
+이 표는 **동화 수가 늘어도 총 실행 시간이 8시간으로 유지될 만큼 배칭·처리량이 나온다**는 가정이다. 현재 실측의 유효 결과당 Opus 4.8 $0.06993와 단순 비교하면 저장비 포함 <span class="term" data-tip="두 선택지의 총비용이 같아지는 지점. 여기서는 GPU 월 고정비를 관리형 API의 권당 변동비로 나눠 몇 권부터 GPU가 싸지는지를 계산한다. 대체 대상이 쌀수록 분기점은 뒤로 밀린다.">손익분기</span>는 월 약 392권, 호스팅 Qwen3.6 $0.03034와 비교하면 약 904권이다.[^managedbaseline] 품질과 성공률이 같다는 뜻은 아니다. 로컬 Qwen의 실제 처리시간과 유효 결과율이 측정되면 이 숫자는 다시 계산해야 한다.
+
+### 요청 때만 켜는 더 싼 경로
+
+| 경로 | 유휴 GPU 비용 | 8시간 기준 | 적합한 상황 | 주의점 |
+|---|---:|---:|---|---|
+| 기존 맥북에서 수동 실행 | 추가 API 과금 $0 | 전력·장비 점유 실측 필요 | 개발·튜닝·내부 시연 | 가용성·회선·보안·절전 복구 때문에 팀 프로덕션 서버로 보지 않음 |
+| EC2 G6e 온디맨드 중지/시작 | $0, EBS는 계속 과금 | 컴퓨트 $18.30 + 100GB gp3 $9.12 | 가장 싼 AWS 단일 워커 스모크 | 요청을 받을 별도 제어면과 수 분 콜드 스타트 필요 |
+| AWS Batch + EC2 Spot, `minvCpus=0` | 작업이 없으면 인스턴스 0대 | Spot 시세에 따라 변동 | 기다릴 수 있고 재시도 가능한 비동기 생성 | 용량 부족·2분 전 통지 후 중단 가능. “최대 90% 할인”을 예산값으로 쓰지 않음[^spot][^batch] |
+| SageMaker Async `ml.g6e.2xlarge`, 최소 0대 | 인스턴스가 0대면 GPU 비용 $0 | 활성 8시간 $27.60 + 저장·부대비 | 큐·결과 저장·자동 축소를 관리형으로 쓰고 싶을 때 | EC2보다 활성 시간 단가가 높고 첫 기동은 수 분 걸릴 수 있음[^async] |
+| 상시 EC2 또는 SageMaker | 계속 과금 | 이 표의 목적과 맞지 않음 | 콜드 스타트를 허용할 수 없는 지속 트래픽 | 저물량에서는 과투자 |
+
+현재 Bookkiki처럼 동화 생성이 비동기 작업이라면 가장 싼 첫 구현은 `API → SQS → 요청이 있을 때만 EC2 1대 시작 → 워커가 큐 처리 → 일정 시간 큐가 비면 중지`다. 앱에는 즉시 `202 Accepted + job_id`를 돌려주고 완료 상태를 조회하게 한다. EC2 Auto Scaling은 남는 인스턴스를 **중지하지 않고 종료**하므로, 자동 확장으로 전환할 때는 모델과 어댑터를 EBS 한 대에만 의존하지 말고 S3·ECR·AMI처럼 새 인스턴스가 다시 받을 수 있는 곳에 둔다.[^ec2lifecycle]
+
+비용을 더 낮추는 순서는 인프라 교체보다 먼저 다음과 같다.
+
+1. 동화 본선은 Qwen의 thinking을 끄고 실제 GPU 초를 줄인다.
+2. 짧은 유휴 대기 시간을 실측해 연속 요청은 한 실행 구간과 배치로 묶는다.
+3. 상시 NAT Gateway·Load Balancer·고정 Elastic IP 없이 큐 기반 제어면부터 만든다.
+4. 온디맨드에서 성공률과 콜드 스타트를 확인한 뒤, 중단 가능한 작업만 Spot으로 옮긴다.
+5. 콜드 스타트가 사용자 대기 한도를 넘을 때만 SageMaker Async나 최소 1대 유지 비용을 선택한다.
+
 `생성 60초당` 열은 `시간당 단가 ÷ 60`으로 계산한 **동시 요청이 없는 예시**다. 실제 권당 비용은 다음 식으로 다시 측정해야 한다.
 
 ```text
@@ -204,7 +263,7 @@ SageMaker 호스팅의 G6e 최소 표기 단위는 가격 목록상 `ml.g6e.2xla
 
 배칭하면 한 시간에 처리하는 동화 수가 늘어 권당 비용이 내려갈 수 있고, 긴 추론·콜드 스타트·실패가 늘면 올라간다. 아직 Qwen3.6의 Bookkiki 프롬프트 실측 시간이 없으므로 “권당 $0.03813”을 실제 원가로 확정하지 않는다.
 
-요청 시간이 길다면 <span class="term" data-tip="요청을 큐에 넣고 나중에 결과를 S3에 저장하는 SageMaker 비동기 엔드포인트. 긴 작업과 GPU에 쓸 수 있고 유휴 시 인스턴스를 0개로 줄일 수 있지만 첫 요청에는 모델 시작 지연이 붙는다.">SageMaker Async Inference</span>가 맞는다. 요청을 큐에 넣고 비동기로 처리하며, 유휴 시 인스턴스를 0까지 줄일 수 있다.[^async] 앱에는 `202 Accepted + job_id`를 돌려주고 진행 상태를 별도 조회하게 한다. 단일 EC2로 먼저 지연과 메모리를 측정한 뒤 운영 부담이 커질 때 SageMaker로 옮겨도 API 경계는 바뀌지 않는다.
+운영 자동화를 우선한다면 <span class="term" data-tip="요청을 큐에 넣고 나중에 결과를 S3에 저장하는 SageMaker 비동기 엔드포인트. 긴 작업과 GPU에 쓸 수 있고 유휴 시 인스턴스를 0개로 줄일 수 있지만 첫 요청에는 모델 시작 지연이 붙는다.">SageMaker Async Inference</span>가 맞는다. 요청을 큐에 넣고 비동기로 처리하며, 유휴 시 인스턴스를 0까지 줄일 수 있다.[^async] 앱에는 `202 Accepted + job_id`를 돌려주고 진행 상태를 별도 조회하게 한다. 단일 EC2 중지/시작으로 먼저 지연과 메모리를 측정한 뒤 운영 부담이 커질 때 SageMaker로 옮겨도 API 경계는 바뀌지 않는다.
 
 공식 <span class="term" data-tip="8비트 부동소수점 형식 계열. 가중치와 활성값을 더 작게 만들 수 있지만 하드웨어·커널 지원과 보정 방식에 따라 정확도와 실제 메모리 절감 폭이 달라진다.">FP8</span> 체크포인트는 128개 블록 단위의 세밀한 FP8 양자화를 사용하며 원본과 성능 지표가 거의 같다고 모델 카드가 설명한다.[^fp8] 그래도 Bookkiki 창작 품질의 동등성을 보장하는 자료는 아니다. BF16·FP8·필요하면 검증된 CUDA int4를 같은 프롬프트와 `childlit-strict-v3` 평가로 비교한다.
 
@@ -240,7 +299,8 @@ SageMaker 호스팅의 G6e 최소 표기 단위는 가격 목록상 `ml.g6e.2xla
 - A3B는 활성 파라미터 수다. 전체 35B 가중치 메모리는 여전히 필요하다.
 - 맥에서 학습한 어댑터를 PEFT로 변환해 검증하면 AWS에서 다시 학습하지 않고 서빙할 수 있다.
 - Qwen3.6-35B-A3B의 AWS 경로는 Bedrock CMI가 아니라 EC2 또는 SageMaker의 vLLM GPU 엔드포인트다.
-- 가장 싼 첫 후보는 서울 리전 `g6e.xlarge`의 공식 FP8·8K·MTP 끔 설정이다. 메모리가 부족하면 96GB `g7e.2xlarge`로 올린다.
+- 가장 싼 AWS 첫 후보는 서울 리전 `g6e.xlarge`를 요청 때만 켜는 공식 FP8·8K·thinking·MTP 끔 설정이다. 한 달 누적 실행 8시간이면 컴퓨트 $18.30이고 100GB gp3를 계속 유지하면 $27.42부터다.
+- 8시간은 순수 생성 시간이 아니라 시작·모델 적재·처리·유휴 종료 대기를 모두 합친 `running` 시간이다. 메모리가 부족하면 96GB `g7e.2xlarge`로 올린다.
 - 기존 797쌍 실측은 새 정책의 DPO 데이터가 아니다. 새 유효 판정만 프롬프트·동화 단위로 분리해 사용한다.
 
 > 이 내용의 일부는 AI·SW마에스트로 과정의 지원을 통해 개발된 결과물을 다룹니다.
@@ -266,7 +326,12 @@ SageMaker 호스팅의 G6e 최소 표기 단위는 가격 목록상 `ml.g6e.2xla
 [^g7e]: AWS, [Amazon EC2 G7e instances](https://aws.amazon.com/ec2/instance-types/g7e/)와 [리전 목록](https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-g7e-additional-regions/) — NVIDIA RTX PRO 6000 Blackwell 96GB, 서울 리전 지원.
 [^awsprice]: AWS Price List Bulk API의 2026-07-22 고정 스냅샷: [EC2 서울 리전 JSON](https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/20260722075327/ap-northeast-2/index.json), [SageMaker 서울 리전 JSON](https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonSageMaker/20260721163448/ap-northeast-2/index.json). Linux·Shared·OnDemand의 `BoxUsage`, SageMaker `Host`·`AsyncInf`, gp3 `GB-Mo` 항목을 조회했다.
 [^minute]: 60초 동안 GPU 하나가 이 요청만 처리한다고 가정한 단순 나눗셈이다. EC2 Linux 온디맨드는 [초 단위·최소 60초](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html), SageMaker 호스팅의 부분 시간은 [초 단위로 과금](https://aws.amazon.com/sagemaker/ai/pricing/)된다. 하지만 엔드포인트 시작·모델 로드·배칭·콜드 스타트·실패와 유휴 시간을 포함하지 않으므로 실제 권당 비용이 아니다.
-[^async]: AWS, [SageMaker Asynchronous Inference](https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html) — 요청 큐, 비동기 처리, scale-to-zero. [Serverless Inference](https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints.html)는 GPU를 지원하지 않고 메모리 상한이 6GB다.
+[^ec2lifecycle]: AWS, [EC2 On-Demand Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html)와 [Stop and start Amazon EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html) — Linux 온디맨드는 `running` 초만 과금하고 시작마다 최소 60초다. EBS 기반 인스턴스는 중지할 수 있지만 EBS는 남고, 다시 시작하는 데 수 분이 걸릴 수 있으며 새 공인 IPv4가 배정될 수 있다. EC2 Auto Scaling은 불필요한 인스턴스를 중지가 아니라 종료한다. [EBS 가격 문서](https://aws.amazon.com/ebs/pricing/)는 볼륨을 해제할 때까지 프로비저닝한 저장량을 과금한다고 명시한다. 2026-07-23 확인.
+[^ipv4]: AWS, [Amazon VPC pricing — Public IPv4 Address](https://aws.amazon.com/vpc/pricing/#Public_IPv4_Address) — 사용 중이거나 유휴인 공인 IPv4 모두 $0.005/시간, 초 단위·최소 60초 과금. 2026-07-23 확인.
+[^managedbaseline]: [13개 모델 실측 비용](/posts/cost-per-storybook-13-models/)과 [서빙 비용 비교](/posts/sllm-serving-bedrock-cmi-gpu-break-even/)의 유효 결과당 비용을 사용했다. Opus 4.8은 $0.06993, 호스팅 Qwen3.6은 알려진 전체 비용 $0.09103을 유효 3편에 배분한 $0.03034다. Qwen은 5회 중 3회만 유효했으므로 동일 품질·성공률 비교가 아니다.
+[^spot]: AWS, [EC2 Spot best practices](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-best-practices.html) — 온디맨드 대비 최대 90% 할인 가능하지만 공급·수요에 따라 가격과 용량이 달라지고, AWS가 회수할 때 2분 전 중단 통지를 보낸다. 고정 예산에는 실제 리전·가용 영역의 [Spot price history](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-spot-price-history.html)를 조회해야 한다. 2026-07-23 확인.
+[^batch]: AWS, [Managed compute environments](https://docs.aws.amazon.com/batch/latest/userguide/managed_compute_environments.html)와 [compute environment 조회 규칙](https://docs.aws.amazon.com/cli/latest/reference/batch/describe-compute-environments.html) — AWS Batch는 온디맨드 또는 Spot EC2를 관리하고 작업 큐 수요에 맞춰 확장한다. 유휴 용량을 0으로 만들려면 `minvCpus=0`이어야 하며, 실행 중 작업이나 0보다 큰 최소 용량은 계속 비용을 만들 수 있다.
+[^async]: AWS, [SageMaker Asynchronous Inference](https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html), [0대 자동 확장 설정](https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference-autoscale.html), [가격 설명](https://aws.amazon.com/sagemaker/ai/pricing/) — 요청을 S3와 내부 큐로 받아 비동기 처리하고 인스턴스를 0대까지 줄일 수 있다. 0대에서 첫 요청 하나로 바로 늘리려면 `HasBacklogWithoutCapacity` 정책을 따로 둬야 한다. 일반 엔드포인트의 0→1 프로비저닝은 수 분 걸릴 수 있다. [Serverless Inference](https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints.html)는 GPU를 지원하지 않고 메모리 상한이 6GB다. 2026-07-23 확인.
 [^fp8]: Qwen, [Qwen3.6-35B-A3B-FP8 공식 모델 카드](https://huggingface.co/Qwen/Qwen3.6-35B-A3B-FP8) — 128 block fine-grained FP8, vLLM·SGLang 호환, 원본과 성능 지표가 거의 같다는 제작자 설명.
 [^reddit]: ByteShape, [Reddit의 NTP·MTP 비교 글](https://www.reddit.com/r/LocalLLaMA/comments/1tipihx/qwen_36_35b_gguf_ntp_vs_mtp_quantization_results/), [NTP GGUF 모델 카드](https://huggingface.co/byteshape/Qwen3.6-35B-A3B-GGUF), [MTP GGUF 모델 카드](https://huggingface.co/byteshape/Qwen3.6-35B-A3B-MTP-GGUF). 공식 Qwen 규격은 [Qwen 모델 카드](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)로 별도 확인했다.
 [^evaldata]: [little-bard의 797쌍 실측 아카이브](https://github.com/C0mput33/little-bard/tree/main/eval/runs/studio-20260714-live13-797p)와 [교차 검수 기록](/posts/cross-review-five-engine-defects/)을 함께 확인했다. 레거시 수치는 역사적 결과이며 새 정책의 학습 레이블로 자동 승격하지 않는다.
