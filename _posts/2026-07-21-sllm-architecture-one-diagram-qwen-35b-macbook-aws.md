@@ -11,7 +11,7 @@ description: >-
 
 [서빙 비용 편](/posts/sllm-serving-bedrock-cmi-gpu-break-even/)을 쓴 뒤 남은 질문은 구체적이었다. M5 Pro 48GB에서 <span class="term" data-tip="총 파라미터 약 35B 중 토큰마다 약 3B를 선택하는 MoE 구조. 전체 가중치 메모리는 필요하며 실제 속도는 라우팅·메모리 대역폭·커널·캐시에 따라 달라진다.">Qwen3.6-35B-A3B</span>를 가져와 파인튜닝하고, 그 결과를 AWS에서 서비스할 수 있는가.
 
-짧게 답하면 **로컬 4비트 추론과 제한된 <span class="term" data-tip="원본 가중치는 얼려 두고 곁에 붙인 작은 저랭크 행렬(어댑터)만 학습하는 파인튜닝 기법. 학습 대상이 전체의 1% 미만이라 메모리와 시간이 크게 줄고, 어댑터만 따로 저장·교체할 수 있다.">LoRA</span> 실험은 가능성이 높고, 전체 <span class="term" data-tip="사전학습된 모델을 특정 데이터와 목적에 맞게 추가 학습하는 과정. 전체 가중치를 바꾸는 방식과 LoRA처럼 일부만 학습하는 방식은 메모리·이식성이 다르다.">파인튜닝</span>은 48GB 단일 맥에서 현실적이지 않다. 맥에서 학습한 결과를 AWS에 올려 **재학습 없이 서빙하는 것도 가능하다.** 다만 <span class="term" data-tip="Apple이 애플 실리콘용으로 만든 배열·머신러닝 프레임워크. CPU와 GPU가 공유하는 통합 메모리 모델을 사용하며 추론과 학습을 지원한다.">MLX</span> <span class="term" data-tip="동결한 베이스 모델 옆에 붙여 학습하는 작은 추가 가중치 묶음. 파일이 작아도 층 이름과 배열 모양이 실행 프레임워크의 형식과 맞지 않으면 그대로 옮겨 쓸 수 없다.">어댑터</span>를 AWS의 <span class="term" data-tip="NVIDIA GPU에서 병렬 계산을 실행하는 플랫폼과 프로그래밍 모델. vLLM과 여러 학습 도구의 GPU 커널은 특정 CUDA·드라이버 조합을 요구할 수 있다.">CUDA</span>·<span class="term" data-tip="오픈소스 LLM 추론·서빙 엔진. PagedAttention과 연속 배칭 같은 기법으로 KV 캐시와 동시 요청을 관리하며 OpenAI 호환 서버를 제공한다.">vLLM</span>이 읽는 <span class="term" data-tip="Parameter-Efficient Fine-Tuning. 전체 가중치 대신 작은 일부나 어댑터만 학습하는 방법과 도구 모음. 저장된 어댑터는 베이스 모델 ID·리비전·대상 층 정보가 맞아야 다시 로드할 수 있다.">PEFT</span> 형식으로 변환하고, 같은 출력을 내는지 먼저 검증해야 한다. MLX 파일을 S3에 복사하는 것만으로는 이식이 끝나지 않는다.
+짧게 답하면 로컬 4비트 추론과 제한된 <span class="term" data-tip="원본 가중치는 얼려 두고 곁에 붙인 작은 저랭크 행렬(어댑터)만 학습하는 파인튜닝 기법. 학습 대상이 전체의 1% 미만이라 메모리와 시간이 크게 줄고, 어댑터만 따로 저장·교체할 수 있다.">LoRA</span> 실험은 가능성이 높지만, 전체 <span class="term" data-tip="사전학습된 모델을 특정 데이터와 목적에 맞게 추가 학습하는 과정. 전체 가중치를 바꾸는 방식과 LoRA처럼 일부만 학습하는 방식은 메모리·이식성이 다르다.">파인튜닝</span>은 48GB 단일 맥에서 현실적이지 않다. 맥에서 학습한 결과를 AWS에 올려 **재학습 없이 서빙하는 것도 가능하다.** 다만 <span class="term" data-tip="Apple이 애플 실리콘용으로 만든 배열·머신러닝 프레임워크. CPU와 GPU가 공유하는 통합 메모리 모델을 사용하며 추론과 학습을 지원한다.">MLX</span> <span class="term" data-tip="동결한 베이스 모델 옆에 붙여 학습하는 작은 추가 가중치 묶음. 파일이 작아도 층 이름과 배열 모양이 실행 프레임워크의 형식과 맞지 않으면 그대로 옮겨 쓸 수 없다.">어댑터</span>를 AWS의 <span class="term" data-tip="NVIDIA GPU에서 병렬 계산을 실행하는 플랫폼과 프로그래밍 모델. vLLM과 여러 학습 도구의 GPU 커널은 특정 CUDA·드라이버 조합을 요구할 수 있다.">CUDA</span>·<span class="term" data-tip="오픈소스 LLM 추론·서빙 엔진. PagedAttention과 연속 배칭 같은 기법으로 KV 캐시와 동시 요청을 관리하며 OpenAI 호환 서버를 제공한다.">vLLM</span>이 읽는 <span class="term" data-tip="Parameter-Efficient Fine-Tuning. 전체 가중치 대신 작은 일부나 어댑터만 학습하는 방법과 도구 모음. 저장된 어댑터는 베이스 모델 ID·리비전·대상 층 정보가 맞아야 다시 로드할 수 있다.">PEFT</span> 형식으로 변환하고, 같은 출력을 내는지 먼저 검증해야 한다. MLX 파일을 S3에 복사하는 것만으로는 이식이 끝나지 않는다.
 
 아래 판단은 2026년 7월 22일 기준 Qwen·MLX-LM·vLLM·AWS의 공식 자료와 AWS Price List Bulk API를 대조한 결과다. Reddit 글은 그 작성자가 공개한 <span class="term" data-tip="가중치나 활성값을 더 적은 비트로 근사해 메모리와 연산량을 줄이는 기법. 절감 폭과 품질 손실은 양자화 방식·비트 수·하드웨어에 따라 달라지며 Q4 같은 이름도 포맷별 세부 규칙을 확인해야 한다.">양자화</span> 실험의 관측값으로만 사용했고, 모델 규격과 AWS 호환성의 근거로 쓰지 않았다. 아직 실행하지 않은 값은 측정값처럼 쓰지 않고 시작 설정 또는 중단 조건으로 구분했다.
 
@@ -179,6 +179,84 @@ Qwen3.6은 기본적으로 `<think>...</think>`를 먼저 생성한다. Bookkiki
 이 설정을 생략하면 생각 토큰 때문에 지연과 비용이 늘 수 있고, 응답 처리기가 생각 부분을 동화 본문으로 저장할 위험도 있다.
 창작 품질에 불리하다고 실측되면 사고 모드를 별도 후보로 비교하되, 두 모드의 비용과 결과를 섞어 집계하지 않는다.
 
+## 동화 LoRA를 하면 생각 토큰도 자동으로 줄어드나
+
+결론은 **자동으로 줄어든다고 볼 수 없다**이다. 동화만 학습한 LoRA는 적절한 문체·길이·안전 규칙을 더 안정적으로 따르게 할 수 있다. 그러나 “이 분야에 익숙해졌다”는 사실과 `<think>` 블록을 생성할지는 별개의 제어다. 모델은 비사고 모드에서도 동화 본문의 다음 토큰을 하나씩 계산한다. 줄일 수 있는 것은 본문 앞에 별도로 생성되는 <span class="term" data-tip="일부 추론 모델이 최종 답을 내기 전에 사용하는 내부 계산 토큰으로 API usage에 별도 집계될 수 있다. 과금 포함 여부와 단가는 모델·공급자 정책을 확인해야 한다.">추론 토큰</span>과 불필요하게 긴 본문이지, 동화 생성 계산 전체가 아니다.[^reasoning]
+
+### 기존 `3,420토큰`이 뜻하는 것
+
+[짧은 동화 비용 실측](/posts/cost-per-storybook-13-models/)의 Qwen3.6 행은 편당 평균 단어 188개, 입력과 출력 합계 3,420토큰이다. 이 수치를 전부 생각 토큰으로 보면 안 된다.
+
+```text
+total_tokens = prompt_tokens + completion_tokens
+completion_tokens = 최종 본문 토큰 + 생각 토큰 + 그 밖의 공급자 집계 출력
+```
+
+기존 집계에는 `completion_tokens_details.reasoning_tokens`가 별도 보존되지 않아 3,420개 중 생각 토큰이 몇 개인지 역산할 수 없다. 따라서 “Qwen이 비싼 이유는 생각 토큰이었다”는 가설은 가능하지만 아직 실측 결론은 아니다.
+
+새 호출에서는 <span class="term" data-tip="여러 회사의 LLM을 하나의 API와 결제로 호출하게 해주는 중계 서비스. 모델마다 계정을 따로 만들 필요가 없어 다모델 비교 실험에 편하다.">OpenRouter</span> 응답의 다음 필드를 함께 저장한다.
+
+```text
+usage.prompt_tokens
+usage.completion_tokens
+usage.completion_tokens_details.reasoning_tokens
+usage.total_tokens
+usage.cost
+```
+
+OpenRouter는 생각 토큰을 출력 토큰으로 과금한다. `exclude: true`는 응답에서 흔적만 숨길 뿐 생성과 과금을 끄지 않는다.[^reasoning]
+
+### 파인튜닝보다 먼저 비사고 모드를 잰다
+
+자체 vLLM·SGLang 경로는 Qwen 공식 예제와 같이 요청에 다음 값을 보낸다.
+
+```json
+{
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  }
+}
+```
+
+OpenRouter 경로는 현재 모델 메타데이터에서 `default_enabled: true`, `mandatory: false`이고 `reasoning` 파라미터를 지원한다. 첫 스모크에는 다음처럼 명시적으로 끈 뒤, **반드시 반환된 `reasoning_tokens`가 0인지 확인한다.**
+
+공급자 경로가 설정을 무시하거나 세부 토큰을 반환하지 않으면 비사고 성공으로 간주하지 않는다. 이때는 공급자 경로를 고정하거나 자체 vLLM 기준선으로 돌아간다.[^reasoning]
+
+```json
+{
+  "model": "qwen/qwen3.6-35b-a3b",
+  "reasoning": {
+    "enabled": false
+  }
+}
+```
+
+OpenRouter의 공통 인터페이스에는 `effort: "none"`도 있지만, 모델별 지원 형태는 `/api/v1/models`의 현재 메타데이터를 보고 정한다. `max_tokens`만 먼저 줄이는 방식은 피한다. 사고 모드가 살아 있으면 토큰 예산을 생각에 소진해 정작 동화가 잘리거나 비어 버릴 수 있기 때문이다. 비사고가 확인된 뒤 목표 단어 수에 맞는 completion 상한을 별도로 보정한다.
+
+### 파인튜닝이 맡을 일과 맡지 않을 일
+
+| 방법 | 기대하는 효과 | 이 프로젝트의 판단 |
+|---|---|---|
+| 비사고 모드 | 별도 생각 블록을 직접 끔 | 비용·지연을 줄이는 첫 실험 |
+| 최종 동화만 담은 SFT LoRA | 문체·연령 적합성·길이·완결성·출력 형식 안정화 | 주된 파인튜닝 목적. 생각 토큰 감소를 자동 가정하지 않음 |
+| 품질을 통과한 간결 응답 선호 학습 | 반복·자기수정·과도한 본문 길이 감소 가능 | 새 평가 데이터가 충분할 때만 검토 |
+| 무조건적인 길이 패널티 | 출력 길이 감소 | 성급한 결말·표현 다양성 저하 위험 때문에 사용하지 않음 |
+
+SFT 데이터의 assistant 응답에는 `<think>`가 아니라 최종 동화 본문만 넣고, 학습과 서빙에서 같은 비사고 채팅 템플릿을 쓴다. 그래도 이는 “동화 도메인을 배웠으니 내부 사고가 저절로 짧아진다”는 증명이 아니다. 간결한 추론을 직접 목표로 한 연구는 정답을 통과한 응답에만 길이 압력을 주거나, 모델이 생성한 짧고 정확한 추론을 다시 학습하는 방식으로 길이를 줄였다. 이 결과는 수학·논리 추론 과제의 결과이므로 아동 동화 품질에 그대로 일반화하지 않는다.[^concise]
+
+### 네 조건으로 효과를 분리한다
+
+| 조건 | 사고 모드 | 어댑터 | 무엇을 확인하나 |
+|---|---|---|---|
+| A | 켬 | 없음 | 현재 기본 동작과 생각 토큰 비용 |
+| B | 끔 | 없음 | 모드만 껐을 때 비용·지연·품질 변화 |
+| C | 끔 | LoRA | 같은 비사고 조건에서 순수한 학습 효과 |
+| D | 켬 | LoRA | 학습 뒤에도 생각이 필요한지 보는 진단용 조건 |
+
+같은 프롬프트·공급자·샘플링 설정에서 `reasoning_tokens`, 전체 completion, 보이는 본문 토큰과 단어 수, 첫 응답·완료 지연, 유효 응답률, 권당 비용을 기록한다. 품질은 현재 `childlit-v3` 생성 정책과 `childlit-strict-v3` 쌍대 평가로 비교한다. 핵심 비교는 A↔B가 **비사고 모드 효과**, B↔C가 **LoRA 효과**다. 둘을 한 번에 바꾸면 비용이 줄어도 어느 변경 때문인지 알 수 없다.
+
+MTP도 이 실험과 분리한다. 비사고 모드는 생성할 생각 토큰의 유무를 바꾸고, LoRA는 출력 분포를 바꾸며, MTP는 후보 토큰을 미리 제안해 같은 출력을 더 빨리 생성하려는 서빙 최적화다. MTP가 tok/s를 높여도 생각 토큰 수나 최종 동화 길이가 자동으로 줄지는 않는다.
+
 ### 서울 리전 온디맨드 비용
 
 아래는 2026년 7월 22일 AWS Price List의 서울 리전(`ap-northeast-2`), Linux <span class="term" data-tip="예약 없이 쓴 시간만큼 정가로 내는 클라우드 요금제. 언제든 켜고 끌 수 있는 대신 시간 단가가 가장 비싸다. 스팟(회수 가능 할인)·예약(약정 할인)과 대비되는 기준 가격이다.">온디맨드</span> 단가다.[^awsprice]
@@ -299,6 +377,7 @@ EC2 컴퓨트  $2.288 × 8시간 = $18.304
 
 - M5 Pro 48GB는 Qwen3.6-35B-A3B 4bit 추론과 제한된 LoRA 실험을 시도할 수 있지만 전체 파인튜닝 장비는 아니다.
 - A3B는 활성 파라미터 수다. 전체 35B 가중치 메모리는 여전히 필요하다.
+- 동화 LoRA는 문체·길이·출력 안정성을 개선하는 수단이지 생각 토큰 자동 절감 기능이 아니다. 먼저 비사고 모드를 확인하고, 같은 비사고 조건에서 LoRA 전후를 비교한다.
 - 맥에서 학습한 어댑터를 PEFT로 변환해 검증하면 AWS에서 다시 학습하지 않고 서빙할 수 있다.
 - Qwen3.6-35B-A3B의 AWS 경로는 Bedrock CMI가 아니라 EC2 또는 SageMaker의 vLLM GPU 엔드포인트다.
 - 가장 싼 AWS 첫 후보는 서울 리전 `g6e.xlarge`를 요청 때만 켜는 공식 FP8·8K·thinking·MTP 끔 설정이다. 한 달 누적 실행 8시간이면 컴퓨트 $18.30이고 100GB gp3를 계속 유지하면 $27.42부터다.
@@ -311,6 +390,8 @@ EC2 컴퓨트  $2.288 × 8시간 = $18.304
 
 [^port]: Alistair Cockburn, [Hexagonal architecture](https://alistair.cockburn.us/hexagonal-architecture/) — 중심 로직이 Port를 정의하고 외부 시스템별 Adapter가 이를 구현하는 구조다.
 [^qwen36]: Qwen, [Qwen3.6-35B-A3B 공식 모델 카드](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)와 [공식 저장소](https://github.com/QwenLM/Qwen3.6) — 35B total, 3B activated, `Qwen3_5MoeForConditionalGeneration`, MTP, 기본 컨텍스트 262,144, vLLM 0.19.0 이상 권장, Apache 2.0. 2026-07-22 확인.
+[^reasoning]: Qwen의 [Qwen3.6-35B-A3B 공식 모델 카드](https://huggingface.co/Qwen/Qwen3.6-35B-A3B)는 기본 사고 모드와 `chat_template_kwargs.enable_thinking=false` 비사고 예제를 제공한다. OpenRouter [Reasoning Tokens](https://openrouter.ai/docs/guides/best-practices/reasoning-tokens)는 `effort: "none"`, `exclude`의 차이와 생각 토큰의 출력 과금을 설명하고, [API 응답 형식](https://openrouter.ai/docs/api_reference/overview)은 `completion_tokens_details.reasoning_tokens`를 정의한다. [현재 모델 API](https://openrouter.ai/api/v1/models)에서 `qwen/qwen3.6-35b-a3b`는 2026-07-23 기준 `reasoning` 지원, `default_enabled: true`, `mandatory: false`였다. 공급자 라우팅에 따라 세부 필드가 달라질 수 있어 실제 응답의 0값을 통과 조건으로 둔다.
+[^concise]: Zhao et al. (2026), [On-Policy Supervised Fine-Tuning for Efficient Reasoning](https://arxiv.org/abs/2602.13407)은 정확성과 간결성을 통과한 자체 생성 추론을 SFT에 사용했다. Yuan et al. (2026), [Shorten After You’re Right: Lazy Length Penalties for Reasoning RL](https://aclanthology.org/2026.findings-acl.626/)은 정답·학습 안정·허용 길이를 만족할 때만 패널티를 켰고, 무조건적인 길이 벌점이 탐색을 해칠 수 있다고 보고했다. 둘 다 추론 벤치마크 연구이며 동화 LoRA의 직접 검증은 아니다.
 [^qwen30]: [Qwen/Qwen3-30B-A3B 모델 카드](https://huggingface.co/Qwen/Qwen3-30B-A3B) — 30.5B total, 3.3B activated, `Qwen3MoeForCausalLM`, 기본 컨텍스트 40,960. 2026-07-22 확인.
 [^apple]: Apple, [MacBook Pro (14-inch, M5 Pro or M5 Max, 2026) technical specifications](https://support.apple.com/en-us/126318) — M5 Pro의 48GB 통합 메모리 옵션과 307GB/s 대역폭.
 [^weightbytes]: Hugging Face 저장소 API의 safetensors 합계: [BF16 원본](https://huggingface.co/api/models/Qwen/Qwen3.6-35B-A3B?blobs=true) 71,903,776,776 bytes, [공식 FP8](https://huggingface.co/api/models/Qwen/Qwen3.6-35B-A3B-FP8?blobs=true) 37,463,662,160 bytes. 2026-07-22 계산.
