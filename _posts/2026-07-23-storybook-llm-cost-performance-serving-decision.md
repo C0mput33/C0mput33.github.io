@@ -6,8 +6,8 @@ tags: [llm-evaluation, unit-economics, openrouter, prompt-caching, qwen, aws, ll
 tooltip_min_unique: 24
 description: >-
   짧은 동화 12개 API 모델의 실청구액, 25페이지 10개 모델의 비용·속도·캐시,
-  공개 성능·공급자별 캐시 스냅샷, 실측 ITPM·OTPM, Qwen3.6 로컬 튜닝과
-  서울 리전 AWS 비용을 하나의 의사결정 흐름으로 합쳤다.
+  공개 성능·공급자별 캐시 스냅샷, 공개 토큰 한도와 실측 워크로드 환산,
+  Qwen3.6 로컬 튜닝과 서울 리전 AWS 비용을 하나의 의사결정 흐름으로 합쳤다.
 ---
 
 동화 생성 모델을 비교한 여섯 글에는 서로 다른 질문의 숫자가 섞여 있었다. 구형 정책으로 만든 짧은 동화의 권당 비용, 25페이지 프롬프트의 <span class="term" data-tip="오픈라우터가 모든 응답의 usage 객체에 실어주는 실제 청구 금액(usage.cost). 토큰 수에 단가를 곱해 추정하는 것이 아니라 계정에서 실제로 빠져나간 크레딧이다.">실청구액</span>과 완료 시간, <span class="term" data-tip="여러 회사의 LLM을 하나의 API와 결제로 호출하게 해주는 중계 서비스. 모델마다 계정을 따로 만들 필요가 없어 다모델 비교 실험에 편하다.">OpenRouter</span> 전체 고객 트래픽의 공개 지표, 그리고 아직 실행하지 않은 Qwen3.6 자체 서빙의 AWS 계산값이다. 이 글은 그 숫자를 한 표에 억지로 합산하지 않고 **관측값·공개 스냅샷·정가 재계산·서빙 시나리오**로 분리해 한 흐름으로 정리한다. 결론부터 말하면 현재 확정된 종합 1위는 없다. <span class="term" data-tip="이 글에서 사업자가 호스팅하는 기성 모델을 요청량에 따라 과금받아 호출하는 방식을 가리킨다. GPU 운영 부담은 줄지만 지원 모델·가격·버전·데이터 정책은 공급자 조건에 따른다.">관리형 API</span> 후보를 새 창작 평가로 먼저 좁히고, Qwen은 품질·성공률·처리시간 게이트를 통과할 때만 AWS 기본 경로로 승격하는 것이 지금 데이터가 허용하는 결정이다.
@@ -195,34 +195,43 @@ Weighted Avg Input Price는 이미 캐시와 공급자 구성이 섞인 **사후
 
 <span class="term" data-tip="여러 AI 모델의 품질 지표와 API 가격·처리량·지연을 독립적으로 측정해 공개하는 서비스. 이 블로그에서는 그중 API 서빙 성능 자료를 실측 대조에 사용했다.">Artificial Analysis</span> 캡처도 같은 주의가 필요하다. `Intelligence`, `Output Speed`, `Latency`, `Price`는 서로 다른 열이지 한 종합점수가 아니다. Output Speed는 첫 토큰 뒤의 생성 속도, Latency는 TTFT이며 기본 화면은 약 10K 입력·최소 1.5K 출력 워크로드를 주기적으로 측정한 최근 72시간 p50이다. 7월 19일 캡처의 Mercury 2 769 t/s와 North Mini Code 0.32s는 이 프로젝트의 10개 모델 순위가 아니므로 통합 점수에 넣지 않았다.[^aa]
 
-### ITPM·OTPM — 공개 쿼터가 아니라 실측 워크로드 요구량
+### ITPM·OTPM — 공개 한도와 실측 환산을 분리
 
-OpenRouter 모델 화면이 공개하는 속도 벤치마크는 p50 `tok/s`와 지연이다. 반면 <span class="term" data-tip="Input Tokens Per Minute. 분당 입력 토큰 한도. 프롬프트가 길고 호출이 잦은 워크로드에서는 출력보다 입력 한도가 먼저 바닥나 병목이 되기도 한다.">ITPM</span>과 <span class="term" data-tip="Output Tokens Per Minute. 분당 출력 토큰 처리량 또는 한도. 동시에 여러 건을 생성할 때 분당 총 몇 토큰이 필요한지로 환산하면 쿼터 신청과 동시성 계획의 근거가 된다.">OTPM</span> 한도는 계정·요금제·상류 공급자·BYOK 키에 따라 달라진다. OpenRouter도 자체 크레딧을 쓰면 공급자 한도를 OpenRouter가 관리하고, BYOK를 쓰면 해당 공급자 계정에서 직접 관리한다고 설명한다. 따라서 10개 모델에 공통 적용할 수 있는 공개 `ITPM 한도`나 `OTPM 한도`는 찾을 수 없었고, 없는 값을 벤치마크처럼 채우지 않았다.[^limits]
+기존 표의 ITPM·OTPM은 인터넷에서 가져온 계정 한도가 아니었다. `results_20260719T094911Z.json`에서 **현재 워크로드가 평균적으로 요구한 속도**를 계산한 값이다. 2026년 7월 24일 공급자 문서를 다시 조사해 보니, 이 10개 모델 중 입력·출력 한도를 정적 문서에서 따로 공개한 것은 Anthropic의 Claude 두 모델뿐이었다. Anthropic도 많은 API 공급자가 입력과 출력을 합친 단일 <span class="term" data-tip="Tokens Per Minute. 1분 동안 허용하거나 처리한 토큰 수. 입력·출력을 합치거나 따로 제한하는지는 공급자 정의를 확인해야 한다.">TPM</span>을 쓴다고 설명한다.[^public-rate]
 
-대신 25페이지 원시 실측에서 **현재 워크로드가 평균적으로 요구한 속도**를 다시 계산했다.
+<span class="term" data-tip="Input Tokens Per Minute. 분당 입력 토큰 한도. 프롬프트가 길고 호출이 잦은 워크로드에서는 출력보다 입력 한도가 먼저 바닥나 병목이 되기도 한다.">ITPM</span>과 <span class="term" data-tip="Output Tokens Per Minute. 분당 출력 토큰 처리량 또는 한도. 동시에 여러 건을 생성할 때 분당 총 몇 토큰이 필요한지로 환산하면 쿼터 신청과 동시성 계획의 근거가 된다.">OTPM</span>은 같은 단위라도 아래 두 뜻을 구분해야 한다.
+
+- **공개 한도**: 특정 공급자·계정 등급에서 허용하는 분당 최대 토큰 수다. 허용 상한이지 보장 처리량은 아니다.
+- **실측 환산**: 이번 25페이지 요청의 평균 토큰 수를 평균 완료 시간으로 나눈 계획용 수요다. 공급자가 내 계정에 부여한 한도가 아니다.
 
 ```text
-요청 1건 ITPM = 평균 prompt tokens ÷ (평균 완료 초 / 60)
-요청 1건 OTPM = 평균 completion tokens ÷ (평균 완료 초 / 60)
-동시 10건 요구량 = 요청 1건 요구량 × 10
+실측 환산 1건 ITPM = 평균 prompt tokens ÷ (평균 완료 초 / 60)
+실측 환산 1건 OTPM = 평균 completion tokens ÷ (평균 완료 초 / 60)
+실측 환산 동시 10건 = 1건 환산값 × 10
 ```
 
-| 모델 | 유효 n | 평균 in/out tok | 완료 시간 | 1건 ITPM | 1건 OTPM | 동시 10건 ITPM / OTPM |
-|---|---:|---:|---:|---:|---:|---:|
-| gemini-3.1-flash-lite | 5 | 1,500 / 1,669 | 6.89s | 13,057 | 14,533 | 130,569 / 145,334 |
-| gemini-3.5-flash | 5 | 1,499 / 5,055 | 27.48s | 3,273 | 11,037 | 32,727 / 110,372 |
-| claude-haiku-4.5 | 5 | 1,582 / 2,563 | 18.23s | 5,206 | 8,438 | 52,061 / 84,378 |
-| qwen3.6-35b-a3b | **3** | 1,495 / 8,218 | 61.44s | 1,460 | 8,025 | 14,602 / 80,253 |
-| gemini-3.1-pro | 5 | 1,499 / 5,532 | 40.67s | 2,212 | 8,160 | 22,118 / 81,602 |
-| claude-opus-4.8 | 5 | 2,228 / 2,624 | 34.08s | 3,923 | 4,620 | 39,228 / 46,203 |
-| glm-5.2 | 5 | 1,461 / 3,104 | 42.37s | 2,069 | 4,396 | 20,695 / 43,956 |
-| gpt-5.2 | 5 | 1,451 / 3,418 | 49.62s | 1,755 | 4,133 | 17,549 / 41,332 |
-| kimi-k2.6 | 5 | 1,462 / 12,754 | 372.45s | 236 | 2,055 | 2,356 / 20,546 |
-| gemma-4-31b | 5 | 1,523 / 1,683 | 57.90s | 1,578 | 1,744 | 15,784 / 17,442 |
+| 모델 | 공개 ITPM | 공개 OTPM | 공개 단일 TPM | 공개 조건·출처 | 실측 근거 `n · in/out · 초` | 실측 환산 ITPM | 실측 환산 OTPM | 실측 동시 10건 I/O |
+|---|---:|---:|---:|---|---:|---:|---:|---:|
+| gemini-3.1-flash-lite |  |  |  | [Gemini API](https://ai.google.dev/gemini-api/docs/rate-limits): 프로젝트별 활성 입력 TPM은 AI Studio에서 조회 | 5 · 1,500/1,669 · 6.89s | 13,057 | 14,533 | 130,569 / 145,334 |
+| gemini-3.5-flash |  |  |  | [Gemini API](https://ai.google.dev/gemini-api/docs/rate-limits): 프로젝트별 활성 입력 TPM은 AI Studio에서 조회 | 5 · 1,499/5,055 · 27.48s | 3,273 | 11,037 | 32,727 / 110,372 |
+| claude-haiku-4.5 | 2,000,000 | 400,000 |  | [Anthropic Start](https://platform.claude.com/docs/en/api/rate-limits): 조직 단위 표준 상한 | 5 · 1,582/2,563 · 18.23s | 5,206 | 8,438 | 52,061 / 84,378 |
+| qwen3.6-35b-a3b |  |  | 1,000,000 | [QwenCloud](https://www.qwencloud.com/models/qwen3.6-35b-a3b): 이 엔드포인트의 단일 TPM | **3** · 1,495/8,218 · 61.44s | 1,460 | 8,025 | 14,602 / 80,253 |
+| gemini-3.1-pro |  |  |  | [Gemini API](https://ai.google.dev/gemini-api/docs/rate-limits): 프로젝트별 활성 입력 TPM은 AI Studio에서 조회 | 5 · 1,499/5,532 · 40.67s | 2,212 | 8,160 | 22,118 / 81,602 |
+| claude-opus-4.8 | 2,000,000 | 400,000 |  | [Anthropic Start](https://platform.claude.com/docs/en/api/rate-limits): Opus 4.x가 공유하는 조직 단위 표준 상한 | 5 · 2,228/2,624 · 34.08s | 3,923 | 4,620 | 39,228 / 46,203 |
+| glm-5.2 |  |  | 1,000,000 | [QwenCloud](https://www.qwencloud.com/models/glm-5.2): 이 제3자 엔드포인트의 단일 TPM. [Z.ai](https://docs.z.ai/help/faq)는 계정 화면에서 조회 | 5 · 1,461/3,104 · 42.37s | 2,069 | 4,396 | 20,695 / 43,956 |
+| gpt-5.2 |  |  | 500,000 | [OpenAI Tier 1](https://developers.openai.com/api/docs/models/gpt-5.2): 첫 유료 등급의 단일 TPM | 5 · 1,451/3,418 · 49.62s | 1,755 | 4,133 | 17,549 / 41,332 |
+| kimi-k2.6 |  |  | 2,000,000 | [Kimi Tier 1](https://platform.kimi.com/docs/pricing/limits): 누적 충전 ¥50, 모든 모델이 공유하는 사용자 한도 | 5 · 1,462/12,754 · 372.45s | 236 | 2,055 | 2,356 / 20,546 |
+| gemma-4-31b |  |  |  | [Gemma 호스팅](https://ai.google.dev/gemma/docs/core/gemma_on_gemini_api)·[Gemini 한도](https://ai.google.dev/gemini-api/docs/rate-limits): 현재 한도는 AI Studio에서 조회 | 5 · 1,523/1,683 · 57.90s | 1,578 | 1,744 | 15,784 / 17,442 |
 
-`1건 ITPM·OTPM`은 요청 하나를 계속 직렬 처리할 때 관측된 분당 수요다. `동시 10건`은 그 값이 선형으로 10배 유지된다는 계획용 상한이며, 공급자가 보장한 처리량도 실제 계정 <span class="term" data-tip="클라우드·API가 계정별로 거는 사용 한도(분당 요청 수 RPM, 분당 토큰 TPM 등). 돈을 낼 수 있어도 쿼터가 없으면 호출 자체가 거부되므로 용량 계획에서 가장 먼저 확인할 항목이다.">쿼터</span>도 아니다. 예를 들어 Flash Lite가 동시 10편에서 약 14.5만 OTPM을 **처리했다는 뜻이 아니라**, 이 실측 속도를 유지하려면 그만큼의 출력 토큰 허용량이 필요하다는 뜻이다. Kimi는 한 편이 오래 걸려 분당 수요가 낮게 보이지만 사용자 체감은 느리다. Qwen은 유효 3회 조건부 평균이므로 확정 용량 계획에 쓰지 않는다.
+빈 공개 칸은 `0`이나 `무제한`이 아니라 **2026년 7월 24일 로그인 없이 확인할 수 있는 공식 정적 문서에서 해당 숫자를 찾지 못했다**는 뜻이다. Google은 일반 호출 한도를 입력 TPM으로 정의하지만 현재 숫자는 프로젝트·등급 상태에 따라 AI Studio에 표시한다. Z.ai도 로그인한 rate-limit 화면으로 안내한다. 반대로 QwenCloud·OpenAI·Kimi가 공개한 단일 TPM을 임의의 비율로 나눠 ITPM과 OTPM 칸에 넣지 않았다.
+
+공개 열끼리도 단순 순위를 만들 수 없다. Anthropic은 Start, OpenAI는 Tier 1, Kimi는 누적 충전 ¥50 기준이고 QwenCloud는 해당 호스팅 엔드포인트의 기본값이다. GLM의 100만 TPM은 원제작사 Z.ai가 아니라 QwenCloud에서 호출할 때의 값이다. 더구나 7월 19일 실측은 OpenRouter 크레딧과 자동 라우팅을 사용했으므로, 이 직접 공급자 한도가 당시 호출에 적용됐다는 뜻도 아니다. OpenRouter는 자체 크레딧 요청의 공급자 한도를 직접 관리하며, BYOK일 때만 사용자의 공급자 계정 한도가 적용된다고 설명한다.[^limits]
+
+실측 `1건 환산 ITPM·OTPM`은 요청 하나를 계속 직렬 처리한다고 볼 때의 평균 분당 수요다. 입력 토큰은 실제로 요청 시작 시 한꺼번에 검사될 수 있으므로 이 평균값은 공급자의 token-bucket 판정을 재현하지 않는다. `동시 10건`도 처리 속도가 저하되지 않는다고 가정한 계획용 상한이다. 예를 들어 Flash Lite가 동시 10편에서 약 14.5만 OTPM을 실제로 처리했다거나 보장한다는 뜻이 아니다. Kimi는 한 편이 오래 걸려 분당 환산 수요가 낮지만 사용자 체감은 느리고, Qwen은 유효 3회 조건부 평균이므로 확정 용량 계획에 쓰지 않는다.
 
 공개 `tok/s`와 OTPM도 구분해야 한다. OpenRouter의 throughput은 `출력 토큰 ÷ 생성 시간`으로 계산한 최근 공급자 p50이고, 위 OTPM은 **입력부터 완성 응답까지 걸린 벽시계**를 분모로 삼은 Little Bard 워크로드 환산값이다. 공개 `tok/s × 60`을 계정 OTPM 한도로 바꾸면 안 된다. 실제 운영 전에는 계정 콘솔의 ITPM·OTPM·<span class="term" data-tip="Requests Per Minute. API가 1분 동안 허용하거나 처리한 요청 수로, 공급자별 rate limit에서 자주 쓰인다.">RPM</span> 한도, 재시도, p95, 429 비율과 동시성 증가에 따른 속도 저하를 함께 부하 시험한다.[^throughput]
+
+조사에서는 모델 제작사와 실제 호스팅 공급자의 공식 모델·rate-limit 문서를 우선했다. 커뮤니티 게시물, 로그인 뒤에만 보이는 숫자의 재전달, Batch 대기 토큰, PTU 예약 용량, 최대 <span class="term" data-tip="한 요청에서 모델이 한꺼번에 참고할 수 있는 입력과 출력 토큰 범위. 길게 잡을수록 KV 캐시와 임시 메모리가 늘어 같은 GPU에서 처리할 동시 요청 수가 줄 수 있다.">컨텍스트 길이</span>와 `tok/s`는 일반 호출의 공개 ITPM·OTPM으로 채택하지 않았다. 이 항목들은 각각 표본·과금 방식·용량 보장 의미가 다르기 때문이다.[^public-rate]
 
 캡처 16장의 모델·숫자·원본 주소 감사 결과는 두 원문에 나눠 남겼다.
 
@@ -380,11 +389,12 @@ EC2+EBS 합계를 25페이지 OpenRouter 실현 원가로 나눈 결과다. `허
 [^sources]: 이 글이 합친 여섯 원문은 [Qwen3.6 맥북→AWS](/posts/sllm-architecture-one-diagram-qwen-35b-macbook-aws/), [sLLM 서빙과 비용](/posts/sllm-serving-bedrock-cmi-gpu-break-even/), [10개 모델 공개 지표](/posts/openrouter-perf-metrics-10-models/), [캐시 실측](/posts/cache-hit-measured-vs-benchmark-sites/), [Qwen MTP GGUF](/posts/qwen36-35b-a3b-mtp-gguf-macbook-aws/), [짧은 동화 13모델 비용](/posts/cost-per-storybook-13-models/)이다. 각 글의 원시 파일과 캡처는 2026-07-23 로컬 저장소에서 다시 대조했다.
 [^legacy]: 레거시 런 원자료는 [little-bard의 797쌍 아카이브](https://github.com/C0mput33/little-bard/tree/main/eval/runs/studio-20260714-live13-797p), 결함 검수는 [교차 검수 기록](/posts/cross-review-five-engine-defects/)을 참고했다. `run_meta.json`에는 797 pairs, 5,070 calls, 입력 4,445,210·출력 3,583,365 tokens, 총 $46.7603498726가 남아 있다.
 [^short]: [짧은 동화 비용 원문](/posts/cost-per-storybook-13-models/)의 `state.modelCost`·체크포인트 집계를 전사했다. 생성 비용만의 표이며 3명 심판 비용이 포함된 전체 런 $46.76과 다르다. OpenRouter [Usage Accounting](https://openrouter.ai/docs/cookbook/administration/usage-accounting)은 응답의 `cost`, `cached_tokens`, `cache_write_tokens` 정의를 제공한다.
-[^long]: [25페이지 실측 원문](/posts/cache-hit-measured-vs-benchmark-sites/)과 little-bard `eval/analysis/cost-per-book/results_20260719T094911Z.json`. 2026-07-23에 본문 문자 수가 0보다 큰 호출을 유효 응답으로 두고 콜별 prompt/completion/cached token·latency·cost를 다시 합산했다. ITPM·OTPM은 유효 호출의 평균 prompt/completion token을 유효 호출 평균 벽시계 시간으로 나눠 계산했다.
+[^long]: [25페이지 실측 원문](/posts/cache-hit-measured-vs-benchmark-sites/)과 little-bard `eval/analysis/cost-per-book/results_20260719T094911Z.json`. 2026-07-24에 본문 문자 수가 0보다 큰 호출을 유효 응답으로 두고 콜별 prompt/completion/cached token·latency·cost를 다시 합산했다. 실측 환산 ITPM·OTPM은 유효 호출의 평균 prompt/completion token을 유효 호출 평균 벽시계 시간으로 나눠 계산했다. 원시 JSON을 다시 계산한 결과 표의 10개 행과 반올림 단위까지 일치했다.
 [^or]: OpenRouter [Models 문서](https://openrouter.ai/docs/guides/overview/models)는 throughput 정렬값을 라우팅 휴리스틱의 p50 tok/s, latency 정렬값을 p50 latency로 설명한다. [Provider Routing](https://openrouter.ai/docs/guides/routing/provider-selection)은 공급자 성능 percentile을 최근 롤링 창으로 추적한다고 설명한다. 모델별 표는 각 OpenRouter Performance·Pricing 페이지를 2026-07-23 10:45~10:58 KST에 렌더링한 값이다. 공개 화면은 계속 갱신되므로 조회 시각 이후의 현재값과 다를 수 있다.
 [^cache]: 모델별 OpenRouter Pricing 화면의 공급자 행에서 소수 첫째 자리로 표시된 Cache hit rate와 Token share (1d)를 읽고 `Σ(cache rate×share)÷Σshare`를 계산한 뒤 결과를 소수 첫째 자리로 반올림했다. 화면 반올림 때문에 공급자 share 합이 99.9~100.3%인 모델도 있어 실제 전체 트래픽 원자료를 재현한 공식 통계는 아니다. 범위 계산에서는 Token share가 0보다 큰 공급자만 사용했다. OpenRouter [Prompt Caching 문서](https://openrouter.ai/docs/guides/best-practices/prompt-caching)는 지원 모델·공급자의 프롬프트 캐시와 같은 대화의 공급자 고정 라우팅을 설명한다.
 [^response-cache]: OpenRouter [Response Caching 문서](https://openrouter.ai/docs/guides/features/response-caching)는 provider prompt caching과 별개인 beta 기능임을 명시한다. 동일 API key·model·endpoint·streaming mode·정규화된 요청 본문이 키가 되며, 적중하면 billable usage가 0이고 TTL 기본값은 300초다. 2026-07-23 확인.
 [^limits]: OpenRouter [BYOK 문서](https://openrouter.ai/docs/guides/overview/auth/byok)는 OpenRouter 크레딧 사용 시 공급자 한도를 OpenRouter가 관리하고 BYOK 사용 시 공급자 계정에서 한도와 비용을 직접 관리한다고 설명한다. [가격·한도 안내](https://openrouter.ai/pricing)는 Pay-as-you-go를 `High global limits`, Enterprise를 `Optional dedicated limits`로 구분하지만 모델별 ITPM·OTPM 숫자는 공개하지 않는다. 2026-07-23 확인.
+[^public-rate]: 공개 token-rate 조사 스냅샷은 2026-07-24 기준이다. Anthropic [Messages API rate limits](https://platform.claude.com/docs/en/api/rate-limits)는 Start의 Claude Haiku 4.5와 Opus 4.x에 2,000,000 ITPM·400,000 OTPM을 각각 제시하며, Opus 값은 4.5~4.8 합산 버킷이고 허용 최대치이지 보장 최소치가 아니라고 명시한다. OpenAI [GPT-5.2 모델 페이지](https://developers.openai.com/api/docs/models/gpt-5.2)는 Tier 1에 단일 500,000 TPM을 공개한다. [Qwen3.6-35B-A3B](https://www.qwencloud.com/models/qwen3.6-35b-a3b)와 [QwenCloud의 GLM-5.2](https://www.qwencloud.com/models/glm-5.2)는 각각 단일 1,000,000 TPM을 공개한다. Kimi [충전·한도 표](https://platform.kimi.com/docs/pricing/limits)는 Tier 1에 단일 2,000,000 TPM을, [rate-limit 정의](https://platform.kimi.com/docs/introduction)는 이 값이 사용자 단위로 모든 모델에 공유되고 요청 토큰과 `max_completion_tokens` 예약량으로 판정된다고 설명한다. Google [Gemini API rate limits](https://ai.google.dev/gemini-api/docs/rate-limits)는 일반 호출을 RPM·입력 TPM·RPD로 정의하지만 활성 숫자는 AI Studio에서 프로젝트별로 확인하도록 안내한다. Z.ai [FAQ](https://docs.z.ai/help/faq)도 계정의 rate-limit 화면으로 안내한다.
 [^throughput]: OpenRouter [Provider Integration 문서](https://openrouter.ai/docs/guides/community/for-providers/)는 공개 throughput을 `output tokens ÷ generation time`으로 정의하고, generation time에 fetch latency·TTFT·streaming time이 들어간다고 설명한다. `capacity_tpm`은 공급자가 OpenRouter에 알릴 수 있는 선택 필드이지 사용자 계정에 공개된 ITPM·OTPM 쿼터가 아니다.
 [^aa]: [Artificial Analysis Models](https://artificialanalysis.ai/models), [Performance Benchmarking Methodology](https://artificialanalysis.ai/methodology/performance-benchmarking) — 최근 72시간 p50, TTFT와 첫 토큰 이후 output speed의 정의. 2026-07-23 재확인.
 [^direct]: 공식 직접 API 정가: [Anthropic Claude Opus 4.8](https://www.anthropic.com/claude/opus) $5 input·$0.50 cache hit·$25 output, [OpenAI GPT-5.2](https://developers.openai.com/api/docs/models/gpt-5.2) $1.75·$0.175·$14, [Z.ai GLM-5.2](https://docs.z.ai/guides/overview/pricing) $1.40·$0.26·$4.40, [Kimi K2.6](https://platform.kimi.ai/docs/pricing/chat-k26) $0.95·$0.16·$4.00 per MTok. 2026-07-23 확인.

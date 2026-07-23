@@ -21,6 +21,14 @@
 5. 환경·버전·기간·표본·단위가 재현에 충분한가?
 6. 남은 한계와 되돌릴 조건을 밝혔는가?
 
+## API 한도와 실측값을 함께 쓸 때
+
+- 공급자가 공개한 `ITPM`·`OTPM`·`TPM` 한도와, 실험의 토큰 수·완료 시간으로 환산한 워크로드 수요를 같은 열에 섞지 않는다.
+- 공급자가 단일 TPM만 공개하면 입력·출력 비율을 추측해 나누지 않는다. ITPM·OTPM 칸은 비우고 단일 TPM과 공급자·등급·공유 범위·확인 날짜를 별도 열에 쓴다.
+- 빈칸은 0이나 무제한이 아니라 로그인 없이 확인 가능한 공식 정적 자료에서 숫자를 찾지 못했다는 뜻으로 정의한다.
+- `tok/s × 60`, Batch 대기 토큰, PTU 예약 용량, 최대 컨텍스트 길이는 일반 API 계정의 OTPM으로 환산하지 않는다.
+- 직접 공급자 한도는 OpenRouter 같은 중개 서비스의 실측에 자동 적용되지 않는다. 실제 호출 경로와 BYOK 여부를 함께 밝힌다.
+
 ## 참고한 실제 글
 
 - Julia Evans, [Blogging principles I use](https://jvns.ca/blog/2017/03/20/blogging-principles/), [Write good examples by starting with real code](https://jvns.ca/blog/2021/07/08/writing-great-examples/)
