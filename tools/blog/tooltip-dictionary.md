@@ -125,6 +125,7 @@
 | 가독성 | 글을 얼마나 수월하게 읽고 이해할 수 있는지를 뜻한다. 문장·단어 표면값으로 계산한 가독성 공식은 정량 단서일 뿐 의미 구조, 배경지식, 독자와 읽기 목적 전체를 대신하지 않는다. | [`readability-primary`](#readability-primary) |
 | 게이트웨이 | 모든 외부 요청이 거쳐 가는 단일 관문 서버. 인증과 요청 추적을 한 곳에서 처리해, 뒤의 서비스들이 같은 검증 로직을 중복 구현하지 않게 한다. | [`application-and-delivery`](#application-and-delivery) |
 | 결정론적 | 같은 입력과 상태에서 같은 결과를 내는 성질. 시드 고정은 난수 경로를 통제하는 한 조건일 뿐이며 구현·하드웨어·외부 서비스가 바뀌면 재현이 깨질 수 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
+| 고충실도 | 입력 이미지를 낮은 해상도로 요약하지 않고 세부를 유지한 채 처리하는 방식. 얼굴·질감 보존에 유리하지만 입력 토큰을 더 소비한다. | [`image-generation-api`](#image-generation-api) |
 | 골든셋 | 사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 관리형 API | 이 글에서 사업자가 호스팅하는 기성 모델을 요청량에 따라 과금받아 호출하는 방식을 가리킨다. GPU 운영 부담은 줄지만 지원 모델·가격·버전·데이터 정책은 공급자 조건에 따른다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 구성 타당도 | 점수의 차이를 의도한 개념의 차이로 해석할 수 있는지를 뒷받침하는 근거. 창작 품질 점수에 수치 난이도 제어가 섞이면 무엇이 좋아졌는지 해석하기 어려워진다. | [`readability-primary`](#readability-primary) |
@@ -132,10 +133,12 @@
 | 그래디언트 누적 | 작은 미니배치 여러 번의 그래디언트를 모은 뒤 한 번 가중치를 갱신하는 방법. 메모리는 작은 배치 수준으로 유지하면서 더 큰 유효 배치를 흉내 낼 수 있다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 그래디언트 체크포인팅 | 순전파의 모든 중간값을 저장하지 않고 일부를 역전파 때 다시 계산해 학습 메모리를 줄이는 기법. 메모리를 아끼는 대신 계산 시간이 늘어난다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 능동 표집 | 아무 쌍이나 무작위로 고르지 않고, 정보가 많은 비교(아직 순위가 갈리지 않은 접전 쌍)를 우선 고르는 표집 전략. 이미 확실히 갈린 쌍을 또 비교하는 낭비를 줄인다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 다중 턴 | 한 번의 요청으로 끝내지 않고 이전 응답을 이어받아 여러 번 주고받으며 결과를 다듬는 방식. | [`image-generation-api`](#image-generation-api) |
 | 데이터 누수 | 평가에만 있어야 할 정보나 매우 가까운 중복이 학습 과정에 들어가 성능이 부풀려지는 문제. 분할 단위를 개별 판정이 아니라 원본 프롬프트·이야기로 잡아야 막을 수 있다. | [`data-splitting-and-preferences`](#data-splitting-and-preferences) |
 | 독립 읽기 | 아이가 어른의 실시간 도움이나 낭독 없이 직접 글자를 해독하고 내용을 이어 가는 읽기 방식. 같은 아이도 읽어주는 글을 이해하는 수준과 혼자 읽는 수준이 다를 수 있다. | [`readability-primary`](#readability-primary) |
 | 동등성 테스트 | 변환 전후 모델에 고정 입력을 넣어 토큰·로그 확률·최종 출력이 허용 범위 안에서 같은지 확인하는 검사. 파일이 로드된다는 사실만으로 변환이 올바르다고 보지 않기 위해 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 동시성 | 같은 시점에 처리 중인 요청 수. 단위 시간당 완료량인 처리량과 다르며, 한도를 지나치게 높이면 각 요청의 지연과 메모리 사용량이 함께 늘 수 있다. | [`application-and-delivery`](#application-and-delivery) |
+| 드리프트 | 반복 생성이나 편집을 거치며 대상의 속성이 조금씩 원래 값에서 멀어지는 현상. 직전 결과를 입력으로 다시 쓰는 구조에서는 오차가 누적될 수 있다. | [`image-generation-api`](#image-generation-api) |
 | 라우팅 | 들어온 요청을 여러 서버·모델·공급자 후보 중 하나로 보내는 선택 과정. 가용성, 현재 부하, 비용, 캐시 재사용 가능성처럼 목적에 맞는 기준과 실패 시 대체 경로가 필요하다. | [`application-and-delivery`](#application-and-delivery) |
 | 라운드로빈 | 여러 목록을 돌아가며 하나씩 공평하게 뽑는 순회 방식. 각 목록의 비율을 자연스럽게 유지한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 롤링 평균 | 고정 길이의 최근 구간을 계속 앞으로 이동시키며 다시 계산한 평균. 새 관측이 들어오고 오래된 관측이 빠지므로 같은 페이지도 조회 날짜에 따라 값이 바뀐다. | [`openrouter-runtime`](#openrouter-runtime) |
@@ -173,6 +176,7 @@
 | 완전그래프 | 모든 후보 쌍을 빠짐없이 비교하는 구성. N개 모델이면 N(N−1)/2쌍이라 비용이 제곱으로 는다. 가장 정보가 많지만 가장 비싸다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 위치 편향 | 내용과 무관하게 먼저 보여준 답을 더 좋게 평가하는 경향. LLM 심판에게 일관되게 관측되는 대표적 편향이라, 순서를 바꿔 두 번 묻는 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 읽어주기 | 어른이 글을 소리 내어 읽고 아이는 주로 듣는 방식. 아이가 직접 해독하기 어려운 글도 들으며 이해할 수 있어 독립 읽기와 같은 난이도로 취급하면 안 된다. | [`readability-primary`](#readability-primary) |
+| 임베딩 | 텍스트나 이미지를 모델이 다루는 고정 길이 숫자 벡터로 바꾼 표현. 비슷한 의미일수록 벡터 공간에서 가깝게 놓이도록 학습된다. | [`ml-foundations`](#ml-foundations) |
 | 자기 선호 | LLM이 자기(또는 같은 계열 모델)가 쓴 글을 알아보고 더 높게 평가하는 편향. 심판과 후보가 같은 계열이면 그 쌍에서 심판을 제외하는 구조적 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 처리량 | 초당 생성 토큰 수(tok/s). 한 요청의 체감 속도를 좌우하지만, 추론 토큰을 많이 쓰는 모델은 처리량이 높아도 완료까지는 오래 걸릴 수 있어 완료 시간과 함께 봐야 한다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 체크포인트 | 진행 상태를 통째로 저장해둔 지점. 중단되거나 크레딧이 떨어져도 완료분을 다시 호출하지 않고 그 지점부터 이어서 실행할 수 있다. | [`project-eval-runtime`](#project-eval-runtime) |
@@ -196,7 +200,9 @@
 | 하드 게이트 | 다른 장점으로 상쇄하지 않는 필수 통과 조건. 이 평가에서는 한 이야기만 명백한 연령 안전 위반을 보이면 문학적 장점이 있어도 전체 승자가 될 수 없다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 함께 읽기 | 아이와 어른이 같은 글을 함께 보며 읽고 질문·예측·설명을 나눌 수 있는 방식. 독립 읽기와 달리 상호작용이 이해를 지원할 수 있다. | [`readability-primary`](#readability-primary) |
 | 헥사고날 | 도메인 로직을 중심에 두고 바깥세상(DB·외부 API·UI)과의 접점을 전부 Port(인터페이스)와 Adapter(구현)로 분리하는 아키텍처. 외부 기술을 갈아끼워도 중심 코드가 바뀌지 않게 하는 것이 목적이다. | [`application-and-delivery`](#application-and-delivery) |
+| 혼동행렬 | 분류 결과를 실제 정답과 예측을 축으로 교차 집계한 표. 대각선이 정답이고, 어떤 항목을 어떤 항목으로 잘못 봤는지가 비대각 칸에 남는다. | [`ml-foundations`](#ml-foundations) |
 | 홀드아웃 | 학습과 모델 선택에 쓰지 않고 마지막 평가까지 따로 보관하는 데이터. 같은 이야기나 프롬프트의 변형이 양쪽에 섞이면 성능을 실제보다 높게 볼 수 있다. | [`data-splitting-and-preferences`](#data-splitting-and-preferences) |
+| 확산 모델 | 무작위 잡음에서 시작해 여러 단계에 걸쳐 잡음을 걷어내며 이미지를 만들어 내는 생성 모델 계열. 현재 이미지 생성 API 다수가 이 방식을 쓴다. | [`ml-foundations`](#ml-foundations) |
 | 활성 파라미터 | MoE 모델이 토큰 하나를 처리할 때 라우팅으로 선택되어 계산에 참여하는 파라미터 규모. 총 파라미터보다 작아 계산량을 줄일 수 있지만 속도·메모리·품질이 같은 크기의 밀집 모델과 같다는 뜻은 아니다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 활성값 | 입력이 신경망 층을 지나며 계산되는 중간 결과. 학습에서는 역전파를 위해 일부 활성값을 보관하므로 추론보다 메모리를 더 쓸 수 있다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 
@@ -269,6 +275,13 @@ Terms: `Artificial Analysis`
 
 - <https://artificialanalysis.ai/methodology>
 
+### image-generation-api
+
+Terms: `고충실도`, `다중 턴`, `드리프트`
+
+- <https://developers.openai.com/api/docs/guides/image-generation>
+- <https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide>
+
 ### llm-core-and-inference
 
 Terms: `GPU`, `KV 캐시`, `LLM`, `P95`, `TTFT`, `VRAM`, `temperature`, `시스템 프롬프트`, `추론 토큰`, `처리량`, `토큰`, `프리픽스`, `하네스`
@@ -298,6 +311,14 @@ Terms: `Chatbot Arena`, `CoT`, `EQ-Bench`, `G-Eval`, `GSM8K`, `IFEval`, `InfoBen
 - <https://aclanthology.org/2024.emnlp-main.427/>
 - <https://aclanthology.org/2024.findings-emnlp.367/>
 - <https://eqbench.com/creative_writing.html>
+
+### ml-foundations
+
+Terms: `임베딩`, `혼동행렬`, `확산 모델`
+
+- <https://arxiv.org/abs/2006.11239>
+- <https://arxiv.org/abs/2103.00020>
+- <https://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix>
 
 ### model-formats-and-serving
 

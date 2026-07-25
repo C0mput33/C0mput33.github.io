@@ -189,6 +189,23 @@
       "id": "external-benchmark-services",
       "terms": ["Artificial Analysis"],
       "references": ["https://artificialanalysis.ai/methodology"]
+    },
+    {
+      "id": "image-generation-api",
+      "terms": ["고충실도", "다중 턴", "드리프트"],
+      "references": [
+        "https://developers.openai.com/api/docs/guides/image-generation",
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "ml-foundations",
+      "terms": ["임베딩", "혼동행렬", "확산 모델"],
+      "references": [
+        "https://arxiv.org/abs/2006.11239",
+        "https://arxiv.org/abs/2103.00020",
+        "https://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix"
+      ]
     }
   ]
 }
