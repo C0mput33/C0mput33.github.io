@@ -111,7 +111,7 @@ M5 Pro 48GB에서는 20GB대 베이스 두 벌을 항상 동시에 띄우는 구
 | 실행 식별 | `run_id`, 시작·종료 시각, provider, endpoint contract version |
 | 모델 출처 | requested/resolved model, base·tokenizer revision, adapter version·checksum, quantization, runtime version |
 | 프롬프트 출처 | `generation_policy_version`, system·user 원문 또는 hash, prompt ID, 독서 방식 |
-| 생성 조건 | <span class="term" data-tip="다음 토큰 확률분포의 평탄함을 조절하는 값. 낮을수록 높은 확률의 토큰에 집중하지만 temperature 0도 제공자·모델·실행 환경에 따라 완전한 재현성을 보장하지 않는다.">temperature</span>, max tokens, seed 지원 여부, thinking 설정 |
+| 생성 조건 | <span class="term" data-tip="다음 토큰 확률분포의 평탄함을 조절하는 값. 낮을수록 높은 확률의 토큰에 집중하지만 temperature 0도 제공자·모델·실행 환경에 따라 완전한 재현성을 보장하지 않는다.">temperature</span>, max tokens, <span class="term" data-tip="생성 시작점이 되는 난수의 초기값. 같은 모델과 같은 파라미터를 그대로 유지할 때 결과를 다시 만들어내는 재현 장치이며, 서로 다른 프롬프트 사이에서 특정 인물이나 화풍을 붙잡아 두는 기능은 아니다.">seed</span> 지원 여부, thinking 설정 |
 | 관측값 | prompt·completion·reasoning tokens, wall time, peak memory, 단어 수, finish reason |
 | 유효성 | story text 검사, 길이 준수, `valid` 또는 구조화된 error code, 재시도 횟수 |
 

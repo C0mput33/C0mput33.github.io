@@ -188,14 +188,18 @@
     {
       "id": "external-benchmark-services",
       "terms": ["Artificial Analysis"],
-      "references": ["https://artificialanalysis.ai/methodology"]
+      "references": [
+        "https://artificialanalysis.ai/methodology"
+      ]
     },
     {
       "id": "image-generation-api",
-      "terms": ["고충실도", "다중 턴", "드리프트"],
+      "terms": ["고충실도", "다중 턴", "드리프트", "seed", "비전 언어 모델"],
       "references": [
         "https://developers.openai.com/api/docs/guides/image-generation",
-        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide",
+        "https://docs.midjourney.com/hc/en-us/articles/32604356340877-Seeds",
+        "https://platform.stability.ai/docs/features/image-to-image"
       ]
     },
     {

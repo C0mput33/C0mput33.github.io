@@ -26,7 +26,7 @@ prompt, model, n, size, quality, background,
 output_format, output_compression, moderation, stream, partial_images, user
 ```
 
-전용 negative prompt 슬롯, seed, guidance scale, <span class="term" data-tip="모델의 토크나이저가 텍스트를 나눈 처리 단위. 한 토큰은 단어 하나와 같지 않으며 같은 문장도 모델별 토크나이저에 따라 토큰 수가 달라질 수 있다.">토큰</span> 가중치 필드는 이 목록에 없다. 같은 엔드포인트에 `response_format`과 `style`이 더 있지만 DALL·E 계열 전용이다.[^apiref]
+전용 negative prompt 슬롯, <span class="term" data-tip="생성 시작점이 되는 난수의 초기값. 같은 모델과 같은 파라미터를 그대로 유지할 때 결과를 다시 만들어내는 재현 장치이며, 서로 다른 프롬프트 사이에서 특정 인물이나 화풍을 붙잡아 두는 기능은 아니다.">seed</span>, guidance scale, <span class="term" data-tip="모델의 토크나이저가 텍스트를 나눈 처리 단위. 한 토큰은 단어 하나와 같지 않으며 같은 문장도 모델별 토크나이저에 따라 토큰 수가 달라질 수 있다.">토큰</span> 가중치 필드는 이 목록에 없다. 같은 엔드포인트에 `response_format`과 `style`이 더 있지만 DALL·E 계열 전용이다.[^apiref]
 
 `(bad hands:1.5)` 같은 가중치 문법은 Stable Diffusion 계열 도구의 프롬프트 처리 기능이다.[^sdweight] 그 문법을 gpt-image-2 프롬프트에 그대로 넣어도 공식 문서가 규정한 동작은 없다. 모델이 그 문자열을 자연어로 어떻게 해석하는지까지는 확인하지 못했다.
 

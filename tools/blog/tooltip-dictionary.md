@@ -104,6 +104,7 @@
 | RPM | Requests Per Minute. API가 1분 동안 허용하거나 처리한 요청 수로, 공급자별 rate limit에서 자주 쓰인다. | [`openrouter-runtime`](#openrouter-runtime) |
 | safetensors | 텐서와 메타데이터를 저장하는 포맷과 라이브러리. pickle처럼 로드 중 임의 코드를 실행하지 않도록 설계됐으며 지연 로딩과 부분 읽기를 지원한다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | SageMaker Async Inference | 요청을 큐에 넣고 나중에 결과를 S3에 저장하는 SageMaker 비동기 엔드포인트. 긴 작업과 GPU에 쓸 수 있고 유휴 시 인스턴스를 0개로 줄일 수 있지만 첫 요청에는 모델 시작 지연이 붙는다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
+| seed | 생성 시작점이 되는 난수의 초기값. 같은 모델과 같은 파라미터를 그대로 유지할 때 결과를 다시 만들어내는 재현 장치이며, 서로 다른 프롬프트 사이에서 특정 인물이나 화풍을 붙잡아 두는 기능은 아니다. | [`image-generation-api`](#image-generation-api) |
 | SFT | Supervised Fine-Tuning. 입력과 목표 응답 쌍을 주고 다음 토큰 손실을 줄이도록 모델을 추가 학습하는 단계. 선호쌍을 비교하는 DPO와 데이터 형식과 목적이 다르다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | SLA | Service Level Agreement. 제공자와 고객이 가용성·응답·지원 같은 서비스 수준과 측정 조건을 합의한 계약이다. 내부 목표인 SLO와는 구분한다. | [`application-and-delivery`](#application-and-delivery) |
 | sLLM | 보통 Small Language Model을 뜻하지만 공식적으로 고정된 크기 기준은 없다. 이 블로그에서는 프론티어 API 모델보다 작고 직접 배포할 수 있는 후보 모델을 가리킨다. | [`model-formats-and-serving`](#model-formats-and-serving) |
@@ -155,6 +156,7 @@
 | 부트스트랩 | 가진 데이터에서 복원추출로 여러 번 가짜 표본을 만들어 같은 계산을 반복하고, 그 결과들의 흩어짐으로 추정치의 불확실성을 재는 방법. 표본이 모집단을 대표한다면 재표집의 흔들림이 실제 추정 오차와 비슷하다는 원리다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 부활전 | 은퇴한 후보에게 배치 경계마다 생존자와 소량 재대결 기회를 줘서, 신뢰구간이 회복되면 복귀시키는 보험 옵션. 오은퇴 위험을 줄이지만 추가 비용이 든다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 비동기 | 작업 완료를 기다리며 실행 흐름 전체를 막지 않고, 결과를 나중에 받도록 분리하는 방식. 비동기라고 해서 자동으로 병렬 실행되거나 더 빨라지는 것은 아니다. | [`browser-storage-and-web-standards`](#browser-storage-and-web-standards) |
+| 비전 언어 모델 | 이미지와 텍스트를 함께 입력받아 이해하고 답하는 모델. 그림을 보고 설명을 쓰거나 두 그림의 차이를 지적하는 데 쓴다. | [`image-generation-api`](#image-generation-api) |
 | 비전 인코더 | 이미지를 언어 모델이 처리할 수 있는 표현으로 바꾸는 앞단 신경망. 텍스트만 서빙할 때 제외할 수 있다면 그만큼 가중치와 실행 메모리를 줄일 수 있다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 선호쌍 | 같은 입력에 대한 두 응답 중 어느 쪽을 더 선호하는지 표시한 데이터 한 쌍. DPO에 쓰려면 승자·패자뿐 아니라 생성 정책·판정 유효성·중복·누수를 함께 관리해야 한다. | [`data-splitting-and-preferences`](#data-splitting-and-preferences) |
 | 손익분기 | 두 선택지의 총비용이 같아지는 지점. 여기서는 GPU 월 고정비를 관리형 API의 권당 변동비로 나눠 몇 권부터 GPU가 싸지는지를 계산한다. 대체 대상이 쌀수록 분기점은 뒤로 밀린다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
@@ -277,10 +279,12 @@ Terms: `Artificial Analysis`
 
 ### image-generation-api
 
-Terms: `고충실도`, `다중 턴`, `드리프트`
+Terms: `고충실도`, `다중 턴`, `드리프트`, `seed`, `비전 언어 모델`
 
 - <https://developers.openai.com/api/docs/guides/image-generation>
 - <https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide>
+- <https://docs.midjourney.com/hc/en-us/articles/32604356340877-Seeds>
+- <https://platform.stability.ai/docs/features/image-to-image>
 
 ### llm-core-and-inference
 
