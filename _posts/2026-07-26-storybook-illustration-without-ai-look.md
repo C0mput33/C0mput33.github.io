@@ -63,7 +63,7 @@ output_format, output_compression, moderation, stream, partial_images, user
 
 ### AI 티를 다섯 분류로 고정했다
 
-CHI 2025에 참가자 50,444명, 165개국, 관측 749,828건 규모의 연구가 있다.[^chi] <span class="term" data-tip="무작위 잡음에서 시작해 여러 단계에 걸쳐 잡음을 걷어내며 이미지를 만들어 내는 생성 모델 계열. 현재 이미지 생성 API 다수가 이 방식을 쓴다.">확산 모델</span> 생성물의 아티팩트를 다섯으로 나눈다.
+CHI 2025에 참가자 50,444명, 165개국, 관측 749,828건 규모의 연구가 있다.[^chi] 먼저 범위를 밝혀 둔다. 이 연구는 **사진처럼 보이는 이미지**에서 사람이 AI 생성 여부를 어떻게 가려내는지를 다룬다. 동화 삽화의 결함 빈도나 중요도를 잰 것이 아니다. 아래 분류는 결함 목록의 출발점으로 쓸 수 있지만, 비율을 그림책 삽화에 그대로 옮기면 안 된다. <span class="term" data-tip="무작위 잡음에서 시작해 여러 단계에 걸쳐 잡음을 걷어내며 이미지를 만들어 내는 생성 모델 계열. 현재 이미지 생성 API 다수가 이 방식을 쓴다.">확산 모델</span> 생성물의 아티팩트를 다섯으로 나눈다.
 
 | 분류 | 내용 | 코멘트 언급률 |
 |---|---|---|
@@ -131,17 +131,19 @@ StoryDiffusion은 다른 접근이다. 여러 이미지에 걸쳐 self-attention
 
 ## 계층별 가용 여부
 
-| 계층 | 닫힌 API | 오픈 가중치 |
-|---|---|---|
-| 0 모델 선택 | — | — |
-| 1 프롬프트 | 가능 | 가능 |
-| 2 생성 루프 | 가능 | 가능 |
-| 3 학습 | 불가 | 가능 |
-| 4 구조 제어 | 불가 | 가능 |
-| 5 후처리 | 가능 | 가능 |
-| 6 제작 규율 | 가능 | 가능 |
+| 계층 | gpt-image-2 | 일부 관리형 제품 | 오픈 가중치 |
+|---|---|---|---|
+| 0 모델 선택 | — | — | — |
+| 1 프롬프트 | 가능 | 가능 | 가능 |
+| 2 생성 루프 | 가능 | 가능 | 가능 |
+| 3 학습 | 불가 | **제품별로 가능** | 가능 |
+| 4 구조 제어 | 제한적 | **제품별로 가능** | 가능 |
+| 5 후처리 | 가능 | 가능 | 가능 |
+| 6 제작 규율 | 가능 | 가능 | 가능 |
 
-닫힌 API를 쓰면 여섯 중 넷이 남는다. 학습과 구조 제어를 포기하는 대신 운영 부담이 없다. 오픈 가중치로 가면 전부 열리는 대신 <span class="term" data-tip="대량의 수치 연산을 병렬 처리하는 프로세서. LLM에서는 행렬 연산을 빠르게 수행하지만 모델 적재 가능 크기는 연산 성능뿐 아니라 GPU 메모리에도 제한된다.">GPU</span>와 학습 파이프라인을 떠안는다.
+이 표를 처음에는 "닫힌 API"와 "오픈 가중치" 두 칸으로 그렸다가 고쳤다. 닫혔다고 학습이 다 막히는 게 아니다. Adobe는 관리형 제품으로 사용자 이미지 10~30장을 받아 Subject Model을 만들어 준다.[^adobe-train2] 즉 갈리는 기준은 API가 닫혔느냐가 아니라 **어느 공급사의 어느 제품이 무슨 기능을 열어 뒀느냐**다. 직접 LoRA를 붙이거나 attention을 건드리는 건 여전히 오픈 가중치 쪽이다.
+
+gpt-image-2만 놓고 보면 여섯 중 넷이 온전히 남는다. 학습을 포기하고 구조 제어를 참조 이미지 수준으로 낮추는 대신 운영 부담이 없다. 오픈 가중치로 가면 전부 열리는 대신 <span class="term" data-tip="대량의 수치 연산을 병렬 처리하는 프로세서. LLM에서는 행렬 연산을 빠르게 수행하지만 모델 적재 가능 크기는 연산 성능뿐 아니라 GPU 메모리에도 제한된다.">GPU</span>와 학습 파이프라인을 떠안는다.
 
 캐릭터 일관성만 놓고 보면 이 선택이 특히 크게 갈린다. 닫힌 API에서 남는 경로는 앵커 이미지를 매 편집 요청에 다시 넣는 방식과 이전 응답을 이어받는 <span class="term" data-tip="한 번의 요청으로 끝내지 않고 이전 응답을 이어받아 여러 번 주고받으며 결과를 다듬는 방식.">다중 턴</span> 방식 둘이다.[^multiturn] 후자는 Images API가 아니라 Responses API의 이미지 생성 도구 기능이다. 두 방식의 드리프트 특성이 다를 것이라고 보지만, 인용한 문서는 그 비교를 하지 않는다. 확인 안 된 가설이다.
 
@@ -173,6 +175,7 @@ StoryDiffusion은 다른 접근이다. 여러 이미지에 걸쳐 self-attention
 [^hpsv2]: Wu, Hao, Sun, Chen, Zhu, Zhao, Li (2023), [Human Preference Score v2: A Solid Benchmark for Evaluating Human Preferences of Text-to-Image Synthesis](https://arxiv.org/abs/2306.09341), arXiv:2306.09341. 이미지 쌍 433,760개·사람 선호 선택 798,090건.
 [^pickscore]: Kirstain et al. (2023), [Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation](https://arxiv.org/abs/2305.01569). CLIP 기반 스코어링.
 [^ladi]: Roush et al. (2023), [LLM as an Art Director (LaDi): Using LLMs to improve Text-to-Media Generators](https://arxiv.org/abs/2311.03716), arXiv:2311.03716.
+[^adobe-train2]: Adobe, [Custom models 문서](https://helpx.adobe.com/firefly/using/custom-models.html) — Subject Model 학습에 필요한 이미지 수. 2026-07-26 조회.
 [^ti]: Gal et al. (2022), [An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion](https://arxiv.org/abs/2208.01618), arXiv:2208.01618. 모델을 동결하고 새 텍스트 임베딩을 학습한다.
 [^lora]: Hu et al. (2021), [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685), arXiv:2106.09685. 사전학습 가중치를 동결하고 저랭크 행렬을 학습한다.
 [^controlnet]: Zhang, Rao, Agrawala (2023), [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543), arXiv:2302.05543, ICCV 2023.

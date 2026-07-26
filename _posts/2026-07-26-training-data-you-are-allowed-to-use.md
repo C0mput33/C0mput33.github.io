@@ -93,7 +93,7 @@ few-shot 도메인 생성 연구들은 10장 규모 데이터셋을 표준 벤�
 
 자기 생성물로 반복 학습하면 모델 분포가 실제에서 멀어지고 편향이 강화되며 품질과 다양성이 떨어진다는 보고가 누적돼 있다. 초기에는 분포 가장자리의 정보를 잃고, 후기에는 분산과 품질이 되돌리기 어려운 방식으로 떨어진다.[^collapse-vlm][^collapse-mem] 완화책으로는 고정된 모델로 재라벨링하는 방식이 단일 모델 재귀 파인튜닝보다 붕괴를 늦춘다는 보고가 있다.[^collapse-vlm]
 
-합성 데이터로 양을 채우려는 유혹이 있는데, 약관과 모델 붕괴 양쪽에서 막힌다.
+합성 데이터로 양을 채우려는 유혹이 있는데, 두 가지가 걸린다. 다만 이 결론을 "합성 데이터는 못 쓴다"로 넓히면 틀린다. 붕괴 연구가 보여주는 것은 **이전 모델의 출력으로 실제 데이터를 대체하는 재귀 학습**의 위험이다. 실제 데이터를 계속 보존한 채 합성 데이터를 누적하는 조건에서는 성능이 유지될 수 있다는 후속 보고도 있다.[^accumulate] 그러니 위험한 것은 합성 데이터 자체가 아니라 출처가 불분명한 API 출력, 검수 없는 자기 생성물, 실제 데이터를 밀어내는 재귀 학습 쪽이다. 사용 권한이 확인된 생성기를 쓰고 실제 데이터 기반을 고정한 채 사람 검수와 중복·다양성 검사를 통과시킨 합성 데이터라면 보조 자료로 따로 실험해 볼 여지가 있다.
 
 ## 규제는 아직 굳지 않았다
 
@@ -150,6 +150,7 @@ EU부터 보면, DSM 지침 제4조는 합법적으로 접근 가능한 저작�
 [^multitoken]: Pascual, Sesma-Sara, Jurio, Paternain, Galar (2025), [Few-shot multi-token DreamBooth with LoRa for style-consistent character generation](https://arxiv.org/abs/2510.09475), arXiv:2510.09475.
 [^fewshot]: 같은 논문의 방법 비교 절 — LoRA의 정체성 보존과 텍스트 정합성 트레이드오프.
 [^collapse-vlm]: [Multi-modal Synthetic Data Training and Model Collapse: Insights from VLMs and Diffusion Models](https://arxiv.org/html/2505.08803), arXiv:2505.08803.
+[^accumulate]: Kazdan et al., [Collapse or Thrive? Perils and Promises of Synthetic Data in a Self-Generating World](https://proceedings.mlr.press/v267/kazdan25a.html), ICML 2025 — 실제 데이터를 대체하지 않고 누적하는 조건에서의 거동. 2026-07-26 조회.
 [^collapse-mem]: [A Closer Look at Model Collapse: From a Generalization-to-Memorization Perspective](https://arxiv.org/html/2509.16499v1), arXiv:2509.16499.
 [^dsm]: [Directive (EU) 2019/790](https://eur-lex.europa.eu/eli/dir/2019/790/oj?locale=en) — Article 4.
 [^aiact]: [Regulation (EU) 2024/1689 (AI Act)](https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en) — Article 53.
