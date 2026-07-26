@@ -128,6 +128,7 @@
 | 결정론적 | 같은 입력과 상태에서 같은 결과를 내는 성질. 시드 고정은 난수 경로를 통제하는 한 조건일 뿐이며 구현·하드웨어·외부 서비스가 바뀌면 재현이 깨질 수 있다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 고충실도 | 입력 이미지를 낮은 해상도로 요약하지 않고 세부를 유지한 채 처리하는 방식. 얼굴·질감 보존에 유리하지만 입력 토큰을 더 소비한다. | [`image-generation-api`](#image-generation-api) |
 | 골든셋 | 사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 공정이용 | 저작권자의 허락 없이도 저작물을 쓸 수 있게 하는 예외. 이용의 목적과 성격, 저작물의 종류, 이용된 분량, 시장에 미치는 영향 같은 요소를 사안마다 따져 판단한다. | [`copyright-and-licensing`](#copyright-and-licensing) |
 | 관리형 API | 이 글에서 사업자가 호스팅하는 기성 모델을 요청량에 따라 과금받아 호출하는 방식을 가리킨다. GPU 운영 부담은 줄지만 지원 모델·가격·버전·데이터 정책은 공급자 조건에 따른다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 구성 타당도 | 점수의 차이를 의도한 개념의 차이로 해석할 수 있는지를 뒷받침하는 근거. 창작 품질 점수에 수치 난이도 제어가 섞이면 무엇이 좋아졌는지 해석하기 어려워진다. | [`readability-primary`](#readability-primary) |
 | 그래디언트 | 손실을 각 학습 파라미터로 미분한 값. 옵티마이저가 어느 방향으로 얼마나 가중치를 바꿀지 계산하는 데 쓰며 학습 중 추가 메모리를 차지한다. | [`post-training-and-model-files`](#post-training-and-model-files) |
@@ -174,12 +175,14 @@
 | 오은퇴 | 실제로는 상위권인 후보를 데이터 부족이나 우연한 연패 때문에 잘못 조기 탈락시키는 것. 순차 은퇴 기법의 가장 큰 위험이라, 시뮬레이션으로 발생률을 직접 재서 검증했다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 오토스케일링 | 관측한 요청량이나 대기 작업 수에 맞춰 실행 인스턴스 수를 자동으로 늘리거나 줄이는 방식. 시작 시간과 상한을 잘못 잡으면 급증한 요청이 먼저 대기하거나 비용이 예상보다 커질 수 있다. | [`application-and-delivery`](#application-and-delivery) |
 | 온디맨드 | 예약 없이 쓴 시간만큼 정가로 내는 클라우드 요금제. 언제든 켜고 끌 수 있는 대신 시간 단가가 가장 비싸다. 스팟(회수 가능 할인)·예약(약정 할인)과 대비되는 기준 가격이다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
+| 옵트아웃 | 기본은 허용이되 권리자가 명시적으로 거부 의사를 밝히면 제외되는 방식. 저작물의 기계학습 이용 유보가 대표적이다. | [`copyright-and-licensing`](#copyright-and-licensing) |
 | 옵티마이저 상태 | Adam 같은 옵티마이저가 파라미터마다 유지하는 이동평균 등 보조 값. 전체 파인튜닝에서는 가중치와 그래디언트 외에 이 상태도 커져 메모리 요구량이 크게 늘어난다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 완전그래프 | 모든 후보 쌍을 빠짐없이 비교하는 구성. N개 모델이면 N(N−1)/2쌍이라 비용이 제곱으로 는다. 가장 정보가 많지만 가장 비싸다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 위치 편향 | 내용과 무관하게 먼저 보여준 답을 더 좋게 평가하는 경향. LLM 심판에게 일관되게 관측되는 대표적 편향이라, 순서를 바꿔 두 번 묻는 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 읽어주기 | 어른이 글을 소리 내어 읽고 아이는 주로 듣는 방식. 아이가 직접 해독하기 어려운 글도 들으며 이해할 수 있어 독립 읽기와 같은 난이도로 취급하면 안 된다. | [`readability-primary`](#readability-primary) |
 | 임베딩 | 텍스트나 이미지를 모델이 다루는 고정 길이 숫자 벡터로 바꾼 표현. 비슷한 의미일수록 벡터 공간에서 가깝게 놓이도록 학습된다. | [`ml-foundations`](#ml-foundations) |
 | 자기 선호 | LLM이 자기(또는 같은 계열 모델)가 쓴 글을 알아보고 더 높게 평가하는 편향. 심판과 후보가 같은 계열이면 그 쌍에서 심판을 제외하는 구조적 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 증류 | 큰 모델의 동작을 더 작거나 빠른 모델에 옮겨 담는 학습 기법. 원 모델의 출력이나 중간 표현을 학생 모델의 학습 신호로 쓴다. | [`copyright-and-licensing`](#copyright-and-licensing) |
 | 처리량 | 초당 생성 토큰 수(tok/s). 한 요청의 체감 속도를 좌우하지만, 추론 토큰을 많이 쓰는 모델은 처리량이 높아도 완료까지는 오래 걸릴 수 있어 완료 시간과 함께 봐야 한다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 체크포인트 | 진행 상태를 통째로 저장해둔 지점. 중단되거나 크레딧이 떨어져도 완료분을 다시 호출하지 않고 그 지점부터 이어서 실행할 수 있다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 최우도 | 관측된 데이터가 나올 확률(우도)을 가장 크게 만드는 파라미터를 답으로 고르는 추정 원리. MLE라고도 한다. 데이터를 가장 잘 설명하는 값이라는 뜻이라, 통계 추정의 기본 잣대로 쓰인다. | [`statistics-and-ranking`](#statistics-and-ranking) |
@@ -194,6 +197,7 @@
 | 토큰 | 모델의 토크나이저가 텍스트를 나눈 처리 단위. 한 토큰은 단어 하나와 같지 않으며 같은 문장도 모델별 토크나이저에 따라 토큰 수가 달라질 수 있다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 통합 메모리 | 애플 실리콘에서 CPU와 GPU가 같은 물리 메모리 풀을 공유하는 구조. 별도 VRAM으로 복사하는 비용을 줄일 수 있지만 운영체제와 다른 프로세스가 쓰는 몫까지 고려해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 파인튜닝 | 사전학습된 모델을 특정 데이터와 목적에 맞게 추가 학습하는 과정. 전체 가중치를 바꾸는 방식과 LoRA처럼 일부만 학습하는 방식은 메모리·이식성이 다르다. | [`post-training-and-model-files`](#post-training-and-model-files) |
+| 퍼블릭 도메인 | 저작권 보호기간이 끝났거나 권리자가 권리를 포기해 누구나 자유롭게 쓸 수 있는 상태의 저작물. | [`copyright-and-licensing`](#copyright-and-licensing) |
 | 프롬프트 provenance | 어떤 정책 버전의 system·user 메시지가 실제 API에 전달됐는지 남기는 출처 기록. 결과와 함께 저장해야 과거 프롬프트를 현재 프롬프트로 잘못 재구성하지 않는다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 프롬프트 뱅크 | 평가 때 앱이 꺼내 조합하는 사전 정의 과제 모음. 주제·테마·길이·독서 방식의 분포와 순서가 모델별 노출 조건을 좌우한다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 프롬프트 캐싱 | 반복되는 프롬프트 앞부분의 계산 결과를 재사용해 지연이나 입력 비용을 줄이는 기능. 자동·명시형 여부, 최소 길이, 만료 시간, 할인율은 모델과 공급자마다 다르다. | [`openrouter-runtime`](#openrouter-runtime) |
@@ -261,6 +265,14 @@ Terms: `API`, `CORS`, `HTML`, `HTTP`, `IndexedDB`, `JSON`, `TTL`, `localStorage`
 - <https://www.rfc-editor.org/rfc/rfc8259>
 - <https://html.spec.whatwg.org/>
 - <https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS/Introducing>
+
+### copyright-and-licensing
+
+Terms: `증류`, `공정이용`, `퍼블릭 도메인`, `옵트아웃`
+
+- <https://eur-lex.europa.eu/eli/dir/2019/790/oj?locale=en>
+- <https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029423587>
+- <https://creativecommons.org/public-domain/pdm/>
 
 ### data-splitting-and-preferences
 

@@ -210,6 +210,15 @@
         "https://arxiv.org/abs/2103.00020",
         "https://scikit-learn.org/stable/modules/model_evaluation.html#confusion-matrix"
       ]
+    },
+    {
+      "id": "copyright-and-licensing",
+      "terms": ["증류", "공정이용", "퍼블릭 도메인", "옵트아웃"],
+      "references": [
+        "https://eur-lex.europa.eu/eli/dir/2019/790/oj?locale=en",
+        "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029423587",
+        "https://creativecommons.org/public-domain/pdm/"
+      ]
     }
   ]
 }
