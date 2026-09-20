@@ -6,6 +6,8 @@
 
 | Term | Short definition | Source group |
 |---|---|---|
+| 4칸 이미지 | 한 장의 이미지를 2×2로 나눠 네 쪽을 동시에 그리고, 받은 뒤 네 칸으로 잘라 각각의 쪽으로 쓰는 방식. 호출 한 번에 네 쪽을 처리해 쪽당 비용이 내려가지만, 칸 하나에 배정되는 출력 토큰은 단일 이미지보다 적다. | [`image-generation-pipeline`](#image-generation-pipeline) |
+| 75분위 | 정렬한 값에서 위에서 25% 지점에 있는 값. 평균보다 느린 쪽을 더 반영해 보수적인 추정을 만들지만, 그만큼 과거의 느린 실행에 끌려간다. | [`review-and-estimation`](#review-and-estimation) |
 | A/B | 두 대안을 같은 평가 질문 아래 비교하는 방식. 이 평가 앱에서는 익명화한 Story A와 Story B 중 더 나은 동화를 고르게 한다. | [`project-eval-runtime`](#project-eval-runtime) |
 | A3B | 모델 이름에서 토큰 하나를 처리할 때 활성화되는 파라미터가 약 3B라는 표기. 총 파라미터와 상주 메모리 크기는 별도라서 A3B만 보고 3B 모델처럼 적재할 수는 없다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | anytime-valid | 데이터를 계속 들여다보다가 아무 시점에 멈춰도 통계적 보장이 깨지지 않는 성질. 보통의 검정은 중간에 자꾸 확인하며 멈추면 오류율이 부풀지만, 이 성질이 있으면 안전하다. | [`statistics-and-ranking`](#statistics-and-ranking) |
@@ -130,7 +132,9 @@
 | 골든셋 | 사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 공정이용 | 저작권자의 허락 없이도 저작물을 쓸 수 있게 하는 예외. 이용의 목적과 성격, 저작물의 종류, 이용된 분량, 시장에 미치는 영향 같은 요소를 사안마다 따져 판단한다. | [`copyright-and-licensing`](#copyright-and-licensing) |
 | 관리형 API | 이 글에서 사업자가 호스팅하는 기성 모델을 요청량에 따라 과금받아 호출하는 방식을 가리킨다. GPU 운영 부담은 줄지만 지원 모델·가격·버전·데이터 정책은 공급자 조건에 따른다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
+| 교차 리뷰 | 변경을 만든 쪽과 검토하는 쪽이 같은 대화 맥락을 공유하지 않게 분리하는 검토 방식. 검토자는 변경 내역과 검증 기준만 보고 판단한다. | [`review-and-estimation`](#review-and-estimation) |
 | 구성 타당도 | 점수의 차이를 의도한 개념의 차이로 해석할 수 있는지를 뒷받침하는 근거. 창작 품질 점수에 수치 난이도 제어가 섞이면 무엇이 좋아졌는지 해석하기 어려워진다. | [`readability-primary`](#readability-primary) |
+| 구조화 로그 | 사람이 읽는 문장 대신 키와 값으로 남기는 로그. 프롬프트 본문이나 원고 같은 민감한 내용을 싣지 않고도 어떤 판단이 왜 내려졌는지 추적할 수 있다. | [`image-generation-pipeline`](#image-generation-pipeline) |
 | 그래디언트 | 손실을 각 학습 파라미터로 미분한 값. 옵티마이저가 어느 방향으로 얼마나 가중치를 바꿀지 계산하는 데 쓰며 학습 중 추가 메모리를 차지한다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 그래디언트 누적 | 작은 미니배치 여러 번의 그래디언트를 모은 뒤 한 번 가중치를 갱신하는 방법. 메모리는 작은 배치 수준으로 유지하면서 더 큰 유효 배치를 흉내 낼 수 있다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 그래디언트 체크포인팅 | 순전파의 모든 중간값을 저장하지 않고 일부를 역전파 때 다시 계산해 학습 메모리를 줄이는 기법. 메모리를 아끼는 대신 계산 시간이 늘어난다. | [`post-training-and-model-files`](#post-training-and-model-files) |
@@ -143,6 +147,7 @@
 | 드리프트 | 반복 생성이나 편집을 거치며 대상의 속성이 조금씩 원래 값에서 멀어지는 현상. 직전 결과를 입력으로 다시 쓰는 구조에서는 오차가 누적될 수 있다. | [`image-generation-api`](#image-generation-api) |
 | 라우팅 | 들어온 요청을 여러 서버·모델·공급자 후보 중 하나로 보내는 선택 과정. 가용성, 현재 부하, 비용, 캐시 재사용 가능성처럼 목적에 맞는 기준과 실패 시 대체 경로가 필요하다. | [`application-and-delivery`](#application-and-delivery) |
 | 라운드로빈 | 여러 목록을 돌아가며 하나씩 공평하게 뽑는 순회 방식. 각 목록의 비율을 자연스럽게 유지한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
+| 레터링 | 그림 안에 글자를 배치하고 그려 넣는 작업. 말풍선의 위치와 꼬리 방향, 글자 크기의 위계, 글자체가 그림의 재료와 맞는지가 판정 대상이 된다. | [`image-generation-pipeline`](#image-generation-pipeline) |
 | 롤링 평균 | 고정 길이의 최근 구간을 계속 앞으로 이동시키며 다시 계산한 평균. 새 관측이 들어오고 오래된 관측이 빠지므로 같은 페이지도 조회 날짜에 따라 값이 바뀐다. | [`openrouter-runtime`](#openrouter-runtime) |
 | 루브릭 | 평가할 기준과 각 기준의 판단 수준을 미리 적은 채점 지침. 이름만 나열하지 않고 기준 설명과 점수 앵커를 함께 줘야 평가자마다 뜻이 달라지는 문제를 줄일 수 있다. | [`llm-evaluation-primary`](#llm-evaluation-primary) |
 | 멱등 | 같은 요청이 실수로 두 번 와도 결과는 한 번 처리한 것과 같게 만드는 성질. 재시도와 중복 클릭이 존재하는 분산 시스템에서 중복 생성·중복 과금을 막는 기본 장치다. | [`application-and-delivery`](#application-and-delivery) |
@@ -173,6 +178,7 @@
 | 양자화 | 가중치나 활성값을 더 적은 비트로 근사해 메모리와 연산량을 줄이는 기법. 절감 폭과 품질 손실은 양자화 방식·비트 수·하드웨어에 따라 달라지며 Q4 같은 이름도 포맷별 세부 규칙을 확인해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 어댑터 | 동결한 베이스 모델 옆에 붙여 학습하는 작은 추가 가중치 묶음. 파일이 작아도 층 이름과 배열 모양이 실행 프레임워크의 형식과 맞지 않으면 그대로 옮겨 쓸 수 없다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 오은퇴 | 실제로는 상위권인 후보를 데이터 부족이나 우연한 연패 때문에 잘못 조기 탈락시키는 것. 순차 은퇴 기법의 가장 큰 위험이라, 시뮬레이션으로 발생률을 직접 재서 검증했다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 오탐 | 실제로는 문제가 없는데 검사가 문제로 판정하는 경우. 검사 한 번이 곧 재작업이면 오탐 하나가 비용과 새 결함의 위험을 함께 만든다. | [`image-generation-pipeline`](#image-generation-pipeline) |
 | 오토스케일링 | 관측한 요청량이나 대기 작업 수에 맞춰 실행 인스턴스 수를 자동으로 늘리거나 줄이는 방식. 시작 시간과 상한을 잘못 잡으면 급증한 요청이 먼저 대기하거나 비용이 예상보다 커질 수 있다. | [`application-and-delivery`](#application-and-delivery) |
 | 온디맨드 | 예약 없이 쓴 시간만큼 정가로 내는 클라우드 요금제. 언제든 켜고 끌 수 있는 대신 시간 단가가 가장 비싸다. 스팟(회수 가능 할인)·예약(약정 할인)과 대비되는 기준 가격이다. | [`aws-bedrock-and-cost`](#aws-bedrock-and-cost) |
 | 옵트아웃 | 기본은 허용이되 권리자가 명시적으로 거부 의사를 밝히면 제외되는 방식. 저작물의 기계학습 이용 유보가 대표적이다. | [`copyright-and-licensing`](#copyright-and-licensing) |
@@ -182,11 +188,14 @@
 | 읽어주기 | 어른이 글을 소리 내어 읽고 아이는 주로 듣는 방식. 아이가 직접 해독하기 어려운 글도 들으며 이해할 수 있어 독립 읽기와 같은 난이도로 취급하면 안 된다. | [`readability-primary`](#readability-primary) |
 | 임베딩 | 텍스트나 이미지를 모델이 다루는 고정 길이 숫자 벡터로 바꾼 표현. 비슷한 의미일수록 벡터 공간에서 가깝게 놓이도록 학습된다. | [`ml-foundations`](#ml-foundations) |
 | 자기 선호 | LLM이 자기(또는 같은 계열 모델)가 쓴 글을 알아보고 더 높게 평가하는 편향. 심판과 후보가 같은 계열이면 그 쌍에서 심판을 제외하는 구조적 통제가 필요하다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 재작화 | 심사가 지적한 자산만 골라 다시 생성하는 단계. 한 번만 수행하고 그 결과를 다시 심사하지 않으면, 교정이 빗나가도 그대로 출고된다. | [`image-generation-pipeline`](#image-generation-pipeline) |
 | 증류 | 큰 모델의 동작을 더 작거나 빠른 모델에 옮겨 담는 학습 기법. 원 모델의 출력이나 중간 표현을 학생 모델의 학습 신호로 쓴다. | [`copyright-and-licensing`](#copyright-and-licensing) |
 | 처리량 | 초당 생성 토큰 수(tok/s). 한 요청의 체감 속도를 좌우하지만, 추론 토큰을 많이 쓰는 모델은 처리량이 높아도 완료까지는 오래 걸릴 수 있어 완료 시간과 함께 봐야 한다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 체크포인트 | 진행 상태를 통째로 저장해둔 지점. 중단되거나 크레딧이 떨어져도 완료분을 다시 호출하지 않고 그 지점부터 이어서 실행할 수 있다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 최우도 | 관측된 데이터가 나올 확률(우도)을 가장 크게 만드는 파라미터를 답으로 고르는 추정 원리. MLE라고도 한다. 데이터를 가장 잘 설명하는 값이라는 뜻이라, 통계 추정의 기본 잣대로 쓰인다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 추론 토큰 | 일부 추론 모델이 최종 답을 내기 전에 사용하는 내부 계산 토큰으로 API usage에 별도 집계될 수 있다. 과금 포함 여부와 단가는 모델·공급자 정책을 확인해야 한다. | [`llm-core-and-inference`](#llm-core-and-inference) |
+| 축약 사슬 | 프롬프트가 예산을 넘을 때 정해진 순서로 블록을 짧은 형태로 바꾸는 절차. 맞는 즉시 멈추므로 예산 안에 드는 요청은 원래 문구를 그대로 유지한다. | [`image-generation-pipeline`](#image-generation-pipeline) |
+| 출력 심사 | 생성된 결과물을 별도의 모델 호출로 검사해 통과 여부와 지적 사항을 돌려받는 단계. 안전, 글자 일치, 만듦새, 참조 일치처럼 항목을 나눠 둔다. | [`image-generation-pipeline`](#image-generation-pipeline) |
 | 층화 표집 | 모집단을 미리 정한 층으로 나눈 뒤 각 층에서 표본을 뽑는 방법. 중요한 하위 집단의 누락을 줄일 수 있지만 층 안의 대표성과 전체 가중치는 별도로 설계해야 한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | 캐시 미스 | 요청한 데이터나 프롬프트 상태가 캐시에 없어 원래 계산이나 저장소 조회를 다시 수행하는 경우. 캐시 키·만료·라우팅이 달라져도 발생할 수 있다. | [`browser-storage-and-web-standards`](#browser-storage-and-web-standards) |
 | 캐시 히트율 | 캐시 조회 또는 재사용 대상 중 실제 캐시에서 처리된 비율. 토큰·블록·요청 중 무엇을 분모로 삼는지는 구현마다 달라 같은 이름의 수치를 바로 비교하면 안 된다. | [`openrouter-runtime`](#openrouter-runtime) |
@@ -198,8 +207,11 @@
 | 통합 메모리 | 애플 실리콘에서 CPU와 GPU가 같은 물리 메모리 풀을 공유하는 구조. 별도 VRAM으로 복사하는 비용을 줄일 수 있지만 운영체제와 다른 프로세스가 쓰는 몫까지 고려해야 한다. | [`model-formats-and-serving`](#model-formats-and-serving) |
 | 파인튜닝 | 사전학습된 모델을 특정 데이터와 목적에 맞게 추가 학습하는 과정. 전체 가중치를 바꾸는 방식과 LoRA처럼 일부만 학습하는 방식은 메모리·이식성이 다르다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | 퍼블릭 도메인 | 저작권 보호기간이 끝났거나 권리자가 권리를 포기해 누구나 자유롭게 쓸 수 있는 상태의 저작물. | [`copyright-and-licensing`](#copyright-and-licensing) |
+| 풀 리퀘스트 | 변경한 코드를 원래 브랜치에 합치기 전에 제출하는 요청. 무엇이 어떻게 바뀌는지 변경 내역으로 보여주고 검토를 거친다. | [`review-and-estimation`](#review-and-estimation) |
+| 품질 옵션 | 이미지 생성 API에서 한 장에 얼마나 많은 연산을 쓸지 고르는 값. 높을수록 세부가 늘지만 출력 토큰이 비례해 늘어 청구액도 커진다. | [`image-generation-pipeline`](#image-generation-pipeline) |
 | 프롬프트 provenance | 어떤 정책 버전의 system·user 메시지가 실제 API에 전달됐는지 남기는 출처 기록. 결과와 함께 저장해야 과거 프롬프트를 현재 프롬프트로 잘못 재구성하지 않는다. | [`project-eval-runtime`](#project-eval-runtime) |
 | 프롬프트 뱅크 | 평가 때 앱이 꺼내 조합하는 사전 정의 과제 모음. 주제·테마·길이·독서 방식의 분포와 순서가 모델별 노출 조건을 좌우한다. | [`project-eval-runtime`](#project-eval-runtime) |
+| 프롬프트 예산 | 프롬프트 각 구성 요소에 미리 배정해 둔 글자 수 상한. 합이 공급자 상한을 넘지 않도록 설계하고, 회귀 테스트로 그 불변을 고정한다. | [`image-generation-pipeline`](#image-generation-pipeline) |
 | 프롬프트 캐싱 | 반복되는 프롬프트 앞부분의 계산 결과를 재사용해 지연이나 입력 비용을 줄이는 기능. 자동·명시형 여부, 최소 길이, 만료 시간, 할인율은 모델과 공급자마다 다르다. | [`openrouter-runtime`](#openrouter-runtime) |
 | 프리픽스 | 프롬프트의 앞부분에 반복해서 붙는 공통 입력 구간. 프롬프트 캐시는 이 구간이 같고 공급자의 최소 길이·라우팅 조건을 충족할 때 재사용될 수 있다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | 하네스 | 모델을 감싸는 실행 구조물. 도구 호출, 재시도, 컨텍스트 관리, 검증을 모델 밖에서 통제한다. 같은 모델이라도 하네스가 좋으면 체감 성능이 달라진다. | [`llm-core-and-inference`](#llm-core-and-inference) |
@@ -214,7 +226,7 @@
 
 ## Definition source groups
 
-> Last reviewed: 2026-07-24. A source group is evidence for the terms listed under it; it is not a claim that every source uses the blog's exact Korean wording.
+> Last reviewed: 2026-09-20. A source group is evidence for the terms listed under it; it is not a claim that every source uses the blog's exact Korean wording.
 
 ### application-and-delivery
 
@@ -297,6 +309,12 @@ Terms: `고충실도`, `다중 턴`, `드리프트`, `seed`, `비전 언어 모�
 - <https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide>
 - <https://docs.midjourney.com/hc/en-us/articles/32604356340877-Seeds>
 - <https://platform.stability.ai/docs/features/image-to-image>
+
+### image-generation-pipeline
+
+Terms: `4칸 이미지`, `레터링`, `오탐`, `프롬프트 예산`, `축약 사슬`, `재작화`, `구조화 로그`, `품질 옵션`, `출력 심사`
+
+- `project:2026-09 그림 생성 파이프라인 프로덕션 트레이스·워커 로그·산출물 증적(2026-09-18~20 실측)`
 
 ### llm-core-and-inference
 
@@ -405,6 +423,12 @@ Terms: `ARI`, `Coleman–Liau`, `FKGL`, `Lexile`, `가독성`, `구성 타당도
 - <https://ies.ed.gov/ncee/wwc/Docs/PracticeGuide/readingcomp_pg_092810.pdf>
 - <https://www.thecorestandards.org/ELA-Literacy/standard-10-range-quality-complexity/measuring-text-complexity-three-factors/>
 - <https://metametricsinc.com/wp-content/uploads/2019/11/Introductory-Guide-for-Publishers-and-Content-Developers-v3.pdf>
+
+### review-and-estimation
+
+Terms: `교차 리뷰`, `풀 리퀘스트`, `75분위`
+
+- `project:2026-09 PR 교차 리뷰 6회 기록과 단계별 소요 실측(2026-09-18~20)`
 
 ### statistics-and-ranking
 

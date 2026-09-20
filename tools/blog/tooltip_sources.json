@@ -1,10 +1,31 @@
 {
   "version": 1,
-  "reviewed": "2026-07-24",
+  "reviewed": "2026-09-20",
   "groups": [
     {
       "id": "project-eval-runtime",
-      "terms": ["A/B", "Arena 점수", "Match Rate", "contest", "jury", "retire2", "top-k", "골든셋", "능동 표집", "동등성 테스트", "반응성 β", "부활전", "오은퇴", "양방향 swap", "위치 편향", "자기 선호", "체크포인트", "하드 게이트", "프롬프트 뱅크", "프롬프트 provenance"],
+      "terms": [
+        "A/B",
+        "Arena 점수",
+        "Match Rate",
+        "contest",
+        "jury",
+        "retire2",
+        "top-k",
+        "골든셋",
+        "능동 표집",
+        "동등성 테스트",
+        "반응성 β",
+        "부활전",
+        "오은퇴",
+        "양방향 swap",
+        "위치 편향",
+        "자기 선호",
+        "체크포인트",
+        "하드 게이트",
+        "프롬프트 뱅크",
+        "프롬프트 provenance"
+      ],
       "references": [
         "project:C0mput33/little-bard/eval/app/index.html",
         "project:C0mput33/little-bard/eval/aggregate/bradley_terry.py",
@@ -13,7 +34,42 @@
     },
     {
       "id": "statistics-and-ranking",
-      "terms": ["BT", "Bradley-Terry", "CI", "Cohen's κ", "Davidson", "E-value", "Elo", "Fisher-Yates", "Glicko", "K-팩터", "Krippendorff α", "MAE", "MLE", "MM 알고리즘", "Spearman", "Swiss", "anytime-valid", "expander", "p50", "pairwise", "racing", "t-검정", "결정론적", "라운드로빈", "몬테카를로", "백분위", "부트스트랩", "순서통계량", "순위합", "스펙트럴 갭", "신뢰구간", "완전그래프", "최우도", "층화 표집"],
+      "terms": [
+        "BT",
+        "Bradley-Terry",
+        "CI",
+        "Cohen's κ",
+        "Davidson",
+        "E-value",
+        "Elo",
+        "Fisher-Yates",
+        "Glicko",
+        "K-팩터",
+        "Krippendorff α",
+        "MAE",
+        "MLE",
+        "MM 알고리즘",
+        "Spearman",
+        "Swiss",
+        "anytime-valid",
+        "expander",
+        "p50",
+        "pairwise",
+        "racing",
+        "t-검정",
+        "결정론적",
+        "라운드로빈",
+        "몬테카를로",
+        "백분위",
+        "부트스트랩",
+        "순서통계량",
+        "순위합",
+        "스펙트럴 갭",
+        "신뢰구간",
+        "완전그래프",
+        "최우도",
+        "층화 표집"
+      ],
       "references": [
         "https://www.itl.nist.gov/div898/handbook/",
         "https://doi.org/10.2307/2334029",
@@ -26,7 +82,19 @@
     },
     {
       "id": "llm-evaluation-primary",
-      "terms": ["Chatbot Arena", "CoT", "EQ-Bench", "G-Eval", "GSM8K", "IFEval", "InfoBench", "LLM-as-a-Judge", "LMArena", "MMLU", "루브릭"],
+      "terms": [
+        "Chatbot Arena",
+        "CoT",
+        "EQ-Bench",
+        "G-Eval",
+        "GSM8K",
+        "IFEval",
+        "InfoBench",
+        "LLM-as-a-Judge",
+        "LMArena",
+        "MMLU",
+        "루브릭"
+      ],
       "references": [
         "https://arxiv.org/abs/2403.04132",
         "https://arxiv.org/abs/2201.11903",
@@ -45,7 +113,18 @@
     },
     {
       "id": "browser-storage-and-web-standards",
-      "terms": ["API", "CORS", "HTML", "HTTP", "IndexedDB", "JSON", "TTL", "localStorage", "비동기", "캐시 미스"],
+      "terms": [
+        "API",
+        "CORS",
+        "HTML",
+        "HTTP",
+        "IndexedDB",
+        "JSON",
+        "TTL",
+        "localStorage",
+        "비동기",
+        "캐시 미스"
+      ],
       "references": [
         "https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria",
         "https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API",
@@ -60,7 +139,28 @@
     },
     {
       "id": "application-and-delivery",
-      "terms": ["CI/CD", "Cloud Run", "DLQ", "FastAPI", "Gradio", "Provider Adapter", "SLA", "SLO", "gRPC", "webhook", "게이트웨이", "동시성", "라우팅", "멱등", "백프레셔", "스케일 제로", "오토스케일링", "큐 깊이", "콜드스타트", "헥사고날"],
+      "terms": [
+        "CI/CD",
+        "Cloud Run",
+        "DLQ",
+        "FastAPI",
+        "Gradio",
+        "Provider Adapter",
+        "SLA",
+        "SLO",
+        "gRPC",
+        "webhook",
+        "게이트웨이",
+        "동시성",
+        "라우팅",
+        "멱등",
+        "백프레셔",
+        "스케일 제로",
+        "오토스케일링",
+        "큐 깊이",
+        "콜드스타트",
+        "헥사고날"
+      ],
       "references": [
         "https://docs.github.com/en/actions/get-started/continuous-integration",
         "https://cloud.google.com/run/docs/overview/what-is-cloud-run",
@@ -82,7 +182,21 @@
     },
     {
       "id": "llm-core-and-inference",
-      "terms": ["GPU", "KV 캐시", "LLM", "P95", "TTFT", "VRAM", "temperature", "시스템 프롬프트", "추론 토큰", "처리량", "토큰", "프리픽스", "하네스"],
+      "terms": [
+        "GPU",
+        "KV 캐시",
+        "LLM",
+        "P95",
+        "TTFT",
+        "VRAM",
+        "temperature",
+        "시스템 프롬프트",
+        "추론 토큰",
+        "처리량",
+        "토큰",
+        "프리픽스",
+        "하네스"
+      ],
       "references": [
         "https://huggingface.co/docs/transformers/tokenizer_summary",
         "https://huggingface.co/docs/transformers/llm_tutorial",
@@ -95,7 +209,21 @@
     },
     {
       "id": "openrouter-runtime",
-      "terms": ["Effective Pricing", "ITPM", "OTPM", "OpenRouter", "OpenRouter 공급자", "RPM", "TPM", "slug", "롤링 평균", "실청구액", "캐시 히트율", "쿼터", "프롬프트 캐싱"],
+      "terms": [
+        "Effective Pricing",
+        "ITPM",
+        "OTPM",
+        "OpenRouter",
+        "OpenRouter 공급자",
+        "RPM",
+        "TPM",
+        "slug",
+        "롤링 평균",
+        "실청구액",
+        "캐시 히트율",
+        "쿼터",
+        "프롬프트 캐싱"
+      ],
       "references": [
         "https://openrouter.ai/docs/faq",
         "https://openrouter.ai/docs/cookbook/administration/usage-accounting",
@@ -107,7 +235,17 @@
     },
     {
       "id": "readability-primary",
-      "terms": ["ARI", "Coleman–Liau", "FKGL", "Lexile", "가독성", "구성 타당도", "독립 읽기", "함께 읽기", "읽어주기"],
+      "terms": [
+        "ARI",
+        "Coleman–Liau",
+        "FKGL",
+        "Lexile",
+        "가독성",
+        "구성 타당도",
+        "독립 읽기",
+        "함께 읽기",
+        "읽어주기"
+      ],
       "references": [
         "https://apps.dtic.mil/sti/citations/AD0667273",
         "https://doi.org/10.1037/h0076540",
@@ -122,7 +260,40 @@
     },
     {
       "id": "model-formats-and-serving",
-      "terms": ["A3B", "AWQ", "BF16", "CUDA", "FP8", "GGUF", "Gated DeltaNet", "L4", "L40S", "MTP", "NTP", "OpenAI 호환 API", "bpw", "Metal", "MoE", "Ollama", "Qwen3-30B-A3B", "Qwen3.5-35B-A3B", "Qwen3.6-35B-A3B", "linear attention", "llama.cpp", "sLLM", "vLLM", "모델 가중치", "모델 체크포인트", "모델 파라미터", "비전 인코더", "양자화", "컨텍스트 길이", "통합 메모리", "활성값", "활성 파라미터"],
+      "terms": [
+        "A3B",
+        "AWQ",
+        "BF16",
+        "CUDA",
+        "FP8",
+        "GGUF",
+        "Gated DeltaNet",
+        "L4",
+        "L40S",
+        "MTP",
+        "NTP",
+        "OpenAI 호환 API",
+        "bpw",
+        "Metal",
+        "MoE",
+        "Ollama",
+        "Qwen3-30B-A3B",
+        "Qwen3.5-35B-A3B",
+        "Qwen3.6-35B-A3B",
+        "linear attention",
+        "llama.cpp",
+        "sLLM",
+        "vLLM",
+        "모델 가중치",
+        "모델 체크포인트",
+        "모델 파라미터",
+        "비전 인코더",
+        "양자화",
+        "컨텍스트 길이",
+        "통합 메모리",
+        "활성값",
+        "활성 파라미터"
+      ],
       "references": [
         "https://arxiv.org/abs/2306.00978",
         "https://arxiv.org/abs/2404.19737",
@@ -146,7 +317,25 @@
     },
     {
       "id": "post-training-and-model-files",
-      "terms": ["DPO", "LoRA", "LoRA rank", "MLX", "PEFT", "QLoRA", "SFT", "TRL", "그래디언트", "그래디언트 누적", "그래디언트 체크포인팅", "모델 리비전", "어댑터", "옵티마이저 상태", "파인튜닝", "safetensors", "transformers"],
+      "terms": [
+        "DPO",
+        "LoRA",
+        "LoRA rank",
+        "MLX",
+        "PEFT",
+        "QLoRA",
+        "SFT",
+        "TRL",
+        "그래디언트",
+        "그래디언트 누적",
+        "그래디언트 체크포인팅",
+        "모델 리비전",
+        "어댑터",
+        "옵티마이저 상태",
+        "파인튜닝",
+        "safetensors",
+        "transformers"
+      ],
       "references": [
         "https://arxiv.org/abs/2305.18290",
         "https://arxiv.org/abs/2106.09685",
@@ -161,7 +350,11 @@
     },
     {
       "id": "data-splitting-and-preferences",
-      "terms": ["데이터 누수", "선호쌍", "홀드아웃"],
+      "terms": [
+        "데이터 누수",
+        "선호쌍",
+        "홀드아웃"
+      ],
       "references": [
         "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage",
         "https://scikit-learn.org/stable/modules/cross_validation.html",
@@ -171,7 +364,18 @@
     },
     {
       "id": "aws-bedrock-and-cost",
-      "terms": ["CMI", "CMU", "Converse", "EC2", "InvokeModel", "SageMaker Async Inference", "관리형 API", "손익분기", "스팟", "온디맨드"],
+      "terms": [
+        "CMI",
+        "CMU",
+        "Converse",
+        "EC2",
+        "InvokeModel",
+        "SageMaker Async Inference",
+        "관리형 API",
+        "손익분기",
+        "스팟",
+        "온디맨드"
+      ],
       "references": [
         "https://docs.aws.amazon.com/bedrock/latest/userguide/model-customization-import-model.html",
         "https://docs.aws.amazon.com/bedrock/latest/APIReference/API_CustomModelUnits.html",
@@ -187,14 +391,22 @@
     },
     {
       "id": "external-benchmark-services",
-      "terms": ["Artificial Analysis"],
+      "terms": [
+        "Artificial Analysis"
+      ],
       "references": [
         "https://artificialanalysis.ai/methodology"
       ]
     },
     {
       "id": "image-generation-api",
-      "terms": ["고충실도", "다중 턴", "드리프트", "seed", "비전 언어 모델"],
+      "terms": [
+        "고충실도",
+        "다중 턴",
+        "드리프트",
+        "seed",
+        "비전 언어 모델"
+      ],
       "references": [
         "https://developers.openai.com/api/docs/guides/image-generation",
         "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide",
@@ -204,7 +416,11 @@
     },
     {
       "id": "ml-foundations",
-      "terms": ["임베딩", "혼동행렬", "확산 모델"],
+      "terms": [
+        "임베딩",
+        "혼동행렬",
+        "확산 모델"
+      ],
       "references": [
         "https://arxiv.org/abs/2006.11239",
         "https://arxiv.org/abs/2103.00020",
@@ -213,11 +429,44 @@
     },
     {
       "id": "copyright-and-licensing",
-      "terms": ["증류", "공정이용", "퍼블릭 도메인", "옵트아웃"],
+      "terms": [
+        "증류",
+        "공정이용",
+        "퍼블릭 도메인",
+        "옵트아웃"
+      ],
       "references": [
         "https://eur-lex.europa.eu/eli/dir/2019/790/oj?locale=en",
         "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029423587",
         "https://creativecommons.org/public-domain/pdm/"
+      ]
+    },
+    {
+      "id": "image-generation-pipeline",
+      "terms": [
+        "4칸 이미지",
+        "레터링",
+        "오탐",
+        "프롬프트 예산",
+        "축약 사슬",
+        "재작화",
+        "구조화 로그",
+        "품질 옵션",
+        "출력 심사"
+      ],
+      "references": [
+        "project:2026-09 그림 생성 파이프라인 프로덕션 트레이스·워커 로그·산출물 증적(2026-09-18~20 실측)"
+      ]
+    },
+    {
+      "id": "review-and-estimation",
+      "terms": [
+        "교차 리뷰",
+        "풀 리퀘스트",
+        "75분위"
+      ],
+      "references": [
+        "project:2026-09 PR 교차 리뷰 6회 기록과 단계별 소요 실측(2026-09-18~20)"
       ]
     }
   ]
