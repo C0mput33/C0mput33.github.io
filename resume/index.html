@@ -101,17 +101,18 @@
           </section>
 
           <section class="project-detail" aria-labelledby="qwen-heading">
-            <h4 id="qwen-heading">Qwen 로컬 모델 서빙<span class="point">.</span></h4>
+            <h4 id="qwen-heading">Qwen Mac·MLX API 서빙<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>직접 운영할 수 있는 모델을 검토하기 위해 Qwen3.6 로컬 모델을 서빙하고 추론 결과와 자원 사용량을 확인했습니다.</p>
+            <p>직접 운영할 수 있는 모델을 검토하기 위해 Mac에서 Qwen3.6 모델을 MLX API로 서빙했습니다. 로컬 추론 결과와 자원 사용량을 함께 확인했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
+              <li>MLX 기반 API 엔드포인트를 구성해 Qwen3.6 모델의 추론을 요청할 수 있도록 연결했습니다.</li>
               <li>48GB Mac에서 Qwen3.6-35B-A3B 4비트 모델의 무결성 검사, 적재, CLI·UI 추론을 검증했습니다.</li>
               <li>단일 CLI 실행에서 생성 속도 <strong>85.77토큰/초</strong>, 최대 메모리 <strong>20.962GB</strong>를 기록했습니다. 이 값은 동시 요청이나 GPU 운영 환경의 성능과 구분했습니다.</li>
             </ul>
             <p class="scope-note">로컬 서빙과 별개로 QLoRA 학습을 실험했으며, 파인튜닝 전후의 품질 개선을 완료한 성과로 기재하지 않았습니다.</p>
             <h5>Tech Stack.</h5>
-            <p class="stack">Python, Qwen3.6, Local Inference, 4-bit Quantization</p>
+            <p class="stack">Python, MLX, Qwen3.6, API Serving, 4-bit Quantization</p>
             <p class="detail-link"><a href="https://c0mput33.github.io/posts/qwen36-35b-a3b-mtp-gguf-macbook-aws/">로컬 검증과 서빙 검토 기록 보기</a></p>
           </section>
         </div>

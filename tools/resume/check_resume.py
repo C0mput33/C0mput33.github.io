@@ -67,7 +67,7 @@ class PortfolioChecks(unittest.TestCase):
             self.assertNotIn(sensitive_fragment, self.source)
 
     def test_training_and_serving_scopes(self):
-        for required in ("과학기술정보통신부", "연수생", "수료 예정", "로컬 모델 서빙", "QLoRA"):
+        for required in ("과학기술정보통신부", "연수생", "수료 예정", "MLX API 서빙", "QLoRA"):
             self.assertIn(required, self.text)
         self.assertNotIn("과학기술정보통신부 소속", self.text)
         self.assertNotIn("vLLM 운영 완료", self.text)
