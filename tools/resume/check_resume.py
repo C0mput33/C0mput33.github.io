@@ -79,7 +79,11 @@ class PortfolioChecks(unittest.TestCase):
     def test_no_placeholders_or_unsecured_links(self):
         self.assertNotRegex(self.source, r"TODO|YOUR_ORG|example\.com|lorem ipsum")
         for href in self.page.links:
-            self.assertTrue(href.startswith(("https://", "#")), href)
+            self.assertTrue(href.startswith(("https://", "#")) or href == "mailto:sowilloo@naver.com", href)
+
+    def test_contact_email_matches_requested_address(self):
+        contact = self.source.split('id="contact"', 1)[1].split("</section>", 1)[0]
+        self.assertIn('href="mailto:sowilloo@naver.com">Email · sowilloo@naver.com</a>', contact)
 
     def test_print_and_responsive_styles(self):
         css = (HTML.parent / "style.css").read_text(encoding="utf-8")
