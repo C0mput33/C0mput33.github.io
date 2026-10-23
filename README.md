@@ -2,6 +2,8 @@
 
 <https://c0mput33.github.io>의 Jekyll 소스다. Ruby 3.4.10, Chirpy 7.6.0, GitHub Pages Actions로 빌드한다.
 
+AI·백엔드 프로젝트 포트폴리오는 <https://c0mput33.github.io/resume/>에서 볼 수 있다. 페이지 소스와 편집 기준은 [resume/](resume/README.md)에 있다.
+
 ## 로컬 검사
 
 ```bash

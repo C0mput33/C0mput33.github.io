@@ -48,6 +48,9 @@ jobs:
       - name: Test content tools
         run: python -m unittest discover -s tools/blog/tests -v
 
+      - name: Validate portfolio
+        run: python tools/resume/check_resume.py
+
       - name: Validate posts and tooltip policy
         run: |
           python tools/blog/validate_post.py . --strict-style
