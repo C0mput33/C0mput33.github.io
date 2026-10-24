@@ -9,7 +9,7 @@
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 28px; }
-body { margin: 0; color: var(--ink); background: #fff; font-size: 17px; line-height: 1.8; letter-spacing: -.025em; word-break: keep-all; overflow-wrap: anywhere; }
+body { margin: 0; color: var(--ink); background: #fff; font-size: 16px; line-height: 1.8; letter-spacing: -.02em; word-break: keep-all; overflow-wrap: anywhere; }
 ::selection { background: #dce9ff; }
 a { color: var(--point); text-underline-offset: 4px; text-decoration-thickness: 1px; }
 a:hover { color: #1e4e99; }
@@ -20,29 +20,29 @@ a:focus-visible, button:focus-visible { outline: 3px solid #2864c6; outline-offs
 .utility { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 38px; color: var(--secondary); font-size: 11px; letter-spacing: .1em; font-weight: 600; }
 button { appearance: none; border: 0; border-bottom: 1px solid #bcc6d5; border-radius: 0; padding: 4px 0; background: transparent; color: var(--secondary); font: inherit; font-size: 12px; letter-spacing: -.02em; cursor: pointer; }
 button:hover { color: var(--point); border-color: var(--point); }
-h1, h2, h3, h4, h5 { line-height: 1.35; letter-spacing: -.045em; font-weight: 750; }
-h1 { font-size: clamp(42px, 6.2vw, 72px); line-height: 1.22; margin: 0 0 42px; }
-.intro-text { font-size: 23px; line-height: 1.8; font-weight: 500; margin: 0; }
+h1, h2, h3, h4, h5 { line-height: 1.4; letter-spacing: -.035em; font-weight: 650; }
+h1 { font-size: clamp(36px, 5.2vw, 58px); font-weight: 700; line-height: 1.25; margin: 0 0 30px; }
+.intro-text { font-size: 18px; line-height: 1.85; font-weight: 400; margin: 0; }
 .intro-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 15px; margin-top: 25px; }
 .intro-links a { font-weight: 600; }
-h2 { font-size: 42px; margin: 88px 0 54px; }
+h2 { font-size: 34px; margin: 76px 0 44px; }
 .experience { display: grid; grid-template-columns: 225px minmax(0, 1fr); gap: 42px; margin: 0 0 62px; padding-bottom: 62px; border-bottom: 1px solid var(--line); }
 .experience:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
 .experience-meta { min-width: 0; }
 .organization { color: var(--point); font-size: 15px; font-weight: 700; margin: 2px 0 12px; }
-h3 { font-size: 26px; margin: 0 0 14px; }
+h3 { font-size: 23px; margin: 0 0 14px; }
 .role, .period, .meta-note { font-size: 14px; line-height: 1.8; margin: 0; }
 .role { margin-top: 16px; font-weight: 600; }
 .period { margin-top: 7px; font-variant-numeric: tabular-nums; }
 .meta-note { color: var(--secondary); margin-top: 4px; font-size: 13px; }
 .meta-link { display: inline-block; font-size: 13px; margin-top: 14px; }
-h4 { font-size: 27px; margin: 0 0 18px; }
-h5 { font-size: 18px; letter-spacing: -.02em; margin: 25px 0 9px; }
+h4 { font-size: 24px; margin: 0 0 18px; }
+h5 { font-size: 16px; font-weight: 600; letter-spacing: -.02em; margin: 25px 0 9px; }
 p { margin: 0 0 15px; }
 ul { margin: 0 0 15px; padding-left: 21px; }
 li { padding-left: 3px; margin: 0 0 9px; }
 li::marker { color: var(--point); font-size: .8em; }
-strong { font-weight: 700; }
+strong { font-weight: 600; }
 .project-overview { margin-bottom: 42px; }
 .project-detail { margin-top: 42px; }
 .project-detail + .project-detail { padding-top: 37px; border-top: 1px solid var(--line); }
@@ -54,7 +54,7 @@ strong { font-weight: 700; }
 .scope-note { font-size: 13px; line-height: 1.8; padding-left: 13px; border-left: 2px solid #c8d7ed; margin: 20px 0; color: var(--secondary); }
 .secondary-section h2 { margin-bottom: 38px; }
 .compact-item { margin: 0 0 34px; }
-.compact-item h3, .skill-group h3 { font-size: 25px; margin-bottom: 10px; }
+.compact-item h3, .skill-group h3 { font-size: 23px; margin-bottom: 10px; }
 .compact-meta { font-size: 14px; color: var(--secondary); margin-bottom: 14px; }
 .muted { color: var(--secondary); font-size: 14px; }
 .skill-group { margin-bottom: 31px; }
@@ -70,24 +70,24 @@ footer p { margin-bottom: 6px; }
   .page { width: calc(100% - 40px); padding-top: 26px; }
   .utility { font-size: 9px; letter-spacing: .07em; margin-bottom: 31px; gap: 10px; }
   button { font-size: 11px; }
-  h1 { margin-bottom: 29px; font-size: clamp(40px, 9vw, 58px); }
-  .intro-text { font-size: 19px; line-height: 1.85; }
-  h2 { font-size: clamp(28px, 7vw, 38px); margin-top: 65px; margin-bottom: 35px; }
+  h1 { margin-bottom: 26px; font-size: clamp(34px, 8vw, 48px); }
+  .intro-text { font-size: 17px; line-height: 1.85; }
+  h2 { font-size: clamp(28px, 7vw, 32px); margin-top: 65px; margin-bottom: 35px; }
   .experience { display: block; margin-bottom: 43px; padding-bottom: 43px; }
   .experience-meta { border-left: 3px solid var(--point); padding-left: 16px; margin-bottom: 31px; }
   .experience-meta h3 br { display: none; }
-  .experience-meta h3 { font-size: 24px; margin-bottom: 8px; }
+  .experience-meta h3 { font-size: 22px; margin-bottom: 8px; }
   .organization { font-size: 13px; margin-bottom: 6px; }
   .role { margin-top: 8px; }
   .meta-link { margin-top: 8px; }
-  h4 { font-size: 25px; }
-  h5 { font-size: 17px; }
+  h4 { font-size: 22px; }
+  h5 { font-size: 16px; }
   .project-detail { margin-top: 35px; }
   .first-detail { margin-top: 0; }
   .project-detail + .project-detail { padding-top: 30px; }
   .project-overview { margin-bottom: 35px; }
   .secondary-section h2 { margin-bottom: 31px; }
-  .compact-item h3, .skill-group h3 { font-size: 24px; }
+  .compact-item h3, .skill-group h3 { font-size: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 @media print {

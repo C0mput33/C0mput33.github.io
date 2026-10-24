@@ -85,6 +85,26 @@ class PortfolioChecks(unittest.TestCase):
         contact = self.source.split('id="contact"', 1)[1].split("</section>", 1)[0]
         self.assertIn('href="mailto:sowilloo@naver.com">Email · sowilloo@naver.com</a>', contact)
 
+    def test_intro_and_evaluation_purpose(self):
+        intro = self.source.split('class="intro-text">', 1)[1].split("</p>", 1)[0]
+        for required in ("LLM-as-a-Judge", "Qwen3.6 학습 실험", "MLX API 서빙", "RAG 기반 검색"):
+            self.assertIn(required, intro)
+        evaluation = self.source.split('id="eval-heading"', 1)[1].split("</section>", 1)[0]
+        for required in ("난이도", "평가 기준", "파인튜닝", "튜닝 전후", "같은 조건"):
+            self.assertIn(required, evaluation)
+        self.assertNotIn("낭독 리듬", evaluation)
+
+    def test_service_links_and_project_coverage(self):
+        for href in ("https://bookkiki.com/download", "https://www.instagram.com/bookkiki.official/"):
+            self.assertIn(href, self.page.links)
+        self.assertNotIn("fbclid", self.source)
+        for project in ("eval", "worker", "observability", "qwen", "cueview", "segmentation", "detection", "forecast", "phishing"):
+            self.assertIn(f"{project}-heading", self.page.ids)
+
+    def test_intro_type_is_body_sized_and_regular_weight(self):
+        css = (HTML.parent / "style.css").read_text(encoding="utf-8")
+        self.assertRegex(css, r"\.intro-text\s*\{[^}]*font-size:\s*18px;[^}]*font-weight:\s*400;")
+
     def test_print_and_responsive_styles(self):
         css = (HTML.parent / "style.css").read_text(encoding="utf-8")
         self.assertIn("@media print", css)

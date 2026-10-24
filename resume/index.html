@@ -25,7 +25,7 @@
         <button type="button" id="print-button">인쇄 · PDF 저장</button>
       </div>
       <h1>안녕하세요,<br>김해찬입니다<span class="point">.</span></h1>
-      <p class="intro-text">AI 모델을 비교·평가하고 서비스에 연결하는 일을 합니다. Python으로 데이터를 정리하고, Java/Spring과 비동기 Worker로 생성 작업을 연결해 왔습니다. 검색 결과가 화면에 잘못 표시되는 문제, 긴 작업이 중복 실행되는 문제, 실제 호출과 맞지 않는 관측 기록을 수정했습니다.</p>
+      <p class="intro-text">AI 서비스와 백엔드를 개발합니다. 북끼끼에서는 LLM-as-a-Judge 기반 모델 벤치마크를 구축하고, Mac에서 Qwen3.6 학습 실험과 MLX API 서빙을 진행했습니다. CueView에서는 RAG 기반 검색 시스템과 실시간 백엔드를 개발했습니다.</p>
       <nav class="intro-links" aria-label="프로필 링크">
         <a href="https://github.com/C0mput33">GitHub</a>
         <a href="https://c0mput33.github.io/">Blog</a>
@@ -48,21 +48,22 @@
         <div class="experience-body">
           <div class="project-overview">
             <h4>북끼끼<span class="point">.</span></h4>
-            <p>6~12세 아이의 경험과 관심사를 바탕으로 맞춤형 영어 동화책을 만드는 팀 프로젝트입니다. 동화 평가 앱, 평가 기준 설계, 모델 비교 실험, 삽화 생성, 동화책 생성 파이프라인, Langfuse 관측을 맡았습니다.</p>
-            <p class="project-links"><a href="https://github.com/Bookkiki/bookkiki-landing">서비스 소개</a><a href="https://c0mput33.github.io/posts/why-build-own-eval-system/">평가 시스템 개발기</a></p>
+            <p>6~12세 아이의 경험과 관심사로 맞춤형 영어 동화책을 만드는 팀 프로젝트입니다. 평가 기준 설계, LLM 벤치마크 앱, 모델 비교 실험, 삽화 생성, 동화책 생성 파이프라인, Langfuse 관측을 맡았습니다.</p>
+            <p class="project-links"><a href="https://bookkiki.com/download">서비스 · 다운로드</a><a href="https://www.instagram.com/bookkiki.official/">Instagram</a><a href="https://github.com/Bookkiki/bookkiki-landing">프로젝트 소개</a><a href="https://c0mput33.github.io/posts/why-build-own-eval-system/">평가 시스템 개발기</a></p>
           </div>
 
           <section class="project-detail" aria-labelledby="eval-heading">
-            <h4 id="eval-heading">동화 평가 앱<span class="point">.</span></h4>
+            <h4 id="eval-heading">LLM-as-a-Judge 벤치마크 시스템<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>동화는 정답 하나로 채점하기 어려워, 모델이 만든 두 이야기를 같은 조건에서 비교하는 평가 앱을 만들었습니다. 연령에 맞는 어휘, 낭독 리듬, 아이의 경험이 사건에 반영되는지 등을 평가 기준으로 정리했습니다.</p>
+            <p>기존의 범용 대화·창작 벤치마크만으로는 북끼끼의 영어 동화가 요청한 난이도와 서비스 요구에 맞게 생성되는지 판단하기 어려웠습니다. 모델 학습과 파인튜닝이 최종 목표였기 때문에 튜닝 전후의 품질 변화를 같은 조건에서 비교할 평가 시스템이 필요했습니다.</p>
+            <p>서비스에 맞는 평가 기준을 세우고 LLM을 심판으로 사용하는 LLM-as-a-Judge 방식의 벤치마크 앱을 만들었습니다. 여러 모델이 생성한 두 동화를 익명으로 비교하고 판정을 모아 모델별 순위와 불확실성을 확인하도록 구성했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>모델명을 가린 쌍대 비교와 Bradley–Terry 집계를 구현하고, 순위와 함께 부트스트랩 신뢰구간을 표시했습니다.</li>
-              <li>A/B·B/A 순서를 모두 평가하고, 후보와 같은 계열의 심판은 해당 비교에서 제외했습니다. 여러 계열 심판의 판정을 모아 한 심판의 선호가 순위를 결정하지 않도록 구성했습니다.</li>
-              <li>전수 비교는 13개 모델·50개 주제만으로 3,900쌍이 필요했습니다. 심판 수와 순서 교환에 따라 호출이 더 늘어나, Swiss·희소 그래프·순차 제거를 비교했습니다.</li>
-              <li>5권 단위로 점수와 신뢰구간을 갱신하고, 두 배치 연속 열세가 확인된 후보만 후속 비교에서 제외하는 <strong>retire2</strong>를 도입했습니다. 한 번의 판정으로 즉시 제외하는 방식보다 조기 탈락에 신중한 규칙을 택했습니다.</li>
-              <li>동일 예산 140회·20회 반복의 합성 실험에서 Spearman 순위 상관계수가 전수 비교 <strong>0.883</strong>, retire2 <strong>0.931</strong>로 나타났습니다. 후보 13개가 4개로 줄어든 구간은 주제당 78쌍에서 6쌍으로 비교량이 줄어듭니다.</li>
+              <li>모델명을 가린 쌍대 비교를 구현했습니다. 승패에서 모델별 점수를 추정하는 Bradley–Terry 집계와 부트스트랩 신뢰구간을 적용해 순위뿐 아니라 점수 추정의 불확실성도 표시했습니다.</li>
+              <li>A/B·B/A 순서를 모두 평가하고 후보와 같은 계열의 심판은 해당 비교에서 제외했습니다. 여러 계열 심판의 판정을 모아 한 심판의 선호가 순위를 결정하지 않도록 구성했습니다.</li>
+              <li>13개 모델의 모든 조합을 50개 주제에서 비교하면 3,900쌍이 필요했습니다. 복수 심판과 A/B 순서 교환까지 적용하면 호출이 더 늘어나 비교 대상을 줄이는 Swiss·희소 그래프·순차 제거 방식을 검토했습니다.</li>
+              <li>5권 단위로 점수와 신뢰구간을 갱신하고 두 배치 연속 열세가 확인된 후보만 후속 비교에서 제외하는 <strong>retire2</strong>를 도입했습니다. 한 번의 판정으로 즉시 제외하는 방식보다 조기 탈락에 신중한 규칙을 택했습니다.</li>
+              <li>동일 예산 140회·20회 반복의 합성 실험에서 Spearman 순위 상관계수는 전수 비교 <strong>0.883</strong>, retire2 <strong>0.931</strong>이었습니다. 기준 순위와 얼마나 비슷한지 나타내는 지표로, 1에 가까울수록 일치도가 높습니다. 후보 13개가 4개로 줄어든 구간의 비교량은 주제당 78쌍에서 6쌍이 됩니다.</li>
             </ul>
             <p class="scope-note">합성 실험은 과거 스케줄러 보정 결과이며 실제 토큰·시간 절감률이 아닙니다. retire2는 후보 선별에 사용하고, 최종 우열은 새 주제의 전수 비교로 확인하도록 구분했습니다.</p>
             <h5>Tech Stack.</h5>
@@ -73,12 +74,12 @@
           <section class="project-detail" aria-labelledby="worker-heading">
             <h4 id="worker-heading">삽화 생성과 비동기 Worker<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>책의 여러 장을 생성하는 동안 화풍과 캐릭터를 유지하고, 시간이 긴 삽화 작업을 서버와 Worker 사이에서 안정적으로 처리하는 작업입니다.</p>
+            <p>한 권의 동화책에서 화풍과 캐릭터를 유지하며 여러 장의 삽화를 생성하는 파이프라인을 개발했습니다. 생성 시간이 긴 작업은 서버와 비동기 Worker로 나눠 처리했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>프롬프트만으로 화풍과 질감을 유지하기 어려워, 권리 관계를 확인한 퍼블릭 도메인 옛 삽화를 화풍 레퍼런스로 활용했습니다. 선·색감·종이 질감·여백을 참고하고, 검수한 생성 이미지를 다음 장면의 레퍼런스로 사용했습니다.</li>
+              <li>프롬프트만으로 화풍과 질감을 유지하기 어려워 권리 관계를 확인한 퍼블릭 도메인 옛 삽화를 화풍 레퍼런스로 활용했습니다. 선·색감·종이 질감·여백을 참고하고 검수한 생성 이미지를 다음 장면의 레퍼런스로 사용했습니다.</li>
               <li>앞표지를 참조해 본문·뒤표지를 병렬 생성하는 흐름과 Redis Streams·gRPC·S3 기반 작업 처리를 연결했습니다. 호출 제한, 재처리, 성공한 이미지의 재사용을 고려했습니다.</li>
-              <li>처리 중인 작업의 lease가 만료되면 같은 책의 작업이 다시 발행되고 기존 결과가 STALE로 버려지는 문제에, 삽화 작업의 <strong>lease 연장 RPC</strong>를 추가했습니다.</li>
+              <li>처리 중인 작업의 점유 기한(lease)이 만료되면 같은 책의 작업이 다시 발행되고 먼저 실행한 결과가 STALE로 폐기됐습니다. 삽화 작업에 <strong>lease 연장 RPC</strong>를 추가해 처리 도중 점유 기한을 갱신했습니다.</li>
               <li>현재 job·attempt·선점자를 확인해 재선점된 작업의 연장을 거절했습니다. 현재 작업 연장, 재선점 후 거절, 이전 attempt, 다른 job, 종결된 동화, 없는 동화의 <strong>6개 사례</strong>를 테스트했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
@@ -89,11 +90,11 @@
           <section class="project-detail" aria-labelledby="observability-heading">
             <h4 id="observability-heading">Langfuse 관측과 프롬프트 관리<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>trace는 생성됐지만 토큰 사용량은 0으로 보이고, 호출 시간도 실제 실행과 맞지 않았습니다. 결과만 모으는 기록에서 호출 단위로 원인을 확인할 수 있는 기록으로 바꿨습니다.</p>
+            <p>Langfuse에 호출 추적 기록(trace)은 남았지만 토큰 사용량은 0으로 표시되고 호출 시간도 실제 실행과 달랐습니다. 모델 호출별 사용량과 실행 시각을 기록해 비용·지연·실패 원인을 추적하도록 수정했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>모델 호출별 usage와 실제 시작·종료 시각, 성공·실패 상태를 기록했습니다. 누락됐던 검수 호출을 포함하고 실행 환경과 배포 버전을 연결했습니다.</li>
-              <li>인터뷰와 동화 생성 호출을 가명 세션으로 묶고, 실행한 프롬프트 이름·버전과 검수 점수를 연결해 버전별 품질·비용을 비교할 수 있도록 구성했습니다.</li>
+              <li>인터뷰와 동화 생성 호출을 가명 세션으로 묶고 실행한 프롬프트 이름·버전과 검수 점수를 연결해 버전별 품질·비용을 비교할 수 있도록 구성했습니다.</li>
               <li>원문과 실제 식별자 대신 HMAC 가명 ID를 사용했습니다. 프롬프트 조회 장애에는 코드 fallback과 캐시를 사용해 관측·관리 도구의 장애가 생성 실패로 이어지지 않도록 처리했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
@@ -101,16 +102,17 @@
           </section>
 
           <section class="project-detail" aria-labelledby="qwen-heading">
-            <h4 id="qwen-heading">Qwen Mac·MLX API 서빙<span class="point">.</span></h4>
+            <h4 id="qwen-heading">Qwen 학습 실험과 Mac·MLX API 서빙<span class="point">.</span></h4>
             <h5>Description.</h5>
             <p>직접 운영할 수 있는 모델을 검토하기 위해 Mac에서 Qwen3.6 모델을 MLX API로 서빙했습니다. 로컬 추론 결과와 자원 사용량을 함께 확인했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>MLX 기반 API 엔드포인트를 구성해 Qwen3.6 모델의 추론을 요청할 수 있도록 연결했습니다.</li>
               <li>48GB Mac에서 Qwen3.6-35B-A3B 4비트 모델의 무결성 검사, 적재, CLI·UI 추론을 검증했습니다.</li>
+              <li>Mac 환경에서 Qwen3.6 기반 QLoRA 학습을 실험했습니다. 학습 실험과 완료한 MLX API 서빙은 별도 작업으로 구분했습니다.</li>
               <li>단일 CLI 실행에서 생성 속도 <strong>85.77토큰/초</strong>, 최대 메모리 <strong>20.962GB</strong>를 기록했습니다. 이 값은 동시 요청이나 GPU 운영 환경의 성능과 구분했습니다.</li>
             </ul>
-            <p class="scope-note">로컬 서빙과 별개로 QLoRA 학습을 실험했으며, 파인튜닝 전후의 품질 개선을 완료한 성과로 기재하지 않았습니다.</p>
+            <p class="scope-note">MLX API 서빙은 완료했습니다. QLoRA 학습 실험은 파인튜닝한 어댑터의 서빙과 튜닝 전후 품질 검증까지 연결하지는 못했습니다.</p>
             <h5>Tech Stack.</h5>
             <p class="stack">Python, MLX, Qwen3.6, API Serving, 4-bit Quantization</p>
             <p class="detail-link"><a href="https://c0mput33.github.io/posts/qwen36-35b-a3b-mtp-gguf-macbook-aws/">로컬 검증과 서빙 검토 기록 보기</a></p>
@@ -131,12 +133,12 @@
             <h4 id="cueview-heading">CueView<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-finalproject-cv-08">GitHub</a><a href="https://youtu.be/CJLZBBqw63A">Demo</a></p>
             <h5>Description.</h5>
-            <p>발표 음성과 관련된 슬라이드 요소를 실시간으로 강조하고 발표 대본을 생성하는 최종 프로젝트입니다. 검색·RAG, 음성 처리와 연결되는 실시간 백엔드를 맡았습니다.</p>
+            <p>발표 음성과 관련된 슬라이드 요소를 실시간으로 강조하고 발표 대본을 생성하는 부스트캠프 최종 프로젝트입니다. 슬라이드 정보를 검색해 활용하는 RAG 시스템과 음성 처리에 연결되는 실시간 백엔드를 맡았습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>슬라이드에서 추출한 텍스트·설명·키워드·좌표를 검색 데이터로 구성했습니다. 표현을 바꿔 말하는 발화는 BGE-M3 의미 검색으로, 고유명사·숫자는 BM25 키워드 검색으로 보완했습니다.</li>
               <li>서로 다른 검색 점수를 직접 더하는 대신 <strong>RRF로 순위를 결합</strong>했습니다. 현재 슬라이드로 검색 범위를 제한하고 직전 선택과 페이지 상태를 함께 관리했습니다.</li>
-              <li>Qwen3-Embedding이 약 두 배 빨랐지만 Recall@1은 <strong>0.4313</strong>으로 BGE-M3의 <strong>0.4500</strong>보다 낮았습니다. 바로 화면에 노출되는 첫 결과의 정확도를 우선해 BGE-M3를 선택했습니다.</li>
+              <li>검색 모델을 비교할 때 Qwen3-Embedding은 약 두 배 빨랐지만 Recall@1은 <strong>0.4313</strong>으로 BGE-M3의 <strong>0.4500</strong>보다 낮았습니다. 첫 번째 검색 결과가 정답인 비율을 기준으로, 화면에 바로 표시할 결과의 정확도가 높은 BGE-M3를 선택했습니다.</li>
               <li>짧은 중간 발화마다 강조 위치가 바뀌는 문제에 발화 누적·시간·문장 종결 조건을 적용했습니다. 연결별 음성 버퍼와 현재 페이지를 분리해 사용자 간 상태가 섞이지 않도록 했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
@@ -147,12 +149,12 @@
             <h4 id="segmentation-heading">손 X-ray 이미지 분할 대회<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-semanticsegmentation-cv-08">GitHub</a><a href="https://github.com/C0mput33/Domain-Project-2-Segmentation_docs">실험 보고서</a></p>
             <h5>Description.</h5>
-            <p>부스트캠프 Computer Vision 트랙에서 손 X-ray의 29개 뼈 영역을 픽셀 단위로 구분하는 대회에 참여했습니다. 실패 사례 분석과 데이터 증강 실험을 담당했습니다.</p>
+            <p>NAVER 부스트캠프 AI Tech의 Computer Vision 대회로, 손 X-ray 이미지에서 29개 뼈의 영역을 픽셀 단위로 구분하는 이미지 분할 모델을 개발했습니다. 실패 사례 분석과 데이터 증강 실험을 담당했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>분할이 잘되지 않는 손가락 사례를 모아 학습·테스트 데이터의 회전 분포를 비교했습니다. 10° 이상 기울어진 영상 비율이 학습 <strong>11.875%</strong>, 테스트 <strong>57.639%</strong>로 달랐습니다.</li>
-              <li>학습 데이터에 부족했던 회전 각도를 증강으로 보완하고, 같은 사람의 영상이 학습·검증에 섞이지 않도록 person_id 기반 분할을 구성했습니다.</li>
-              <li>증강·앙상블 실험에 참여했으며, 최종 <strong>팀 앙상블 private 점수 0.9767</strong>을 기록했습니다.</li>
+              <li>학습 데이터에 부족했던 회전 각도를 이미지 회전 증강으로 보완했습니다. 같은 사람의 영상이 학습·검증에 동시에 들어가지 않도록 person_id로 데이터를 나눠 검증 과정의 데이터 누수를 방지했습니다.</li>
+              <li>증강·앙상블 실험에 참여했으며 최종 <strong>팀 앙상블 private 점수 0.9767</strong>을 기록했습니다. 비공개 테스트에서 예측 영역과 정답 영역의 일치도를 측정한 Dice 점수로, 1에 가까울수록 좋습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
             <p class="stack">Python, PyTorch, OpenCV, Albumentations, GroupKFold, WandB</p>
@@ -162,7 +164,7 @@
             <h4 id="detection-heading">재활용품 객체탐지 대회<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-objectdetection-cv-08/tree/modeling">GitHub</a></p>
             <h5>Description.</h5>
-            <p>부스트캠프의 10종 재활용품 객체탐지 대회에서 데이터 분석, 탐지 모델 비교와 예측 박스 앙상블을 담당했습니다.</p>
+            <p>NAVER 부스트캠프 AI Tech에서 이미지 속 재활용품을 10개 종류로 찾아 분류하는 객체탐지 대회에 참여했습니다. 데이터 분석, 탐지 모델 비교와 예측 박스 앙상블을 담당했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>9,754장의 이미지에서 클래스 불균형을 분석했습니다. DETA 점수가 0.0031로 낮게 나온 실험은 클래스 매핑과 추론 코드를 점검해 오류를 확인했습니다.</li>
@@ -186,12 +188,12 @@
             <h4 id="forecast-heading">식음업장 메뉴 수요 예측<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/C0mput33/LG-Aimers-hackathon">GitHub</a></p>
             <h5>Description.</h5>
-            <p>리조트 식음업장의 최근 28일 판매량으로 다음 7일의 메뉴별 판매량을 예측했습니다. 약 2,600명이 참여한 온라인 예선에서 <strong>팀 private 20위</strong>를 기록하고 오프라인 본선에 진출했습니다.</p>
+            <p>LG Aimers 7기 AI 해커톤에서 리조트 식음업장의 최근 28일 판매량으로 다음 7일의 메뉴별 판매량을 예측했습니다. 약 2,600명이 참여한 온라인 예선에서 <strong>팀 private 20위</strong>를 기록하고 오프라인 본선에 진출했습니다. 순위는 예선의 비공개 테스트 데이터 평가 결과입니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>0 판매 비율, 요일별 중앙값, Fano·Gini를 계산해 희소·요일형·고변동 메뉴로 구분했습니다. 같은 모델을 적용할 때 발생하는 희소 메뉴의 과대예측과 고변동 메뉴의 급등 예측을 따로 다뤘습니다.</li>
-              <li>예측 날짜별 모델을 학습하고 CatBoost·LightGBM·XGBoost를 결합했습니다. 희소 메뉴는 판매 발생 확률과 판매 시 수량을 함께 사용하고, 고변동 메뉴는 과거 판매분포를 기준으로 예측 상한을 적용했습니다.</li>
-              <li>TimeSeriesSplit에 7일 간격을 두어 검증 과정의 미래 정보 유입을 막았습니다. 팀의 실험 조건과 SMAPE 계산 코드를 통일해 결과를 같은 기준으로 비교했습니다.</li>
+              <li>0 판매 비율, 요일별 중앙값, Fano·Gini로 판매 빈도와 변동·집중도를 분석해 희소·요일형·고변동 메뉴로 구분했습니다. 같은 모델을 적용할 때 발생하는 희소 메뉴의 과대예측과 고변동 메뉴의 급등 예측을 따로 다뤘습니다.</li>
+              <li>예측 날짜별 모델을 학습하고 CatBoost·LightGBM·XGBoost를 결합했습니다. 희소 메뉴는 판매 발생 확률과 판매 시 수량을 함께 사용하고 고변동 메뉴는 과거 판매분포를 기준으로 예측 상한을 적용했습니다.</li>
+              <li>TimeSeriesSplit에 7일 간격을 두어 미래 데이터가 학습에 섞이지 않도록 검증했습니다. 팀의 실험 조건과 판매량 예측 오차 지표인 SMAPE 계산 코드를 통일해 결과를 같은 기준으로 비교했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
             <p class="stack">Python, pandas, scikit-learn, CatBoost, LightGBM, XGBoost</p>
@@ -253,9 +255,10 @@
       <div class="skill-group">
         <h3>AI / ML / Data.</h3>
         <ul>
-          <li>Python으로 데이터 전처리, 피처 설계와 모델 비교 실험을 구성합니다.</li>
-          <li>LLM 평가와 RAG 검색을 구현하고, 품질·응답 시간·비용을 나눠 비교합니다.</li>
-          <li>PyTorch·OpenCV 기반 컴퓨터 비전 실험과 부스팅 모델 앙상블 경험이 있습니다.</li>
+          <li>LLM-as-a-Judge 기반 다중 모델 벤치마크를 구현했습니다. 익명 쌍대 비교, A/B 순서 교환, Bradley–Terry 집계와 Bootstrap 신뢰구간을 적용했습니다.</li>
+          <li>Qwen3.6의 4비트 추론과 Mac·MLX API 서빙을 검증했으며, QLoRA 학습을 실험했습니다.</li>
+          <li>BGE-M3·BM25 하이브리드 검색을 RRF로 결합한 RAG 시스템을 구현하고, Recall@1로 검색 모델을 비교했습니다.</li>
+          <li>Python·pandas로 데이터 전처리와 피처 설계를 수행했습니다. PyTorch·OpenCV 기반 컴퓨터 비전 실험과 CatBoost·LightGBM·XGBoost 앙상블 경험이 있습니다.</li>
         </ul>
       </div>
       <div class="skill-group">
@@ -284,7 +287,7 @@
       </ul>
     </section>
     <footer>
-      <p>김해찬 · 마지막 업데이트 <time datetime="2026-10-23">2026. 10. 23</time></p>
+      <p>김해찬 · 마지막 업데이트 <time datetime="2026-10-25">2026. 10. 25</time></p>
       <p class="design-credit">구성 참고: <a href="https://hyunseob.github.io/resume/">이현섭님의 이력서</a> · 내용과 구현은 별도로 작성했습니다.</p>
       <a class="back-to-top" href="#top">맨 위로 ↑</a>
     </footer>
