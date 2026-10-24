@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 import re
 import unittest
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -57,7 +58,7 @@ class PortfolioChecks(unittest.TestCase):
 
     def test_local_assets_exist(self):
         for src in self.page.assets:
-            self.assertTrue((HTML.parent / src).is_file(), src)
+            self.assertTrue((HTML.parent / urlsplit(src).path).is_file(), src)
 
     def test_no_private_source_or_identity_links(self):
         joined = " ".join(self.page.links)
@@ -104,6 +105,7 @@ class PortfolioChecks(unittest.TestCase):
     def test_intro_type_is_body_sized_and_regular_weight(self):
         css = (HTML.parent / "style.css").read_text(encoding="utf-8")
         self.assertRegex(css, r"\.intro-text\s*\{[^}]*font-size:\s*18px;[^}]*font-weight:\s*400;")
+        self.assertIn('href="./style.css?v=20261025-1"', self.source)
 
     def test_print_and_responsive_styles(self):
         css = (HTML.parent / "style.css").read_text(encoding="utf-8")
