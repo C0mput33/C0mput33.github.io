@@ -10,7 +10,7 @@ description: 짧은 질문까지 모두 Claude Sonnet이 처리하던 Telegram �
 
 아래에서는 측정 조건과 두 변경이 각각 맡은 역할을 정리했습니다. 아직 남아 있는 오분류와 <span class="term" data-tip="요청한 데이터나 프롬프트 상태가 캐시에 없어 원래 계산이나 저장소 조회를 다시 수행하는 경우. 캐시 키·만료·라우팅이 달라져도 발생할 수 있다.">캐시 미스</span> 문제도 함께 적었습니다.
 
-## 1. 문제 상황
+## 1. 문제 상황: 단순 Q&A 63%까지 Sonnet이 처리
 
 개선 전 7일간의 메시지 로그(n=218)를 분석했습니다. 기준선은 다음과 같습니다.
 
@@ -25,7 +25,7 @@ description: 짧은 질문까지 모두 Claude Sonnet이 처리하던 Telegram �
 
 ## 2. 개선 방법
 
-### 2-1. 작업 유형별 모델 라우팅
+### 2-1. 작업 유형별 모델 라우팅: FAST_QA는 Gemini Flash로
 
 요청을 세 가지 작업 유형으로 나누고, 유형마다 다른 모델로 보내도록 바꿨습니다. 유형별 구성은 다음과 같습니다.
 
@@ -59,7 +59,7 @@ description: 짧은 질문까지 모두 Claude Sonnet이 처리하던 Telegram �
 
 실제로 측정해보니 대화가 몰리는 시간대의 <span class="term" data-tip="캐시 조회 또는 재사용 대상 중 실제 캐시에서 처리된 비율. 토큰·블록·요청 중 무엇을 분모로 삼는지는 구현마다 달라 같은 이름의 수치를 바로 비교하면 안 된다.">캐시 히트율</span>은 약 72%였습니다. 5분 이상 대화가 없으면 캐시가 만료되기 때문에, 사용 패턴에 따라 효과가 달라집니다.
 
-## 3. 결과
+## 3. 결과: 평균 1.8초, P95 3.1초, 일 비용 $0.35
 
 두 변경을 적용한 전후 비교는 다음과 같습니다.
 
@@ -71,7 +71,7 @@ description: 짧은 질문까지 모두 Claude Sonnet이 처리하던 Telegram �
 
 측정 기간은 개선 전 7일(n=218), 개선 후 2주(n=312)입니다. 두 기간의 사용 패턴은 같았습니다. 사용 패턴이 바뀌면 이 수치도 그대로 유지되지 않습니다.
 
-## 4. 남은 문제
+## 4. 남은 문제: 오분류, 캐시 미스, 응답 품질 차이
 
 ### 4-1. FAST_QA 오분류
 
@@ -93,4 +93,4 @@ FAST_QA로 분류된 질문이라도 미묘한 맥락이 필요하면 Gemini가 
 
 ## 참고 자료
 
-[^1]: [Anthropic Prompt Caching 공식 문서](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching). cache_control ephemeral은 TTL 5분이고, 1024 토큰 이상인 블록에만 적용됩니다. 입력 토큰이 캐시에 히트하면 기본 가격의 10%만 청구합니다.
+[^1]: [Anthropic Prompt Caching 공식 문서](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching). cache_control ephemeral은 TTL 5분이고, 1024 토큰 이상인 블록에만 적용됨. 입력 토큰이 캐시에 히트하면 기본 가격의 10%만 청구함.

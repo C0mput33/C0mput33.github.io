@@ -64,7 +64,7 @@ while |선택| < n:
 
 ## 2. 투표 유실 사고
 
-### 2-1. 원인 분석
+### 2-1. 원인 분석: human만 지우던 리셋 경로
 
 그 30쌍을 평가하던 중이었습니다. 10쌍쯤 투표한 상태에서 다시 열어 보니 평가 기록이 사라져 있었습니다.
 
@@ -105,6 +105,6 @@ GitHub 백업에는 목록 화면도 추가했습니다. 평가 화면에 들어
 
 다음 실측에서는 자기평가 제외, `strict-v2` 파싱, <span class="term" data-tip="다음 토큰 확률분포의 평탄함을 조절하는 값. 낮을수록 높은 확률의 토큰에 집중하지만 temperature 0도 제공자·모델·실행 환경에 따라 완전한 재현성을 보장하지 않는다.">temperature</span> 0 심판, 쌍-군집 운영 CI로 새 런을 시작할 계획입니다. temperature 0은 샘플링 변동을 줄이지만 같은 출력이 완전히 재현된다는 보장은 없습니다. 프롬프트-군집 CI는 보고용으로 함께 계산합니다.
 
-[^kappa]: Cohen, J. (1960), A Coefficient of Agreement for Nominal Scales. Educational and Psychological Measurement 20(1). κ의 원 논문이다. Krippendorff, K., Content Analysis: An Introduction to Its Methodology. α의 표준 참고서다. 층화 최적 배분은 Neyman, J. (1934), On the Two Different Aspects of the Representative Method. JRSS 97(4).
-[^strata]: 층화 표집 커밋 [`88a3eaa`](https://github.com/C0mput33/little-bard/commit/88a3eaa). 3차원 층과 고정 시드 셔플, 797쌍 검증 수치가 들어 있다. 저장소가 비공개라 권한이 필요하다.
-[^recover]: 투표 백업·자동 복구 커밋 [`e68c8e8`](https://github.com/C0mput33/little-bard/commit/e68c8e8), GitHub 백업 목록·이어하기 커밋 [`d7ad37b`](https://github.com/C0mput33/little-bard/commit/d7ad37b). 비공개 저장소 링크다.
+[^kappa]: Cohen, J. (1960), A Coefficient of Agreement for Nominal Scales. Educational and Psychological Measurement 20(1). κ의 원 논문. Krippendorff, K., Content Analysis: An Introduction to Its Methodology. α의 표준 참고서. 층화 최적 배분은 Neyman, J. (1934), On the Two Different Aspects of the Representative Method. JRSS 97(4).
+[^strata]: 층화 표집 커밋 [`88a3eaa`](https://github.com/C0mput33/little-bard/commit/88a3eaa). 3차원 층과 고정 시드 셔플, 797쌍 검증 수치가 들어 있음. 저장소가 비공개라 권한이 필요함.
+[^recover]: 투표 백업·자동 복구 커밋 [`e68c8e8`](https://github.com/C0mput33/little-bard/commit/e68c8e8), GitHub 백업 목록·이어하기 커밋 [`d7ad37b`](https://github.com/C0mput33/little-bard/commit/d7ad37b). 비공개 저장소 링크.

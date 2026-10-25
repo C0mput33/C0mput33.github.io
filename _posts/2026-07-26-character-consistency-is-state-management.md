@@ -156,7 +156,7 @@ Audit & Repair는 에이전트 네 개로 루프를 돕니다.[^audit] Story Ini
 다음에는 상태 전달 유무를 <span class="term" data-tip="두 대안을 같은 평가 질문 아래 비교하는 방식. 이 평가 앱에서는 익명화한 Story A와 Story B 중 더 나은 동화를 고르게 한다.">A/B</span>로 놓고 12페이지를 두 번 생성해 볼 계획입니다. 페이지 쌍마다 얼굴, 의상, 색을 따로 채점해서 어느 축이 먼저 무너지는지부터 확인하겠습니다.
 
 [^oai-limits]: OpenAI, [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation), Limitations 절. 2026-07-26 조회.
-[^imagen]: Google Cloud, [Subject customization](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/subject-customization), unintended use cases 절. Imagen 계열은 2026-08-17 종료 예정으로 공지돼 있다.
+[^imagen]: Google Cloud, [Subject customization](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/subject-customization), unintended use cases 절. Imagen 계열은 2026-08-17 종료 예정으로 공지돼 있음.
 [^oref]: Midjourney, [Omni Reference](https://docs.midjourney.com/hc/en-us/articles/36285124473997-Omni-Reference).
 [^seed]: Midjourney, [Seeds](https://docs.midjourney.com/hc/en-us/articles/32604356340877-Seeds).
 [^stability]: Stability AI, [Image-to-Image](https://platform.stability.ai/docs/features/image-to-image).
@@ -167,5 +167,5 @@ Audit & Repair는 에이전트 네 개로 루프를 돕니다.[^audit] Story Ini
 [^s2ed]: Yin et al. (2026), [S2ED: From Story to Executable Descriptions for Consistency-Aware Story Illustration](https://arxiv.org/html/2605.22448), arXiv:2605.22448.
 [^audit]: Akdemir, Kazimi, Yanardag (2025), [Audit & Repair: An Agentic Framework for Consistent Story Visualization in Text-to-Image Diffusion Models](https://arxiv.org/abs/2506.18900), arXiv:2506.18900.
 [^aws]: AWS Machine Learning Blog, [Build character-consistent storyboards using Amazon Nova in Amazon Bedrock](https://aws.amazon.com/blogs/machine-learning/build-character-consistent-storyboards-using-amazon-nova-in-amazon-bedrock-part-1/).
-[^styleguide]: [Children's Book Illustration Styles: A Creator's Guide](https://www.neolemon.com/blog/childrens-book-illustration-styles-guide/). 연령대별 스타일 정리. 업계 실무 글이며 1차 조사 자료가 아니다.
-[^stewig]: Stewig, [Children's Preference in Picture Book Illustration](https://files.ascd.org/staticfiles/ascd/pdf/journals/ed_lead/el_197212_stewig.pdf), Educational Leadership. 오래된 조사이므로 현재 아동에게 그대로 적용되는지는 확인하지 못했다.
+[^styleguide]: [Children's Book Illustration Styles: A Creator's Guide](https://www.neolemon.com/blog/childrens-book-illustration-styles-guide/). 연령대별 스타일 정리. 업계 실무 글이며 1차 조사 자료가 아님.
+[^stewig]: Stewig, [Children's Preference in Picture Book Illustration](https://files.ascd.org/staticfiles/ascd/pdf/journals/ed_lead/el_197212_stewig.pdf), Educational Leadership. 오래된 조사이므로 현재 아동에게 그대로 적용되는지는 확인하지 못함.

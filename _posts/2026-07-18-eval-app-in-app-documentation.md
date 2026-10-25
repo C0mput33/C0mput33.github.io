@@ -110,18 +110,18 @@ retire2는 5권 배치마다 BT와 CI를 갱신하고, CI 분리가 2연속 확�
 앱과 문서는 저장소에 있습니다.[^repo] 2026-07-20 점검 기준으로 저장소는 비공개라 권한이 없으면 링크 원문을 열 수 없습니다. 누구나 재현할 수 있게 하려면 비식별 원자료와 코드 아카이브를 별도로 공개해야 하고, 이는 남은 과제입니다.
 
 [^thurstone]: Thurstone, L.L. (1927), A Law of Comparative Judgment. Psychological Review 34, 273–286.
-[^eqbench]: [EQ-Bench Creative Writing](https://eqbench.com/creative_writing.html). v3는 LLM 심판의 pairwise 판정을 Glicko로 집계한다(공식 문서 확인). v2 루브릭의 상위권 포화가 전환 배경.
+[^eqbench]: [EQ-Bench Creative Writing](https://eqbench.com/creative_writing.html). v3는 LLM 심판의 pairwise 판정을 Glicko로 집계함(공식 문서 확인). v2 루브릭의 상위권 포화가 전환 배경.
 [^bt1952]: Bradley, R.A. & Terry, M.E. (1952), Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons. Biometrika 39, 324–345.
 [^mm]: Hunter, D.R. (2004), MM algorithms for generalized Bradley-Terry models. Annals of Statistics 32(1), 384–406.
 [^arena]: Chiang et al. (2024), [Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference](https://arxiv.org/abs/2403.04132). 2023-12 Elo 표기에서 BT 기반 집계로 전환.
 [^poll]: Verga et al. (2024), [Replacing Judges with Juries](https://arxiv.org/abs/2404.18796). 다계열 소형 패널(PoLL)이 단일 대형 심판보다 계열 내 편향이 적고 사람과의 상관이 높음.
 [^mtbench]: Zheng et al. (2023), [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685). 위치 편향·장문 선호 등 LLM 심판 편향 보고.
 [^selfpref]: Panickssery et al. (2024), [LLM Evaluators Recognize and Favor Their Own Generations](https://arxiv.org/abs/2404.13076). 자기 인식과 자기 선호 편향의 상관.
-[^boot]: Efron, B. (1979), Bootstrap Methods: Another Look at the Jackknife. Annals of Statistics 7(1), 1–26. 군집 상관이 있는 데이터의 클러스터 단위 재표집은 표준 확장이다.
+[^boot]: Efron, B. (1979), Bootstrap Methods: Another Look at the Jackknife. Annals of Statistics 7(1), 1–26. 군집 상관이 있는 데이터의 클러스터 단위 재표집은 표준 확장.
 [^geval]: Liu et al. (2023), [G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment](https://arxiv.org/abs/2303.16634).
 [^races]: Wald, A. (1945), Sequential Tests of Statistical Hypotheses. Annals of Mathematical Statistics 16(2) · Maron & Moore (1993), Hoeffding Races (NIPS 6) · Jamieson & Talwalkar (2016), [Non-stochastic Best Arm Identification and Hyperparameter Optimization](https://arxiv.org/abs/1502.07943). Successive Halving 계열.
 [^neyman]: Neyman, J. (1934), On the Two Different Aspects of the Representative Method. Journal of the Royal Statistical Society 97(4). 층화 표집의 분산 감소.
 [^kappa]: Cohen, J. (1960), A Coefficient of Agreement for Nominal Scales. Educational and Psychological Measurement 20(1) · Krippendorff's α는 결측·다평가자로 일반화한 일치 계수.
 [^lexile]: MetaMetrics 기술 자료의 슬라이스 표준오차(125단어 슬라이스 SE 178L, 4슬라이스 ±89L, 4,082슬라이스 ±3L). 상세 출처는 6편 각주 참조.
 [^ifeval]: Zhou et al. (2023), [Instruction-Following Evaluation for Large Language Models (IFEval)](https://arxiv.org/abs/2311.07911) · Qin et al. (2024), [InfoBench](https://arxiv.org/abs/2401.03601).
-[^repo]: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/app/index.html`. 원리·근거 탭 카드 29장, 코드·프롬프트 탭, 실험 로그 원문. 비공개 저장소라 권한이 필요하다.
+[^repo]: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/app/index.html`. 원리·근거 탭 카드 29장, 코드·프롬프트 탭, 실험 로그 원문. 비공개 저장소라 권한이 필요함.

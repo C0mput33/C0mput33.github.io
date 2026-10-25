@@ -82,6 +82,6 @@ Anthropic이 소개한 Planner, Generator, Evaluator 3-에이전트 구조[^7]�
 
 [^7]: Anthropic (2026), [Harness Design for Long-Running Apps](https://www.anthropic.com/engineering/harness-design-long-running-apps). Planner + Generator + Evaluator 3-에이전트 아키텍처.
 
-[^8]: Chad Fowler (2026), [Relocating Rigor](https://www.honeycomb.io/blog/production-is-where-the-rigor-goes). "엄밀함은 사라지지 않고 이동한다"는 관점으로 AI 시대의 소프트웨어 엔지니어링을 설명한다.
+[^8]: Chad Fowler (2026), [Relocating Rigor](https://www.honeycomb.io/blog/production-is-where-the-rigor-goes). "엄밀함은 사라지지 않고 이동한다"는 관점으로 AI 시대의 소프트웨어 엔지니어링을 설명함.
 
 [^9]: [프롬프트에서 하네스까지](https://bits-bytes-nn.github.io/insights/agentic-ai/2026/04/05/evolution-of-ai-agentic-patterns.html). SW Maestro 멘토링 자료로 읽은 2026-04-05 글.

@@ -96,7 +96,7 @@ _그림 1. 동화 쌍 하나가 순위에 반영되기까지. 심판마다 정�
 
 다른 하나는 정보를 버리지 않는 것입니다. 다수결로 승자만 남기면 2대 1과 3대 0이 똑같이 한 표가 됩니다. 심판별 contest를 그대로 넣으면 그 차이가 우도에 남고, 최종 점수를 얼마나 믿을 수 있는지에도 반영됩니다.
 
-## 3. 심판 편향 통제
+## 3. 심판 편향 통제: 편향 네 가지와 통제 방법
 
 LLM을 심판으로 쓰면 편향이 따라옵니다. 문헌에서 확인한 편향을 다음과 같이 구조로 막았습니다.
 
@@ -150,13 +150,13 @@ LLM을 심판으로 쓰면 편향이 따라옵니다. 문헌에서 확인한 편
 
 3편에서는 이 파이프라인을 왜 단일 HTML 파일 앱으로 한 번 더 만들었는지 다룹니다.
 
-[^repo]: 전체 코드는 [little-bard의 eval/ 디렉터리](https://github.com/C0mput33/little-bard/tree/main/eval)에 있다. 2026-07-20 공개 접근성 점검에서는 저장소가 비공개여서 권한 없는 방문자에게 링크가 404로 응답했다. 따라서 현재 원자료·히스토리 재현은 승인된 협업자에게만 가능하며, 공개 재현성을 주장하려면 비식별 아카이브를 별도로 공개해야 한다.
+[^repo]: 전체 코드는 [little-bard의 eval/ 디렉터리](https://github.com/C0mput33/little-bard/tree/main/eval)에 있음. 2026-07-20 공개 접근성 점검에서는 저장소가 비공개여서 권한 없는 방문자에게 링크가 404로 응답했음. 따라서 현재 원자료·히스토리 재현은 승인된 협업자에게만 가능하며, 공개 재현성을 주장하려면 비식별 아카이브를 별도로 공개해야 함.
 [^eqbench]: [EQ-Bench Creative Writing](https://eqbench.com/creative_writing.html). v2의 점수 포화 문제와 v3의 pairwise 전환. 이 프로젝트의 축 설계도 EQ-Bench CW v3 방법론을 참고했다(축 정의는 자체 작성).
-[^arena]: Chiang et al. (2024), [Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference](https://arxiv.org/abs/2403.04132). 사람 선호 pairwise를 Bradley-Terry로 집계. 2023년 12월 온라인 Elo에서 BT로 전환했다.
+[^arena]: Chiang et al. (2024), [Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference](https://arxiv.org/abs/2403.04132). 사람 선호 pairwise를 Bradley-Terry로 집계. 2023년 12월 온라인 Elo에서 BT로 전환했음.
 [^mtbench]: Zheng et al. (2023), [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685). LLM 심판의 위치 편향·장황 편향과 그 통제를 다룬 기준 논문.
-[^thurstone]: Thurstone, L.L. (1927), A Law of Comparative Judgment. Psychological Review 34, 273–286. 쌍대 비교로 심리적 속성의 척도를 구성할 수 있음을 보인 측정 이론의 고전. 절대 판단보다 상대 비교가 쉽고 안정적이라는 이 글의 대전제가 여기서 온다.
-[^poll]: Verga et al. (2024), [Replacing Judges with Juries: Evaluating LLM Generations with a Panel of Diverse Models](https://arxiv.org/abs/2404.18796). 서로 다른 계열의 작은 모델 패널(PoLL)이 단일 대형 심판보다 계열 내 편향이 적고, 사람 판단과의 상관이 높으며, 7배 이상 저렴함을 보였다.
+[^thurstone]: Thurstone, L.L. (1927), A Law of Comparative Judgment. Psychological Review 34, 273–286. 쌍대 비교로 심리적 속성의 척도를 구성할 수 있음을 보인 측정 이론의 고전. 절대 판단보다 상대 비교가 쉽고 안정적이라는 이 글의 대전제가 여기서 옴.
+[^poll]: Verga et al. (2024), [Replacing Judges with Juries: Evaluating LLM Generations with a Panel of Diverse Models](https://arxiv.org/abs/2404.18796). 서로 다른 계열의 작은 모델 패널(PoLL)이 단일 대형 심판보다 계열 내 편향이 적고, 사람 판단과의 상관이 높으며, 7배 이상 저렴함을 보였음.
 [^bt1952]: Bradley, R.A. & Terry, M.E. (1952), Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons. Biometrika 39.
-[^hunter]: Hunter, D.R. (2004), [MM algorithms for generalized Bradley-Terry models](https://projecteuclid.org/journals/annals-of-statistics/volume-32/issue-1/MM-algorithms-for-generalized-Bradley-Terry-models/10.1214/aos/1079120141.full). Annals of Statistics 32(1). MM(Minorize-Maximize)은 매 반복 로그우도의 하한을 최대화해 목적함수를 단조증가시키는 알고리즘 부류다.
-[^davidson]: Davidson, R.R. (1970), On Extending the Bradley-Terry Model to Accommodate Ties in Paired Comparison Experiments. JASA 65(329). 무승부 성향 파라미터 δ를 도입해 P(tie)를 명시적으로 모델링한다. 이 프로젝트의 v1.1 러너(`eval/run_v1_1.py`)가 관측 tie 수·δ 추정치·Davidson 순위를 함께 출력한다.
-[^geval]: Liu et al. (2023), [G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment](https://arxiv.org/abs/2303.16634). CoT 기반 절대 루브릭 채점. 이 시스템은 그 절대 점수를 순위에 쓰지 않고, 루브릭을 pairwise 판정의 축별 진단으로만 쓴다.
+[^hunter]: Hunter, D.R. (2004), [MM algorithms for generalized Bradley-Terry models](https://projecteuclid.org/journals/annals-of-statistics/volume-32/issue-1/MM-algorithms-for-generalized-Bradley-Terry-models/10.1214/aos/1079120141.full). Annals of Statistics 32(1). MM(Minorize-Maximize)은 매 반복 로그우도의 하한을 최대화해 목적함수를 단조증가시키는 알고리즘 부류임.
+[^davidson]: Davidson, R.R. (1970), On Extending the Bradley-Terry Model to Accommodate Ties in Paired Comparison Experiments. JASA 65(329). 무승부 성향 파라미터 δ를 도입해 P(tie)를 명시적으로 모델링함. 이 프로젝트의 v1.1 러너(`eval/run_v1_1.py`)가 관측 tie 수·δ 추정치·Davidson 순위를 함께 출력함.
+[^geval]: Liu et al. (2023), [G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment](https://arxiv.org/abs/2303.16634). CoT 기반 절대 루브릭 채점. 이 시스템은 그 절대 점수를 순위에 쓰지 않고, 루브릭을 pairwise 판정의 축별 진단으로만 씀.

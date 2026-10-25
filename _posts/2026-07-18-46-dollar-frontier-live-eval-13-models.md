@@ -78,7 +78,7 @@ function saveState(){
 
 ## 3. 심판의 자기 계열 편향 (t = 6.43)
 
-### 3-1. 측정 방법
+### 3-1. 측정 방법: 동료 심판을 대조군으로
 
 이 런에는 부끄러운 설정이 하나 있었습니다. 자기 계열 심판 제외를 끈 채(allowSelfEval=true) 데이터를 모았습니다. 편향 통제 장치 하나가 빠진 것인데, 그 덕분에 자기 계열 편향을 모든 쌍에서 측정할 수 있었습니다.
 
@@ -99,7 +99,7 @@ function saveState(){
 
 ## 4. BT와 Elo의 순위 차이 (Spearman 0.742)
 
-### 4-1. 결과
+### 4-1. 결과: 뒤집힌 Claude 두 모델의 순서
 
 앱은 주 순위(BT)와 보조 지표(순차 Elo)를 함께 보여 줍니다. 이번 런에서는 둘이 눈에 띄게 갈렸고, Claude 두 모델은 순서가 뒤집혔습니다.
 
@@ -108,7 +108,7 @@ function saveState(){
 | Claude Opus 4.8 | 10위 | 4위 (6계단 위) |
 | Claude Opus 4.7 | 4위 | 9위 (5계단 아래) |
 
-### 4-2. 원인 분석
+### 4-2. 원인 분석: retire2와 맞지 않는 순차 Elo
 
 retire2와 Elo의 궁합이 나쁘기 때문입니다. Elo는 모두 1000에서 시작해 경기마다 `R ← R + K·(s − E)`로 갱신하는 온라인 지표입니다(기대승률 `E = 1/(1+10^((R_상대−R)/400))`, K=32). 순서대로 갱신하기 때문에 배치 2에서 은퇴한 모델의 Elo는 그 시점에서 멈추고, 생존 모델만 계속 움직입니다. 결국 멈춘 값과 움직이는 값을 한 표에 놓고 비교하게 됩니다. <span class="term" data-tip="Elo에서 경기 하나가 점수를 최대 몇 점까지 움직일 수 있는지 정하는 민감도 상수. 크면 최근 경기에 민감해지고 작으면 점수가 천천히 변한다.">K-팩터</span> 갱신은 그 순간의 상대 레이팅에 민감해서, 타이밍이 좋았던 승리가 크게 반영되기도 합니다. BT는 모델별 경기 수 불균형과 대전 시점을 <span class="term" data-tip="Maximum Likelihood Estimation의 약칭. 관측된 데이터의 우도를 가장 크게 만드는 파라미터를 선택하는 최우도 추정이다.">MLE</span>로 한꺼번에 처리하므로 이런 문제가 없습니다.
 
@@ -142,7 +142,7 @@ retire2는 보정한 규칙대로 은퇴를 처리했지만, 멈춘 런 하나�
 
 6편에서는 이 결과를 가지고 별도의 AI 에이전트에게 엔진 전체 <span class="term" data-tip="변경을 만든 쪽과 검토하는 쪽이 같은 대화 맥락을 공유하지 않게 분리하는 검토 방식. 검토자는 변경 내역과 검증 기준만 보고 판단한다.">교차 리뷰</span>를 맡겼습니다. 이 리더보드의 <span class="term" data-tip="같은 절차로 표본을 반복 수집할 때 정해진 비율만큼 모수를 포함하도록 만든 구간. 두 개의 95% 신뢰구간이 겹치는지만으로 차이의 유의성을 판정할 수는 없다.">신뢰구간</span>을 실제보다 좁게 만들던 통계 버그가 그 과정에서 나왔습니다.
 
-[^run]: 실측 아카이브: [eval/runs/studio-20260714-live13-797p](https://github.com/C0mput33/little-bard/tree/main/eval/runs/studio-20260714-live13-797p). run_meta.json, 전 쌍 판정, DPO 선호쌍, 분석 리포트가 들어 있다. 2026-07-20 현재 저장소는 비공개라 승인된 협업자만 원자료를 확인할 수 있다.
+[^run]: 실측 아카이브: [eval/runs/studio-20260714-live13-797p](https://github.com/C0mput33/little-bard/tree/main/eval/runs/studio-20260714-live13-797p). run_meta.json, 전 쌍 판정, DPO 선호쌍, 분석 리포트가 들어 있음. 2026-07-20 현재 저장소는 비공개라 승인된 협업자만 원자료를 확인할 수 있음.
 [^selfpref]: Panickssery, Bowman & Feng (2024), [LLM Evaluators Recognize and Favor Their Own Generations](https://arxiv.org/abs/2404.13076). 자기 인식 능력과 자기 선호 편향 강도 사이의 선형 상관을 보인 연구.
-[^ifeval]: Zhou et al. (2023), [Instruction-Following Evaluation for Large Language Models (IFEval)](https://arxiv.org/abs/2311.07911). "400단어 이상" 같은 객관적으로 검증 가능한 제약을 자동 채점하는 표준이다. 복잡한 지시를 이진 기준으로 쪼개는 [InfoBench (arXiv:2401.03601)](https://arxiv.org/abs/2401.03601)도 같은 계열이다. 효율 지표(TTFT·처리량·$/1M 토큰)와 품질×비용 Pareto 관점의 근거는 앱 난이도·효율 탭의 출처 해설에 정리돼 있다.
-[^bugfix]: 커밋 `fee2949`(2026-07-14). 난이도 지표 0 버그 수정과 체크포인트 파일 백업/이어하기가 들어갔다. 침묵 저장 실패의 1차 완화도 이때 들어갔다.
+[^ifeval]: Zhou et al. (2023), [Instruction-Following Evaluation for Large Language Models (IFEval)](https://arxiv.org/abs/2311.07911). "400단어 이상" 같은 객관적으로 검증 가능한 제약을 자동 채점하는 표준. 복잡한 지시를 이진 기준으로 쪼개는 [InfoBench (arXiv:2401.03601)](https://arxiv.org/abs/2401.03601)도 같은 계열. 효율 지표(TTFT·처리량·$/1M 토큰)와 품질×비용 Pareto 관점의 근거는 앱 난이도·효율 탭의 출처 해설에 정리돼 있음.
+[^bugfix]: 커밋 `fee2949`(2026-07-14). 난이도 지표 0 버그 수정과 체크포인트 파일 백업/이어하기가 들어감. 침묵 저장 실패의 1차 완화도 이때 들어감.

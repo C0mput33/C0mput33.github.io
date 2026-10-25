@@ -11,7 +11,7 @@ tooltip_min_unique: 2
 
 이 시리즈는 지금까지 삽화에서 AI 티를 줄이려면 재료의 물리적 불완전성을 지시하면 된다는 전제에 기대고 있었습니다. 그런데 이 전제를 조사해보니 직접 출처가 없었습니다. 아래에서는 목표를 출판 그림책의 조형·서사 원리로 바꾸고 위계 지시로 12장을 생성한 결과와, 미리 등록한 지표가 왜 빗나갔는지를 정리했습니다.
 
-## 1. 배경
+## 1. 배경: 출처 없는 손맛 통념
 
 종이 결, 고르지 않은 필압, 번짐, 삐져나온 선 같은 요소를 스타일 정의 열두 종에 모두 넣어 두었습니다. AI 티를 줄이려고 둔 장치는 사실상 이것뿐이었습니다.
 
@@ -123,7 +123,7 @@ The kitten is the secondary focus.
 
 다음 라운드에서는 관심영역 마스크를 생성 전에 고정하고, 조건을 가린 첫 클릭 평가를 붙일 계획입니다. 처치 문안에 들어간 장면 고유 명사도 모두 자리표시자로 바꿉니다. 같은 실수를 세 번 했기 때문에 문안을 작성하는 방식부터 바꾸려고 합니다.
 
-[^duhan]: Du & Han (2026), *Education Sciences*. 수제 그림책 삽화 224점과 같은 서사의 생성 이미지 224점 비교. [DOI 10.3390/educsci16030367](https://doi.org/10.3390/educsci16030367). 한 중국 고전 시리즈와 한 모델에 국한된 결과입니다.
-[^hoge]: Högemann et al. (2025), *Frontiers in Artificial Intelligence*. 104명이 실제 사진 25장과 AI 사진 25장을 판별한 이유 576건을 코딩. [DOI 10.3389/frai.2025.1707336](https://doi.org/10.3389/frai.2025.1707336). 대상은 그림책이 아니라 풍경·건축·인테리어 사진입니다.
-[^eng]: Eng, Godwin & Fisher (2020), *npj Science of Learning*. 초등 1·2학년 60명, 평균 7.56세. [DOI 10.1038/s41539-020-00073-5](https://doi.org/10.1038/s41539-020-00073-5). 글을 직접 읽는 초급 독자 대상이며 읽어주는 그림책으로 일반화할 수 없습니다.
+[^duhan]: Du & Han (2026), *Education Sciences*. 수제 그림책 삽화 224점과 같은 서사의 생성 이미지 224점 비교. [DOI 10.3390/educsci16030367](https://doi.org/10.3390/educsci16030367). 한 중국 고전 시리즈와 한 모델에 국한된 결과임.
+[^hoge]: Högemann et al. (2025), *Frontiers in Artificial Intelligence*. 104명이 실제 사진 25장과 AI 사진 25장을 판별한 이유 576건을 코딩. [DOI 10.3389/frai.2025.1707336](https://doi.org/10.3389/frai.2025.1707336). 대상은 그림책이 아니라 풍경·건축·인테리어 사진임.
+[^eng]: Eng, Godwin & Fisher (2020), *npj Science of Learning*. 초등 1·2학년 60명, 평균 7.56세. [DOI 10.1038/s41539-020-00073-5](https://doi.org/10.1038/s41539-020-00073-5). 글을 직접 읽는 초급 독자 대상이며 읽어주는 그림책으로 일반화할 수 없음.
 [^carnegie]: [Carnegie Medal for Illustration 심사 기준](https://carnegies.co.uk/about-the-awards/carnegie-medal-for-illustration-criteria/). 2026-07-26 조회.

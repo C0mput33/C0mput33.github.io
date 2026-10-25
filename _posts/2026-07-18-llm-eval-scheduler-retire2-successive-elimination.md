@@ -149,8 +149,8 @@ retire의 가장 큰 위험은 일찍 탈락시킨 모델이 사실은 뒷심이
 
 5편에서는 이 스케줄러를 켜고 프론티어 13개 모델에 실제로 비용을 쓴 결과를 정리했습니다.
 
-[^ford]: Ford, L.R. Jr. (1957), Solution of a Ranking Problem from Binary Comparisons. American Mathematical Monthly 64(8). 비교 그래프가 (강)연결이면 BT MLE가 유일하게 존재한다. 불완전 그래프 일반화는 [arXiv:2304.06821](https://arxiv.org/abs/2304.06821).
-[^rankcentrality]: Negahban et al., [Rank Centrality: Ranking from Pair-wise Comparisons](https://arxiv.org/abs/1209.1688). 순위 추정 정밀도와 비교 그래프 스펙트럴 갭의 관계를 다룬다. Shah & Wainwright ([arXiv:1512.08949](https://arxiv.org/abs/1512.08949))도 참고.
-[^races]: Maron & Moore (1993), Hoeffding Races. 신뢰구간이 갈라지면 후보를 탈락시키는 racing의 시작이다. Successive Halving(Karnin et al. 2013)과 Hyperband(Li et al. 2017)로 이어진다. retire2는 이 계보를 BT+부트스트랩 CI에 맞게 조립했다.
-[^sim]: 시뮬레이터와 재생 코드는 [eval/aggregate/](https://github.com/C0mput33/little-bard/tree/main/eval/aggregate)의 `sched_sim.py`, `exp_schedulers.py`, `replay_real.py`. 시드를 고정해 같은 환경에서는 같은 수치를 재현한다. 2026-07-20 현재 저장소는 비공개라 권한이 필요하다.
-[^arena5]: [Chatbot Arena (arXiv:2403.04132)](https://arxiv.org/abs/2403.04132) §5. 능동 표집 아래에서 순위를 추정할 때 별도 통계 처리를 쓴다. 적응 표집은 표집 분포가 데이터에 종속돼 단순 부트스트랩이 편향될 수 있다.
+[^ford]: Ford, L.R. Jr. (1957), Solution of a Ranking Problem from Binary Comparisons. American Mathematical Monthly 64(8). 비교 그래프가 (강)연결이면 BT MLE가 유일하게 존재함. 불완전 그래프 일반화는 [arXiv:2304.06821](https://arxiv.org/abs/2304.06821).
+[^rankcentrality]: Negahban et al., [Rank Centrality: Ranking from Pair-wise Comparisons](https://arxiv.org/abs/1209.1688). 순위 추정 정밀도와 비교 그래프 스펙트럴 갭의 관계를 다룸. Shah & Wainwright ([arXiv:1512.08949](https://arxiv.org/abs/1512.08949))도 참고.
+[^races]: Maron & Moore (1993), Hoeffding Races. 신뢰구간이 갈라지면 후보를 탈락시키는 racing의 시작임. Successive Halving(Karnin et al. 2013)과 Hyperband(Li et al. 2017)로 이어짐. retire2는 이 계보를 BT+부트스트랩 CI에 맞게 조립했음.
+[^sim]: 시뮬레이터와 재생 코드는 [eval/aggregate/](https://github.com/C0mput33/little-bard/tree/main/eval/aggregate)의 `sched_sim.py`, `exp_schedulers.py`, `replay_real.py`. 시드를 고정해 같은 환경에서는 같은 수치를 재현함. 2026-07-20 현재 저장소는 비공개라 권한이 필요함.
+[^arena5]: [Chatbot Arena (arXiv:2403.04132)](https://arxiv.org/abs/2403.04132) §5. 능동 표집 아래에서 순위를 추정할 때 별도 통계 처리를 씀. 적응 표집은 표집 분포가 데이터에 종속돼 단순 부트스트랩이 편향될 수 있음.

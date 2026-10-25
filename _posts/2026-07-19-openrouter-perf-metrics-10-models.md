@@ -47,7 +47,7 @@ tooltip_min_unique: 18
 | qwen3.6-35b-a3b | 165 | 61.4s | 162 | 0.25s | $0.099 ($0.14) |
 | kimi-k2.6 | 48 | 372.5s | 194 | 0.17s | $0.353 ($0.68) |
 
-### 2-1. 7월 23일 재확인 결과
+### 2-1. 7월 23일 재확인: 처리량·지연·입력 실효가 변화
 
 2026-07-23 08:43 KST에 같은 Performance URL 10개를 다시 열어 카드의 `P50, best provider`와 Effective Pricing의 가중 입력가를 읽었습니다. 각 칸의 앞 숫자가 `07-19`(위 보관 표), 뒤 숫자가 `07-23`(재확인 시각의 화면값)입니다. 몇 분만 지나도 반올림 끝자리가 바뀔 수 있어서 이 표에도 날짜와 시각을 붙였습니다.
 
@@ -302,12 +302,12 @@ Haiku가 1위라고 동화를 가장 잘 쓴다는 뜻은 아닙니다. 네 등�
 
 위 결정표도 오래 쓸 리더보드는 아닙니다. 실측은 모델당 5회, 한 프롬프트 계열, 한 시점이었고 레거시 창작 평가는 현재 정책과 비교할 수 없습니다. 새 평가가 끝나면 같은 열을 새 정책 버전과 날짜를 붙여 갱신하겠습니다.
 
-[^orpage]: 오픈라우터 모델 페이지의 Performance·Effective Pricing 섹션. 캡처 원본은 본문의 각 이미지 바로 아래에 직접 링크했고, 표의 나머지 네 모델은 [캐시편](/posts/cache-hit-measured-vs-benchmark-sites/)에 연결했습니다. 2026-07-19 또는 2026-07-21 스냅샷이라 현재 값과 다를 수 있습니다.
-[^ormodels]: [OpenRouter Models 문서](https://openrouter.ai/docs/guides/overview/models)는 `throughput-high-to-low`를 "routing heuristics의 p50 throughput"으로 설명합니다. [공급자 통합 문서](https://openrouter.ai/docs/guides/community/for-providers)는 throughput을 `output tokens ÷ generation time`으로 정의하고 공급자 대기, 첫 응답, 스트리밍 시간이 들어간다고 설명합니다. 2026-07-23 확인.
-[^orlatency]: 캡처한 Performance 화면은 `Latency is total round-trip time`이라고 쓰면서 별도 `E2E Latency` 그래프도 보여 줍니다. 반면 [OpenRouter FAQ](https://openrouter.ai/docs/faq)와 [Models 문서](https://openrouter.ai/docs/guides/overview/models)는 모델 페이지 latency를 TTFT로 설명합니다. 공식 설명이 서로 맞지 않아서 이 글은 해당 열을 완료 시간이나 TTFT로 바꿔 부르지 않고 화면의 `Latency p50` 값 그대로 두었습니다. 2026-07-23 확인.
-[^oreffective]: [OpenRouter Claude Haiku 4.5 Pricing](https://openrouter.ai/anthropic/claude-haiku-4.5/pricing)은 Effective Pricing을 prompt caching 이후 고객이 실제로 낸 과거 30일 롤링 평균으로 설명하고, provider별 Input/Output $/1M, Cache hit rate, `Token share (1d)`를 공개합니다. 헤드라인 대표가 $1/$5도 같은 페이지에서 확인했습니다. 2026-07-23 재확인.
-[^routing]: [OpenRouter Provider Routing 문서](https://openrouter.ai/docs/guides/routing/provider-selection)는 기본적으로 상위 공급자 사이에서 가용성을 위해 부하를 나누고, `order`, fallback, 가격, 처리량, 지연 조건으로 경로를 바꿀 수 있다고 설명합니다.
-[^cache]: [OpenRouter Prompt Caching 문서](https://openrouter.ai/docs/guides/best-practices/prompt-caching)는 개별 응답의 `prompt_tokens_details.cached_tokens`, `cache_write_tokens`, `cache_discount`로 실제 캐시 사용량과 절감액을 확인하는 방법을 안내합니다. 모델 페이지의 집계 Cache hit rate와 개별 응답 값은 용도가 다릅니다.
-[^aa]: [Artificial Analysis Comparison of Models](https://artificialanalysis.ai/models) (2026-07-19 접근): 지능 지수, 출력 속도(tokens/s), 지연(TTFT), 태스크당 비용. 캐시 히트율 항목은 없습니다.
-[^lmarena]: [LMArena](https://arena.ai/leaderboard/text): 사용자 선호 투표 기반 품질 리더보드. 속도나 지연 같은 성능 지표는 다루지 않습니다.
-[^repo]: 실측 원시 데이터: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/analysis/cost-per-book/results_20260719T094911Z.json`. 호출별 prompt/completion/cached 토큰, 실청구액, 서빙 공급자, 지연이 들어 있습니다. 모델당 5회, 총 50회이고 Qwen은 본문이 비어 있지 않은 3회만 속도와 시간 평균에 썼습니다. 2026-07-22 로컬 원본으로 다시 계산했습니다.
+[^orpage]: 오픈라우터 모델 페이지의 Performance·Effective Pricing 섹션. 캡처 원본은 본문의 각 이미지 바로 아래에 직접 링크했고, 표의 나머지 네 모델은 [캐시편](/posts/cache-hit-measured-vs-benchmark-sites/)에 연결했음. 2026-07-19 또는 2026-07-21 스냅샷이라 현재 값과 다를 수 있음.
+[^ormodels]: [OpenRouter Models 문서](https://openrouter.ai/docs/guides/overview/models)는 `throughput-high-to-low`를 "routing heuristics의 p50 throughput"으로 설명함. [공급자 통합 문서](https://openrouter.ai/docs/guides/community/for-providers)는 throughput을 `output tokens ÷ generation time`으로 정의하고 공급자 대기, 첫 응답, 스트리밍 시간이 들어간다고 설명함. 2026-07-23 확인.
+[^orlatency]: 캡처한 Performance 화면은 `Latency is total round-trip time`이라고 쓰면서 별도 `E2E Latency` 그래프도 보여 줌. 반면 [OpenRouter FAQ](https://openrouter.ai/docs/faq)와 [Models 문서](https://openrouter.ai/docs/guides/overview/models)는 모델 페이지 latency를 TTFT로 설명함. 공식 설명이 서로 맞지 않아서 이 글은 해당 열을 완료 시간이나 TTFT로 바꿔 부르지 않고 화면의 `Latency p50` 값 그대로 두었음. 2026-07-23 확인.
+[^oreffective]: [OpenRouter Claude Haiku 4.5 Pricing](https://openrouter.ai/anthropic/claude-haiku-4.5/pricing)은 Effective Pricing을 prompt caching 이후 고객이 실제로 낸 과거 30일 롤링 평균으로 설명하고, provider별 Input/Output $/1M, Cache hit rate, `Token share (1d)`를 공개함. 헤드라인 대표가 $1/$5도 같은 페이지에서 확인했음. 2026-07-23 재확인.
+[^routing]: [OpenRouter Provider Routing 문서](https://openrouter.ai/docs/guides/routing/provider-selection)는 기본적으로 상위 공급자 사이에서 가용성을 위해 부하를 나누고, `order`, fallback, 가격, 처리량, 지연 조건으로 경로를 바꿀 수 있다고 설명함.
+[^cache]: [OpenRouter Prompt Caching 문서](https://openrouter.ai/docs/guides/best-practices/prompt-caching)는 개별 응답의 `prompt_tokens_details.cached_tokens`, `cache_write_tokens`, `cache_discount`로 실제 캐시 사용량과 절감액을 확인하는 방법을 안내함. 모델 페이지의 집계 Cache hit rate와 개별 응답 값은 용도가 다름.
+[^aa]: [Artificial Analysis Comparison of Models](https://artificialanalysis.ai/models) (2026-07-19 접근): 지능 지수, 출력 속도(tokens/s), 지연(TTFT), 태스크당 비용. 캐시 히트율 항목은 없음.
+[^lmarena]: [LMArena](https://arena.ai/leaderboard/text): 사용자 선호 투표 기반 품질 리더보드. 속도나 지연 같은 성능 지표는 다루지 않음.
+[^repo]: 실측 원시 데이터: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/analysis/cost-per-book/results_20260719T094911Z.json`. 호출별 prompt/completion/cached 토큰, 실청구액, 서빙 공급자, 지연이 들어 있음. 모델당 5회, 총 50회이고 Qwen은 본문이 비어 있지 않은 3회만 속도와 시간 평균에 썼음. 2026-07-22 로컬 원본으로 다시 계산했음.

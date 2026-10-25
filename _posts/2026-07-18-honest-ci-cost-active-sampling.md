@@ -13,7 +13,7 @@ description: >-
 > 이 글의 쌍-군집 CI도 같은 프롬프트와 동화가 여러 모델쌍에 재사용된 의존성을 모두 묶지는 못한다. 프롬프트-군집 구간은 보고용으로 병기하며, 적응형 은퇴 경로 자체는 어느 방식도 재시뮬레이션하지 않는다. 아래 결과는 레거시 중단 런에 조건부인 탐색 분석이다.
 {: .prompt-warning }
 
-## 1. 배경
+## 1. 배경: 저장된 판정 2,391개로 다시 계산
 
 재계산에는 비용이 들지 않았습니다. 797쌍의 심판 판정 2,391개를 모두 저장해 두었기 때문에 새 엔진에 다시 넣기만 하면 됐습니다. <span class="term" data-tip="소프트웨어가 다른 소프트웨어의 기능이나 데이터에 접근할 때 따르는 호출 계약. 사용할 주소, 입력 형식, 인증, 응답과 오류 규칙을 함께 정의한다.">API</span> 호출은 0회였습니다.
 
@@ -122,7 +122,7 @@ racing은 실측 루프에 연결했습니다. 생성은 생존자 전원이 그
 
 8편에서는 사람이 직접 평가하는 <span class="term" data-tip="사람이 직접 평가한 소량의 기준 데이터. 같은 항목을 자동(LLM) 평가와 사람이 모두 평가하게 한 뒤 일치도를 재면, 자동 평가를 얼마나 믿어도 되는지가 숫자로 나온다.">골든셋</span>을 다룹니다. 수백 쌍 중 30쌍만 봐도 대표성이 서도록 설계한 <span class="term" data-tip="모집단을 미리 정한 층으로 나눈 뒤 각 층에서 표본을 뽑는 방법. 중요한 하위 집단의 누락을 줄일 수 있지만 층 안의 대표성과 전체 가중치는 별도로 설계해야 한다.">층화 표집</span>과, 그 30쌍을 평가하던 중 투표 10개가 사라진 일을 정리합니다.
 
-[^active]: Mikhailiuk et al., [Active Sampling for Pairwise Comparisons (ASAP)](https://arxiv.org/abs/2004.05691). 정보이득을 최대화하도록 다음 비교 쌍을 고른다. Ye et al., [Hybrid-MST](https://arxiv.org/abs/1810.08851). NLG 평가 적용은 [Active Evaluation (arXiv:2203.06063)](https://arxiv.org/abs/2203.06063).
+[^active]: Mikhailiuk et al., [Active Sampling for Pairwise Comparisons (ASAP)](https://arxiv.org/abs/2004.05691). 정보이득을 최대화하도록 다음 비교 쌍을 고름. Ye et al., [Hybrid-MST](https://arxiv.org/abs/1810.08851). NLG 평가 적용은 [Active Evaluation (arXiv:2203.06063)](https://arxiv.org/abs/2203.06063).
 [^se]: 순차 제거와 top-k 식별의 표본 복잡도: [arXiv:2205.10936](https://arxiv.org/abs/2205.10936), [arXiv:1702.03605](https://arxiv.org/abs/1702.03605). 개관은 Slivkins, [Introduction to Multi-Armed Bandits](https://arxiv.org/abs/1904.07272).
-[^anytime]: Howard, Ramdas et al.의 time-uniform confidence sequence 계열. 데이터를 계속 들여다보다 멈춰도 커버리지가 유지되는 신뢰구간이다. 배치 경계마다 CI를 보고 은퇴를 결정하는 retire2에 원리적으로 더 맞는 도구라 후속 과제로 남겼다.
-[^arena]: [Chatbot Arena (arXiv:2403.04132)](https://arxiv.org/abs/2403.04132). 랭킹 수렴을 위한 효율적 샘플링과 E-value(Vovk & Wang) 기반 anytime-valid 접근을 쓴다. 능동 표집 배선 커밋 [`cc573c6`](https://github.com/C0mput33/little-bard/commit/cc573c6)는 비공개 저장소라 권한이 필요하다.
+[^anytime]: Howard, Ramdas et al.의 time-uniform confidence sequence 계열. 데이터를 계속 들여다보다 멈춰도 커버리지가 유지되는 신뢰구간임. 배치 경계마다 CI를 보고 은퇴를 결정하는 retire2에 원리적으로 더 맞는 도구라 후속 과제로 남겼음.
+[^arena]: [Chatbot Arena (arXiv:2403.04132)](https://arxiv.org/abs/2403.04132). 랭킹 수렴을 위한 효율적 샘플링과 E-value(Vovk & Wang) 기반 anytime-valid 접근을 씀. 능동 표집 배선 커밋 [`cc573c6`](https://github.com/C0mput33/little-bard/commit/cc573c6)는 비공개 저장소라 권한이 필요함.

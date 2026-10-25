@@ -193,27 +193,27 @@ AI 티를 줄이는 기법을 개입 지점별로 여섯 계층으로 나눠 보
 
 첫 실험은 스타일 구분으로 정했습니다. 같은 장면을 같은 앵커로 열두 종 생성하고, 스타일당 다섯 장씩 뽑아 이름을 가린 채 분류되는지 확인할 계획입니다. <span class="term" data-tip="분류 결과를 실제 정답과 예측을 축으로 교차 집계한 표. 대각선이 정답이고, 어떤 항목을 어떤 항목으로 잘못 봤는지가 비대각 칸에 남는다.">혼동행렬</span>이 대각선에서 무너지면 스타일 어휘부터 다시 설계해야 합니다.
 
-[^apiref]: OpenAI, [Create image API reference](https://developers.openai.com/api/reference/resources/images/methods/generate). 2026-07-26 조회. 나열한 12개 필드는 gpt-image-2 생성 요청 기준이며, `response_format`과 `style`은 DALL·E 계열 전용이다.
-[^sdweight]: AUTOMATIC1111, [Stable Diffusion web UI, Features: Attention/emphasis](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#attentionemphasis). `(word:1.5)` 문법은 이 계열 도구의 프롬프트 처리 기능이다.
+[^apiref]: OpenAI, [Create image API reference](https://developers.openai.com/api/reference/resources/images/methods/generate). 2026-07-26 조회. 나열한 12개 필드는 gpt-image-2 생성 요청 기준이며, `response_format`과 `style`은 DALL·E 계열 전용임.
+[^sdweight]: AUTOMATIC1111, [Stable Diffusion web UI, Features: Attention/emphasis](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#attentionemphasis). `(word:1.5)` 문법은 이 계열 도구의 프롬프트 처리 기능임.
 [^cookbook]: OpenAI Cookbook, [GPT Image Generation Models Prompting Guide](https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide). 사진사실성 항목의 `no glamorization, no heavy retouching`과 `pores, wrinkles, fabric wear, imperfections`.
-[^chi]: Kamali, Nakamura, Kumar, Chatzimparmpas, Hullman, Groh (2025), [Characterizing Photorealism and Artifacts in Diffusion Model-Generated Images](https://arxiv.org/html/2502.11989), CHI 2025, [DOI 10.1145/3706598.3713962](https://doi.org/10.1145/3706598.3713962). 참가자 50,444명·165개국·관측 749,828건·코멘트 34,675개. 58.7%는 정확도 80% 이하 218장을 별도 주석한 결과이고, 언급률은 코멘트를 GPT-3.5 Turbo로 분류한 값이다.
+[^chi]: Kamali, Nakamura, Kumar, Chatzimparmpas, Hullman, Groh (2025), [Characterizing Photorealism and Artifacts in Diffusion Model-Generated Images](https://arxiv.org/html/2502.11989), CHI 2025, [DOI 10.1145/3706598.3713962](https://doi.org/10.1145/3706598.3713962). 참가자 50,444명·165개국·관측 749,828건·코멘트 34,675개. 58.7%는 정확도 80% 이하 218장을 별도 주석한 결과이고, 언급률은 코멘트를 GPT-3.5 Turbo로 분류한 값임.
 [^imagereward]: Xu et al. (2023), [ImageReward: Learning and Evaluating Human Preferences for Text-to-Image Generation](https://arxiv.org/abs/2304.05977). 전문가 비교 137k건 기반.
 [^hpsv2]: Wu, Hao, Sun, Chen, Zhu, Zhao, Li (2023), [Human Preference Score v2: A Solid Benchmark for Evaluating Human Preferences of Text-to-Image Synthesis](https://arxiv.org/abs/2306.09341), arXiv:2306.09341. 이미지 쌍 433,760개·사람 선호 선택 798,090건.
 [^pickscore]: Kirstain et al. (2023), [Pick-a-Pic: An Open Dataset of User Preferences for Text-to-Image Generation](https://arxiv.org/abs/2305.01569). CLIP 기반 스코어링.
 [^ladi]: Roush et al. (2023), [LLM as an Art Director (LaDi): Using LLMs to improve Text-to-Media Generators](https://arxiv.org/abs/2311.03716), arXiv:2311.03716.
 [^adobe-train2]: Adobe, [Custom models 문서](https://helpx.adobe.com/firefly/using/custom-models.html). Subject Model 학습에 필요한 이미지 수. 2026-07-26 조회.
-[^ti]: Gal et al. (2022), [An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion](https://arxiv.org/abs/2208.01618), arXiv:2208.01618. 모델을 동결하고 새 텍스트 임베딩을 학습한다.
-[^lora]: Hu et al. (2021), [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685), arXiv:2106.09685. 사전학습 가중치를 동결하고 저랭크 행렬을 학습한다.
+[^ti]: Gal et al. (2022), [An Image is Worth One Word: Personalizing Text-to-Image Generation using Textual Inversion](https://arxiv.org/abs/2208.01618), arXiv:2208.01618. 모델을 동결하고 새 텍스트 임베딩을 학습함.
+[^lora]: Hu et al. (2021), [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685), arXiv:2106.09685. 사전학습 가중치를 동결하고 저랭크 행렬을 학습함.
 [^controlnet]: Zhang, Rao, Agrawala (2023), [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543), arXiv:2302.05543, ICCV 2023.
 [^dreambooth]: Ruiz, Li, Jampani, Pritch, Rubinstein, Aberman (2022/2023), [DreamBooth](https://arxiv.org/abs/2208.12242), arXiv:2208.12242, CVPR 2023.
 [^multitoken]: Pascual, Sesma-Sara, Jurio, Paternain, Galar (2025), [Few-shot multi-token DreamBooth with LoRa for style-consistent character generation](https://arxiv.org/abs/2510.09475), arXiv:2510.09475.
-[^lorahp]: [Kohya LoRA Training Settings Explained](https://www.propelrc.com/kohya-lora-training-settings-explained/). 스타일 학습 기준 이미지 30~100장·랭크 64~128·학습률 3e-4~5e-4. 실무 가이드이며 통제 실험 결과는 아니다.
+[^lorahp]: [Kohya LoRA Training Settings Explained](https://www.propelrc.com/kohya-lora-training-settings-explained/). 스타일 학습 기준 이미지 30~100장·랭크 64~128·학습률 3e-4~5e-4. 실무 가이드이며 통제 실험 결과는 아님.
 [^model]: OpenAI, [GPT Image 2 model page](https://developers.openai.com/api/docs/models/gpt-image-2). 파인튜닝 미지원.
-[^ipadapter]: Ye et al. (2023), [IP-Adapter: Text Compatible Image Prompt Adapter for Text-to-Image Diffusion Models](https://arxiv.org/abs/2308.06721), arXiv:2308.06721. 텍스트와 이미지 특징을 분리된 cross-attention으로 주입한다.
+[^ipadapter]: Ye et al. (2023), [IP-Adapter: Text Compatible Image Prompt Adapter for Text-to-Image Diffusion Models](https://arxiv.org/abs/2308.06721), arXiv:2308.06721. 텍스트와 이미지 특징을 분리된 cross-attention으로 주입함.
 [^comfy]: [Create Consistent Characters with ControlNet & IPAdapter in ComfyUI](https://learn.runcomfy.com/create-consistent-characters-with-controlnet-ipadapter). IP-Adapter로 얼굴·스타일을 고정하고 OpenPose로 포즈를 지정하는 워크플로.
 [^storydiffusion]: Zhou et al. (2024), [StoryDiffusion: Consistent Self-Attention for Long-Range Image and Video Generation](https://arxiv.org/abs/2405.01434), NeurIPS 2024 Spotlight.
-[^post]: [How to Make AI Images Look Less Like AI](https://www.pixova.io/blog/how-to-make-ai-images-look-less-like-ai). 필름 그레인 추가, 비대칭 구도. 실무자 정리이며 효과 크기를 측정한 1차 자료는 찾지 못했다.
-[^picbook]: [Picture Book Design: What Every Children's Book Author Must Know](https://getyourbookillustrations.com/what-every-childrens-book-author-should-know-about-picture-book-design/) 및 [Children's Book Illustration Styles: A Creator's Guide](https://www.neolemon.com/blog/childrens-book-illustration-styles-guide/). 캐릭터 시트 참조, 마스터 팔레트, 연령별 삽화 복잡도. 둘 다 업계 실무 글이며 1차 조사 자료가 아니다.
-[^multiturn]: OpenAI, [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation). Multi-turn image generation 절. Responses API의 이미지 생성 도구 기능이다.
+[^post]: [How to Make AI Images Look Less Like AI](https://www.pixova.io/blog/how-to-make-ai-images-look-less-like-ai). 필름 그레인 추가, 비대칭 구도. 실무자 정리이며 효과 크기를 측정한 1차 자료는 찾지 못함.
+[^picbook]: [Picture Book Design: What Every Children's Book Author Must Know](https://getyourbookillustrations.com/what-every-childrens-book-author-should-know-about-picture-book-design/) 및 [Children's Book Illustration Styles: A Creator's Guide](https://www.neolemon.com/blog/childrens-book-illustration-styles-guide/). 캐릭터 시트 참조, 마스터 팔레트, 연령별 삽화 복잡도. 둘 다 업계 실무 글이며 1차 조사 자료가 아님.
+[^multiturn]: OpenAI, [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation). Multi-turn image generation 절. Responses API의 이미지 생성 도구 기능임.
 [^fidelity]: 같은 문서 Image input fidelity 절. "image input tokens can be higher for edit requests that include reference images".
-[^limits]: 같은 문서 Limitations 절. 반복되는 캐릭터·브랜드 요소의 시각적 일관성에서 "occasionally struggle"이라고 적는다.
+[^limits]: 같은 문서 Limitations 절. 반복되는 캐릭터·브랜드 요소의 시각적 일관성에서 "occasionally struggle"이라고 적음.

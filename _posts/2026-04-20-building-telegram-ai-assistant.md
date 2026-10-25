@@ -18,7 +18,7 @@ SW Maestro 합격 후 GitHub, Calendar, Notion, GCS를 Telegram에서 다루는 
 
 속도도 문제였습니다. 간단한 질문에도 3~5초가 걸렸습니다. 메신저에서 5초는 꽤 긴 시간입니다.
 
-## 2. 작업 유형별 모델 라우팅
+## 2. 작업 유형별 모델 라우팅: FAST_QA를 Gemini로
 
 비용과 지연을 함께 줄이기 위해 작업 유형을 세 가지로 나누고, 유형마다 다른 모델을 연결했습니다.
 
@@ -76,7 +76,7 @@ _CACHED_SYSTEM: list[dict] = [
 
 이 파이프라인을 처음 붙일 때 빌드가 8번 실패했습니다. 대부분 GCP 서비스 계정 권한 문제였습니다. `roles/run.admin`만으로는 부족했고, `roles/iam.serviceAccountUser`도 필요했습니다.
 
-## 5. 남은 문제
+## 5. 남은 문제: 긴 대화, 오분류, 도구 실패
 
 현재 구현에는 다음 세 가지 문제가 남아 있습니다.
 
@@ -92,6 +92,6 @@ _CACHED_SYSTEM: list[dict] = [
 
 ## 참고 자료
 
-[^1]: 2주 동안의 Telegram 메시지 로그(n=312)로 쟀다. FAST_QA 분류율은 65%였고, 평균 레이턴시는 webhook 수신부터 응답 전송까지다. 비용은 Anthropic과 Google AI Studio 청구액으로 계산했다.
+[^1]: 2주 동안의 Telegram 메시지 로그(n=312)로 측정함. FAST_QA 분류율은 65%, 평균 레이턴시는 webhook 수신부터 응답 전송까지. 비용은 Anthropic과 Google AI Studio 청구액으로 계산함.
 
-[^2]: Anthropic 공식 문서 [Prompt caching with Claude](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching). cache_control의 ephemeral 타입은 TTL이 5분이고, 1024 토큰 이상일 때만 캐싱된다.
+[^2]: Anthropic 공식 문서 [Prompt caching with Claude](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching). cache_control의 ephemeral 타입은 TTL이 5분이고, 1024 토큰 이상일 때만 캐싱됨.

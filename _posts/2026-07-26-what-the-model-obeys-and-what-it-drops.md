@@ -177,6 +177,6 @@ torn fibre showing white along some edges
 
 전송된 프롬프트 원문, 사전 합격 기준, 측정 방식, 결과 뷰어는 실험 폴더에 그대로 남겼습니다. 프롬프트 문자열은 코드에 하드코딩하지 않고 설정 파일에서 조립되게 했습니다. 그런데도 설정 파일 안을 다시 읽지 않아 P4 같은 문제가 생겼으니, 분리해 두는 것만으로는 충분하지 않았습니다.
 
-[^chi]: Kamali et al., [*How to Distinguish AI-Generated Images from Authentic Photographs*](https://arxiv.org/abs/2502.11989) (CHI 2025). 응답자 50,444명에게서 얻은 댓글 34,675개를 분석해, 판별 이유를 적은 댓글의 61%가 해부학적 비현실성을 언급했다고 보고한다. 댓글 분류에 언어모델을 쓰고 연구진이 주제를 검토한 방법이며, 이 수치가 손이 가장 자주 언급된 단일 부위임을 증명하지는 않는다.
-[^api]: OpenAI, [Create image API reference](https://developers.openai.com/api/reference/resources/images/methods/generate). 요청 필드 목록. `seed`와 `negative_prompt`가 없고 `n`은 1~10이다. 크기와 품질 지원값은 [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation). 2026-07-26 조회.
+[^chi]: Kamali et al., [*How to Distinguish AI-Generated Images from Authentic Photographs*](https://arxiv.org/abs/2502.11989) (CHI 2025). 응답자 50,444명에게서 얻은 댓글 34,675개를 분석해, 판별 이유를 적은 댓글의 61%가 해부학적 비현실성을 언급했다고 보고함. 댓글 분류에 언어모델을 쓰고 연구진이 주제를 검토한 방법이며, 이 수치가 손이 가장 자주 언급된 단일 부위임을 증명하지는 않음.
+[^api]: OpenAI, [Create image API reference](https://developers.openai.com/api/reference/resources/images/methods/generate). 요청 필드 목록. `seed`와 `negative_prompt`가 없고 `n`은 1~10임. 크기와 품질 지원값은 [Image generation guide](https://developers.openai.com/api/docs/guides/image-generation). 2026-07-26 조회.
 [^cookbook]: OpenAI, [Image generation models prompting guide](https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide). `No glamorization, no heavy retouching`, `Do not add new elements or text` 등 자연어 제외 지시 예시. 2026-07-26 조회.

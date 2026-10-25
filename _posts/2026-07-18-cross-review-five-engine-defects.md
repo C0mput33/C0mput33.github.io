@@ -126,5 +126,5 @@ contest를 하나씩 뽑던 방식보다는 낫지만, 이것으로 모두 해�
 
 은퇴 판정 CI를 쌍-군집으로 바꾸는 작업은 test_schedule 재보정과 50프롬프트 full 검증이 필요해서 아직 남아 있습니다. 다음 7편에서는 2-2를 고친 뒤 신뢰구간을 다시 계산한 결과를 정리합니다.
 
-[^lexile]: Stenner et al., [The Lexile Framework for Reading Technical Report](https://metametricsinc.com/wp-content/uploads/2017/07/Stenner_Burdick_Sanford__Burdick-_The_LFR_Technical_Report.pdf) (MetaMetrics). 슬라이스 수에 따른 측정 표준오차. 짧은 텍스트일수록 Lexile 추정이 불안정하다는 공식 근거다.
-[^commit]: 엔진 수정 커밋 [`e5c4447`](https://github.com/C0mput33/little-bard/commit/e5c4447), 문서 정합 커밋 [`8a2cf2b`](https://github.com/C0mput33/little-bard/commit/8a2cf2b) (2026-07-15). 저장소가 비공개라 권한 있는 협업자만 diff를 확인할 수 있다.
+[^lexile]: Stenner et al., [The Lexile Framework for Reading Technical Report](https://metametricsinc.com/wp-content/uploads/2017/07/Stenner_Burdick_Sanford__Burdick-_The_LFR_Technical_Report.pdf) (MetaMetrics). 슬라이스 수에 따른 측정 표준오차. 짧은 텍스트일수록 Lexile 추정이 불안정하다는 공식 근거임.
+[^commit]: 엔진 수정 커밋 [`e5c4447`](https://github.com/C0mput33/little-bard/commit/e5c4447), 문서 정합 커밋 [`8a2cf2b`](https://github.com/C0mput33/little-bard/commit/8a2cf2b) (2026-07-15). 저장소가 비공개라 권한 있는 협업자만 diff를 확인할 수 있음.

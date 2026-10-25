@@ -15,11 +15,11 @@ AI 비서 봇은 일정 추가처럼 상태를 바꾸는 작업 전에 사용자
 
 아래에서는 로그로 원인을 좁힌 과정과 라우팅 수정, 그리고 배포 중 발견한 두 번째 실패까지 정리했습니다.
 
-## 1. 문제 상황
+## 1. 문제 상황: "네"라고 답하면 일정 대신 인사가 돌아옴
 
 먼저 대화가 유실됐을 가능성을 확인했는데요. 로그를 보니 직전 확인 요청은 정상적으로 저장돼 있었습니다. 문제는 분류 입력이었습니다. 라우터가 마지막 메시지인 "네"만 보고, 바로 앞의 확인 요청은 읽지 않았습니다.
 
-## 2. 원인 분석
+## 2. 원인 분석: 마지막 메시지 "네"만 보고 FAST_QA로 분류
 
 ### 2-1. 분류 로그 확인
 
@@ -39,7 +39,7 @@ AI 비서 봇은 일정 추가처럼 상태를 바꾸는 작업 전에 사용자
 
 이 봇은 캘린더 추가나 GitHub 이슈 생성처럼 상태를 바꾸는 작업 전에 사용자 확인을 받습니다.[^2] 이 확인 직후의 "네"는 하던 도구 실행을 이어가라는 뜻입니다. 따라서 바로 앞 메시지가 확인 요청이라면 이 "네"는 TOOL_TASK로 분류돼야 했습니다.
 
-## 3. 해결 방법
+## 3. 해결 방법: 직전 확인 요청 검사와 누락 도구 추가
 
 ### 3-1. 라우팅 전 직전 확인 요청 검사
 
@@ -124,6 +124,6 @@ IndentationError: unexpected indent (llm_client.py, line 303)
 
 ## 참고 자료
 
-[^1]: Context Engineering을 다룬 글로 Anthropic의 [Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)(2025.09)를 참고했다. 입력 텍스트만이 아니라 컨텍스트 윈도우 전체를 어떻게 관리하느냐가 에이전트 품질을 좌우한다는 내용이다.
+[^1]: Context Engineering을 다룬 글로 Anthropic의 [Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)(2025.09)를 참고함. 입력 텍스트만이 아니라 컨텍스트 윈도우 전체를 어떻게 관리하느냐가 에이전트 품질을 좌우한다는 내용임.
 
-[^2]: CONFIRM_TOOLS 패턴은 되돌릴 수 없는 작업(캘린더 추가, 이슈 생성 등)을 실행하기 전에 사용자 확인을 받는 설계다. Human-in-the-loop를 가볍게 줄인 형태로, [12-Factor Agents](https://github.com/humanlayer/12-factor-agents)에서 강조하는 원칙 중 하나다.
+[^2]: CONFIRM_TOOLS 패턴은 되돌릴 수 없는 작업(캘린더 추가, 이슈 생성 등)을 실행하기 전에 사용자 확인을 받는 설계임. Human-in-the-loop를 가볍게 줄인 형태로, [12-Factor Agents](https://github.com/humanlayer/12-factor-agents)에서 강조하는 원칙 중 하나임.

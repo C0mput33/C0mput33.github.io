@@ -129,8 +129,8 @@ CLIP-I는 범용 의미 표현 사이의 유사도라서 화풍, 색, 배경만 
 [^chosen]: Avrahami et al., [The Chosen One: Consistent Characters in Text-to-Image Diffusion Models](https://arxiv.org/abs/2311.10093), arXiv:2311.10093.
 [^1p1s]: [One-Prompt-One-Story: Free-Lunch Consistent Text-to-Image Generation Using a Single Prompt](https://proceedings.iclr.cc/paper_files/paper/2025/hash/3d681cc4487b97c08e5aa67224dd74f2-Abstract-Conference.html), ICLR 2025.
 [^oai]: OpenAI, [Image generation guide: Limitations](https://developers.openai.com/api/docs/guides/image-generation). 2026-07-26 조회.
-[^infinite]: [Infinite-Story](https://ojs.aaai.org/index.php/AAAI/article/download/37776/41738), AAAI 2026. ConsiStory+ 프로토콜 기준 비교표. 사람의 동일 캐릭터 판정을 직접 측정한 값은 아니다.
-[^storystate]: [StoryState](https://arxiv.org/html/2602.01305), arXiv 프리프린트. 명시적 상태를 제거하면 인접 페이지 CLIP 일관성이 0.83에서 0.78로, 편집당 변경 페이지가 1.6장에서 4.4장으로 바뀐다. 동료심사 전이며 내부 어텐션 제어 백엔드와 검수 에이전트가 함께 쓰인다.
+[^infinite]: [Infinite-Story](https://ojs.aaai.org/index.php/AAAI/article/download/37776/41738), AAAI 2026. ConsiStory+ 프로토콜 기준 비교표. 사람의 동일 캐릭터 판정을 직접 측정한 값은 아님.
+[^storystate]: [StoryState](https://arxiv.org/html/2602.01305), arXiv 프리프린트. 명시적 상태를 제거하면 인접 페이지 CLIP 일관성이 0.83에서 0.78로, 편집당 변경 페이지가 1.6장에서 4.4장으로 바뀜. 동료심사 전이며 내부 어텐션 제어 백엔드와 검수 에이전트가 함께 쓰임.
 [^mj]: Midjourney, [Omni Reference](https://docs.midjourney.com/hc/en-us/articles/36285124473997-Omni-Reference). 정교한 세부의 불일치 가능성 명시. 2026-07-26 조회.
 [^storymaker]: [StoryMaker: Towards Holistic Consistent Characters in Text-to-image Generation](https://arxiv.org/abs/2409.12576), arXiv:2409.12576.
 [^chara]: [CharaConsist: Fine-Grained Consistent Character Generation](https://openaccess.thecvf.com/content/ICCV2025/html/Wang_CharaConsist_Fine-Grained_Consistent_Character_Generation_ICCV_2025_paper.html), ICCV 2025.

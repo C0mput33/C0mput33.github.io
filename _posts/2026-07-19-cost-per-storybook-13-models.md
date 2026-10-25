@@ -79,10 +79,10 @@ glm-5.2는 반대였습니다. 지금 화면에 보이는 단가($0.279/$0.876)�
 
 다음에는 새 프롬프트로 모델당 10권을 실제로 생성해서 캐시 전후 차이와 25페이지 기준 권당 단가를 확정할 계획입니다. 그 숫자를 품질 점수 옆에 놓고, 합격선을 넘긴 모델 중 가장 싼 모델을 고르려고 합니다. 참고로 이 표의 최저가인 gemma-4-31b는 5편의 레거시 품질 순위에서 하위권이었습니다.
 
-[^ua]: OpenRouter Usage Accounting: 모든 응답의 `usage`에 토큰 수·`cached_tokens`·`cost`(계정에 실제 청구된 금액)가 포함됩니다. <https://openrouter.ai/docs/use-cases/usage-accounting> (2026-07-19 확인)
-[^ckpt]: 실측 아카이브: [little-bard 저장소](https://github.com/C0mput33/little-bard)의 `eval/runs/studio-20260714-live13-797p/`. 런 전체 규모는 5,070콜 · 입력 4,445,210/출력 3,583,365토큰 · $46.76(`run_meta.json`). 2026-07-20 현재 비공개 저장소라 권한이 필요합니다.
+[^ua]: OpenRouter Usage Accounting: 모든 응답의 `usage`에 토큰 수·`cached_tokens`·`cost`(계정에 실제 청구된 금액)가 포함됨. <https://openrouter.ai/docs/use-cases/usage-accounting> (2026-07-19 확인)
+[^ckpt]: 실측 아카이브: [little-bard 저장소](https://github.com/C0mput33/little-bard)의 `eval/runs/studio-20260714-live13-797p/`. 런 전체 규모는 5,070콜 · 입력 4,445,210/출력 3,583,365토큰 · $46.76(`run_meta.json`). 2026-07-20 현재 비공개 저장소라 권한이 필요함.
 [^models]: OpenRouter Models API(`GET /api/v1/models`)의 모델별 입력/출력/캐시 읽기 단가. 2026-07-19 07:25 UTC 접근, 스냅샷을 저장소에 동봉. 공급자별 단가 범위는 Endpoints API(`GET /api/v1/models/{slug}/endpoints`)로 확인.
-[^approx]: 근사 토크나이즈(문자수/4)는 검증용 재계산에만 사용했습니다. 본문 표의 1차 수치는 전부 실청구액입니다.
+[^approx]: 근사 토크나이즈(문자수/4)는 검증용 재계산에만 사용했음. 본문 표의 1차 수치는 전부 실청구액임.
 [^route]: OpenRouter Provider Routing: 기본값은 최근 30초 무장애 공급자 중 가격 역제곱 가중 로드밸런싱. <https://openrouter.ai/docs/guides/routing/provider-selection> (2026-07-19 확인)
 [^cacheO]: OpenAI Prompt Caching: 1,024토큰 이상 프롬프트에 자동 적용, 캐시 토큰은 할인 과금. <https://developers.openai.com/api/docs/guides/prompt-caching> (2026-07-19 확인)
 [^cacheA]: Anthropic Prompt Caching: `cache_control` 명시형. 최소 캐시 길이는 모델별로 다르며 Opus 4.8 = 1,024, Opus 4.7 = 2,048토큰. 캐시 읽기 = 기본 입력가의 0.1×, 쓰기 = 1.25×(5분 TTL). <https://platform.claude.com/docs/en/docs/build-with-claude/prompt-caching> (2026-07-19 확인)

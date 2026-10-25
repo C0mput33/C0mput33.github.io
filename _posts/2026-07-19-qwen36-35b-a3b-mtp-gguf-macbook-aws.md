@@ -80,7 +80,7 @@ GPU 메모리 구간별로 검토한 결과는 다음과 같습니다.
 _Hugging Face 모델 카드. MTP 헤드를 넣은 GGUF와 llama.cpp 사용법이 안내되어 있습니다(unsloth/Qwen3.6-35B-A3B-MTP-GGUF, 2026-07-19 캡처).[^hf]_
 
 [^official]: Qwen, [Qwen3.6-35B-A3B 공식 모델 카드](https://huggingface.co/Qwen/Qwen3.6-35B-A3B): 35B total, 3B activated, MTP multi-step training, Apache 2.0.
-[^reddit]: ByteShape가 게시한 r/LocalLLaMA, ["Qwen 3.6 35B GGUF: NTP vs MTP quantization results"](https://www.reddit.com/r/LocalLLaMA/comments/1tipihx/qwen_36_35b_gguf_ntp_vs_mtp_quantization_results/): 테스트 장비, 20~40% GPU 토큰 생성 가속 관측, CPU NTP 권장, MMLU 제외 이유를 공개했습니다. 공식 Qwen 자료가 아닌 배포자 자체 실험입니다.
-[^hf]: [unsloth/Qwen3.6-35B-A3B-MTP-GGUF](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-MTP-GGUF): 그림에 보이는 별도 커뮤니티 MTP GGUF 배포본입니다. Reddit 글의 ByteShape 파일과 같은 베이스 모델이지만 같은 양자화본은 아닙니다.
-[^mtpmodel]: ByteShape, [Qwen3.6-35B-A3B MTP GGUF 모델 카드](https://huggingface.co/byteshape/Qwen3.6-35B-A3B-MTP-GGUF): `draft-mtp` 실행 플래그, GPU 전용 최적화, 창의적 생성에서 가속이 작을 수 있다는 제한을 명시합니다.
-[^bpw]: 크기는 파라미터 수 × bpw(비트/가중치) ÷ 8의 근사값입니다(Q4_K_M ≈ 4.8bpw, Q6_K ≈ 6.6bpw, Q8_0 ≈ 8.5bpw). 임베딩과 메타데이터 때문에 실제 파일 크기와 수 GB 차이가 날 수 있으니 배포 페이지의 실제 파일 크기를 먼저 확인해야 합니다.
+[^reddit]: ByteShape가 게시한 r/LocalLLaMA, ["Qwen 3.6 35B GGUF: NTP vs MTP quantization results"](https://www.reddit.com/r/LocalLLaMA/comments/1tipihx/qwen_36_35b_gguf_ntp_vs_mtp_quantization_results/): 테스트 장비, 20~40% GPU 토큰 생성 가속 관측, CPU NTP 권장, MMLU 제외 이유를 공개했음. 공식 Qwen 자료가 아닌 배포자 자체 실험임.
+[^hf]: [unsloth/Qwen3.6-35B-A3B-MTP-GGUF](https://huggingface.co/unsloth/Qwen3.6-35B-A3B-MTP-GGUF): 그림에 보이는 별도 커뮤니티 MTP GGUF 배포본임. Reddit 글의 ByteShape 파일과 같은 베이스 모델이지만 같은 양자화본은 아님.
+[^mtpmodel]: ByteShape, [Qwen3.6-35B-A3B MTP GGUF 모델 카드](https://huggingface.co/byteshape/Qwen3.6-35B-A3B-MTP-GGUF): `draft-mtp` 실행 플래그, GPU 전용 최적화, 창의적 생성에서 가속이 작을 수 있다는 제한을 명시함.
+[^bpw]: 크기는 파라미터 수 × bpw(비트/가중치) ÷ 8의 근사값임(Q4_K_M ≈ 4.8bpw, Q6_K ≈ 6.6bpw, Q8_0 ≈ 8.5bpw). 임베딩과 메타데이터 때문에 실제 파일 크기와 수 GB 차이가 날 수 있으니 배포 페이지의 실제 파일 크기를 먼저 확인해야 함.

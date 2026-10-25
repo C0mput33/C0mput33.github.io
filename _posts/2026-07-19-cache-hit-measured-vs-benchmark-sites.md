@@ -16,7 +16,7 @@ tooltip_min_unique: 14
 > **캡처와 지금 화면이 다른 이유**
 > 이 글의 이미지 7장은 모두 2026-07-19에 저장한 스냅샷이며, 고정 단가표가 아닙니다. OpenRouter의 Effective Pricing은 최근 30일 롤링 평균이고, 같은 표의 Token share는 최근 1일 비중입니다. 공급자 라우팅 통계는 최근 5분 창으로 갱신됩니다. 모델 페이지의 성능 그래프는 선택한 기간(이 글의 캡처는 1주)을 보여 줍니다. Artificial Analysis의 첫 화면도 최근 72시간 측정의 중앙값입니다.[^orpricing][^orperf][^aa] 같은 URL을 오늘 열면 숫자와 공급자 순서가 달라져 있는 것이 정상입니다. 과거 이미지는 그때 본 증거로 두고, 2026-07-23에 다시 확인한 값은 아래 표에 따로 적었습니다.
 
-## 1. 측정 방법
+## 1. 측정 방법: 과금 기록과 5권 연속 생성
 
 측정 방법은 다음과 같습니다.
 
@@ -111,7 +111,7 @@ _2026-07-19 보관 스냅샷. GPT-5.2의 당시 가중 평균 입력은 $1.47/M�
 ![오픈라우터 Gemini 3.5 Flash Effective Pricing](/assets/img/posts/2026-07/or-gemflash-pricing.png)
 _2026-07-19 보관 스냅샷. Gemini 3.5 Flash의 당시 가중 평균 입력은 $0.598/M이고, Vertex와 AI Studio 행의 캐시힛은 66.5%, 68.6%였습니다. 정가와의 차이에는 캐시 외에도 공급자별 가격과 token share가 함께 들어갑니다. 원본 위치: [OpenRouter Gemini 3.5 Flash Pricing](https://openrouter.ai/google/gemini-3.5-flash/pricing)._
 
-### 4-2. 7월 23일 재확인 결과
+### 4-2. 7월 23일 재확인: 실효가와 캐시 히트율 변화
 
 같은 URL 세 개를 2026-07-23에 다시 열어보니 입력 가중 평균과 캐시 히트율이 모두 달라져 있었습니다. 7월 19일 캡처가 틀린 것은 아닙니다. 롤링 집계의 관측 창과 공급자별 트래픽 구성이 그사이 바뀌었습니다.
 
@@ -233,13 +233,13 @@ _2026-07-19 보관 스냅샷. Artificial Analysis의 Intelligence, Output Speed,
 
 남은 과제는 새 정책으로 품질을 다시 평가하는 일입니다. 두 글의 운영 지표와 레거시 품질을 합친 최종 결정표는 [10모델 공개 성능 지표 글의 마지막 섹션](/posts/openrouter-perf-metrics-10-models/#7-두-글을-함께-본-최종-판단)에 있습니다.
 
-[^ua]: OpenRouter Usage Accounting: 모든 응답의 `usage`에 토큰, `cached_tokens`, `cost`(실청구액)가 들어 있습니다. <https://openrouter.ai/docs/use-cases/usage-accounting> (2026-07-19 확인)
+[^ua]: OpenRouter Usage Accounting: 모든 응답의 `usage`에 토큰, `cached_tokens`, `cost`(실청구액)가 들어 있음. <https://openrouter.ai/docs/use-cases/usage-accounting> (2026-07-19 확인)
 [^cacheA]: Anthropic Prompt Caching: `cache_control` 명시형. 최소 캐시 길이 Opus 4.8 = 1,024 / Haiku 4.5 = 4,096토큰, 캐시 읽기 = 기본 입력가의 0.1×. <https://platform.claude.com/docs/en/build-with-claude/prompt-caching> (2026-07-22 재확인)
 [^cacheO]: OpenAI Prompt Caching: 1,024토큰 이상 프롬프트에 자동 적용. <https://developers.openai.com/api/docs/guides/prompt-caching> (2026-07-19 확인)
 [^cacheG]: Gemini Implicit Caching: 자동, 최소 토큰 3.5 Flash·3.1 Pro Preview = 4,096. <https://ai.google.dev/gemini-api/docs/caching> (2026-07-19 확인)
-[^repo]: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/analysis/cost-per-book/`: `measure_cost.py`, 원시 결과 `results_20260719T094911Z.json`, 리포트, 단가 스냅샷. 2026-07-20에 점검했을 때 저장소가 비공개라 권한 없는 방문자는 404를 받습니다.
-[^orpricing]: [OpenRouter Claude Opus 4.8 Pricing](https://openrouter.ai/anthropic/claude-opus-4.8/pricing)의 Effective Pricing 설명은 고객이 prompt caching 후 실제로 낸 가격의 과거 30일 롤링 평균이라고 밝힙니다. 공개 화면은 공급자별 Input/Output $/1M, Cache hit rate, `Token share (1d)`를 함께 보여 주지만 캐시 히트율의 정확한 분모와 가중 산식 전체는 설명하지 않습니다. 가격과 token share의 시간창이 서로 다르다는 점도 주의해야 합니다. 2026-07-23 재확인.
-[^sticky]: [OpenRouter Prompt Caching](https://openrouter.ai/docs/guides/best-practices/prompt-caching)은 계정·모델·대화 단위 sticky routing, `session_id`, 수동 `provider.order`와의 우선순위를 설명합니다. 2026-07-22 현재 문서라서 07-19 실측 당시의 내부 라우팅 동작까지 거슬러 증명하지는 않습니다.
-[^orperf]: [OpenRouter Provider Routing](https://openrouter.ai/docs/guides/routing/provider-selection)은 공급자별 latency·throughput percentile을 최근 5분 롤링 창으로 추적하고 p50·p75·p90·p99를 라우팅 조건에 쓸 수 있다고 설명합니다. [Provider Integration](https://openrouter.ai/docs/guides/community/for-providers)은 throughput을 `output tokens ÷ generation time`으로 정의합니다. Performance 화면은 Latency를 round-trip이라고 쓰지만 [FAQ](https://openrouter.ai/docs/faq)는 모델 페이지 latency를 TTFT라고 설명해서 정의가 서로 맞지 않습니다. 2026-07-23 확인.
-[^aa]: [Artificial Analysis Models](https://artificialanalysis.ai/models)와 [Performance Benchmarking Methodology](https://artificialanalysis.ai/methodology/performance-benchmarking) (2026-07-23 재확인). 기본 10K 입력 workload를 하루 8회 측정하고 최근 72시간 p50을 표시합니다. Output Speed는 첫 토큰 뒤의 생성 속도, TTFT는 요청부터 첫 토큰까지입니다. OpenRouter와 다른 사업자의 측정이라 교차 참고에는 쓸 만하지만 우리 25페이지 프롬프트를 재현한 실험은 아닙니다.
-[^lead]: 품질 점수는 2026-07-14 라이브 실측(13모델·797쌍)의 레거시 BT 리더보드(`run_meta.json`)입니다. 구형 생성·심판 정책과 파싱·의존성 한계가 있어 탐색 자료로만 씁니다. 자세한 내용은 [4편](/posts/46-dollar-frontier-live-eval-13-models/)에 있습니다.
+[^repo]: [little-bard 저장소](https://github.com/C0mput33/little-bard) `eval/analysis/cost-per-book/`: `measure_cost.py`, 원시 결과 `results_20260719T094911Z.json`, 리포트, 단가 스냅샷. 2026-07-20에 점검했을 때 저장소가 비공개라 권한 없는 방문자는 404를 받음.
+[^orpricing]: [OpenRouter Claude Opus 4.8 Pricing](https://openrouter.ai/anthropic/claude-opus-4.8/pricing)의 Effective Pricing 설명은 고객이 prompt caching 후 실제로 낸 가격의 과거 30일 롤링 평균이라고 밝힘. 공개 화면은 공급자별 Input/Output $/1M, Cache hit rate, `Token share (1d)`를 함께 보여 주지만 캐시 히트율의 정확한 분모와 가중 산식 전체는 설명하지 않음. 가격과 token share의 시간창이 서로 다르다는 점도 주의해야 함. 2026-07-23 재확인.
+[^sticky]: [OpenRouter Prompt Caching](https://openrouter.ai/docs/guides/best-practices/prompt-caching)은 계정·모델·대화 단위 sticky routing, `session_id`, 수동 `provider.order`와의 우선순위를 설명함. 2026-07-22 현재 문서라서 07-19 실측 당시의 내부 라우팅 동작까지 거슬러 증명하지는 않음.
+[^orperf]: [OpenRouter Provider Routing](https://openrouter.ai/docs/guides/routing/provider-selection)은 공급자별 latency·throughput percentile을 최근 5분 롤링 창으로 추적하고 p50·p75·p90·p99를 라우팅 조건에 쓸 수 있다고 설명함. [Provider Integration](https://openrouter.ai/docs/guides/community/for-providers)은 throughput을 `output tokens ÷ generation time`으로 정의함. Performance 화면은 Latency를 round-trip이라고 쓰지만 [FAQ](https://openrouter.ai/docs/faq)는 모델 페이지 latency를 TTFT라고 설명해서 정의가 서로 맞지 않음. 2026-07-23 확인.
+[^aa]: [Artificial Analysis Models](https://artificialanalysis.ai/models)와 [Performance Benchmarking Methodology](https://artificialanalysis.ai/methodology/performance-benchmarking) (2026-07-23 재확인). 기본 10K 입력 workload를 하루 8회 측정하고 최근 72시간 p50을 표시함. Output Speed는 첫 토큰 뒤의 생성 속도, TTFT는 요청부터 첫 토큰까지임. OpenRouter와 다른 사업자의 측정이라 교차 참고에는 쓸 만하지만 우리 25페이지 프롬프트를 재현한 실험은 아님.
+[^lead]: 품질 점수는 2026-07-14 라이브 실측(13모델·797쌍)의 레거시 BT 리더보드(`run_meta.json`)임. 구형 생성·심판 정책과 파싱·의존성 한계가 있어 탐색 자료로만 씀. 자세한 내용은 [4편](/posts/46-dollar-frontier-live-eval-13-models/)에 있음.

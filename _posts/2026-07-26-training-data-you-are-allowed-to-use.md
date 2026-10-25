@@ -161,7 +161,7 @@ DSM 지침 제4조는 합법적으로 접근할 수 있는 저작물에 텍스�
 [^flux-nc]: Black Forest Labs, [FLUX Non-Commercial License](https://bfl.ai/legal/non-commercial-license-terms).
 [^sd35-lic]: Stability AI, [Stable Diffusion 3.5 Community License](https://huggingface.co/stabilityai/stable-diffusion-3.5-large/blob/main/LICENSE.md).
 [^domaingallery]: [DomainGallery: Few-shot Domain-driven Image Generation by Attribute-centric Finetuning](https://arxiv.org/pdf/2411.04571), arXiv:2411.04571. 10-shot 데이터셋 사용.
-[^lorahp]: [Kohya LoRA Training Settings Explained](https://www.propelrc.com/kohya-lora-training-settings-explained/). 실무 가이드이며 통제 실험값이 아니다.
+[^lorahp]: [Kohya LoRA Training Settings Explained](https://www.propelrc.com/kohya-lora-training-settings-explained/). 실무 가이드이며 통제 실험값은 아님.
 [^adobe-train]: Adobe, [Train custom subject models](https://helpx.adobe.com/ph_en/firefly/work-with-enterprise-features/train-custom-models/train-custom-subject-models.html).
 [^multitoken]: Pascual, Sesma-Sara, Jurio, Paternain, Galar (2025), [Few-shot multi-token DreamBooth with LoRa for style-consistent character generation](https://arxiv.org/abs/2510.09475), arXiv:2510.09475.
 [^fewshot]: 같은 논문의 방법 비교 절. LoRA의 정체성 보존과 텍스트 정합성 트레이드오프.
@@ -170,9 +170,9 @@ DSM 지침 제4조는 합법적으로 접근할 수 있는 저작물에 텍스�
 [^collapse-mem]: [A Closer Look at Model Collapse: From a Generalization-to-Memorization Perspective](https://arxiv.org/html/2509.16499v1), arXiv:2509.16499.
 [^dsm]: [Directive (EU) 2019/790](https://eur-lex.europa.eu/eli/dir/2019/790/oj?locale=en), Article 4.
 [^aiact]: [Regulation (EU) 2024/1689 (AI Act)](https://eur-lex.europa.eu/eli/reg/2024/1689/oj?locale=en), Article 53.
-[^olg]: OLG Hamburg, 2025-12-10, 5 U 104/24, [판결문 PDF](https://www.itm.nrw/wp-content/uploads/2025/12/5-u-104-24.pdf). 독일 항소심 판결이며 EU 전체를 구속하지 않는다.
+[^olg]: OLG Hamburg, 2025-12-10, 5 U 104/24, [판결문 PDF](https://www.itm.nrw/wp-content/uploads/2025/12/5-u-104-24.pdf). 독일 항소심 판결이며 EU 전체를 구속하지 않음.
 [^kr-law]: [저작권법](https://www.law.go.kr/LSW/lsInfoP.do?lsId=000798&urlMode=lsInfoP). 2026-05-11 시행 기준으로 확인.
 [^kr-35-5]: [저작권법 제35조의5](https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1029423587).
 [^kcc-2023]: 한국저작권위원회, [생성형 AI 저작권 안내서](https://www.copyright.or.kr/information-materials/publication/research-report/view.do?brdctsno=52591) (2023-12).
 [^kcc-2026]: 한국저작권위원회, [생성형 인공지능의 저작물 학습에 대한 저작권법상 공정이용 안내서](https://www.copyright.or.kr/notify/notice/view.do?brdctsno=55214) (2026-02-26).
-[^bartz]: Bartz v. Anthropic, N.D. Cal., 2025-06-23, [Order on Fair Use](https://storage.courtlistener.com/recap/gov.uscourts.cand.434709/gov.uscourts.cand.434709.231.0_3.pdf). 언어모델과 도서 사건이다.
+[^bartz]: Bartz v. Anthropic, N.D. Cal., 2025-06-23, [Order on Fair Use](https://storage.courtlistener.com/recap/gov.uscourts.cand.434709/gov.uscourts.cand.434709.231.0_3.pdf). 언어모델과 도서 사건.
