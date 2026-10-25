@@ -68,7 +68,7 @@ class PortfolioChecks(unittest.TestCase):
             self.assertNotIn(sensitive_fragment, self.source)
 
     def test_training_and_serving_scopes(self):
-        for required in ("과학기술정보통신부", "연수생", "수료 예정", "MLX API 서빙", "QLoRA"):
+        for required in ("과학기술정보통신부", "연수생", "2026. 04 - 2026. 11", "MLX API 서빙", "QLoRA"):
             self.assertIn(required, self.text)
         self.assertNotIn("과학기술정보통신부 소속", self.text)
         self.assertNotIn("vLLM 운영 완료", self.text)
@@ -88,8 +88,9 @@ class PortfolioChecks(unittest.TestCase):
 
     def test_intro_and_evaluation_purpose(self):
         intro = self.source.split('class="intro-text">', 1)[1].split("</p>", 1)[0]
-        for required in ("LLM-as-a-Judge", "Qwen3.6 학습 실험", "MLX API 서빙", "RAG 기반 검색"):
-            self.assertIn(required, intro)
+        self.assertIn("AI 서비스와 백엔드", intro)
+        for overclaim in ("vLLM", "파인튜닝 완료", "수료했습니다"):
+            self.assertNotIn(overclaim, intro)
         evaluation = self.source.split('id="eval-heading"', 1)[1].split("</section>", 1)[0]
         for required in ("난이도", "평가 기준", "파인튜닝", "튜닝 전후", "같은 조건"):
             self.assertIn(required, evaluation)
