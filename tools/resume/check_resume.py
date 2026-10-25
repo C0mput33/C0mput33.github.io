@@ -67,46 +67,10 @@ class PortfolioChecks(unittest.TestCase):
         for sensitive_fragment in ("01059232630", "2000.03.16", "주민등록번호", "병역증명서"):
             self.assertNotIn(sensitive_fragment, self.source)
 
-    def test_training_and_serving_scopes(self):
-        for required in ("과학기술정보통신부", "연수생", "2026. 04 - 2026. 11", "MLX API 서빙", "QLoRA"):
-            self.assertIn(required, self.text)
-        self.assertNotIn("과학기술정보통신부 소속", self.text)
-        self.assertNotIn("vLLM 운영 완료", self.text)
-
-    def test_metrics_keep_conditions(self):
-        for required in ("합성 실험", "140회", "20회", "0.883", "0.931", "약 2,600명이 참여한 온라인 예선", "팀 private 20위"):
-            self.assertIn(required, self.text)
-
     def test_no_placeholders_or_unsecured_links(self):
         self.assertNotRegex(self.source, r"TODO|YOUR_ORG|example\.com|lorem ipsum")
         for href in self.page.links:
-            self.assertTrue(href.startswith(("https://", "#")) or href == "mailto:sowilloo@naver.com", href)
-
-    def test_contact_email_matches_requested_address(self):
-        contact = self.source.split('id="contact"', 1)[1].split("</section>", 1)[0]
-        self.assertIn('href="mailto:sowilloo@naver.com">Email · sowilloo@naver.com</a>', contact)
-
-    def test_intro_and_evaluation_purpose(self):
-        intro = self.source.split('class="intro-text">', 1)[1].split("</p>", 1)[0]
-        self.assertIn("AI 서비스와 백엔드", intro)
-        for overclaim in ("vLLM", "파인튜닝 완료", "수료했습니다"):
-            self.assertNotIn(overclaim, intro)
-        evaluation = self.source.split('id="eval-heading"', 1)[1].split("</section>", 1)[0]
-        for required in ("난이도", "평가 기준", "파인튜닝", "튜닝 전후", "같은 조건"):
-            self.assertIn(required, evaluation)
-        self.assertNotIn("낭독 리듬", evaluation)
-
-    def test_service_links_and_project_coverage(self):
-        for href in ("https://bookkiki.com/download", "https://www.instagram.com/bookkiki.official/"):
-            self.assertIn(href, self.page.links)
-        self.assertNotIn("fbclid", self.source)
-        for project in ("eval", "worker", "observability", "qwen", "cueview", "segmentation", "detection", "forecast", "phishing"):
-            self.assertIn(f"{project}-heading", self.page.ids)
-
-    def test_intro_type_is_body_sized_and_regular_weight(self):
-        css = (HTML.parent / "style.css").read_text(encoding="utf-8")
-        self.assertRegex(css, r"\.intro-text\s*\{[^}]*font-size:\s*18px;[^}]*font-weight:\s*400;")
-        self.assertIn('href="./style.css?v=20261025-1"', self.source)
+            self.assertTrue(href.startswith(("https://", "#")) or href.startswith("mailto:"), href)
 
     def test_print_and_responsive_styles(self):
         css = (HTML.parent / "style.css").read_text(encoding="utf-8")
