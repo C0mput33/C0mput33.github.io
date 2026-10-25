@@ -136,6 +136,45 @@
             <p class="stack">Python, Qwen3.6, MLX, QLoRA, SFT, API Serving, 4-bit Quantization</p>
             <p class="detail-link"><a href="https://c0mput33.github.io/posts/qwen36-35b-a3b-mtp-gguf-macbook-aws/">로컬 검증과 서빙 검토 기록 보기</a></p>
           </section>
+          
+          <section class="project-detail" aria-labelledby="onboarding-heading">
+          <h4 id="onboarding-heading">사용자 이탈 분석과 동화 생성 경로 개선<span class="point">.</span></h4>
+          <h5>Description.</h5>
+          <p>
+            앱의 동화 생성 과정을 GA4로 분석해 인터뷰 단계에서
+            사용자가 많이 이탈하는 것을 확인했습니다.
+            첫 동화를 만들기 전에 여러 질문에 답해야 하는 부담을 줄이기 위해,
+            인터뷰를 거치지 않고도 생성할 수 있는 경로를 추가했습니다.
+          </p>
+        
+          <h5>What did I do.</h5>
+          <ul>
+            <li>
+              앱에 GA4를 연결하고 인터뷰 시작·완료, 동화 생성 요청·완료
+              이벤트를 구성했습니다. 단계별 진행률을 비교해
+              사용자가 인터뷰 과정에서 많이 중단하는 것을 확인했습니다.
+            </li>
+            <li>
+              주제와 교훈이 있는 고전에 아이를 주인공으로 반영하는
+              생성 경로를 추가했습니다. 긴 인터뷰 없이도
+              개인화된 동화를 먼저 경험할 수 있도록 구성했습니다.
+            </li>
+            <li>
+              일기 사진을 입력하면 그 내용을 바탕으로 동화를 만드는
+              경로를 추가했습니다. 이미 기록한 경험을 질문마다
+              다시 설명하지 않아도 생성할 수 있도록 했습니다.
+            </li>
+            <li>
+              업데이트 전후에 모든 생성 경로를 포함한
+              동화 생성 진입 대비 완성률을 비교했습니다.
+              새로운 경로를 추가한 뒤 동화를 완성하기 전에
+              중단하는 사용자의 비율이 낮아지는 것을 확인했습니다.
+            </li>
+          </ul>
+        
+          <h5>Tech Stack.</h5>
+          <p class="stack">GA4, 이벤트 설계, 퍼널 분석</p>
+        </section>
         </div>
       </article>
 
