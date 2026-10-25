@@ -62,7 +62,7 @@
               <li>A/B·B/A 순서를 모두 평가하고 후보와 같은 계열의 심판은 해당 비교에서 제외했습니다. 여러 계열 심판의 판정을 모아 한 심판의 선호가 순위를 결정하지 않도록 구성했습니다.</li>
               <li>13개 모델의 모든 조합을 50개 주제에서 비교하면 3,900쌍이 필요했습니다. 복수 심판과 A/B 순서 교환까지 적용하면 호출이 더 늘어나 비교 대상을 줄이는 Swiss·희소 그래프·순차 제거 방식을 검토했습니다.</li>
               <li>5권 단위로 점수와 신뢰구간을 갱신하고 두 배치 연속 열세가 확인된 후보만 후속 비교에서 제외하는 <strong>retire2</strong>를 도입했습니다. 한 번의 판정으로 즉시 제외하는 방식보다 조기 탈락에 신중한 규칙을 택했습니다.</li>
-              <li>동일 예산 140회·20회 반복의 합성 실험에서 Spearman 순위 상관계수는 전수 비교 <strong>0.883</strong>, retire2 <strong>0.931</strong>이었습니다. 기준 순위와 얼마나 비슷한지 나타내는 지표로, 더 높은 retire2를 도입했습니다. 후보 13개가 4개로 줄어든 구간의 비교량은 주제당 78쌍에서 6쌍이 됩니다.</li>
+              <li>동일 예산 140회·20회 반복의 합성 실험에서 Spearman 순위 상관계수는 전수 비교 <strong>0.883</strong>, retire2 <strong>0.931</strong>이었습니다. 기준 순위와의 일치도가 더 높은 retire2를 도입했습니다. 후보 13개가 4개로 줄어든 구간의 비교량은 주제당 78쌍에서 6쌍이 됩니다.</li>
             </ul>
             <p class="scope-note">retire2는 후보 선별에 사용하고, 최종 우열은 새 주제의 전수 비교로 확인하도록 구분했습니다.</p>
             <h5>Tech Stack.</h5>
@@ -96,7 +96,7 @@
               <li>프롬프트만으로 화풍과 질감을 유지하기 어려워 권리 관계를 확인한 퍼블릭 도메인 옛 삽화를 화풍 레퍼런스로 활용했습니다. 선·색감·종이 질감·여백을 참고하고 검수한 생성 이미지를 다음 장면의 레퍼런스로 사용했습니다.</li>
               <li>앞표지를 참조해 본문·뒤표지를 병렬 생성하는 흐름과 Redis Streams·gRPC·S3 기반 작업 처리를 연결했습니다. 호출 제한, 재처리, 성공한 이미지의 재사용을 고려했습니다.</li>
               <li>처리 중인 작업의 점유 기한(lease)이 만료되면 같은 책의 작업이 다시 발행되고 먼저 실행한 결과가 STALE로 폐기됐습니다. 삽화 작업에 <strong>lease 연장 RPC</strong>를 추가해 처리 도중 점유 기한을 갱신했습니다.</li>
-              <li>현재 job·attempt·선점자를 확인해 재선점된 작업의 연장을 거절했습니다. 현재 작업 연장, 재선점 후 거절, 이전 attempt, 다른 job, 종결된 동화, 없는 동화의 <strong>6개 사례</strong>를 테스트했습니다.</li>
+              <li>점유 기한이 지나 다른 Worker가 같은 작업을 다시 가져간 뒤에는 먼저 일하던 Worker가 기한을 늘리거나 결과를 덮어쓰면 안 됩니다. 그래서 연장 요청마다 작업 번호, 시도 차수, 점유한 Worker가 지금 기록과 같은지 확인하고 다르면 거절했습니다. 정상 연장, 다른 Worker가 가져간 뒤의 요청, 지난 시도의 요청, 다른 작업의 요청, 이미 끝난 동화, 없는 동화의 <strong>6가지 경우</strong>를 테스트로 확인했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
             <p class="stack">Java, Spring, Python, Redis Streams, gRPC, AWS S3</p>
@@ -106,11 +106,11 @@
           <section class="project-detail" aria-labelledby="observability-heading">
             <h4 id="observability-heading">Langfuse 관측과 프롬프트 관리<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>Langfuse에 호출 추적 기록(trace)은 남았지만 토큰 사용량은 0으로 표시되고 호출 시간도 실제 실행과 달랐습니다. 모델 호출별 사용량과 실행 시각을 기록해 비용·지연·실패 원인을 추적하도록 수정했습니다.</p>
+            <p>동화 한 권을 만들 때 인터뷰, 원고, 검수, 삽화로 모델 호출이 여러 번 이어져 어느 단계에서 비용과 시간이 드는지, 프롬프트를 바꾼 뒤 품질이 나아졌는지 확인하기 어려웠습니다. 호출 추적과 프롬프트 버전 관리를 함께 쓰려고 Langfuse를 도입했지만, 처음에는 trace만 남고 토큰 사용량이 0으로 표시되며 호출 시간도 실제 실행과 달라 비용과 지연을 믿을 수 없었습니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>모델 호출별 usage와 실제 시작·종료 시각, 성공·실패 상태를 기록했습니다. 누락됐던 검수 호출을 포함하고 실행 환경과 배포 버전을 연결했습니다.</li>
-              <li>인터뷰와 동화 생성 호출을 가명 세션으로 묶고 실행한 프롬프트 이름·버전과 검수 점수를 연결해 버전별 품질·비용을 비교할 수 있도록 구성했습니다.</li>
+              <li>모델 호출마다 usage와 실제 시작·종료 시각, 성공·실패 상태를 기록하고 빠져 있던 검수 호출을 추적에 넣었습니다. 실행 환경과 배포 버전도 연결해 단계별 비용, 지연, 실패 원인을 trace에서 찾을 수 있게 했습니다.</li>
+              <li>인터뷰부터 삽화까지 한 권의 호출을 가명 세션으로 묶고, 실행한 프롬프트 이름·버전과 검수 점수를 연결했습니다. 프롬프트를 바꾸면 버전별 품질과 비용을 비교해 변경을 판단하는 데 썼습니다.</li>
               <li>원문과 실제 식별자 대신 HMAC 가명 ID를 사용했습니다. 프롬프트 조회 장애에는 코드 fallback과 캐시를 사용해 관측·관리 도구의 장애가 생성 실패로 이어지지 않도록 처리했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
@@ -147,14 +147,14 @@
         <div class="experience-body">
           <section class="project-detail first-detail" aria-labelledby="cueview-heading">
             <h4 id="cueview-heading">CueView<span class="point">.</span></h4>
-            <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-finalproject-cv-08">GitHub</a><a href="https://youtu.be/CJLZBBqw63A">Demo</a></p>
+            <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-finalproject-cv-08">GitHub</a><a href="https://youtu.be/CJLZBBqw63A">Demo</a><a href="https://app.notion.com/p/CV-08-CueView-302f11752bf1816b86ced442e1bb79e5">Notion</a></p>
             <h5>Description.</h5>
-            <p>발표 음성과 관련된 슬라이드 요소를 실시간으로 강조하고 발표 대본을 생성하는 부스트캠프 최종 프로젝트입니다. 슬라이드 정보를 검색해 활용하는 RAG 시스템과 음성 처리에 연결되는 실시간 백엔드를 맡았습니다.</p>
+            <p>발표 음성과 관련된 슬라이드 요소를 실시간으로 강조하고 발표 대본을 생성하는 프로젝트입니다. 슬라이드 정보를 검색해 활용하는 RAG 시스템과 음성 처리에 연결되는 실시간 백엔드를 맡았습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>슬라이드에서 추출한 텍스트·설명·키워드·좌표를 검색 데이터로 구성했습니다. 표현을 바꿔 말하는 발화는 BGE-M3 의미 검색으로, 고유명사·숫자는 BM25 키워드 검색으로 보완했습니다.</li>
               <li>서로 다른 검색 점수를 직접 더하는 대신 <strong>RRF로 순위를 결합</strong>했습니다. 현재 슬라이드로 검색 범위를 제한하고 직전 선택과 페이지 상태를 함께 관리했습니다.</li>
-              <li>검색 모델을 비교할 때 Qwen3-Embedding은 약 두 배 빨랐지만 Recall@1은 <strong>0.4313</strong>으로 BGE-M3의 <strong>0.4500</strong>보다 낮았습니다. 첫 번째 검색 결과가 정답인 비율을 기준으로, 화면에 바로 표시할 결과의 정확도가 높은 BGE-M3를 선택했습니다.</li>
+              <li>검색 모델을 비교할 때 Qwen3-Embedding은 약 두 배 빨랐지만 Recall@1은 <strong>0.4313</strong>으로 BGE-M3의 <strong>0.4500</strong>보다 낮았습니다. 화면에 바로 표시할 첫 결과의 정확도를 우선해 BGE-M3를 선택했습니다.</li>
               <li>짧은 중간 발화마다 강조 위치가 바뀌는 문제에 발화 누적·시간·문장 종결 조건을 적용했습니다. 연결별 음성 버퍼와 현재 페이지를 분리해 사용자 간 상태가 섞이지 않도록 했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
@@ -170,7 +170,7 @@
             <ul>
               <li>분할이 잘되지 않는 손가락 사례를 모아 학습·테스트 데이터의 회전 분포를 비교했습니다. 10° 이상 기울어진 영상 비율이 학습 <strong>11.875%</strong>, 테스트 <strong>57.639%</strong>로 달랐습니다.</li>
               <li>학습 데이터에 부족했던 회전 각도를 이미지 회전 증강으로 보완했습니다. 같은 사람의 영상이 학습·검증에 동시에 들어가지 않도록 person_id로 데이터를 나눠 검증 과정의 데이터 누수를 방지했습니다.</li>
-              <li>증강·앙상블 실험에 참여했으며 최종 <strong>팀 앙상블 private 점수 0.9767</strong>을 기록했습니다. 비공개 테스트에서 예측 영역과 정답 영역의 일치도를 측정한 Dice 점수로, 1에 가까울수록 좋습니다.</li>
+              <li>증강·앙상블 실험에 참여했으며 팀 앙상블 private Dice <strong>0.9767</strong>로 <strong>최종 팀 3위</strong>를 기록했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
             <p class="stack">Python, PyTorch, OpenCV, Albumentations, GroupKFold, WandB</p>
@@ -204,7 +204,7 @@
             <h4 id="forecast-heading">식음업장 메뉴 수요 예측<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/C0mput33/LG-Aimers-hackathon">GitHub</a></p>
             <h5>Description.</h5>
-            <p>LG Aimers 7기 AI 해커톤에서 리조트 식음업장의 최근 28일 판매량으로 다음 7일의 메뉴별 판매량을 예측했습니다. 약 2,600명이 참여한 온라인 예선에서 <strong>팀 private 20위</strong>를 기록하고 오프라인 본선에 진출했습니다. 순위는 예선의 비공개 테스트 데이터 평가 결과입니다.</p>
+            <p>LG Aimers 7기 AI 해커톤에 팀장으로 참여해 리조트 식음업장의 최근 28일 판매량으로 다음 7일의 메뉴별 판매량을 예측했습니다. 메뉴마다 판매 패턴이 달라 모든 메뉴에 같은 모델을 쓰면 드물게 팔리는 메뉴는 과대예측되고 변동이 큰 메뉴는 특정 판매일에 과하게 반응했습니다. 그래서 메뉴를 판매 패턴별로 나눠 다르게 보정하는 데 집중했고, 약 2,600명이 참여한 온라인 예선에서 <strong>팀 private 20위</strong>를 기록해 오프라인 본선에 진출했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>0 판매 비율, 요일별 중앙값, Fano·Gini로 판매 빈도와 변동·집중도를 분석해 희소·요일형·고변동 메뉴로 구분했습니다. 같은 모델을 적용할 때 발생하는 희소 메뉴의 과대예측과 고변동 메뉴의 급등 예측을 따로 다뤘습니다.</li>
@@ -229,7 +229,7 @@
             <h4 id="phishing-heading">Phishing URL Detector<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/C0mput33/whs-phishing-detector">GitHub</a></p>
             <h5>Description.</h5>
-            <p>URL의 특징을 분석해 정상 사이트와 피싱 사이트를 분류하는 팀 프로젝트입니다. 데이터 수집·전처리와 모델링을 담당했습니다.</p>
+            <p>URL의 특징을 분석해 정상 사이트와 피싱 사이트를 분류하는 팀 프로젝트입니다. 피싱 주소는 정상 도메인과 비슷하게 만들어지고 자주 바뀌어 차단 목록만으로는 새 주소를 잡기 어려웠습니다. 그래서 URL의 구조와 문자열 패턴만으로 판별하는 모델을 만들었고, 데이터 수집·전처리와 모델링을 담당했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
               <li>정상·피싱 URL 데이터를 수집하고, 길이·리디렉션·도메인·링크 등의 특징을 추출했습니다.</li>
@@ -275,6 +275,7 @@
           <li>Qwen3.6의 4비트 추론과 Mac·MLX API 서빙을 검증했으며, QLoRA 학습을 실험했습니다.</li>
           <li>BGE-M3·BM25 하이브리드 검색을 RRF로 결합한 RAG 시스템을 구현하고, Recall@1로 검색 모델을 비교했습니다.</li>
           <li>Python·pandas로 데이터 전처리와 피처 설계를 수행했습니다. PyTorch·OpenCV 기반 컴퓨터 비전 실험과 CatBoost·LightGBM·XGBoost 앙상블 경험이 있습니다.</li>
+          <li>Claude Code와 Codex를 개발 에이전트로 쓰면서 서브에이전트 정의, 스킬, 교차 리뷰, 작업 규칙 기억을 구성해 콘텐츠 제작과 PR 리뷰·배포 확인을 반복 가능한 절차로 운영했습니다. MCP로 브라우저, Jira, 터미널 도구를 연결했고, 같은 실수가 반복되면 검수를 늘리기보다 지시와 규칙을 고치는 방식으로 하네스를 다듬었습니다.</li>
           <li>GA4 이벤트(섹션 도달, 스토어 클릭, 인앱 브라우저 구분)를 설계하고, 수집 오류(가짜 세션, 유입 경로 덮어쓰기)를 고쳤습니다. 수정한 데이터로 스토어 클릭이 대부분 첫 화면 버튼에서 나온다는 것을 확인하고, 섹션 순서를 바꾼 전후의 하단 도달률과 클릭을 비교했습니다.</li>
         </ul>
       </div>
