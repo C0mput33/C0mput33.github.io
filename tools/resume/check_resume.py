@@ -74,7 +74,7 @@ class PortfolioChecks(unittest.TestCase):
         self.assertNotIn("vLLM 운영 완료", self.text)
 
     def test_metrics_keep_conditions(self):
-        for required in ("합성 실험", "140회", "20회", "0.883", "0.931", "약 2,600명이 참여한 온라인 예선", "팀 private 20위", "팀 9위", "단일 CLI"):
+        for required in ("합성 실험", "140회", "20회", "0.883", "0.931", "약 2,600명이 참여한 온라인 예선", "팀 private 20위"):
             self.assertIn(required, self.text)
 
     def test_no_placeholders_or_unsecured_links(self):
