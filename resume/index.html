@@ -70,6 +70,23 @@
             <p class="detail-link"><a href="https://c0mput33.github.io/posts/llm-eval-scheduler-retire2-successive-elimination/">대안 비교와 실험 조건 보기</a></p>
           </section>
 
+          <section class="project-detail" aria-labelledby="content-heading">
+            <h4 id="content-heading">생성형 콘텐츠 제작과 광고 운영<span class="point">.</span></h4>
+            <p class="project-links"><a href="https://www.instagram.com/bookkiki.official/">Instagram</a><a href="https://www.threads.com/@bookkiki.official">Threads</a></p>
+            <h5>Description.</h5>
+            <p>북끼끼 공식 SNS 채널(Instagram, Threads, YouTube Shorts)의 콘텐츠 기획, 제작, 검수, 게시와 광고 운영을 맡았습니다. 앱으로 만든 실제 동화책과 앱 화면을 소재로 영상을 만들고, 광고 성과를 소재 유형별로 비교해 다음 제작 기준에 반영했습니다.</p>
+            <h5>What did I do.</h5>
+            <ul>
+              <li>대본을 입력하면 음성 생성, STT 대조, HTML 장면 렌더링, FFmpeg 합성까지 이어지는 제작 파이프라인을 구성했습니다. 생성한 음성을 STT로 다시 받아 대본과의 문자 오류율을 계산하고, 오류가 적은 테이크를 골랐습니다.</li>
+              <li>아이가 고전 속 주인공을 어른처럼 평가하는 독백형, 마스코트 키키가 채널 직원처럼 말하는 캐릭터형 등 반복할 수 있는 영상 형식을 정했습니다. AI 에이전트가 제작과 게시를 수행하고 제가 기준을 정해 검수했으며, 반복된 지적은 금지 문구 검사와 생성 규칙에 넣어 처음 생성할 때부터 같은 문제가 나오지 않게 했습니다.</li>
+              <li>10월 15일부터 소재를 아이의 생활 장면과 그때 쓰는 영어 한마디 형식으로 바꾸고 소액으로 여러 소재를 시험했습니다. 광고 45개의 프로필 방문당 비용은 이 형식이 <strong>$0.113</strong>, 나머지가 <strong>$0.388</strong>이었고, 집행 시작일 기준 평균은 $0.481(10.09~10.14)에서 <strong>$0.155</strong>(10.15~10.21)로 낮아졌습니다. 가장 낮았던 소재는 방문당 약 $0.07이었습니다.</li>
+              <li>첫 광고 집행 후 2주 만에 Instagram 팔로워가 700명을 넘었고, 홍보한 릴스 중 조회수가 높았던 영상은 1.2만 회와 9,745회였습니다.</li>
+            </ul>
+            <p class="scope-note">무작위 배정 실험이 아닌 관찰 비교입니다. 비용, 방문, 팔로우는 Meta 광고 관리자 집계이며 팔로워 700명에는 광고로 유입된 팔로우 300명이 포함됩니다. 방문 1,297건에 팔로우 0건이었던 이상치 1건은 평균에서 제외했습니다.</p>
+            <h5>Tech Stack.</h5>
+            <p class="stack">Python, ElevenLabs TTS·STT, HTML, Playwright, FFmpeg, Meta Ads, GA4</p>
+          </section>
+
           <section class="project-detail" aria-labelledby="worker-heading">
             <h4 id="worker-heading">삽화 생성과 비동기 Worker<span class="point">.</span></h4>
             <h5>Description.</h5>
