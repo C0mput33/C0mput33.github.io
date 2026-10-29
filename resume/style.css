@@ -134,3 +134,6 @@ footer p { margin-bottom: 6px; }
   .design-credit { font-size: 7.5pt; }
   a { color: var(--ink); text-decoration-color: #b8bec6; }
 }
+
+/* Plain portfolio prose without decorative list markers. */
+.page ul { list-style: none; padding-left: 0; }
