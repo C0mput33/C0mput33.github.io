@@ -52,6 +52,13 @@ strong { font-weight: 600; }
 .detail-link { margin: 12px 0 0; font-size: 13px; }
 .stack { font-size: 15px; line-height: 1.9; color: #535963; letter-spacing: -.01em; }
 .scope-note { font-size: 13px; line-height: 1.8; padding-left: 13px; border-left: 2px solid #c8d7ed; margin: 20px 0; color: var(--secondary); }
+.table-scroll { overflow-x: auto; margin: 18px 0; }
+.result-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 14px; line-height: 1.7; font-variant-numeric: tabular-nums; }
+.result-table th, .result-table td { text-align: left; vertical-align: top; padding: 12px 10px; border-bottom: 1px solid var(--line); }
+.result-table thead th { background: #eff4fb; border-bottom-color: var(--point); font-weight: 600; }
+.result-table th:first-child { width: 42%; }
+.result-table tbody th { font-weight: 400; }
+.result-table .highlight-row { background: #f5f8fd; }
 .secondary-section h2 { margin-bottom: 38px; }
 .compact-item { margin: 0 0 34px; }
 .compact-item h3, .skill-group h3 { font-size: 23px; margin-bottom: 10px; }
@@ -116,6 +123,10 @@ footer p { margin-bottom: 6px; }
   .stack { font-size: 8.5pt; }
   .project-links, .detail-link { font-size: 8pt; margin: 7pt 0 11pt; }
   .scope-note { font-size: 8pt; margin: 11pt 0; }
+  .table-scroll { overflow: visible; margin: 10pt 0; }
+  .result-table { font-size: 8.5pt; break-inside: avoid; }
+  .result-table th, .result-table td { padding: 6pt; }
+  .result-table thead { display: table-header-group; }
   .compact-item { margin-bottom: 20pt; }
   .compact-item h3, .skill-group h3 { font-size: 15pt; }
   .compact-meta, .muted { font-size: 8.5pt; }

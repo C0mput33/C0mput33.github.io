@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://c0mput33.github.io/resume/">
   <link rel="canonical" href="https://c0mput33.github.io/resume/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233e72c7'/%3E%3Ctext x='32' y='44' font-size='42' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='white'%3EH%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./style.css?v=20261025-1">
+  <link rel="stylesheet" href="./style.css?v=20261029-1">
   <script src="./resume.js" defer></script>
 </head>
 <body>
@@ -25,7 +25,7 @@
         <button type="button" id="print-button">인쇄 · PDF 저장</button>
       </div>
       <h1>안녕하세요,<br>김해찬입니다<span class="point">.</span></h1>
-      <p class="intro-text">AI 서비스와 백엔드를 개발합니다. 모델을 연결하는 데서 멈추지 않고, 결과를 서비스 기준으로 평가하고 운영에서 생기는 문제까지 고치는 일을 좋아합니다. 개발의 가치는 사용자가 실제로 쓰는 결과에서 나온다고 믿습니다.</p>
+      <p class="intro-text">AI 서비스와 백엔드를 개발하며, 모델이 사용하는 데이터를 정리하고 검증하는 일에도 관심을 두고 있습니다. 데이터를 살펴보다 예상과 다른 결과의 원인을 찾았을 때 보람을 느낍니다. 반복되는 확인 작업은 기준을 정해 일관되게 처리하고, 판단이 어려운 사례는 따로 기록해 다시 살펴봅니다.</p>
       <nav class="intro-links" aria-label="프로필 링크">
         <a href="https://github.com/C0mput33">GitHub</a>
         <a href="https://c0mput33.github.io/">Blog</a>
@@ -34,7 +34,7 @@
     </header>
 
     <section aria-labelledby="project-heading">
-      <h2 id="project-heading">Project Experience<span class="point">.</span></h2>
+      <h2 id="project-heading">상세경력사항<span class="point">.</span></h2>
 
       <article class="experience" id="bookkiki">
         <div class="experience-meta">
@@ -47,27 +47,64 @@
         <div class="experience-body">
           <div class="project-overview">
             <h4>북끼끼<span class="point">.</span></h4>
-            <p>6~12세 아이의 경험과 관심사로 맞춤형 영어 동화책을 만드는 팀 프로젝트입니다. 평가 기준 설계, LLM 벤치마크 앱, 모델 비교 실험, 삽화 생성, 동화책 생성 파이프라인, Langfuse 관측, 공식 SNS 채널(Instagram, Threads, YouTube Shorts)의 콘텐츠 제작과 광고 운영을 맡았습니다.</p>
+            <p>6~12세 아이의 경험과 관심사로 맞춤형 영어 동화책을 만드는 팀 프로젝트입니다. 평가 기준 설계, LLM 벤치마크 앱, 모델 학습과 비교 실험, 삽화 생성, 동화책 생성 파이프라인, Langfuse 관측, 공식 SNS 채널(Instagram, Threads, YouTube Shorts)의 콘텐츠 제작과 광고 운영을 맡았습니다.</p>
             <p class="project-links"><a href="https://bookkiki.com/download">서비스 · 다운로드</a><a href="https://www.instagram.com/bookkiki.official/">Instagram</a><a href="https://github.com/Bookkiki/bookkiki-landing">프로젝트 소개</a><a href="https://c0mput33.github.io/posts/why-build-own-eval-system/">평가 시스템 개발기</a></p>
           </div>
 
           <section class="project-detail" aria-labelledby="eval-heading">
             <h4 id="eval-heading">LLM-as-a-Judge 벤치마크 시스템<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>기존의 범용 대화·창작 벤치마크만으로는 북끼끼의 영어 동화가 요청한 난이도와 서비스 요구에 맞게 생성되는지 판단하기 어려웠습니다. 모델 학습과 파인튜닝이 최종 목표였기 때문에 튜닝 전후의 품질 변화를 같은 조건에서 비교할 평가 시스템이 필요했습니다.</p>
-            <p>서비스에 맞는 평가 기준을 세우고 LLM을 심판으로 사용하는 LLM-as-a-Judge 방식의 벤치마크 앱을 만들었습니다. LLM 평가 시스템의 신빙성을 검증하기 위해 영어 수준·주제·독서 방식별 평가셋을 구성하고, 부모·영어 교육 경험자의 익명 평가와 LLM 심판의 판정을 비교했습니다. 또한 모델 판정을 모아 모델별 순위와 불확실성을 확인하도록 구성했습니다.</p>
+            <p>범용 벤치마크로 확인하기 어려운 동화의 난이도와 요청 충족 여부를 평가하고, 튜닝 전후 품질을 같은 조건에서 비교할 수 있도록 자체 평가 앱을 개발했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>모델명을 가린 쌍대 비교를 구현했습니다. 승패에서 모델별 점수를 추정하는 Bradley–Terry 집계와 부트스트랩 신뢰구간을 적용해 순위뿐 아니라 점수 추정의 불확실성도 표시했습니다.</li>
-              <li>A/B·B/A 순서를 모두 평가하고 후보와 같은 계열의 심판은 해당 비교에서 제외했습니다. 여러 계열 심판의 판정을 모아 한 심판의 편향이 순위를 결정하지 않도록 구성했습니다.</li>
-              <li>13개 모델의 모든 조합을 50개 주제에서 비교하면 3,900쌍이 필요했습니다. 복수 심판과 A/B 순서 교환까지 적용하면 호출이 더 늘어나 비교 대상을 줄이는 Swiss·희소 그래프·순차 제거 방식을 검토했습니다.</li>
-              <li>5권 단위로 점수와 신뢰구간을 갱신하고 두 배치 연속 열세가 확인된 후보만 후속 비교에서 제외하는 <strong>retire2</strong>를 도입했습니다. 한 번의 판정으로 즉시 제외하는 방식보다 조기 탈락에 신중한 규칙을 택했습니다.</li>
-              <li>동일 예산 140회·20회 반복의 합성 실험에서 Spearman 순위 상관계수는 전수 비교 <strong>0.883</strong>, retire2 <strong>0.931</strong>이었습니다. 기준 순위와의 일치도가 더 높은 retire2를 도입했습니다. 후보 13개가 4개로 줄어든 구간의 비교량은 주제당 78쌍에서 6쌍으로 약 92% 줄어듭니다.</li>
+              <li>모델명을 가린 A/B·B/A 비교와 같은 계열 심판 제외를 적용했습니다. <strong>Bradley-Terry 집계와 Bootstrap 신뢰구간</strong>으로 모델 순위와 불확실성을 함께 확인했습니다.</li>
+              <li>빈 응답 359개와 파싱 오류 3개가 무승부로 집계되는 문제를 수정했습니다. 유효하지 않은 비교 324건을 제외해 <strong>2,391건 → 2,067건</strong>으로 재집계하고 기존 응답을 재사용해 추가 생성 호출을 피했습니다.</li>
             </ul>
-            <p class="scope-note">retire2는 후보 선별에 사용하고, 최종 우열은 새 주제의 전수 비교로 확인하도록 구분했습니다.</p>
+            <h5 id="retire2-comparison-heading">비교량을 줄이기 위한 retire2 도입</h5>
+            <p>13개 모델의 모든 쌍은 <strong>13C2 = 13 × 12 ÷ 2 = 78쌍</strong>입니다. 50개 주제에서 전수 비교하면 <strong>78 × 50 = 3,900쌍</strong>이 필요하고, 여러 심판과 A/B 순서 교환을 적용할수록 호출 부담이 커졌습니다.</p>
+            <ul>
+              <li>5권마다 점수와 신뢰구간을 갱신해 <strong>두 배치 연속 열세인 후보만 제외</strong>하는 retire2를 도입했습니다. 한 번의 판정으로 탈락시키지 않고 남은 후보에 비교 예산을 배분했습니다.</li>
+            </ul>
+            <div class="table-scroll">
+              <table class="result-table" aria-labelledby="retire2-comparison-heading">
+                <thead><tr><th scope="col">비교 구간</th><th scope="col">주제당 비교 쌍</th><th scope="col">감소율</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">후보 13개 전수 비교</th><td>13C2 = 78쌍</td><td>기준</td></tr>
+                  <tr class="highlight-row"><th scope="row">후보 4개가 남은 구간</th><td><strong>4C2 = 6쌍</strong></td><td><strong>72쌍 감소 / 92.3%</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="scope-note">92.3%는 후보가 4개 남은 구간의 계산값입니다. 전체 실험의 누적 호출·토큰 절감률은 아닙니다.</p>
+            <p>같은 예산 140회로 20회 반복한 <strong>합성 실험</strong>에서 순위 상관계수는 전수 비교 <strong>0.883</strong>, retire2 <strong>0.931</strong>이었습니다. 후보 선별 후에는 새 주제로 최종 비교하도록 구성했습니다.</p>
             <h5>Tech Stack.</h5>
-            <p class="stack">Python, JavaScript, LLM-as-a-Judge, Bradley–Terry, Bootstrap</p>
-            <p class="detail-link"><a href="https://c0mput33.github.io/posts/llm-eval-scheduler-retire2-successive-elimination/">대안 비교와 실험 조건 보기</a></p>
+            <p class="stack">Python, JavaScript, LLM-as-a-Judge, Bradley-Terry, Bootstrap</p>
+            <p class="project-links"><a href="https://c0mput33.github.io/posts/why-build-own-eval-system/">평가 시스템 개발기</a><a href="https://c0mput33.github.io/posts/llm-eval-scheduler-retire2-successive-elimination/">retire2 실험 기록</a></p>
+          </section>
+
+          <section class="project-detail" aria-labelledby="qwen-heading">
+            <h4 id="qwen-heading">영어 동화 데이터 구축과 Qwen 학습<span class="point">.</span></h4>
+            <h5>Description.</h5>
+            <p>동화 생성에 사용할 로컬 모델을 검토하기 위해 교사 모델의 원고를 학습 데이터로 구성하고 Qwen3.6을 튜닝했습니다. 데이터 선별, 학습과 평가를 맡아 동일 입력에서 분량 준수 여부를 비교했습니다.</p>
+            <h5>What did I do.</h5>
+            <ul>
+              <li>Astra 160편과 Fable 140편으로 <strong>학습 원고 300편과 별도 검증 원고 24편</strong>을 구성했습니다. 작품 그룹과 정답 중복, 입력 잘림을 검사해 학습과 평가에 같은 이야기가 섞이지 않도록 점검했습니다.</li>
+              <li>4비트 Qwen3.6에 MLX LoRA로 SFT를 진행하고, <strong>동일한 24개 입력</strong>에서 학습 전 모델과 기존 SFT, 새 SFT의 결과를 비교했습니다.</li>
+            </ul>
+            <h5 id="qwen-length-heading">분량 통과율 0% → 29.2%</h5>
+            <div class="table-scroll">
+              <table class="result-table" aria-labelledby="qwen-length-heading">
+                <thead><tr><th scope="col">모델</th><th scope="col">분량 통과</th><th scope="col">통과율</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Qwen3.6 학습 전</th><td>0 / 24</td><td>0%</td></tr>
+                  <tr><th scope="row">기존 302편 SFT</th><td>3 / 24</td><td>12.5%</td></tr>
+                  <tr class="highlight-row"><th scope="row"><strong>새 300편 SFT</strong></th><td><strong>7 / 24</strong></td><td><strong>29.2%</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="scope-note">제목 제외 180~230단어 기준. 학습 전보다 <strong>29.2%p</strong>, 기존 SFT보다 <strong>16.7%p</strong> 상승한 분량 준수 결과입니다.</p>
+            <h5>Tech Stack.</h5>
+            <p class="stack">Python, Qwen3.6, MLX LoRA, SFT, LLM-as-a-Judge</p>
+            <p class="detail-link"><a href="https://c0mput33.github.io/posts/qwen-astra-fable-distillation-arena/">학습 데이터 및 비교 평가 기록</a></p>
           </section>
 
           <section class="project-detail" aria-labelledby="content-heading">
@@ -119,24 +156,6 @@
             <p class="stack">Langfuse, Python, Java/Spring, OpenTelemetry, Prompt Management</p>
           </section>
 
-          <section class="project-detail" aria-labelledby="qwen-heading">
-            <h4 id="qwen-heading">Qwen 학습 실험과 Mac·MLX API 서빙<span class="point">.</span></h4>
-            <h5>Description.</h5>
-            <p>아이의 경험을 이야기에 반영하면서 요청한 영어 수준·분량·출력 형식을 일정하게 맞추기 위해 Qwen3.6 모델을 파인튜닝했습니다. Mac에서 학습한 어댑터를 MLX API에 연결하고, 자체 평가 앱으로 학습 전후의 동화 품질과 서빙 성능을 비교했습니다.</p>
-            <h5>What did I do.</h5>
-            <ul>
-              <li>MLX 기반 API 엔드포인트를 구성해 Qwen3.6 모델의 추론을 요청할 수 있도록 연결했습니다.</li>
-              <li>연령·영어 수준·독서 방식·경험·관심사를 입력으로, 검수한 동화를 출력으로 구성해 SFT 데이터를 만들었습니다. 서비스의 생성 조건과 학습 형식을 맞추고, 같은 이야기나 유사 각색본이 섞이지 않도록 원본 이야기 단위로 학습·검증·평가 데이터를 분리했습니다.</li>
-              <li>제한된 메모리에서 학습하기 위해 4비트 Qwen3.6 모델에 QLoRA를 적용했습니다. 짧은 시험 학습으로 손실 계산·메모리 사용·어댑터 저장을 확인하고, 새 프로세스에서 어댑터를 다시 불러와 추론하는 과정까지 검증한 뒤 본학습을 진행했습니다.</li>
-              <li>기본 모델·프롬프트만 개선한 모델·파인튜닝한 모델을 비교했습니다. 프롬프트 개선 모델과 파인튜닝 모델에는 같은 프롬프트와 생성 설정을 적용해 학습의 추가 효과를 구분했습니다. 기존에 직접 설계한 평가 시스템의 익명 A/B·B/A 비교로 이야기 자체의 선호도와 영어 수준·경험 반영·분량·형식 준수 여부를 확인했습니다.</li>
-              <li>학습한 어댑터를 MLX API에 연결하고 기존 생성 Worker에서 호출하도록 구성했습니다. 첫 응답 시간·전체 생성 시간·동시 요청별 메모리와 실패율을 측정하고, Langfuse에 모델·어댑터·프롬프트 버전과 사용량·오류·평가 결과를 연결해 품질과 운영 부담을 비교했습니다.</li>
-            </ul>
-            <p class="scope-note">QLoRA 학습 실험은 파인튜닝한 어댑터의 서빙과 튜닝 전후 품질 검증을 진행하였습니다.</p>
-            <h5>Tech Stack.</h5>
-            <p class="stack">Python, Qwen3.6, MLX, QLoRA, SFT, API Serving, 4-bit Quantization</p>
-            <p class="detail-link"><a href="https://c0mput33.github.io/posts/qwen36-35b-a3b-mtp-gguf-macbook-aws/">로컬 검증과 서빙 검토 기록 보기</a></p>
-          </section>
-          
           <section class="project-detail" aria-labelledby="onboarding-heading">
           <h4 id="onboarding-heading">사용자 이탈 분석과 동화 생성 경로 개선<span class="point">.</span></h4>
           <h5>Description.</h5>
@@ -348,7 +367,7 @@
       </ul>
     </section>
     <footer>
-      <p>김해찬 · 마지막 업데이트 <time datetime="2026-10-25">2026. 10. 25</time></p>
+      <p>김해찬 · 마지막 업데이트 <time datetime="2026-10-29">2026. 10. 29</time></p>
       <a class="back-to-top" href="#top">맨 위로 ↑</a>
     </footer>
   </main>
