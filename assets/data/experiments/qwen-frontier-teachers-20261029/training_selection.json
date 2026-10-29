@@ -1,0 +1,82 @@
+{
+  "lock": {
+    "counts": {
+      "train": 300,
+      "valid": 24,
+      "test": 24
+    },
+    "teachers": {
+      "anthropic/claude-fable-5.1": 140,
+      "openai/gpt-6-astra": 160
+    },
+    "files": {
+      "data/sft/train.jsonl": "67dbe71e9ad5f76899422c2c869c37df452078b884ff4e909ded706402e4a622",
+      "data/sft/valid.jsonl": "b9357d6d91e69009f6325909cfd262d8dc624875d1e3171b4f5bfbce14cb9d74"
+    },
+    "test_protocol_sha256": "a55e4882ad6724a43105419cd17b96faa04b6915a96986c1396d4e5c7a230c53",
+    "maximum_tokens": 828,
+    "selection": "One epoch at lower learning rate; checkpoint chosen by frozen validation NLL only; no test output used as training target or correction",
+    "agent_read_unique_count": 39,
+    "agent_read_selected_count": 28,
+    "human_reviewed_count": 0,
+    "permission_basis": "user_training_authorization.json",
+    "local_decoder": "enable_thinking=False both training and inference",
+    "training_system": "You write coherent, age-appropriate English children's stories. Preserve the supplied facts and constraints. Output only natural story prose, without titles, analysis, morals, or production notes.",
+    "previous_lock_sha256": "316483a5641b38a57517d345884ea129199b88aab4d1d3dc30857a7851e71249",
+    "memory_amendment": "Common system instruction shortened; all user requests and target texts byte-for-byte unchanged; zero completed optimizer steps in previous two attempts."
+  },
+  "selection": {
+    "base_validation_nll": 1.8312172889709473,
+    "scores": [
+      {
+        "file": "runs/frontier_adapter/0000075_adapters.safetensors",
+        "sha256": "768f4199770ac0b7f1d8c8ff3731db31c39efa3534d7a88c5a41804f8610f09c",
+        "validation_nll": 1.461767315864563,
+        "seconds": 13.134
+      },
+      {
+        "file": "runs/frontier_adapter/0000150_adapters.safetensors",
+        "sha256": "dc3dcbc28594a51f782f1b1e61296a489afb6639ccaa7da7d65084a237d9700d",
+        "validation_nll": 1.4411576986312866,
+        "seconds": 13.097
+      },
+      {
+        "file": "runs/frontier_adapter/0000225_adapters.safetensors",
+        "sha256": "1d3a7a89ad8f5bbe0f5830b658d8d42917cf10156dd6de101c8204ed359d3d2c",
+        "validation_nll": 1.4339818954467773,
+        "seconds": 13.164
+      },
+      {
+        "file": "runs/frontier_adapter/0000300_adapters.safetensors",
+        "sha256": "5afb412982b4b861f85a9227aa83eef8f844645a8c28e3392914962c7e377152",
+        "validation_nll": 1.4303683042526245,
+        "seconds": 13.158
+      }
+    ],
+    "selected": {
+      "file": "runs/frontier_adapter/0000300_adapters.safetensors",
+      "sha256": "5afb412982b4b861f85a9227aa83eef8f844645a8c28e3392914962c7e377152",
+      "validation_nll": 1.4303683042526245,
+      "seconds": 13.158
+    },
+    "rule": "minimum NLL measured on the exact saved adapter weights; validation only; no final test outputs inspected",
+    "training_log_offset_note": "MLX evaluates before a numbered iteration and saves after it, so logged step N loss is not used as the exact step N checkpoint score."
+  },
+  "memory": {
+    "first_attempt": "runs/failed_memory_attempt_1/train.log",
+    "failure": "Metal insufficient memory at first optimizer step after baseline validation",
+    "completed_steps": 0,
+    "cache_limit_bytes": 268435456,
+    "memory_limit_bytes": 36507222016,
+    "other_processes_stopped": false,
+    "same_frozen_data_and_hyperparameters": true,
+    "root_cause": "Allocator/cache pressure suspected; not independently established",
+    "second_attempt": "runs/failed_memory_attempt_2/train.log",
+    "second_result": "same first-step Metal OOM",
+    "third_change": "Compact only common training system instruction, 375 tokens removed per sample; original target and case request unchanged",
+    "third_attempt": "runs/interrupted_cache_trial/train.log",
+    "third_result": "progressed, deliberately interrupted early to adjust cache after ~30 target tokens/s",
+    "final_cache_limit_bytes": 2147483648,
+    "restarted_from_base": true
+  }
+}

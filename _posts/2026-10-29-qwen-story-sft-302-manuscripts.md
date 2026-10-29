@@ -13,6 +13,8 @@ description: >-
 
 이 글은 2026년 10월 29일 완료한 로컬 실험 기록입니다. 데이터 생성과 학습, 평가 실행은 코딩 에이전트로 진행했습니다. 아래에서 전문 재검토라고 부르는 단계도 에이전트가 원문을 대조한 것입니다. 사람 편집자나 학부모의 평가를 받은 결과는 아닙니다. 비교 수치와 설정은 [실험 기록 JSON](/assets/data/experiments/qwen-story-sft-20261029/measurements.json)에 함께 남겼습니다.
 
+후속 실험에서는 Astra·Fable 원고 300편으로 새로 학습했습니다. [같은 평가앱에서 교사·학습 전·학습 후를 비교한 기록]({% post_url 2026-10-29-qwen-astra-fable-distillation-arena %})에 결과를 별도로 남겼습니다. 아래는 기존 DeepSeek·Kimi 원고로 실행한 실험입니다.
+
 ## 1. 학습 목표와 비교 범위
 
 [앞선 모델 선택 글]({% post_url 2026-07-23-storybook-llm-cost-performance-serving-decision %})에서는 자체 서빙을 품질·성공률·처리시간을 모두 확인한 뒤 선택할 경로로 남겨 두었습니다. 이번에는 그중 원고 품질을 학습으로 개선할 수 있는지 확인했습니다.

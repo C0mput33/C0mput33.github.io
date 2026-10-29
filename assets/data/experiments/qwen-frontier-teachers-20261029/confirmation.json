@@ -1,0 +1,259 @@
+{
+  "results": {
+    "prompts": 12,
+    "valid_pairs": 12,
+    "valid_judges": 24,
+    "base_wins": 5,
+    "new_wins": 10,
+    "equal_average": 9,
+    "new_point_rate": 0.6041666666666667,
+    "invalid": 0,
+    "position_disagreement": 9,
+    "stats": {
+      "contests": 24,
+      "rank": [
+        {
+          "model": "qwen-frontier-local",
+          "score": 1035.2034969064252
+        },
+        {
+          "model": "qwen-base-local",
+          "score": 964.7965030935746
+        }
+      ],
+      "pair_ci": {
+        "qwen-base-local": [
+          900.2645723134381,
+          1021.1211122543306
+        ],
+        "qwen-frontier-local": [
+          978.8788877456692,
+          1099.735427686562
+        ]
+      },
+      "prompt_ci": {
+        "qwen-base-local": [
+          900.2645723134381,
+          1020.9440036182482
+        ],
+        "qwen-frontier-local": [
+          979.0559963817518,
+          1099.735427686562
+        ]
+      }
+    }
+  },
+  "protocol": {
+    "prompts": [
+      {
+        "id": "confirmation29-01",
+        "ko": "During a snowy walk with an adult, a child listens for small sounds: boots crunch, a gate clicks, and a dog shakes its collar. At home the child draws a different mark for each sound, then leaves one blank square for the quiet between them. Make this a complete observational story, without a lesson speech.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "quiet_sound_walk",
+        "theme": "quiet_sound_walk",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "During a snowy walk with an adult, a child listens for small sounds: boots crunch, a gate clicks, and a dog shakes its collar. At home the child draws a different mark for each sound, then leaves one blank square for the quiet between them. Make this a complete observational story, without a lesson speech.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. During a snowy walk with an adult, a child listens for small sounds: boots crunch, a gate clicks, and a dog shakes its collar. At home the child draws a different mark for each sound, then leaves one blank square for the quiet between them. Make this a complete observational story, without a lesson speech. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-02",
+        "ko": "A child getting new shoes pretends the old pair can talk about their adventures. Keep the talking clearly within the child's make-believe. The child chooses one clean old shoelace as a bookmark, while Dad puts the worn shoes in a box. End with a concrete affectionate action, not a moral.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "old_shoe_dialogue",
+        "theme": "old_shoe_dialogue",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "A child getting new shoes pretends the old pair can talk about their adventures. Keep the talking clearly within the child's make-believe. The child chooses one clean old shoelace as a bookmark, while Dad puts the worn shoes in a box. End with a concrete affectionate action, not a moral.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. A child getting new shoes pretends the old pair can talk about their adventures. Keep the talking clearly within the child's make-believe. The child chooses one clean old shoelace as a bookmark, while Dad puts the worn shoes in a box. End with a concrete affectionate action, not a moral. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-03",
+        "ko": "Two children turn a long strip of paper into a pretend bus route across a table. A cup already on the table blocks their straight route. They redraw one bend around it and guide a toy bus along the new line. Keep the cup unmoved and the journey clearly pretend. Write a playful complete story.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "paper_bus_route",
+        "theme": "paper_bus_route",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "Two children turn a long strip of paper into a pretend bus route across a table. A cup already on the table blocks their straight route. They redraw one bend around it and guide a toy bus along the new line. Keep the cup unmoved and the journey clearly pretend. Write a playful complete story.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. Two children turn a long strip of paper into a pretend bus route across a table. A cup already on the table blocks their straight route. They redraw one bend around it and guide a toy bus along the new line. Keep the cup unmoved and the journey clearly pretend. Write a playful complete story. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-04",
+        "ko": "After rain, a child notices a snail on the outside of a closed ground-floor window. The child watches from indoors as it moves past a sticker on the glass. The snail eventually leaves the window, leaving a trail. No touching or feeding the snail. Give this quiet observation a satisfying ending.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "snail_window",
+        "theme": "snail_window",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "After rain, a child notices a snail on the outside of a closed ground-floor window. The child watches from indoors as it moves past a sticker on the glass. The snail eventually leaves the window, leaving a trail. No touching or feeding the snail. Give this quiet observation a satisfying ending.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. After rain, a child notices a snail on the outside of a closed ground-floor window. The child watches from indoors as it moves past a sticker on the glass. The snail eventually leaves the window, leaving a trail. No touching or feeding the snail. Give this quiet observation a satisfying ending. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-05",
+        "ko": "A child makes a small tabletop puppet show for an older cousin. The paper curtain keeps covering the puppet's face. The child tries lowering the puppet, then realizes the curtain needs to be folded higher. The cousin asks for an encore. Use natural dialogue and a modest comic ending; no generic moral.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "puppet_curtain",
+        "theme": "puppet_curtain",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "A child makes a small tabletop puppet show for an older cousin. The paper curtain keeps covering the puppet's face. The child tries lowering the puppet, then realizes the curtain needs to be folded higher. The cousin asks for an encore. Use natural dialogue and a modest comic ending; no generic moral.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. A child makes a small tabletop puppet show for an older cousin. The paper curtain keeps covering the puppet's face. The child tries lowering the puppet, then realizes the curtain needs to be folded higher. The cousin asks for an encore. Use natural dialogue and a modest comic ending; no generic moral. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-06",
+        "ko": "A child draws three apples from a bowl while an adult prepares lunch. The adult removes one apple and tells the child. The child decides to keep the drawing of all three as a picture of the earlier moment. Two apples remain in the bowl. Preserve these counts throughout a gentle complete story.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "three_apples_drawings",
+        "theme": "three_apples_drawings",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "A child draws three apples from a bowl while an adult prepares lunch. The adult removes one apple and tells the child. The child decides to keep the drawing of all three as a picture of the earlier moment. Two apples remain in the bowl. Preserve these counts throughout a gentle complete story.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. A child draws three apples from a bowl while an adult prepares lunch. The adult removes one apple and tells the child. The child decides to keep the drawing of all three as a picture of the earlier moment. Two apples remain in the bowl. Preserve these counts throughout a gentle complete story. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-07",
+        "ko": "A child with Dad hears a short echo of their footsteps in an empty museum corridor. They test one slow step, then two, and stop when another visitor enters. End when they find the quiet carpeted room they were looking for. No shouting, running or claims that the sound is magic.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "museum_echo",
+        "theme": "museum_echo",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "A child with Dad hears a short echo of their footsteps in an empty museum corridor. They test one slow step, then two, and stop when another visitor enters. End when they find the quiet carpeted room they were looking for. No shouting, running or claims that the sound is magic.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. A child with Dad hears a short echo of their footsteps in an empty museum corridor. They test one slow step, then two, and stop when another visitor enters. End when they find the quiet carpeted room they were looking for. No shouting, running or claims that the sound is magic. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-08",
+        "ko": "A child writes a pretend letter from a toy dragon to a toy whale. The dragon invites the whale to visit, then the child notices a whale cannot fit into a tiny castle. The child draws a shore beside the castle instead. End with the toys placed by the paper shore; actual toys remain in the room.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "story_letter",
+        "theme": "story_letter",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "A child writes a pretend letter from a toy dragon to a toy whale. The dragon invites the whale to visit, then the child notices a whale cannot fit into a tiny castle. The child draws a shore beside the castle instead. End with the toys placed by the paper shore; actual toys remain in the room.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. A child writes a pretend letter from a toy dragon to a toy whale. The dragon invites the whale to visit, then the child notices a whale cannot fit into a tiny castle. The child draws a shore beside the castle instead. End with the toys placed by the paper shore; actual toys remain in the room. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-09",
+        "ko": "At the end of an indoor family party, a child notices one air-filled balloon under a chair. The child draws a smiling face on a paper card and places it beside the balloon as a tiny goodbye party. An adult later stores the intact balloon and card. No popping, helium release or mouths near balloons.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "late_balloon",
+        "theme": "late_balloon",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "At the end of an indoor family party, a child notices one air-filled balloon under a chair. The child draws a smiling face on a paper card and places it beside the balloon as a tiny goodbye party. An adult later stores the intact balloon and card. No popping, helium release or mouths near balloons.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. At the end of an indoor family party, a child notices one air-filled balloon under a chair. The child draws a smiling face on a paper card and places it beside the balloon as a tiny goodbye party. An adult later stores the intact balloon and card. No popping, helium release or mouths near balloons. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-10",
+        "ko": "A child and Grandpa arrange empty seed packets into a picture of a garden on a table. One packet is too large for the space. They overlap its blank edge beneath another packet, leaving both flower pictures visible. No seeds are handled or planted. Let their conversation and actions carry the ending.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "seed_packet_mosaic",
+        "theme": "seed_packet_mosaic",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "A child and Grandpa arrange empty seed packets into a picture of a garden on a table. One packet is too large for the space. They overlap its blank edge beneath another packet, leaving both flower pictures visible. No seeds are handled or planted. Let their conversation and actions carry the ending.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. A child and Grandpa arrange empty seed packets into a picture of a garden on a table. One packet is too large for the space. They overlap its blank edge beneath another packet, leaving both flower pictures visible. No seeds are handled or planted. Let their conversation and actions carry the ending. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-11",
+        "ko": "Write a first-person diary-like complete story about a child whose outdoor football game is postponed by rain. Indoors with a sibling, they invent a commentary for a toy-ball game on a clear table, then agree to try the real game tomorrow if the field is dry. Preserve the difference between plans and things that actually happen.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "rainy_match_diary",
+        "theme": "rainy_match_diary",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "Write a first-person diary-like complete story about a child whose outdoor football game is postponed by rain. Indoors with a sibling, they invent a commentary for a toy-ball game on a clear table, then agree to try the real game tomorrow if the field is dry. Preserve the difference between plans and things that actually happen.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. Write a first-person diary-like complete story about a child whose outdoor football game is postponed by rain. Indoors with a sibling, they invent a commentary for a toy-ball game on a clear table, then agree to try the real game tomorrow if the field is dry. Preserve the difference between plans and things that actually happen. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      },
+      {
+        "id": "confirmation29-12",
+        "ko": "Two friends draw one pretend boat and give it different names. They listen to each other's reasons, put one name on each side of the paper boat picture, and turn the paper to read both. It remains one drawing, not two boats. Make the compromise emerge through actions without an explicit friendship lesson.",
+        "age": 7,
+        "lex": 450,
+        "wlo": 180,
+        "whi": 230,
+        "wlab": "180–230 words",
+        "topic": "two_names_boat",
+        "theme": "two_names_boat",
+        "readingMode": "shared",
+        "readingModeLabel": "shared reading",
+        "en": "Two friends draw one pretend boat and give it different names. They listen to each other's reasons, put one name on each side of the paper boat picture, and turn the paper to read both. It remains one drawing, not two boats. Make the compromise emerge through actions without an explicit friendship lesson.",
+        "generationRequest": "Write a complete English children's story of 180–230 words. Two friends draw one pretend boat and give it different names. They listen to each other's reasons, put one name on each side of the paper boat picture, and turn the paper to read both. It remains one drawing, not two boats. Make the compromise emerge through actions without an explicit friendship lesson. Reading mode: shared reading by the child with an adult. Target reader age: 7. Output only the story text; no title or commentary.",
+        "max_tokens": 2968
+      }
+    ],
+    "train_lock_sha256": "316483a5641b38a57517d345884ea129199b88aab4d1d3dc30857a7851e71249",
+    "policy": "Frozen after training data and hyperparameters locked; not used for checkpoint selection; no candidate outputs yet",
+    "contestants": [
+      "qwen-base-local",
+      "qwen-frontier-local"
+    ],
+    "judges": [
+      "glm-5.1",
+      "kimi-k2.6"
+    ],
+    "human_votes": 0
+  },
+  "freeze_amendment": {
+    "original_lock_sha256": "316483a5641b38a57517d345884ea129199b88aab4d1d3dc30857a7851e71249",
+    "actual_training_lock_sha256": "830df9cec51e8be95b918c9322194b4928660ccb04bb51484b32512e37dd91f3",
+    "reason": "Common training instructions compacted for local memory before any optimizer updates; confirmation questions and selection policy unchanged.",
+    "candidate_outputs_inspected": 0
+  }
+}
