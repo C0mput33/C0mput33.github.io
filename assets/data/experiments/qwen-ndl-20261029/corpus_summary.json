@@ -1,0 +1,162 @@
+{
+  "train": 300,
+  "valid": 24,
+  "median_coverage": 0.7953463203463202,
+  "mean_coverage": 0.7967941592961632,
+  "coverage_counts": {
+    "0.8": 141,
+    "0.85": 45,
+    "0.9": 5,
+    "0.95": 0,
+    "0.98": 0
+  },
+  "raw_mean_coverage": 0.7670319928283149,
+  "missing_name_cases": [
+    "v2-extra-train-35-3"
+  ],
+  "role_conflict_cases": [],
+  "common_outside": [
+    [
+      "beside",
+      265
+    ],
+    [
+      "soft",
+      137
+    ],
+    [
+      "lifted",
+      118
+    ],
+    [
+      "tiny",
+      111
+    ],
+    [
+      "folded",
+      108
+    ],
+    [
+      "leaf",
+      103
+    ],
+    [
+      "grandpa",
+      102
+    ],
+    [
+      "tap",
+      102
+    ],
+    [
+      "edge",
+      92
+    ],
+    [
+      "whispered",
+      91
+    ],
+    [
+      "flat",
+      90
+    ],
+    [
+      "tucked",
+      90
+    ],
+    [
+      "pressed",
+      89
+    ],
+    [
+      "gently",
+      88
+    ],
+    [
+      "mum",
+      87
+    ],
+    [
+      "slid",
+      82
+    ],
+    [
+      "corner",
+      77
+    ],
+    [
+      "blanket",
+      77
+    ],
+    [
+      "against",
+      72
+    ],
+    [
+      "leaned",
+      70
+    ],
+    [
+      "beneath",
+      68
+    ],
+    [
+      "cushion",
+      68
+    ],
+    [
+      "rabbit",
+      66
+    ],
+    [
+      "lid",
+      64
+    ],
+    [
+      "empty",
+      62
+    ],
+    [
+      "wide",
+      62
+    ],
+    [
+      "feet",
+      59
+    ],
+    [
+      "spread",
+      57
+    ],
+    [
+      "oh",
+      56
+    ],
+    [
+      "slipped",
+      55
+    ],
+    [
+      "rug",
+      52
+    ],
+    [
+      "grass",
+      49
+    ],
+    [
+      "bent",
+      48
+    ],
+    [
+      "smooth",
+      47
+    ],
+    [
+      "tapped",
+      45
+    ]
+  ],
+  "official_profiler_equivalence": false,
+  "readability_score": false
+}
