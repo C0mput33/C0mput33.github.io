@@ -117,6 +117,7 @@
 | t-검정 | 평균 차이를 표준오차와 비교해 귀무가설 아래에서 관측값이 얼마나 이례적인지 평가하는 검정. 유의성은 t값 하나가 아니라 자유도, 검정 방향, p값 또는 임계값과 함께 판단한다. | [`statistics-and-ranking`](#statistics-and-ranking) |
 | temperature | 다음 토큰 확률분포의 평탄함을 조절하는 값. 낮을수록 높은 확률의 토큰에 집중하지만 temperature 0도 제공자·모델·실행 환경에 따라 완전한 재현성을 보장하지 않는다. | [`llm-core-and-inference`](#llm-core-and-inference) |
 | top-k | 상위 k개 집합. 여기서는 1위와 신뢰구간이 겹쳐 아직 우열을 다투는 상위 클러스터를 뜻하며, 은퇴 판정의 기준선이 된다. | [`project-eval-runtime`](#project-eval-runtime) |
+| top-k 샘플링 | 다음 토큰의 확률이 높은 k개 후보만 남기고 그 안에서 토큰을 고르는 생성 방식. Arena의 상위 모델 집합을 뜻하는 top-k와는 다른 용어다. | [`qwen-decoding`](#qwen-decoding) |
 | TPM | Tokens Per Minute. 1분 동안 허용하거나 처리한 토큰 수. 입력·출력을 합치거나 따로 제한하는지는 공급자 정의를 확인해야 한다. | [`openrouter-runtime`](#openrouter-runtime) |
 | transformers | Hugging Face가 제공하는 모델·토크나이저 로딩과 학습 라이브러리. 새 아키텍처는 이를 구현한 라이브러리 버전이 있어야 로드할 수 있으므로 서빙 환경의 지원 버전을 확인해야 한다. | [`post-training-and-model-files`](#post-training-and-model-files) |
 | TRL | Hugging Face의 post-training 라이브러리. SFT, DPO, PPO 등 여러 학습·정렬 트레이너를 제공한다. | [`post-training-and-model-files`](#post-training-and-model-files) |
@@ -409,6 +410,13 @@ Terms: `A/B`, `Arena 점수`, `Match Rate`, `contest`, `jury`, `retire2`, `top-k
 - `project:C0mput33/little-bard/eval/app/index.html`
 - `project:C0mput33/little-bard/eval/aggregate/bradley_terry.py`
 - `project:C0mput33/little-bard/eval/config/rubric.yaml`
+
+### qwen-decoding
+
+Terms: `top-k 샘플링`
+
+- <https://huggingface.co/Qwen/Qwen3.6-35B-A3B>
+- <https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/sample_utils.py>
 
 ### readability-primary
 

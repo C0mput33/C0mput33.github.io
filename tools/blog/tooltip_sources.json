@@ -468,6 +468,16 @@
       "references": [
         "project:2026-09 PR 교차 리뷰 6회 기록과 단계별 소요 실측(2026-09-18~20)"
       ]
+    },
+    {
+      "id": "qwen-decoding",
+      "terms": [
+        "top-k 샘플링"
+      ],
+      "references": [
+        "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+        "https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/sample_utils.py"
+      ]
     }
   ]
 }
