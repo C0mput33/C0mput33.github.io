@@ -1,0 +1,98 @@
+{
+  "base_original__sft_original": {
+    "glm-5.1": {
+      "valid": 23,
+      "a_wins": 5,
+      "b_wins": 5,
+      "equal_average": 13,
+      "a_point_rate": 0.5
+    },
+    "kimi-k2.6": {
+      "valid": 23,
+      "a_wins": 15,
+      "b_wins": 7,
+      "equal_average": 1,
+      "a_point_rate": 0.6739130434782609
+    }
+  },
+  "base_original__base_official_policy": {
+    "glm-5.1": {
+      "valid": 24,
+      "a_wins": 3,
+      "b_wins": 2,
+      "equal_average": 19,
+      "a_point_rate": 0.5208333333333334
+    },
+    "kimi-k2.6": {
+      "valid": 24,
+      "a_wins": 12,
+      "b_wins": 5,
+      "equal_average": 7,
+      "a_point_rate": 0.6458333333333334
+    }
+  },
+  "base_original__sft_half_official_policy": {
+    "glm-5.1": {
+      "valid": 24,
+      "a_wins": 0,
+      "b_wins": 10,
+      "equal_average": 14,
+      "a_point_rate": 0.2916666666666667
+    },
+    "kimi-k2.6": {
+      "valid": 24,
+      "a_wins": 5,
+      "b_wins": 14,
+      "equal_average": 5,
+      "a_point_rate": 0.3125
+    }
+  },
+  "sft_original__base_official_policy": {
+    "glm-5.1": {
+      "valid": 23,
+      "a_wins": 7,
+      "b_wins": 3,
+      "equal_average": 13,
+      "a_point_rate": 0.5869565217391305
+    },
+    "kimi-k2.6": {
+      "valid": 23,
+      "a_wins": 4,
+      "b_wins": 14,
+      "equal_average": 5,
+      "a_point_rate": 0.2826086956521739
+    }
+  },
+  "sft_original__sft_half_official_policy": {
+    "glm-5.1": {
+      "valid": 23,
+      "a_wins": 1,
+      "b_wins": 9,
+      "equal_average": 13,
+      "a_point_rate": 0.32608695652173914
+    },
+    "kimi-k2.6": {
+      "valid": 23,
+      "a_wins": 1,
+      "b_wins": 21,
+      "equal_average": 1,
+      "a_point_rate": 0.06521739130434782
+    }
+  },
+  "base_official_policy__sft_half_official_policy": {
+    "glm-5.1": {
+      "valid": 24,
+      "a_wins": 0,
+      "b_wins": 13,
+      "equal_average": 11,
+      "a_point_rate": 0.22916666666666666
+    },
+    "kimi-k2.6": {
+      "valid": 24,
+      "a_wins": 1,
+      "b_wins": 17,
+      "equal_average": 6,
+      "a_point_rate": 0.16666666666666666
+    }
+  }
+}

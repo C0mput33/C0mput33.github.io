@@ -1,0 +1,301 @@
+{
+  "contests": 282,
+  "rank": [
+    {
+      "model": "sft_half_official_policy",
+      "score": 1155.1285204702792
+    },
+    {
+      "model": "base_original",
+      "score": 993.206939645305
+    },
+    {
+      "model": "base_official_policy",
+      "score": 938.622329701462
+    },
+    {
+      "model": "sft_original",
+      "score": 913.0422101829536
+    }
+  ],
+  "pair_ci": {
+    "base_original": [
+      952.7232012632892,
+      1033.8314885563138
+    ],
+    "sft_original": [
+      865.1106406105167,
+      954.7745421542028
+    ],
+    "base_official_policy": [
+      902.2578630793867,
+      974.7459447709023
+    ],
+    "sft_half_official_policy": [
+      1116.260165538224,
+      1196.5242825948767
+    ]
+  },
+  "prompt_ci": {
+    "base_original": [
+      926.3674678090532,
+      1051.6643517541488
+    ],
+    "sft_original": [
+      850.4914513884004,
+      977.2102991461041
+    ],
+    "base_official_policy": [
+      895.9125929901061,
+      981.0969716163294
+    ],
+    "sft_half_official_policy": [
+      1119.7645373325552,
+      1204.5745044305477
+    ]
+  },
+  "diagnostics": {
+    "glm-5.1": {
+      "valid": 141,
+      "invalid": 0,
+      "position_disagreement": 83
+    },
+    "kimi-k2.6": {
+      "valid": 141,
+      "invalid": 0,
+      "position_disagreement": 25
+    }
+  },
+  "per_judge": {
+    "glm-5.1": {
+      "contests": 141,
+      "rank": [
+        {
+          "model": "sft_half_official_policy",
+          "score": 1119.1380034968033
+        },
+        {
+          "model": "sft_original",
+          "score": 983.7155643428016
+        },
+        {
+          "model": "base_original",
+          "score": 965.6447394118968
+        },
+        {
+          "model": "base_official_policy",
+          "score": 931.5016927484983
+        }
+      ],
+      "pair_ci": {
+        "base_original": [
+          932.434484163573,
+          998.8523310333125
+        ],
+        "sft_original": [
+          942.5778629688332,
+          1022.9724503600708
+        ],
+        "base_official_policy": [
+          896.7888117408149,
+          966.6229976682102
+        ],
+        "sft_half_official_policy": [
+          1083.9885407977029,
+          1160.736502354866
+        ]
+      },
+      "prompt_ci": {
+        "base_original": [
+          920.8654402028245,
+          1007.0947546810378
+        ],
+        "sft_original": [
+          924.4320445239753,
+          1042.456081860624
+        ],
+        "base_official_policy": [
+          879.8611368457942,
+          974.3802831187228
+        ],
+        "sft_half_official_policy": [
+          1088.3535748225027,
+          1161.8806384346349
+        ]
+      }
+    },
+    "kimi-k2.6": {
+      "contests": 141,
+      "rank": [
+        {
+          "model": "sft_half_official_policy",
+          "score": 1197.8778643083745
+        },
+        {
+          "model": "base_original",
+          "score": 1024.514591049675
+        },
+        {
+          "model": "base_official_policy",
+          "score": 946.8716656229752
+        },
+        {
+          "model": "sft_original",
+          "score": 830.7358790189753
+        }
+      ],
+      "pair_ci": {
+        "base_original": [
+          965.0894219775087,
+          1086.952121185674
+        ],
+        "sft_original": [
+          749.2117384897044,
+          888.7021191559796
+        ],
+        "base_official_policy": [
+          893.507502726291,
+          996.2189473078588
+        ],
+        "sft_half_official_policy": [
+          1138.6500627262433,
+          1269.551371141828
+        ]
+      },
+      "prompt_ci": {
+        "base_original": [
+          926.7772648747799,
+          1115.8099003667146
+        ],
+        "sft_original": [
+          726.8754485591745,
+          914.0062759868708
+        ],
+        "base_official_policy": [
+          901.2221508664445,
+          992.9076684024363
+        ],
+        "sft_half_official_policy": [
+          1138.7336757886453,
+          1278.7032182261466
+        ]
+      }
+    }
+  },
+  "complete_case": {
+    "prompt_count": 23,
+    "stats": {
+      "contests": 276,
+      "rank": [
+        {
+          "model": "sft_half_official_policy",
+          "score": 1155.0222609742307
+        },
+        {
+          "model": "base_original",
+          "score": 992.0887928669878
+        },
+        {
+          "model": "base_official_policy",
+          "score": 939.8226712364325
+        },
+        {
+          "model": "sft_original",
+          "score": 913.0662749223491
+        }
+      ],
+      "pair_ci": {
+        "base_original": [
+          948.2056429220315,
+          1033.327687166621
+        ],
+        "sft_original": [
+          869.3005282213649,
+          955.7434315790543
+        ],
+        "base_official_policy": [
+          898.6414108658466,
+          978.0652621394242
+        ],
+        "sft_half_official_policy": [
+          1112.528652154693,
+          1201.9202653372934
+        ]
+      },
+      "prompt_ci": {
+        "base_original": [
+          923.4760124804993,
+          1051.9555639527086
+        ],
+        "sft_original": [
+          846.9165326210597,
+          972.6626101461034
+        ],
+        "base_official_policy": [
+          894.9853688621777,
+          981.542871637901
+        ],
+        "sft_half_official_policy": [
+          1118.6923114829021,
+          1204.896643398755
+        ]
+      }
+    }
+  },
+  "direct": {
+    "base_original__sft_original": {
+      "prompt_count": 23,
+      "valid_judges": 46,
+      "a_points": 27.0,
+      "a_score_rate": 0.5869565217391305,
+      "a_wins": 20,
+      "b_wins": 12,
+      "equal_average": 14
+    },
+    "base_original__base_official_policy": {
+      "prompt_count": 24,
+      "valid_judges": 48,
+      "a_points": 28.0,
+      "a_score_rate": 0.5833333333333334,
+      "a_wins": 15,
+      "b_wins": 7,
+      "equal_average": 26
+    },
+    "base_original__sft_half_official_policy": {
+      "prompt_count": 24,
+      "valid_judges": 48,
+      "a_points": 14.5,
+      "a_score_rate": 0.3020833333333333,
+      "a_wins": 5,
+      "b_wins": 24,
+      "equal_average": 19
+    },
+    "sft_original__base_official_policy": {
+      "prompt_count": 23,
+      "valid_judges": 46,
+      "a_points": 20.0,
+      "a_score_rate": 0.43478260869565216,
+      "a_wins": 11,
+      "b_wins": 17,
+      "equal_average": 18
+    },
+    "sft_original__sft_half_official_policy": {
+      "prompt_count": 23,
+      "valid_judges": 46,
+      "a_points": 9.0,
+      "a_score_rate": 0.1956521739130435,
+      "a_wins": 2,
+      "b_wins": 30,
+      "equal_average": 14
+    },
+    "base_official_policy__sft_half_official_policy": {
+      "prompt_count": 24,
+      "valid_judges": 48,
+      "a_points": 9.5,
+      "a_score_rate": 0.19791666666666666,
+      "a_wins": 1,
+      "b_wins": 30,
+      "equal_average": 17
+    }
+  }
+}

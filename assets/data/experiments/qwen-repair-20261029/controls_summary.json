@@ -1,0 +1,26 @@
+{
+  "glm-5.1": {
+    "calls": 4,
+    "valid": 4,
+    "expected_winner_matches": 4,
+    "cost_usd": 0.0038363
+  },
+  "kimi-k2.6": {
+    "calls": 4,
+    "valid": 4,
+    "expected_winner_matches": 3,
+    "cost_usd": 0.00202638
+  },
+  "gpt-6-astra": {
+    "calls": 4,
+    "valid": 4,
+    "expected_winner_matches": 4,
+    "cost_usd": 0.0589365
+  },
+  "claude-fable-5.1": {
+    "calls": 4,
+    "valid": 4,
+    "expected_winner_matches": 4,
+    "cost_usd": 0.14631
+  }
+}

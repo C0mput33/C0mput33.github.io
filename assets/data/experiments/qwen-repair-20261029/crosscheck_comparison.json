@@ -1,0 +1,227 @@
+{
+  "rows": [
+    {
+      "prompt_id": "repair29-02",
+      "a": "base_official_policy",
+      "b": "sft_half_official_policy",
+      "scores_a": {
+        "glm-5.1": 0.5,
+        "kimi-k2.6": 0.5,
+        "gpt-6-astra": 0.5,
+        "claude-fable-5.1": 1.0
+      },
+      "judgments": {
+        "gpt-6-astra": {
+          "forward": "AXIS_instruction_following: A\nAXIS_language_reader_fit: Tie\nAXIS_reader_mode_fit: B\nAXIS_engagement: Tie\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: Tie\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: A\nWINNER: A\nREASON: Despite exceeding the word limit slightly, A preserves Grandmother Ada’s identity and provides clearer continuity, while B abruptly substitutes a grandfather at the end.",
+          "reverse": "AXIS_instruction_following: A\nAXIS_language_reader_fit: Tie\nAXIS_reader_mode_fit: Tie\nAXIS_engagement: Tie\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: Tie\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: Tie\nWINNER: A\nREASON: A meets the word limit and more clearly places Rafi’s bridge on the postcard, despite its unexplained grandfather reference and awkward postcard handling.",
+          "forward_verdict": "A",
+          "reverse_verdict": "A"
+        },
+        "claude-fable-5.1": {
+          "forward": "AXIS_instruction_following: A\nAXIS_language_reader_fit: Tie\nAXIS_reader_mode_fit: B\nAXIS_engagement: A\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: A\nAXIS_originality_atmosphere: A\nWINNER: A\nREASON: Story A coherently fulfills every request element, while Story B has a confusing self-referential line where Ada announces making a postcard for herself, dialogue that repeats actions already done, and an abrupt \"grandfather's hand\" error, undermining clarity for a 7-year-old despite its shared-reading dialogue.",
+          "reverse": "AXIS_instruction_following: B\nAXIS_language_reader_fit: Tie\nAXIS_reader_mode_fit: A\nAXIS_engagement: B\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: B\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: B\nAXIS_originality_atmosphere: B\nWINNER: B\nREASON: Story A has disorienting continuity errors (Ada announcing a postcard \"for Grandmother Ada,\" out-of-order dialogue after the work is done, and Elin taking her \"grandfather's\" hand), while Story B keeps Ada clearly as grandmother, follows the sequence coherently, and offers vivid, warm detail despite running a few words over length.",
+          "forward_verdict": "A",
+          "reverse_verdict": "B"
+        }
+      }
+    },
+    {
+      "prompt_id": "repair29-06",
+      "a": "base_official_policy",
+      "b": "sft_half_official_policy",
+      "scores_a": {
+        "glm-5.1": 0.0,
+        "kimi-k2.6": 0.0,
+        "gpt-6-astra": 0.0,
+        "claude-fable-5.1": 0.0
+      },
+      "judgments": {
+        "gpt-6-astra": {
+          "forward": "AXIS_instruction_following: B\nAXIS_language_reader_fit: B\nAXIS_reader_mode_fit: B\nAXIS_engagement: B\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: Tie\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: Tie\nWINNER: B\nREASON: Although both exceed the word limit, B more clearly involves all three characters in folding and offers accessible dialogue and repeated flap discoveries suited to shared reading at seven.",
+          "reverse": "AXIS_instruction_following: A\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: A\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: A\nWINNER: A\nREASON: Although both exceed the 180–230-word limit, A more clearly involves all three characters in folding and offers livelier dialogue and a more coherent kitchen-map adventure for shared reading.",
+          "forward_verdict": "B",
+          "reverse_verdict": "A"
+        },
+        "claude-fable-5.1": {
+          "forward": "AXIS_instruction_following: B\nAXIS_language_reader_fit: B\nAXIS_reader_mode_fit: B\nAXIS_engagement: B\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: B\nAXIS_originality_atmosphere: B\nWINNER: B\nREASON: Both overshoot the word count and preserve names and relationships, but B's dialogue, step-by-step folding, and flap-opening game suit shared reading for a seven-year-old better than A's more descriptive, adult-toned prose, despite B's one awkward \"No smile was too wide\" line.",
+          "reverse": "AXIS_instruction_following: A\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: A\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: B\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: A\nWINNER: A\nREASON: Both exceed the 180–230 word limit, but Story A is closer, uses livelier dialogue and flap-opening steps that suit shared reading at age 7, and keeps the relationships clear, while Story B is more descriptive, less dialogic, and ends with a confusing jacket detail.",
+          "forward_verdict": "B",
+          "reverse_verdict": "A"
+        }
+      }
+    },
+    {
+      "prompt_id": "repair29-10",
+      "a": "base_official_policy",
+      "b": "sft_half_official_policy",
+      "scores_a": {
+        "glm-5.1": 0.0,
+        "kimi-k2.6": 0.0,
+        "gpt-6-astra": 1.0,
+        "claude-fable-5.1": 0.5
+      },
+      "judgments": {
+        "gpt-6-astra": {
+          "forward": "AXIS_instruction_following: A\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: B\nAXIS_engagement: B\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: B\nWINNER: A\nREASON: A meets the word limit, preserves the specified sequence of stamping attempts, and completes a pretend journey, whereas B exceeds the limit and changes the required first miss into a smear on the paper.",
+          "reverse": "AXIS_instruction_following: B\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: A\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: B\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: A\nWINNER: B\nREASON: B meets the word limit, correctly sequences the missed paper, light impression, and clear print, and ends with a completed pretend journey, whereas A exceeds the limit and changes the first attempt.",
+          "forward_verdict": "A",
+          "reverse_verdict": "B"
+        },
+        "claude-fable-5.1": {
+          "forward": "AXIS_instruction_following: A\nAXIS_language_reader_fit: B\nAXIS_reader_mode_fit: B\nAXIS_engagement: B\nAXIS_story_structure: B\nAXIS_form_craft: A\nAXIS_english_naturalness: Tie\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: B\nAXIS_originality_atmosphere: B\nWINNER: B\nREASON: Story B's dialogue, humor, and lively shared-reading rhythm better serve a 7-year-old and the pretend-journey ending, outweighing its modest overrun of the word range and loose handling of the \"missed the paper\" detail, while Story A fits the length but reads as a flat descriptive block whose train scene is a toy roll rather than a pretend journey.",
+          "reverse": "AXIS_instruction_following: B\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: A\nAXIS_story_structure: A\nAXIS_form_craft: B\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: A\nAXIS_originality_atmosphere: A\nWINNER: B\nREASON: Story B fits the word range and literally follows the brief (missed paper, light press, clear print, aunt cleaning washable ink), while Story A overruns the length and alters the first mishap to a smear rather than a miss, so despite A's livelier dialogue and shared-reading appeal, B better meets the core request.",
+          "forward_verdict": "B",
+          "reverse_verdict": "B"
+        }
+      }
+    },
+    {
+      "prompt_id": "repair29-14",
+      "a": "base_official_policy",
+      "b": "sft_half_official_policy",
+      "scores_a": {
+        "glm-5.1": 0.5,
+        "kimi-k2.6": 0.0,
+        "gpt-6-astra": 0.0,
+        "claude-fable-5.1": 0.0
+      },
+      "judgments": {
+        "gpt-6-astra": {
+          "forward": "AXIS_instruction_following: B\nAXIS_language_reader_fit: B\nAXIS_reader_mode_fit: B\nAXIS_engagement: Tie\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: B\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: Tie\nWINNER: B\nREASON: B explicitly replaces the noisy pots with the quiet parade and uses more accessible language and consistent character names, although both stories exceed the requested word limit.",
+          "reverse": "AXIS_instruction_following: A\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: Tie\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: A\nAXIS_originality_atmosphere: Tie\nWINNER: A\nREASON: Although both exceed the word limit, A more clearly replaces noisy pots with quiet parade props and offers simpler language and more consistent characters and setting.",
+          "forward_verdict": "B",
+          "reverse_verdict": "A"
+        },
+        "claude-fable-5.1": {
+          "forward": "AXIS_instruction_following: B\nAXIS_language_reader_fit: B\nAXIS_reader_mode_fit: B\nAXIS_engagement: B\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: B\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: B\nWINNER: B\nREASON: Story B explicitly replaces the clanging pots with the scarf and single cushion tap as requested, stays closer to the word limit, uses consistent names and simpler shared-reading language, while Story A omits the pots replacement, exceeds length, and has a name error (\"Emilia\") plus heavier phrasing like \"sacred ground.\"",
+          "reverse": "AXIS_instruction_following: A\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: Tie\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: Tie\nAXIS_originality_atmosphere: Tie\nWINNER: A\nREASON: Story A follows the brief more faithfully (explicitly replaces clanging pots, keeps one tap, scarf as flag, parks beside the sofa where the baby sleeps) with simple shared-reading language, while Story B has a name inconsistency (Mia/Emilia), harder phrasing like \"sacred ground,\" and a logic gap where the baby is in a crib yet they park and watch him at the sofa.",
+          "forward_verdict": "B",
+          "reverse_verdict": "A"
+        }
+      }
+    },
+    {
+      "prompt_id": "repair29-18",
+      "a": "base_official_policy",
+      "b": "sft_half_official_policy",
+      "scores_a": {
+        "glm-5.1": 0.5,
+        "kimi-k2.6": 0.0,
+        "gpt-6-astra": 0.0,
+        "claude-fable-5.1": 0.0
+      },
+      "judgments": {
+        "gpt-6-astra": {
+          "forward": "AXIS_instruction_following: B\nAXIS_language_reader_fit: B\nAXIS_reader_mode_fit: B\nAXIS_engagement: B\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: B\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: B\nAXIS_originality_atmosphere: Tie\nWINNER: B\nREASON: Both exceed the word limit and preserve the four-square count, but B offers clearer pretend play, engaging dialogue, and participatory sound effects without A’s confusing separation of Elsa from her robot at the end.",
+          "reverse": "AXIS_instruction_following: A\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: A\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: A\nAXIS_originality_atmosphere: A\nWINNER: A\nREASON: Although both exceed the word limit, A offers clearer progression, engaging shared-reading dialogue and rhythm, and a more coherent ending than B’s unexplained robot walking beside Elsa.",
+          "forward_verdict": "B",
+          "reverse_verdict": "A"
+        },
+        "claude-fable-5.1": {
+          "forward": "AXIS_instruction_following: B\nAXIS_language_reader_fit: B\nAXIS_reader_mode_fit: B\nAXIS_engagement: B\nAXIS_story_structure: B\nAXIS_form_craft: B\nAXIS_english_naturalness: B\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: B\nAXIS_originality_atmosphere: B\nWINNER: B\nREASON: Both overshoot the word limit, but B stays closer, keeps the square count consistent, and its dialogue with Dad, sound effects, and short lines suit shared reading far better than A's dense single block with a minor continuity wobble (\"the robot walked beside her\").",
+          "reverse": "AXIS_instruction_following: A\nAXIS_language_reader_fit: A\nAXIS_reader_mode_fit: A\nAXIS_engagement: A\nAXIS_story_structure: A\nAXIS_form_craft: A\nAXIS_english_naturalness: A\nAXIS_age_appropriateness: Tie\nAXIS_emotional_resonance: A\nAXIS_originality_atmosphere: A\nWINNER: A\nREASON: Both overshoot the word limit slightly, but A keeps the square count cleaner (B's \"toy badge\" and \"the robot walked beside her\" muddle the costume logic), uses paragraphing and dialogue suited to shared reading, and has livelier rhythm with the \"Clomp. Clomp.\" refrain.",
+          "forward_verdict": "B",
+          "reverse_verdict": "A"
+        }
+      }
+    },
+    {
+      "prompt_id": "repair29-22",
+      "a": "base_official_policy",
+      "b": "sft_half_official_policy",
+      "scores_a": {
+        "glm-5.1": 0.5,
+        "kimi-k2.6": 0.5,
+        "gpt-6-astra": null,
+        "claude-fable-5.1": null
+      },
+      "judgments": {
+        "gpt-6-astra": {
+          "forward": null,
+          "reverse": null,
+          "forward_verdict": null,
+          "reverse_verdict": null
+        },
+        "claude-fable-5.1": {
+          "forward": null,
+          "reverse": null,
+          "forward_verdict": null,
+          "reverse_verdict": null
+        }
+      }
+    }
+  ],
+  "summary": {
+    "glm-5.1": {
+      "valid": 6,
+      "base_wins": 0,
+      "repair_wins": 2,
+      "equal_average": 4,
+      "base_point_rate": 0.3333333333333333
+    },
+    "kimi-k2.6": {
+      "valid": 6,
+      "base_wins": 0,
+      "repair_wins": 4,
+      "equal_average": 2,
+      "base_point_rate": 0.16666666666666666
+    },
+    "gpt-6-astra": {
+      "valid": 5,
+      "base_wins": 1,
+      "repair_wins": 3,
+      "equal_average": 1,
+      "base_point_rate": 0.3
+    },
+    "claude-fable-5.1": {
+      "valid": 5,
+      "base_wins": 1,
+      "repair_wins": 3,
+      "equal_average": 1,
+      "base_point_rate": 0.3
+    }
+  },
+  "common_summary": {
+    "glm-5.1": {
+      "valid": 5,
+      "base_wins": 0,
+      "repair_wins": 2,
+      "equal_average": 3,
+      "base_point_rate": 0.3
+    },
+    "kimi-k2.6": {
+      "valid": 5,
+      "base_wins": 0,
+      "repair_wins": 4,
+      "equal_average": 1,
+      "base_point_rate": 0.1
+    },
+    "gpt-6-astra": {
+      "valid": 5,
+      "base_wins": 1,
+      "repair_wins": 3,
+      "equal_average": 1,
+      "base_point_rate": 0.3
+    },
+    "claude-fable-5.1": {
+      "valid": 5,
+      "base_wins": 1,
+      "repair_wins": 3,
+      "equal_average": 1,
+      "base_point_rate": 0.3
+    }
+  },
+  "completed_common_ids": [
+    "repair29-02",
+    "repair29-06",
+    "repair29-10",
+    "repair29-14",
+    "repair29-18"
+  ],
+  "uncompleted_prespecified_ids": [
+    "repair29-22"
+  ],
+  "incomplete_reason": "Pre-request worst-case reservation would exceed $1.50; no call sent for last prompt",
+  "selected_before_judging": true,
+  "not_combined_with_main": true
+}

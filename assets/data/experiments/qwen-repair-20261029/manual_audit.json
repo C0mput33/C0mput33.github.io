@@ -1,0 +1,189 @@
+{
+  "reviewer_type": "assistant_text_inspection_not_human",
+  "scope": "development counterexamples and all 24 selected-candidate fresh outputs; automated-agent reading, not exhaustive human quality labels",
+  "findings": [
+    {
+      "arm": "sft_original",
+      "id": "frontier29-03",
+      "issue": "동일 Leo를 Uncle과 Aunt로 번갈아 부름",
+      "classification": "identity_error"
+    },
+    {
+      "arm": "sft_original",
+      "id": "frontier29-07",
+      "issue": "동일 박수 패턴 반복이 종료 토큰 상한까지 이어짐",
+      "classification": "degeneration"
+    },
+    {
+      "arm": "sft_official_policy",
+      "id": "frontier29-09",
+      "issue": "별 쿠키 다섯/여섯 개와 생반죽 위치가 모순되고 원래 빈자리의 해명이 바뀜",
+      "classification": "causal_count_error"
+    },
+    {
+      "arm": "sft_official_policy",
+      "id": "frontier29-22",
+      "issue": "다른 아이가 경계를 말해야 하는데 Auntie Mae로 역할 변경",
+      "classification": "role_constraint_error"
+    },
+    {
+      "arm": "sft_half_official_policy",
+      "id": "frontier29-03",
+      "issue": "눈을 감고 물결을 센다고 서술함",
+      "classification": "physical_inconsistency"
+    },
+    {
+      "arm": "sft_half_official_policy",
+      "id": "frontier29-14",
+      "issue": "한 번 발음을 확인하라는 조건 대신 철자와 발음 재확인을 여러 번 반복",
+      "classification": "instruction_error"
+    },
+    {
+      "arm": "sft_half_official_policy",
+      "id": "frontier29-17",
+      "issue": "꽃봉오리를 흰 물감으로 칠하는 근거 없는 결말; 두번째 개화 미완료",
+      "classification": "causal_ending_error"
+    }
+  ],
+  "decision": "반복·호칭 신호 감소를 전체 원고 품질 개선으로 해석하지 않는다.",
+  "fresh_reviewed_ids": [
+    "repair29-01",
+    "repair29-02",
+    "repair29-03",
+    "repair29-04",
+    "repair29-05",
+    "repair29-06",
+    "repair29-07",
+    "repair29-08",
+    "repair29-09",
+    "repair29-10",
+    "repair29-11",
+    "repair29-12",
+    "repair29-13",
+    "repair29-14",
+    "repair29-15",
+    "repair29-16",
+    "repair29-17",
+    "repair29-18",
+    "repair29-19",
+    "repair29-20",
+    "repair29-21",
+    "repair29-22",
+    "repair29-23",
+    "repair29-24"
+  ],
+  "fresh_findings": [
+    {
+      "id": "repair29-01",
+      "arm": "sft_half_official_policy",
+      "quote": "But two stood out with bright yellow ribbons.",
+      "finding": "우산 하나와 가방 하나에 리본을 붙인 뒤 우산 두 개처럼 서술하는 지시 대상 혼동 가능성",
+      "certainty": "possible_reference_ambiguity"
+    },
+    {
+      "id": "repair29-02",
+      "arm": "sft_half_official_policy",
+      "quote": "Then she took her grandfather’s hand.",
+      "finding": "함께 있던 Grandmother Ada 대신 미등장 grandfather로 관계가 바뀜. 이름+호칭 정규식은 놓침",
+      "certainty": "confirmed_continuity_error"
+    },
+    {
+      "id": "repair29-04",
+      "arm": "sft_half_official_policy",
+      "quote": "Then D pressed E.",
+      "finding": "Esme 연주 중 D가 누구인지 불명확. 새 이름인지 음표 오기인지 확정하기 어려움",
+      "certainty": "ambiguous_reference"
+    },
+    {
+      "id": "repair29-07",
+      "arm": "sft_half_official_policy",
+      "quote": "A-N-A-M-A-R-A.",
+      "finding": "Amara 이름 카드를 ANAMARA로 철자화하고 정확하다고 서술. 완전 이름 검색은 이 오류를 놓침",
+      "certainty": "confirmed_name_spelling_error"
+    },
+    {
+      "id": "repair29-08",
+      "arm": "sft_half_official_policy",
+      "quote": "holding a long wooden torch with a blue flame at its tip",
+      "finding": "torch는 불횃불과 손전등 의미가 모두 있어 문항 자체도 모호함. 이 항목의 안전성 해석을 조심하고 문항은 사후 수정하지 않음",
+      "certainty": "prompt_ambiguity"
+    },
+    {
+      "id": "repair29-10",
+      "arm": "sft_half_official_policy",
+      "quote": "three crisp words in bright blue ink. FIRST STOP.",
+      "finding": "FIRST STOP은 두 단어인데 세 단어라고 서술. 첫 시도도 종이를 놓치는 조건에서 종이를 번지게 하는 내용으로 변경",
+      "certainty": "confirmed_count_and_instruction_error"
+    },
+    {
+      "id": "repair29-11",
+      "arm": "sft_half_official_policy",
+      "quote": "letting its own weight hold it there",
+      "finding": "세 번째 종이 눈송이가 무게만으로 창문에 붙는 물리적 설명",
+      "certainty": "confirmed_physical_inconsistency"
+    },
+    {
+      "id": "repair29-12",
+      "arm": "sft_half_official_policy",
+      "quote": "But they move with their roots, not their arms.",
+      "finding": "바람에 흔들리는 나무를 뿌리로 움직인다고 설명하여 인과가 부정확함",
+      "certainty": "confirmed_explanatory_error"
+    },
+    {
+      "id": "repair29-13",
+      "arm": "sft_half_official_policy",
+      "quote": "“One more towel,” Dad said. “Splash, splash, splat!”",
+      "finding": "행동은 세탁물 분류를 끝내며 진행하지만 종류별 안내를 한 번씩 하라는 제한은 초과. 유한 후렴을 무조건 퇴행 반복으로 분류하지 않음",
+      "certainty": "instruction_error_not_endless_loop"
+    },
+    {
+      "id": "repair29-18",
+      "arm": "sft_half_official_policy",
+      "quote": "a big yellow star in the middle with her orange marker",
+      "finding": "주어진 네 장의 개수는 보존했지만 주황 마커로 노란 별을 그리는 색상 불일치",
+      "certainty": "confirmed_color_inconsistency"
+    },
+    {
+      "id": "repair29-17",
+      "arm": "sft_half_official_policy",
+      "quote": "The fold cut straight through his perfect moon.",
+      "finding": "문항이 달을 가로지르는 접힌 자국을 달 아래 능선으로 만들라고 하여 공간 조건 자체가 모호할 수 있음. 결과를 보고 문항을 고치지 않고 별도 민감도 분석",
+      "certainty": "prompt_geometry_ambiguity"
+    }
+  ],
+  "fresh_review_scope": "수정 후보 24편 전체를 원문 대조. 모든 오류를 검출했다는 보증은 아님. 학습 전 원고 전수 검토와 동일하지 않음.",
+  "fresh_no_flag_ids": [
+    "repair29-03",
+    "repair29-05",
+    "repair29-06",
+    "repair29-09",
+    "repair29-14",
+    "repair29-15",
+    "repair29-16",
+    "repair29-19",
+    "repair29-20",
+    "repair29-21",
+    "repair29-22",
+    "repair29-23",
+    "repair29-24"
+  ],
+  "no_flag_definition": "이번 읽기에서 확정적인 이름·반복·주요 상태 오류를 기록하지 않았다는 뜻. 품질 합격 판정 아님.",
+  "paired_name_checks": [
+    {
+      "id": "repair29-07",
+      "base_original": "A-M-A-R-A / B-E-N-J-I correct",
+      "sft_original": "hyphenated spelling omitted, names/ownership stable",
+      "base_official_policy": "G-E-N-J-I for Benji",
+      "sft_half_official_policy": "A-N-A-M-A-R-A for Amara",
+      "inference": "학습 후만의 오류가 아님. 디코딩+지시 변경도 철자 정확성에 영향을 주었을 가능성. 단일 사례로 특정 penalty의 인과를 확정하지 않음."
+    },
+    {
+      "id": "repair29-02",
+      "base_original": "Grandmother Ada stays grandmother",
+      "sft_original": "Ada relationship stable but scene loops",
+      "base_official_policy": "Ada stays grandmother",
+      "sft_half_official_policy": "unintroduced grandfather at ending",
+      "inference": "수정 후보가 반복을 없애며 다른 연속성 오류를 만들 수 있음."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "base_original": {
+    "outputs": 24,
+    "token_cap": 0,
+    "length_pass": 1,
+    "high_repetition_flags": 0,
+    "title_conflict_flags": 0,
+    "mean_words": 274.75,
+    "missing_name_flags": 0
+  },
+  "sft_original": {
+    "outputs": 24,
+    "token_cap": 1,
+    "length_pass": 11,
+    "high_repetition_flags": 4,
+    "title_conflict_flags": 0,
+    "mean_words": 292.0416666666667,
+    "missing_name_flags": 0
+  },
+  "base_official_policy": {
+    "outputs": 24,
+    "token_cap": 0,
+    "length_pass": 2,
+    "high_repetition_flags": 0,
+    "title_conflict_flags": 0,
+    "mean_words": 256.1666666666667,
+    "missing_name_flags": 0
+  },
+  "sft_half_official_policy": {
+    "outputs": 24,
+    "token_cap": 0,
+    "length_pass": 6,
+    "high_repetition_flags": 0,
+    "title_conflict_flags": 0,
+    "mean_words": 243.83333333333334,
+    "missing_name_flags": 0
+  }
+}

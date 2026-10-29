@@ -1,0 +1,23 @@
+{
+  "target_provided_in_prompt": true,
+  "posthoc_diagnostic_not_holdout": true,
+  "results": {
+    "base_policy_no_presence": {
+      "n": 6,
+      "exact_spelling": 5
+    },
+    "base_official_policy": {
+      "n": 6,
+      "exact_spelling": 5
+    },
+    "sft_half_policy_no_presence": {
+      "n": 6,
+      "exact_spelling": 6
+    },
+    "sft_half_official_policy": {
+      "n": 6,
+      "exact_spelling": 6
+    }
+  },
+  "limitation": "복사 가능한 짧은 철자 검사. 장문 이름 생성이나 관계 유지의 개선을 보증하지 않음."
+}

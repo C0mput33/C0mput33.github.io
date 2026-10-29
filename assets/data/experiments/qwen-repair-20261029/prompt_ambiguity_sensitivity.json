@@ -1,0 +1,65 @@
+{
+  "excluded": [
+    "repair29-08",
+    "repair29-17"
+  ],
+  "reason": "torch meaning and crease geometry ambiguities discovered during reading; posthoc exploratory",
+  "primary_result_preserved": true,
+  "stats": {
+    "contests": 258,
+    "rank": [
+      {
+        "model": "sft_half_official_policy",
+        "score": 1153.8916715202604
+      },
+      {
+        "model": "base_original",
+        "score": 1003.5051089540339
+      },
+      {
+        "model": "base_official_policy",
+        "score": 930.989312656914
+      },
+      {
+        "model": "sft_original",
+        "score": 911.6139068687919
+      }
+    ],
+    "pair_ci": {
+      "base_original": [
+        958.2466712683915,
+        1049.4097467457273
+      ],
+      "sft_original": [
+        862.3029852253948,
+        955.1029129336611
+      ],
+      "base_official_policy": [
+        889.9354953431231,
+        969.0319026894191
+      ],
+      "sft_half_official_policy": [
+        1116.1052005282806,
+        1202.8146527266288
+      ]
+    },
+    "prompt_ci": {
+      "base_original": [
+        938.7795018292398,
+        1066.7334109050546
+      ],
+      "sft_original": [
+        840.6884195859878,
+        974.8683438160833
+      ],
+      "base_official_policy": [
+        888.7457951174516,
+        972.8232277897
+      ],
+      "sft_half_official_policy": [
+        1113.245109580137,
+        1203.5555535177698
+      ]
+    }
+  }
+}
