@@ -1,0 +1,40 @@
+model: mlx-community/Qwen3.6-35B-A3B-4bit
+train: true
+data: data/sft
+fine_tune_type: lora
+num_layers: 8
+batch_size: 1
+iters: 302
+learning_rate: 3.0e-05
+max_seq_length: 2048
+mask_prompt: true
+grad_checkpoint: true
+grad_accumulation_steps: 1
+val_batches: -1
+steps_per_eval: 80
+steps_per_report: 10
+save_every: 80
+adapter_path: runs/hybrid_adapter
+seed: 1029
+lr_schedule:
+  name: cosine_decay
+  warmup: 20
+  warmup_init: 1.0e-06
+  arguments:
+  - 3.0e-05
+  - 282
+  - 3.0e-06
+lora_parameters:
+  rank: 32
+  scale: 16.0
+  dropout: 0.0
+  keys:
+  - self_attn.q_proj
+  - self_attn.k_proj
+  - self_attn.v_proj
+  - self_attn.o_proj
+  - linear_attn.in_proj_qkv
+  - linear_attn.in_proj_z
+  - linear_attn.in_proj_a
+  - linear_attn.in_proj_b
+  - linear_attn.out_proj

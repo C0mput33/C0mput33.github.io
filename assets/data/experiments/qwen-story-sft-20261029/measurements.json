@@ -1,0 +1,177 @@
+{
+  "observed_date": "2026-10-29",
+  "scope": "Local MLX SFT experiment; not a production deployment. Human evaluation votes:0.",
+  "counts": {
+    "train": 302,
+    "valid": 25,
+    "test": 60
+  },
+  "categories": {
+    "original": 138,
+    "diary": 48,
+    "experience": 111,
+    "source_rewrite": 1,
+    "classic": 2,
+    "social exchange": 2
+  },
+  "metrics": {
+    "base": {
+      "n": 60,
+      "structural_pass": 0,
+      "mean_words": 379.3833333333333,
+      "word_range_pass": 1,
+      "six_paragraph_pass": 56,
+      "token_cap": 0,
+      "mean_ai_story_score": 2.839583333333333,
+      "judge_flagged_critical_cases": 13,
+      "judge_flagged_major_cases": 60,
+      "judge_flagged_fact_failure_cases": 22,
+      "mean_generation_seconds": 5.7250499999999995,
+      "median_tokens_per_second": 87.85397928701636,
+      "peak_memory_gb": 19.966960304
+    },
+    "trained": {
+      "n": 60,
+      "structural_pass": 24,
+      "mean_words": 221.81666666666666,
+      "word_range_pass": 24,
+      "six_paragraph_pass": 59,
+      "token_cap": 0,
+      "mean_ai_story_score": 3.5833333333333335,
+      "judge_flagged_critical_cases": 9,
+      "judge_flagged_major_cases": 28,
+      "judge_flagged_fact_failure_cases": 7,
+      "mean_generation_seconds": 3.630133333333333,
+      "median_tokens_per_second": 83.14722959186219,
+      "peak_memory_gb": 20.068391624
+    }
+  },
+  "paired_results": {
+    "narrative": {
+      "trained_wins": 35,
+      "base_wins": 7,
+      "ties": 0,
+      "order_disagreements": 18,
+      "total": 60,
+      "stable_decisive_cases": 42,
+      "exact_sign_test_p": 1.5097200957825407e-05,
+      "confirmed_win_fraction_all_cases": 0.5833333333333334,
+      "wilson95_confirmed_win_fraction_all_cases": [
+        0.45728081022640465,
+        0.699357214416581
+      ]
+    },
+    "overall": {
+      "trained_wins": 41,
+      "base_wins": 6,
+      "ties": 0,
+      "order_disagreements": 13,
+      "total": 60,
+      "stable_decisive_cases": 47,
+      "exact_sign_test_p": 1.7716986633331544e-07,
+      "confirmed_win_fraction_all_cases": 0.6833333333333333,
+      "wilson95_confirmed_win_fraction_all_cases": [
+        0.5576623297382359,
+        0.7869413244763324
+      ]
+    }
+  },
+  "category_overall": {
+    "experience": {
+      "trained": 20,
+      "order_disagreement": 8,
+      "base": 2
+    },
+    "diary": {
+      "trained": 7,
+      "base": 2,
+      "order_disagreement": 1
+    },
+    "original": {
+      "trained": 6,
+      "base": 1,
+      "order_disagreement": 3
+    },
+    "classic": {
+      "trained": 8,
+      "base": 1,
+      "order_disagreement": 1
+    }
+  },
+  "assistant_blind12": {
+    "base": 5,
+    "trained": 5,
+    "uncertain": 1,
+    "tie": 1
+  },
+  "api_budget": {
+    "cap_usd": 30,
+    "confirmed_cumulative_usd": 14.010030065508,
+    "confirmed_plus_unknown_reserved_usd": 18.317821985508,
+    "unknown_reserved_usd": 4.307791920000001,
+    "note": "Reservations from interrupted/failed calls remain conservatively booked; not proof of active requests or actual bill. No new cloudGPU expense."
+  },
+  "model": {
+    "name": "mlx-community/Qwen3.6-35B-A3B-4bit",
+    "base_revision": "38740b847e4cb78f352aba30aa41c76e08e6eb46",
+    "selected_adapter_sha256": "0f30815accb0262196124d1604ce1aac60dc4fe49d519892eba8aa04983ba0dc",
+    "decoding": {
+      "seed": 1029,
+      "temperature": 0.7,
+      "top_p": 0.9,
+      "max_tokens": 900,
+      "thinking": false
+    },
+    "test_sha256": "72cb55783c77f526b46e0d7da67d23549889401a6a3e6846559063f7b2f14569",
+    "train_valid_hashes": {
+      "data/sft/train.jsonl": "33128cab280afadd72bdd8b14b9073ab227ec0c99181fa1867f0fa35cd35e10e",
+      "data/sft/valid.jsonl": "8731b1b32c2cda7ae97583dd0c50cb71bdc3692b0bdeb2322cef698a81c79166"
+    }
+  },
+  "candidate_selection": {
+    "created_at": "2026-10-29T01:38:42.037035+00:00",
+    "selected_family": "hybrid_sft",
+    "selected_training_description_ko": "이 Mac의 MLX LoRA · 32–39번 혼합 attention 8개 층 · rank32 / scale16 · 6,500,352개 학습 파라미터 · batch1 · 302 updates",
+    "candidates": [
+      {
+        "name_ko": "첫 SFT · 실제 두 층",
+        "structural_pass": 3,
+        "validation_nll": 1.3715800046920776,
+        "decision_ko": "비교용 보존"
+      },
+      {
+        "name_ko": "64편 보완 학습",
+        "structural_pass": 4,
+        "validation_nll": 1.377943515777588,
+        "decision_ko": "반복·상태 오류로 제외"
+      },
+      {
+        "name_ko": "혼합 attention 여덟 층 SFT",
+        "structural_pass": 7,
+        "validation_nll": 1.29800546169281,
+        "decision_ko": "새 시험의 최종 후보"
+      }
+    ],
+    "reason_ko": "검증 손실과 제목·사건 순서 일부가 개선되어 여덟 층 SFT를 비교 후보로 선택했다. 위험 행동 두 건과 반복 장면, 시제 위반은 남아 있다. 완성 원고의 제품 품질 통과나 개선 확정이 아니라, 아직 읽지 않은 새 시험에서 비교할 후보 선정이다. 추가 작성 지침은 7→5로 악화되어 제외했다.",
+    "generation_policy": null,
+    "no_final_output_texts_used_for_selection": true,
+    "degeneration_definition_note": "기계적 8단어열 과다 반복/출력 상한 반복은0. 의미 차원의 반복 장면1건은 별도 잔존 오류로 기록했으며 해결됐다고 주장하지 않음.",
+    "reproduction_focus_resume": "runs/sft_selected_adapter/adapters.safetensors holds the original immutable selected SFT; historical focus config used runs/selected_adapter before final selection."
+  },
+  "limitations": [
+    "AI judges and assistant rereading, not human editorial/parent validation",
+    "One sample per prompt, one temperature and seed;60 fresh fine-tuning holdouts, not proof of absence from base pretraining",
+    "Only shared reading ages6–8,180–230words,six paragraphs; not certified Lexile/AR/CEFR",
+    "No benchmark against Bookkiki production model and no app deployment",
+    "Training and inference both no-thinking, same frozen prompts and decoding parameters",
+    "Order disagreement is unresolved, not a trained win; sign test applies only to stable decisive cases"
+  ],
+  "local_api_v2": {
+    "http_status": 200,
+    "server_stopped_after_check": true,
+    "mechanical_pass": false
+  },
+  "app_connected": false,
+  "production_deployed": false,
+  "v2_dpo_performed": false
+}
