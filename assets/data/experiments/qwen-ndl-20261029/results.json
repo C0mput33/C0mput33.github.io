@@ -1,0 +1,673 @@
+{
+  "experiment": "20261029-ndl-qwen",
+  "evaluation": "24 frozen synthetic prompts, two seeds; 48 outputs per arm",
+  "human_reviewed": false,
+  "comparison": {
+    "base": {
+      "n": 48,
+      "prompt_count": 24,
+      "length_pass": 0,
+      "mean_ndl": 0.8708826900849882,
+      "ndl_ge90": 10,
+      "missing_name_outputs": 0,
+      "same_name_role_conflict_outputs": 0,
+      "extra_family_role_warnings": 9,
+      "repetition_warnings": 0,
+      "token_caps": 0,
+      "explicit_wrong_relationship_outputs": 0
+    },
+    "previous_best": {
+      "n": 48,
+      "prompt_count": 24,
+      "length_pass": 6,
+      "mean_ndl": 0.9027460566542503,
+      "ndl_ge90": 26,
+      "missing_name_outputs": 0,
+      "same_name_role_conflict_outputs": 0,
+      "extra_family_role_warnings": 9,
+      "repetition_warnings": 0,
+      "token_caps": 0,
+      "explicit_wrong_relationship_outputs": 0
+    },
+    "ndl_sft": {
+      "n": 48,
+      "prompt_count": 24,
+      "length_pass": 15,
+      "mean_ndl": 0.9216146627863204,
+      "ndl_ge90": 33,
+      "missing_name_outputs": 1,
+      "same_name_role_conflict_outputs": 0,
+      "extra_family_role_warnings": 7,
+      "repetition_warnings": 0,
+      "token_caps": 0,
+      "explicit_wrong_relationship_outputs": 0
+    }
+  },
+  "joint_length_and_vocabulary": {
+    "counts": {
+      "base": 0,
+      "previous_best": 4,
+      "ndl_sft": 10
+    },
+    "denominator_per_arm": 48,
+    "paired": {
+      "base": {
+        "difference": 0.20833333333333334,
+        "ci95": [
+          0.10416666666666667,
+          0.3333333333333333
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "previous_best": {
+        "difference": 0.125,
+        "ci95": [
+          -0.020833333333333332,
+          0.2708333333333333
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      }
+    },
+    "meaning": "Both 180–230 words and NDL coverage at least 90%, not a whole-story quality score."
+  },
+  "paired_prompt_cluster_intervals": {
+    "base__ndl_sft": {
+      "length_pass": {
+        "difference": 0.3125,
+        "ci95": [
+          0.20833333333333334,
+          0.4375
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "mean_ndl": {
+        "difference": 0.05073197270133218,
+        "ci95": [
+          0.041376908520532135,
+          0.06036361945047104
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "ndl_ge90": {
+        "difference": 0.4791666666666667,
+        "ci95": [
+          0.3125,
+          0.6458333333333334
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "missing_name": {
+        "difference": 0.020833333333333332,
+        "ci95": [
+          0.0,
+          0.0625
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "role_conflict": {
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "explicit_wrong_relationship": {
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "extra_family_role_warning": {
+        "difference": -0.041666666666666664,
+        "ci95": [
+          -0.1875,
+          0.10416666666666667
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "repetition_warning": {
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      }
+    },
+    "previous_best__ndl_sft": {
+      "length_pass": {
+        "difference": 0.1875,
+        "ci95": [
+          0.020833333333333332,
+          0.3541666666666667
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "mean_ndl": {
+        "difference": 0.018868606132070073,
+        "ci95": [
+          0.01017566958740935,
+          0.027172931288780715
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "ndl_ge90": {
+        "difference": 0.14583333333333334,
+        "ci95": [
+          -0.041666666666666664,
+          0.3333333333333333
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "missing_name": {
+        "difference": 0.020833333333333332,
+        "ci95": [
+          0.0,
+          0.0625
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "role_conflict": {
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "explicit_wrong_relationship": {
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "extra_family_role_warning": {
+        "difference": -0.041666666666666664,
+        "ci95": [
+          -0.16666666666666666,
+          0.08333333333333333
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      },
+      "repetition_warning": {
+        "difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "prompt_clusters": 24,
+        "paired_outputs": 48,
+        "direction": "right minus left"
+      }
+    },
+    "limitations": "Paired nonparametric bootstrap over 24 synthetic prompts, retaining both seeds per prompt. Descriptive intervals, not an independently validated population claim; zero observed errors does not establish zero risk."
+  },
+  "preference_evaluation": {
+    "main_astra": {
+      "contests": 72,
+      "rank": [
+        {
+          "model": "base",
+          "score": 1018.8242469712561
+        },
+        {
+          "model": "previous_best",
+          "score": 995.2939254110802
+        },
+        {
+          "model": "ndl_sft",
+          "score": 985.8818276176637
+        }
+      ],
+      "pair_ci": {
+        "base": [
+          953.8041706753149,
+          1088.7361387634485
+        ],
+        "previous_best": [
+          932.8138628255456,
+          1054.5225050003003
+        ],
+        "ndl_sft": [
+          918.4325741007092,
+          1043.8802053528857
+        ]
+      },
+      "prompt_ci": {
+        "base": [
+          950.2361594130582,
+          1089.336385510373
+        ],
+        "previous_best": [
+          914.9646381724344,
+          1072.8498515098674
+        ],
+        "ndl_sft": [
+          903.974119029097,
+          1062.7156759550035
+        ]
+      }
+    },
+    "cross": {
+      "astra": {
+        "contests": 18,
+        "rank": [
+          {
+            "model": "previous_best",
+            "score": 1079.3572161838335
+          },
+          {
+            "model": "ndl_sft",
+            "score": 1079.3572161838335
+          },
+          {
+            "model": "base",
+            "score": 841.2855676323328
+          }
+        ],
+        "pair_ci": {
+          "base": [
+            668.8849406393625,
+            956.0582411561818
+          ],
+          "previous_best": [
+            952.2699649062542,
+            1232.8584742893627
+          ],
+          "ndl_sft": [
+            951.6019677114131,
+            1238.252833569342
+          ]
+        },
+        "prompt_ci": {
+          "base": [
+            679.6924845819267,
+            959.5923464332996
+          ],
+          "previous_best": [
+            911.7163253346893,
+            1236.6695005587526
+          ],
+          "ndl_sft": [
+            925.374675272185,
+            1267.90282432525
+          ]
+        }
+      },
+      "fable": {
+        "contests": 18,
+        "rank": [
+          {
+            "model": "previous_best",
+            "score": 1141.564222782709
+          },
+          {
+            "model": "ndl_sft",
+            "score": 1119.4755134972359
+          },
+          {
+            "model": "base",
+            "score": 738.9602637200553
+          }
+        ],
+        "pair_ci": {
+          "base": [
+            653.8729871909893,
+            820.912547485042
+          ],
+          "previous_best": [
+            1051.367099108702,
+            1262.5440285895259
+          ],
+          "ndl_sft": [
+            1013.9857026710229,
+            1237.1760509266949
+          ]
+        },
+        "prompt_ci": {
+          "base": [
+            668.6992361993002,
+            810.2234315903476
+          ],
+          "previous_best": [
+            1063.3979394754497,
+            1235.7465985278186
+          ],
+          "ndl_sft": [
+            1000.0000000442916,
+            1267.90282432525
+          ]
+        }
+      }
+    },
+    "diagnostics": {
+      "astra": {
+        "valid": 72,
+        "invalid": 0,
+        "position_disagreement": 1,
+        "not_scheduled": 0
+      },
+      "fable": {
+        "valid": 18,
+        "invalid": 0,
+        "position_disagreement": 3,
+        "not_scheduled": 54
+      }
+    },
+    "direct": {
+      "astra": {
+        "base__previous_best": {
+          "n": 24,
+          "a_wins": 12,
+          "b_wins": 12,
+          "ties": 0,
+          "a_points": 12.0
+        },
+        "base__ndl_sft": {
+          "n": 24,
+          "a_wins": 14,
+          "b_wins": 10,
+          "ties": 0,
+          "a_points": 14.0
+        },
+        "previous_best__ndl_sft": {
+          "n": 24,
+          "a_wins": 11,
+          "b_wins": 12,
+          "ties": 1,
+          "a_points": 11.5
+        }
+      },
+      "fable": {
+        "base__previous_best": {
+          "n": 6,
+          "a_wins": 0,
+          "b_wins": 6,
+          "ties": 0,
+          "a_points": 0.0
+        },
+        "base__ndl_sft": {
+          "n": 6,
+          "a_wins": 0,
+          "b_wins": 5,
+          "ties": 1,
+          "a_points": 0.5
+        },
+        "previous_best__ndl_sft": {
+          "n": 6,
+          "a_wins": 2,
+          "b_wins": 2,
+          "ties": 2,
+          "a_points": 3.0
+        }
+      }
+    }
+  },
+  "training_data": {
+    "original_corrected_mean": 0.7965224096978637,
+    "revised_corrected_mean": 0.853290909667314,
+    "original_corrected_ge90": 5,
+    "revised_corrected_ge90": 49,
+    "names_correction_cases": 16,
+    "training_targets_changed": false,
+    "explanation": "Same raw vocabulary tokenization, case-level proper-name exclusions corrected; previous v1 analysis retained."
+  },
+  "selected_checkpoint": {
+    "step": 300,
+    "file": "runs/ndl_recovery_adapter/0000150_adapters.safetensors",
+    "sha256": "8e16fe00cfa7fce5f409a851c05e1762bc6228a156644f5afd58e0442ac4cdea",
+    "validation_nll": 1.5552363395690918,
+    "severe_probe_count": 0,
+    "length_pass": 2
+  },
+  "validation_scores": [
+    {
+      "step": 150,
+      "file": "runs/ndl_adapter/0000150_adapters.safetensors",
+      "sha256": "2517f93fb056485a9b844062c8f647d141627a43dc6b41fa9f9bd98ed5bf66f5",
+      "validation_nll": 1.5668108463287354,
+      "severe_probe_count": 0,
+      "length_pass": 2
+    },
+    {
+      "step": 300,
+      "file": "runs/ndl_recovery_adapter/0000150_adapters.safetensors",
+      "sha256": "8e16fe00cfa7fce5f409a851c05e1762bc6228a156644f5afd58e0442ac4cdea",
+      "validation_nll": 1.5552363395690918,
+      "severe_probe_count": 0,
+      "length_pass": 2
+    }
+  ],
+  "recovery": "GPU OOM at235. Saved150 weights plus150 further updates with reset Adam1e-6 and checkpointed output-head loss; not exact optimizer resume.",
+  "manual_review_scope": "첫 번째 시드 72편은 모델 이름과 심판 결과를 가린 상태로 모두 읽었습니다. 새 학습 모델의 두 번째 시드 24편, 경고가 발생한 비교 모델 두 번째 시드 9편을 추가로 읽어 총 105편을 대조했습니다. 비교 수치는 완전히 검토한 첫 시드 24편씩에만 제시합니다.",
+  "manual_review_conclusion": "모든 조건에 문맥상 오류가 남았습니다. 이름이 한 번 등장했는지만 보는 자동 검사는 Quinn→Quinni, Dalia→Dora 같은 뒤쪽 이름 변경을 놓쳤습니다. 수량·행동 순서·물체 위치 오류도 별도로 확인했습니다. 이 결과로 이름·관계 오류를 해결했다고 판단하지 않습니다.",
+  "manual_first_seed_counts": {
+    "base": {
+      "reviewed": 24,
+      "clear_issue_manuscripts": 9,
+      "name_issue_manuscripts": 0,
+      "caution_manuscripts": 3
+    },
+    "previous_best": {
+      "reviewed": 24,
+      "clear_issue_manuscripts": 10,
+      "name_issue_manuscripts": 1,
+      "caution_manuscripts": 6
+    },
+    "ndl_sft": {
+      "reviewed": 24,
+      "clear_issue_manuscripts": 14,
+      "name_issue_manuscripts": 1,
+      "caution_manuscripts": 4
+    }
+  },
+  "manual_second_seed_candidate": {
+    "reviewed": 24,
+    "clear_issue_manuscripts": 14,
+    "name_issue_manuscripts": 2
+  },
+  "axis_diagnostics": {
+    "base": {
+      "instruction_following": {
+        "comparator_wins": 12,
+        "ties": 1,
+        "candidate_wins": 11
+      },
+      "language_reader_fit": {
+        "comparator_wins": 5,
+        "ties": 1,
+        "candidate_wins": 18
+      },
+      "reader_mode_fit": {
+        "comparator_wins": 7,
+        "ties": 3,
+        "candidate_wins": 14
+      },
+      "engagement": {
+        "comparator_wins": 8,
+        "ties": 5,
+        "candidate_wins": 11
+      },
+      "story_structure": {
+        "comparator_wins": 14,
+        "ties": 4,
+        "candidate_wins": 6
+      },
+      "form_craft": {
+        "comparator_wins": 11,
+        "ties": 2,
+        "candidate_wins": 11
+      },
+      "english_naturalness": {
+        "comparator_wins": 7,
+        "ties": 7,
+        "candidate_wins": 10
+      },
+      "age_appropriateness": {
+        "comparator_wins": 0,
+        "ties": 23,
+        "candidate_wins": 1
+      },
+      "emotional_resonance": {
+        "comparator_wins": 11,
+        "ties": 8,
+        "candidate_wins": 5
+      },
+      "originality_atmosphere": {
+        "comparator_wins": 13,
+        "ties": 5,
+        "candidate_wins": 6
+      }
+    },
+    "previous_best": {
+      "instruction_following": {
+        "comparator_wins": 11,
+        "ties": 1,
+        "candidate_wins": 12
+      },
+      "language_reader_fit": {
+        "comparator_wins": 7,
+        "ties": 7,
+        "candidate_wins": 10
+      },
+      "reader_mode_fit": {
+        "comparator_wins": 9,
+        "ties": 7,
+        "candidate_wins": 8
+      },
+      "engagement": {
+        "comparator_wins": 7,
+        "ties": 7,
+        "candidate_wins": 10
+      },
+      "story_structure": {
+        "comparator_wins": 15,
+        "ties": 0,
+        "candidate_wins": 9
+      },
+      "form_craft": {
+        "comparator_wins": 13,
+        "ties": 1,
+        "candidate_wins": 10
+      },
+      "english_naturalness": {
+        "comparator_wins": 10,
+        "ties": 8,
+        "candidate_wins": 6
+      },
+      "age_appropriateness": {
+        "comparator_wins": 1,
+        "ties": 22,
+        "candidate_wins": 1
+      },
+      "emotional_resonance": {
+        "comparator_wins": 10,
+        "ties": 9,
+        "candidate_wins": 5
+      },
+      "originality_atmosphere": {
+        "comparator_wins": 9,
+        "ties": 8,
+        "candidate_wins": 7
+      }
+    }
+  },
+  "decision": "Do not deploy: lexical coverage and length improved, but overall preference and semantic fidelity did not establish an improvement.",
+  "costs": {
+    "incremental_charged_usd": 13.680001,
+    "incremental_reserved_usd": 0,
+    "incremental_total_usd": 13.680001,
+    "incremental_cap_usd": 15,
+    "cumulative_charged_or_reserved_usd": 52.883026925508,
+    "cumulative_cap_usd": 55,
+    "calls": 524,
+    "by_purpose_model": {
+      "ndl_v1_training_rewrite / anthropic/claude-fable-5.1": {
+        "calls": 6,
+        "cost_or_reserved": 0.46942000000000006
+      },
+      "ndl_v1_training_rewrite / openai/gpt-6-astra": {
+        "calls": 14,
+        "cost_or_reserved": 0.6336950000000001
+      },
+      "ndl_v1_training_targeted_edit / anthropic/claude-fable-5.1": {
+        "calls": 6,
+        "cost_or_reserved": 0.40211
+      },
+      "ndl_v1_training_targeted_edit / openai/gpt-6-astra": {
+        "calls": 318,
+        "cost_or_reserved": 7.285030000000001
+      },
+      "ndl_v1_evaluation_fresh_judge / openai/gpt-6-astra": {
+        "calls": 144,
+        "cost_or_reserved": 3.1727259999999986
+      },
+      "ndl_v1_evaluation_fresh_judge / anthropic/claude-fable-5.1": {
+        "calls": 36,
+        "cost_or_reserved": 1.71702
+      }
+    },
+    "local_api_cost_usd": 0
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "packages": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "transformers": "5.21.0",
+      "tokenizers": "0.23.3",
+      "numpy": "2.5.4"
+    },
+    "chip": "Apple M5 Pro",
+    "memory_bytes": 51539607552,
+    "gpu_location": "local Apple Silicon",
+    "cloud_gpu_used": false
+  },
+  "limits": [
+    "NDL coverage is a local lexical measure, not a certified reading-level score or child comprehension result.",
+    "Astra judges all24 first-seed cases; Fable judges a prespecified six-case subset separately. Both are teacher models, not independent human judges.",
+    "New dataset, adapter settings and recovery procedure changed together; causal contributions are not isolated.",
+    "Previous model uses its adapter at50% under the same new prompt and decoding settings.",
+    "Local inference only; no deployment into the production Bookkiki app."
+  ]
+}
