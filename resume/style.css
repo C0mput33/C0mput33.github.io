@@ -23,6 +23,7 @@ button:hover { color: var(--point); border-color: var(--point); }
 h1, h2, h3, h4, h5 { line-height: 1.4; letter-spacing: -.035em; font-weight: 650; }
 h1 { font-size: clamp(36px, 5.2vw, 58px); font-weight: 700; line-height: 1.25; margin: 0 0 30px; }
 .intro-text { font-size: 18px; line-height: 1.85; font-weight: 400; margin: 0; }
+.intro-quote { margin-bottom: 18px; }
 .intro-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 15px; margin-top: 25px; }
 .intro-links a { font-weight: 600; }
 h2 { font-size: 34px; margin: 76px 0 44px; }
@@ -51,7 +52,6 @@ strong { font-weight: 600; }
 .project-links a, .detail-link a { text-decoration-color: #a9bfe1; }
 .detail-link { margin: 12px 0 0; font-size: 13px; }
 .stack { font-size: 15px; line-height: 1.9; color: #535963; letter-spacing: -.01em; }
-.scope-note { font-size: 13px; line-height: 1.8; padding-left: 13px; border-left: 2px solid #c8d7ed; margin: 20px 0; color: var(--secondary); }
 .table-scroll { overflow-x: auto; margin: 18px 0; }
 .result-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 14px; line-height: 1.7; font-variant-numeric: tabular-nums; }
 .result-table th, .result-table td { text-align: left; vertical-align: top; padding: 12px 10px; border-bottom: 1px solid var(--line); }
@@ -122,7 +122,6 @@ footer p { margin-bottom: 6px; }
   .project-detail + .project-detail { padding-top: 17pt; }
   .stack { font-size: 8.5pt; }
   .project-links, .detail-link { font-size: 8pt; margin: 7pt 0 11pt; }
-  .scope-note { font-size: 8pt; margin: 11pt 0; }
   .table-scroll { overflow: visible; margin: 10pt 0; }
   .result-table { font-size: 8.5pt; break-inside: avoid; }
   .result-table th, .result-table td { padding: 6pt; }

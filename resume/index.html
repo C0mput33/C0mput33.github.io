@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://c0mput33.github.io/resume/">
   <link rel="canonical" href="https://c0mput33.github.io/resume/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233e72c7'/%3E%3Ctext x='32' y='44' font-size='42' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='white'%3EH%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./style.css?v=20261029-1">
+  <link rel="stylesheet" href="./style.css?v=20261029-2">
   <script src="./resume.js" defer></script>
 </head>
 <body>
@@ -25,7 +25,8 @@
         <button type="button" id="print-button">인쇄 · PDF 저장</button>
       </div>
       <h1>안녕하세요,<br>김해찬입니다<span class="point">.</span></h1>
-      <p class="intro-text">AI 서비스와 백엔드를 개발합니다. 모델을 연결하는 데서 멈추지 않고, 결과를 서비스 기준으로 평가하고 운영에서 생기는 문제까지 고치는 일을 좋아합니다. 개발의 가치는 사용자가 실제로 쓰는 결과에서 나온다고 믿습니다.</p>
+      <p class="intro-text intro-quote">“배는 항구에 있을 때 가장 안전하지만, 그것이 배의 존재 이유는 아니다.”</p>
+      <p class="intro-text">익숙하지 않은 기술도 직접 적용하고 결과를 확인하며 배워가는 것을 좋아합니다. AI 서비스와 백엔드를 개발하며, 모델이 사용하는 데이터를 정리하고 검증하는 일에도 관심을 두고 있습니다. 데이터를 살펴보다 예상과 다른 결과의 원인을 찾았을 때 보람을 느낍니다.</p>
       <nav class="intro-links" aria-label="프로필 링크">
         <a href="https://github.com/C0mput33">GitHub</a>
         <a href="https://c0mput33.github.io/">Blog</a>
@@ -74,7 +75,6 @@
                 </tbody>
               </table>
             </div>
-            <p class="scope-note">92.3%는 후보가 4개 남은 구간의 계산값입니다. 전체 실험의 누적 호출·토큰 절감률은 아닙니다.</p>
             <p>같은 예산 140회로 20회 반복한 <strong>합성 실험</strong>에서 순위 상관계수는 전수 비교 <strong>0.883</strong>, retire2 <strong>0.931</strong>이었습니다. 후보 선별 후에는 새 주제로 최종 비교하도록 구성했습니다.</p>
             <h5>Tech Stack.</h5>
             <p class="stack">Python, JavaScript, LLM-as-a-Judge, Bradley-Terry, Bootstrap</p>
@@ -84,27 +84,29 @@
           <section class="project-detail" aria-labelledby="qwen-heading">
             <h4 id="qwen-heading">영어 동화 데이터 구축과 Qwen 학습<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>동화 생성에 사용할 로컬 모델을 검토하기 위해 교사 모델의 원고를 학습 데이터로 구성하고 Qwen3.6을 튜닝했습니다. 데이터 선별, 학습과 평가를 맡아 동일 입력에서 분량 준수 여부를 비교했습니다.</p>
+            <p>영어 동화를 생성할 로컬 모델을 만들기 위해 데이터 선별부터 Qwen3.6 학습과 비교 평가까지 맡았습니다. 6~8세 함께 읽기용 원고를 대상으로 분량과 문단 조건을 지키는지 확인했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>Astra 160편과 Fable 140편으로 <strong>학습 원고 300편과 별도 검증 원고 24편</strong>을 구성했습니다. 작품 그룹과 정답 중복, 입력 잘림을 검사해 학습과 평가에 같은 이야기가 섞이지 않도록 점검했습니다.</li>
-              <li>4비트 Qwen3.6에 MLX LoRA로 SFT를 진행하고, <strong>동일한 24개 입력</strong>에서 학습 전 모델과 기존 SFT, 새 SFT의 결과를 비교했습니다.</li>
+              <li>DeepSeek 152편과 Kimi 150편으로 <strong>학습 원고 302편, 검증 25편, 시험 60문제</strong>를 구성했습니다. 작품 단위로 데이터를 나누고 이름을 바꾼 중복까지 검사했습니다. 검수 중 오류 원고 6편을 발견해 제외하고 재학습했습니다.</li>
+              <li>LoRA를 마지막 8개 층에 지정했으나 실제로는 2개 층만 학습되는 문제를 발견했습니다. <strong>일반 attention과 linear attention을 모두 학습 대상으로 지정</strong>해 8개 층에 적용되도록 수정했습니다.</li>
             </ul>
-            <h5 id="qwen-length-heading">분량 통과율 0% → 29.2%</h5>
+            <h5 id="qwen-length-heading">미사용 입력 60개에서 분량 통과율 1.7% → 40.0%</h5>
             <div class="table-scroll">
               <table class="result-table" aria-labelledby="qwen-length-heading">
-                <thead><tr><th scope="col">모델</th><th scope="col">분량 통과</th><th scope="col">통과율</th></tr></thead>
+                <thead><tr><th scope="col">동일 생성 설정 비교</th><th scope="col">학습 전</th><th scope="col">학습 후</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">Qwen3.6 학습 전</th><td>0 / 24</td><td>0%</td></tr>
-                  <tr><th scope="row">기존 302편 SFT</th><td>3 / 24</td><td>12.5%</td></tr>
-                  <tr class="highlight-row"><th scope="row"><strong>새 300편 SFT</strong></th><td><strong>7 / 24</strong></td><td><strong>29.2%</strong></td></tr>
+                  <tr class="highlight-row"><th scope="row"><strong>180~230단어 분량 통과</strong></th><td>1 / 60 (1.7%)</td><td><strong>24 / 60 (40.0%)</strong></td></tr>
+                  <tr><th scope="row">제목·분량·문단·반복 검사 모두 통과</th><td>0 / 60 (0%)</td><td><strong>24 / 60 (40.0%)</strong></td></tr>
                 </tbody>
               </table>
             </div>
-            <p class="scope-note">제목 제외 180~230단어 기준. 학습 전보다 <strong>29.2%p</strong>, 기존 SFT보다 <strong>16.7%p</strong> 상승한 분량 준수 결과입니다.</p>
+            <ul>
+              <li>GLM 심판의 A/B·B/A 비교에서 <strong>학습 후 35승, 학습 전 7승, 순서에 따른 판정 불일치 18건</strong>을 기록했습니다.</li>
+              <li>별도 Astra·Fable 원고 300편 학습 실험에서는 24개 입력의 분량 통과가 <strong>0개 → 7개(29.2%)</strong>로 늘었습니다. 초기 학습 모델은 <strong>MLX API로 로컬 서빙</strong>했습니다.</li>
+            </ul>
             <h5>Tech Stack.</h5>
             <p class="stack">Python, Qwen3.6, MLX LoRA, SFT, LLM-as-a-Judge</p>
-            <p class="detail-link"><a href="https://c0mput33.github.io/posts/qwen-astra-fable-distillation-arena/">학습 데이터 및 비교 평가 기록</a></p>
+            <p class="project-links"><a href="https://c0mput33.github.io/posts/qwen-story-sft-302-manuscripts/">302편 학습 및 60문제 평가</a><a href="https://c0mput33.github.io/posts/qwen-astra-fable-distillation-arena/">300편 학습 비교</a></p>
           </section>
 
           <section class="project-detail" aria-labelledby="content-heading">
@@ -120,7 +122,6 @@
               <li>첫 광고 집행 후 10일 만에 Instagram 팔로워가 700명을 넘었고, 홍보한 릴스 중 조회수가 높았던 영상은 1.2만 회와 9,745회였습니다.</li>
               <li>다운로드 페이지에 GA4 이벤트(섹션 도달, 스토어 클릭, 인앱 브라우저 구분)를 설계해 붙였습니다. 이를 통해 섹션 도달과 스토어 클릭 데이터를 분석해 버튼 배치와 구성을 개선했습니다. 첫 화면 버튼에서 클릭이 집중되는 것을 확인했으며, 버튼을 아래로 옮긴 뒤 클릭이 감소하자 다운로드 버튼을 책 이미지 바로 아래로 복원하고 하단 고정 버튼과의 중복 노출을 조정했습니다. 수정 전후 데이터를 비교한 결과, 스토어 클릭률이 개선됐습니다.</li>
             </ul>
-            <p class="scope-note">비용, 방문, 팔로우는 Meta 광고 관리자 집계입니다.</p>
             <h5>Tech Stack.</h5>
             <p class="stack">Python, ElevenLabs TTS·STT, HTML, Playwright, FFmpeg, Meta Ads, GA4</p>
           </section>
@@ -269,7 +270,7 @@
             <h5>What did I do.</h5>
             <ul>
               <li>0 판매 비율, 요일별 중앙값, Fano·Gini로 판매 빈도와 변동·집중도를 분석해 희소·요일형·고변동 메뉴로 구분했습니다. 같은 모델을 적용할 때 발생하는 희소 메뉴의 과대예측과 고변동 메뉴의 급등 예측을 따로 다뤘습니다.</li>
-              <li>예측 날짜별 모델을 학습하고 CatBoost·LightGBM·XGBoost를 결합했습니다. 희소 메뉴는 판매 발생 확률과 판매 시 수량을 함께 사용하고 고변동 메뉴는 과거 판매분포를 기준으로 예측 상한을 적용했습니다.</li>
+              <li>예측 날짜별 CatBoost, LightGBM, XGBoost를 결합했습니다. <strong>판매량이 0인 날이 60% 이상이거나 판매 발생 확률이 15% 미만인 메뉴</strong>에는 ML 예측 30%와 ‘판매 확률 × 판매 시 수량’ 기준선 70%를 적용해 과대예측을 보정했습니다. 고변동 메뉴는 과거 분포로 예측 상한을 정했습니다.</li>
               <li>TimeSeriesSplit에 7일 간격을 두어 미래 데이터가 학습에 섞이지 않도록 검증했습니다. 팀의 실험 조건과 판매량 예측 오차 지표인 SMAPE 계산 코드를 통일해 결과를 같은 기준으로 비교했습니다.</li>
             </ul>
             <h5>Tech Stack.</h5>
