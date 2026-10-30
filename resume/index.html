@@ -24,9 +24,9 @@
         <span>AI /  BACKEND PORTFOLIO</span>
         <button type="button" id="print-button">인쇄 /  PDF 저장</button>
       </div>
-      <h1>안녕하세요,<br>김해찬입니다</h1>
+      <h1>안녕하세요,<br>김해찬입니다<span class="point">.</span></h1>
       <p class="intro-text intro-quote">“배는 항구에 있을 때 가장 안전하지만, 그것이 배의 존재 이유는 아니다.”</p>
-      <p class="intro-text">익숙하지 않은 기술도 직접 적용하고 결과를 확인하며 배워가는 것을 좋아합니다. AI 서비스와 백엔드를 개발하며, 모델이 사용하는 데이터를 정리하고 검증하는 일에도 관심을 두고 있습니다. 데이터를 살펴보다 예상과 다른 결과의 원인을 찾았을 때 보람을 느낍니다.</p>
+      <p class="intro-text">익숙하지 않은 기술도 직접 적용하고 결과를 확인하며 배웁니다. 데이터 분석부터 모델 학습과 평가, 서비스 연결까지 경험을 쌓고 있습니다.</p>
       <nav class="intro-links" aria-label="프로필 링크">
         <a href="https://github.com/C0mput33">GitHub</a>
         <a href="https://c0mput33.github.io/">Blog</a>
@@ -35,34 +35,35 @@
     </header>
 
     <section aria-labelledby="project-heading">
-      <h2 id="project-heading">상세경력사항</h2>
+      <h2 id="project-heading">상세경력사항<span class="point">.</span></h2>
 
       <article class="experience" id="bookkiki">
         <div class="experience-meta">
           <p class="organization">과학기술정보통신부</p>
-          <h3>AI·SW마에스트로 <br>17기</h3>
+          <h3>AI·SW마에스트로 <br>17기<span class="point">.</span></h3>
           <p class="role">연수생 /  백엔드 / AI</p>
           <p class="period">2026. 04 - 2026. 11</p>
           <a class="meta-link" href="https://www.swmaestro.ai/">프로그램 소개</a>
         </div>
         <div class="experience-body">
           <div class="project-overview">
-            <h4>북끼끼</h4>
+            <h4>북끼끼<span class="point">.</span></h4>
             <p>6~12세 아이의 경험과 관심사로 맞춤형 영어 동화책을 만드는 팀 프로젝트입니다. 평가 기준 설계, LLM 벤치마크 앱, 모델 학습과 비교 실험, 삽화 생성, 동화책 생성 파이프라인, Langfuse 관측, 공식 SNS 채널(Instagram, Threads, YouTube Shorts)의 콘텐츠 제작과 광고 운영을 맡았습니다.</p>
             <p class="project-links"><a href="https://bookkiki.com/download">서비스 /  다운로드</a><a href="https://www.instagram.com/bookkiki.official/">Instagram</a><a href="https://github.com/Bookkiki/bookkiki-landing">프로젝트 소개</a><a href="https://c0mput33.github.io/posts/why-build-own-eval-system/">평가 시스템 개발기</a></p>
           </div>
 
           <section class="project-detail" aria-labelledby="eval-heading">
-            <h4 id="eval-heading">LLM-as-a-Judge 벤치마크 시스템</h4>
+            <h4 id="eval-heading">LLM-as-a-Judge 벤치마크 시스템<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>범용 벤치마크로 확인하기 어려운 동화의 난이도와 요청 충족 여부를 평가하고, 튜닝 전후 품질을 같은 조건에서 비교할 수 있도록 자체 평가 앱을 개발했습니다.</p>
+            <p>기존의 범용 대화와 창작 벤치마크만으로는 북끼끼의 영어 동화가 요청한 난이도와 서비스 요구에 맞게 생성되는지 판단하기 어려웠습니다. 모델 학습과 파인튜닝을 목표로, 튜닝 전후 품질을 같은 조건에서 비교할 평가 시스템이 필요했습니다.</p>
+            <p>서비스에 맞는 평가 기준을 세우고 LLM을 심판으로 사용하는 벤치마크 앱을 만들었습니다. 영어 수준, 주제, 독서 방식별 평가셋을 구성하고 부모와 영어 교육 경험자의 익명 평가를 LLM 판정과 비교했습니다. 여러 심판의 판정을 모아 모델별 순위와 불확실성을 확인하도록 구성했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>모델명을 가린 A/B, B/A 비교와 같은 계열 심판 제외를 적용했습니다. Bradley-Terry 집계와 Bootstrap 신뢰구간으로 모델 순위와 불확실성을 함께 확인했습니다.</li>
-              <li>빈 응답 359개와 파싱 오류 3개가 무승부로 집계되는 문제를 수정했습니다. 유효하지 않은 비교 324건을 제외해 2,391건 → 2,067건으로 재집계하고 기존 응답을 재사용해 추가 생성 호출을 피했습니다.</li>
+              <li>모델명을 가린 쌍대 비교를 구현했습니다. 승패에서 모델별 점수를 추정하는 Bradley-Terry 집계와 Bootstrap 신뢰구간을 적용해 순위와 점수 추정의 불확실성을 함께 표시했습니다.</li>
+              <li>A/B와 B/A 순서를 모두 평가하고 후보와 같은 계열의 심판은 해당 비교에서 제외했습니다. 여러 계열 심판의 판정을 모아 한 심판의 편향이 순위를 결정하지 않도록 구성했습니다.</li>
             </ul>
             <h5 id="retire2-comparison-heading">비교량을 줄이기 위한 retire2 도입</h5>
-            <p>13개 모델의 모든 쌍은 13C2 = 13 × 12 ÷ 2 = 78쌍입니다. 50개 주제에서 전수 비교하면 78 × 50 = 3,900쌍이 필요하고, 여러 심판과 A/B 순서 교환을 적용할수록 호출 부담이 커졌습니다.</p>
+            <p>13개 모델의 모든 쌍은 13C2 = 13 × 12 ÷ 2 = 78쌍입니다. 50개 주제에서 전수 비교하면 78 × 50 = 3,900쌍이 필요하고, 여러 심판과 A/B 순서 교환으로 호출 부담이 커져 Swiss, 희소 그래프, 순차 제거 방식을 검토했습니다.</p>
             <ul>
               <li>5권마다 점수와 신뢰구간을 갱신해 두 배치 연속 열세인 후보만 제외하는 retire2를 도입했습니다. 한 번의 판정으로 탈락시키지 않고 남은 후보에 비교 예산을 배분했습니다.</li>
             </ul>
@@ -82,12 +83,16 @@
           </section>
 
           <section class="project-detail" aria-labelledby="qwen-heading">
-            <h4 id="qwen-heading">영어 동화 데이터 구축과 Qwen 학습</h4>
+            <h4 id="qwen-heading">Qwen 학습과 Mac 기반 MLX API 서빙<span class="point">.</span></h4>
             <h5>Description.</h5>
-            <p>영어 동화를 생성할 로컬 모델을 만들기 위해 데이터 선별부터 Qwen3.6 학습과 비교 평가까지 맡았습니다. 6~8세 함께 읽기용 원고를 대상으로 분량과 문단 조건을 지키는지 확인했습니다.</p>
+            <p>아이의 경험을 이야기로 만들면서 요청한 영어 수준과 분량, 출력 형식을 맞추기 위해 Qwen3.6을 파인튜닝했습니다. 학습 데이터를 구성하고 자체 평가 앱으로 학습 전후 품질을 비교했으며, Mac에서 학습한 모델을 MLX API로 서빙했습니다.</p>
             <h5>What did I do.</h5>
             <ul>
-              <li>DeepSeek 152편과 Kimi 150편으로 학습 원고 302편, 검증 25편, 시험 60문제를 구성했습니다. 작품 단위로 데이터를 나누고 이름을 바꾼 중복까지 검사했습니다. 검수 중 오류 원고 6편을 발견해 제외하고 재학습했습니다.</li>
+              <li>연령, 영어 수준, 독서 방식, 경험과 관심사를 입력으로, 검수한 동화를 출력으로 구성해 SFT 데이터를 만들었습니다. 서비스에서 받는 생성 조건을 학습 형식에 반영했습니다.</li>
+              <li>DeepSeek 152편과 Kimi 150편으로 학습 원고 302편, 검증 25편, 시험 60문제를 구성했습니다. 원본 이야기 단위로 분리하고 이름을 바꾼 중복까지 검사했으며, 검수 중 발견한 오류 원고 6편을 제외하고 재학습했습니다.</li>
+              <li>48GB Mac의 메모리 제약을 고려해 4비트 Qwen3.6에 MLX LoRA를 적용했습니다. 같은 프롬프트와 생성 설정으로 학습 전후 원고를 생성하고, 평가 앱의 익명 A/B, B/A 비교로 이야기 선호도와 요청 조건 준수 여부를 확인했습니다.</li>
+              <li>학습한 어댑터를 MLX의 OpenAI 호환 API에 연결하고 기존 생성 Worker에서 호출하도록 구성했습니다. 첫 응답 시간과 전체 생성 시간, 동시 요청별 메모리 사용량과 실패율을 측정했습니다.</li>
+              <li>Langfuse에 모델, 어댑터, 프롬프트 버전과 사용량, 오류, 평가 결과를 연결해 어떤 구성으로 생성했는지 추적하고 품질과 운영 부담을 함께 비교했습니다.</li>
             </ul>
             <h5 id="qwen-length-heading">미사용 입력 60개에서 분량 통과율 1.7% → 40.0%</h5>
             <div class="table-scroll">
@@ -109,7 +114,7 @@
           </section>
 
           <section class="project-detail" aria-labelledby="content-heading">
-            <h4 id="content-heading">생성형 콘텐츠 제작과 광고 운영</h4>
+            <h4 id="content-heading">생성형 콘텐츠 제작과 광고 운영<span class="point">.</span></h4>
             <p class="project-links"><a href="https://www.instagram.com/bookkiki.official/">Instagram</a><a href="https://www.threads.com/@bookkiki.official">Threads</a></p>
             <h5>Description.</h5>
             <p>북끼끼 공식 SNS 채널(Instagram, Threads, YouTube Shorts)의 콘텐츠 기획, 제작, 검수, 게시와 광고 운영을 맡았습니다. 앱으로 만든 실제 동화책과 앱 화면을 소재로 영상을 만들고, 광고 성과를 소재 유형별로 비교해 다음 제작 기준에 반영했습니다.</p>
@@ -126,7 +131,7 @@
           </section>
 
           <section class="project-detail" aria-labelledby="worker-heading">
-            <h4 id="worker-heading">삽화 생성과 비동기 Worker</h4>
+            <h4 id="worker-heading">삽화 생성과 비동기 Worker<span class="point">.</span></h4>
             <h5>Description.</h5>
             <p>한 권의 동화책에서 화풍과 캐릭터를 유지하며 여러 장의 삽화를 생성하는 파이프라인을 개발했습니다. 생성 시간이 긴 작업은 서버와 비동기 Worker로 나눠 처리했습니다.</p>
             <h5>What did I do.</h5>
@@ -142,7 +147,7 @@
           </section>
 
           <section class="project-detail" aria-labelledby="observability-heading">
-            <h4 id="observability-heading">Langfuse 관측과 프롬프트 관리</h4>
+            <h4 id="observability-heading">Langfuse 관측과 프롬프트 관리<span class="point">.</span></h4>
             <h5>Description.</h5>
             <p>동화 한 권을 만들 때 인터뷰, 원고, 검수, 삽화로 모델 호출이 여러 번 이어져 어느 단계에서 비용과 시간이 드는지, 프롬프트를 바꾼 뒤 품질이 나아졌는지 확인하기 어려웠습니다. 호출 추적과 프롬프트 버전 관리를 함께 쓰려고 Langfuse를 도입하였습니다.</p>
             <h5>What did I do.</h5>
@@ -157,7 +162,7 @@
           </section>
 
           <section class="project-detail" aria-labelledby="onboarding-heading">
-          <h4 id="onboarding-heading">사용자 이탈 분석과 동화 생성 경로 개선</h4>
+          <h4 id="onboarding-heading">사용자 이탈 분석과 동화 생성 경로 개선<span class="point">.</span></h4>
           <h5>Description.</h5>
           <p>
             앱의 동화 생성 과정을 GA4로 분석해 인터뷰 단계에서
@@ -174,9 +179,7 @@
               사용자가 인터뷰 과정에서 많이 중단하는 것을 확인했습니다.
             </li>
             <li>
-              주제와 교훈이 있는 고전에 아이를 주인공으로 반영하는
-              생성 경로를 추가했습니다. 긴 인터뷰 없이도
-              개인화된 동화를 먼저 경험할 수 있도록 구성했습니다.
+              사용자 설문에서 응답자의 약 65%가 인터뷰 없이 먼저 동화를 만들어 보고 싶다고 답했습니다. 이를 반영해 주제와 교훈이 있는 고전에 아이를 주인공으로 넣는 생성 경로를 추가했습니다. 긴 인터뷰 없이도 개인화된 동화를 경험할 수 있도록 구성했습니다.
             </li>
             <li>
               일기 사진을 입력하면 그 내용을 바탕으로 동화를 만드는
@@ -200,14 +203,14 @@
       <article class="experience" id="boostcamp">
         <div class="experience-meta">
           <p class="organization">네이버 커넥트재단</p>
-          <h3>NAVER 부스트캠프 <br>AI Tech</h3>
+          <h3>NAVER 부스트캠프 <br>AI Tech<span class="point">.</span></h3>
           <p class="role">8기 /  Computer Vision 트랙</p>
           <p class="period">2025. 09 - 2026. 02</p>
           <p class="meta-note">연수생 /  팀 프로젝트 / 대회</p>
         </div>
         <div class="experience-body">
           <section class="project-detail first-detail" aria-labelledby="cueview-heading">
-            <h4 id="cueview-heading">CueView</h4>
+            <h4 id="cueview-heading">CueView<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-finalproject-cv-08">GitHub</a><a href="https://youtu.be/CJLZBBqw63A">Demo</a><a href="https://app.notion.com/p/CV-08-CueView-302f11752bf1816b86ced442e1bb79e5">Notion</a></p>
             <h5>Description.</h5>
             <p>발표 음성과 관련된 슬라이드 요소를 실시간으로 강조하고 발표 대본을 생성하는 프로젝트입니다. 슬라이드 정보를 검색해 활용하는 RAG 시스템과 음성 처리에 연결되는 실시간 백엔드를 맡았습니다.</p>
@@ -223,7 +226,7 @@
           </section>
 
           <section class="project-detail" aria-labelledby="segmentation-heading">
-            <h4 id="segmentation-heading">손 X-ray 이미지 분할 대회</h4>
+            <h4 id="segmentation-heading">손 X-ray 이미지 분할 대회<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-semanticsegmentation-cv-08">GitHub</a><a href="https://github.com/C0mput33/Domain-Project-2-Segmentation_docs">실험 보고서</a></p>
             <h5>Description.</h5>
             <p>NAVER 부스트캠프 AI Tech의 Computer Vision 대회로, 손 X-ray 이미지에서 29개 뼈의 영역을 픽셀 단위로 구분하는 이미지 분할 모델을 개발했습니다. 실패 사례 분석과 데이터 증강 실험을 담당했습니다.</p>
@@ -238,7 +241,7 @@
           </section>
 
           <section class="project-detail" aria-labelledby="detection-heading">
-            <h4 id="detection-heading">재활용품 객체탐지 대회</h4>
+            <h4 id="detection-heading">재활용품 객체탐지 대회<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/boostcampaitech8/pro-cv-objectdetection-cv-08/tree/modeling">GitHub</a></p>
             <h5>Description.</h5>
             <p>NAVER 부스트캠프 AI Tech에서 이미지 속 재활용품을 10개 종류로 찾아 분류하는 객체탐지 대회에 참여했습니다. 데이터 분석, 탐지 모델 비교와 예측 박스 앙상블을 담당했습니다.</p>
@@ -257,13 +260,13 @@
       <article class="experience" id="lg-aimers">
         <div class="experience-meta">
           <p class="organization">LG AI연구원</p>
-          <h3>LG Aimers <br>7기</h3>
+          <h3>LG Aimers <br>7기<span class="point">.</span></h3>
           <p class="role">AI 해커톤 /  팀장 / 모델링</p>
           <p class="period">2025. 07 - 2025. 09</p>
         </div>
         <div class="experience-body">
           <section class="project-detail first-detail" aria-labelledby="forecast-heading">
-            <h4 id="forecast-heading">식음업장 메뉴 수요 예측</h4>
+            <h4 id="forecast-heading">식음업장 메뉴 수요 예측<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/C0mput33/LG-Aimers-hackathon">GitHub</a></p>
             <h5>Description.</h5>
             <p>LG Aimers 7기 AI 해커톤에 팀장으로 참여해 리조트 식음업장의 최근 28일 판매량으로 다음 7일의 메뉴별 판매량을 예측했습니다. 메뉴마다 판매 패턴이 달라 모든 메뉴에 같은 모델을 쓰면 드물게 팔리는 메뉴는 과대예측되고 변동이 큰 메뉴는 특정 판매일에 과하게 반응했습니다. 그래서 메뉴를 판매 패턴별로 나눠 다르게 보정하는 데 집중했고, 약 2,600명이 참여한 온라인 예선에서 팀 private 20위를 기록해 오프라인 본선에 진출했습니다.</p>
@@ -282,13 +285,13 @@
       <article class="experience" id="whitehat">
         <div class="experience-meta">
           <p class="organization">한국정보기술연구원 /  KITRI</p>
-          <h3>화이트햇스쿨 <br>2기</h3>
+          <h3>화이트햇스쿨 <br>2기<span class="point">.</span></h3>
           <p class="role">교육생 /  데이터 / 모델링</p>
           <p class="period">2024. 03 - 2024. 10</p>
         </div>
         <div class="experience-body">
           <section class="project-detail first-detail" aria-labelledby="phishing-heading">
-            <h4 id="phishing-heading">Phishing URL Detector</h4>
+            <h4 id="phishing-heading">Phishing URL Detector<span class="point">.</span></h4>
             <p class="project-links"><a href="https://github.com/C0mput33/whs-phishing-detector">GitHub</a></p>
             <h5>Description.</h5>
             <p>URL의 특징을 분석해 정상 사이트와 피싱 사이트를 분류하는 팀 프로젝트입니다. 피싱 주소는 정상 도메인과 비슷하게 만들어지고 자주 바뀌어 차단 목록만으로는 새 주소를 잡기 어려웠습니다. 그래서 URL의 구조와 문자열 패턴만으로 판별하는 모델을 만들었고, 데이터 수집, 전처리와 모델링을 담당했습니다.</p>
@@ -305,33 +308,33 @@
     </section>
 
     <section class="secondary-section" aria-labelledby="other-heading">
-      <h2 id="other-heading">Other Experiences</h2>
+      <h2 id="other-heading">Other Experiences<span class="point">.</span></h2>
       <article class="compact-item">
-        <h3>GitFolio</h3>
+        <h3>GitFolio<span class="point">.</span></h3>
         <p class="compact-meta">광운대학교 캡스톤 프로젝트 /  2025. 03 - 2025. 07</p>
         <p>GitHub 저장소를 분석해 HTML 포트폴리오를 생성하는 팀 프로젝트입니다. GitHub API 연동, Claude API 기반 저장소 요약과 HTML 생성 흐름을 개발했습니다.</p>
         <p class="project-links"><a href="https://github.com/KWCapstoneGitFolio/realGitFolio">GitHub</a></p>
       </article>
       <article class="compact-item">
-        <h3>기술 블로그</h3>
+        <h3>기술 블로그<span class="point">.</span></h3>
         <p>LLM 평가 방법, 모델 비교 실험, 로컬 추론과 삽화 생성 과정에서 확인한 문제를 기록합니다. 수치에는 실험 조건을 붙이고, 합성 결과와 실측을 나눠 설명하고 있습니다.</p>
         <p class="project-links"><a href="https://c0mput33.github.io/">Blog</a></p>
       </article>
       <article class="compact-item">
-        <h3>광운대학교</h3>
+        <h3>광운대학교<span class="point">.</span></h3>
         <p class="compact-meta">소프트웨어학부 /  학사 /  2019. 03 - 2026. 02</p>
         <p>소프트웨어를 전공했으며 인공지능 분야를 공부했습니다. 평점은 3.87 / 4.5입니다.(전공: 3.91 / 4.5)</p>
       </article>
       <article class="compact-item">
-        <h3>자격</h3>
+        <h3>자격<span class="point">.</span></h3>
         <p>프로그래밍기능사 /  취득 당시 명칭: 정보처리기능사<br><span class="muted">한국산업인력공단 /  2020. 07. 17</span></p>
       </article>
     </section>
 
     <section class="secondary-section" aria-labelledby="skills-heading">
-      <h2 id="skills-heading">Skills</h2>
+      <h2 id="skills-heading">Skills<span class="point">.</span></h2>
       <div class="skill-group">
-        <h3>AI / ML / Data.</h3>
+        <h3>AI / ML / Data<span class="point">.</span></h3>
         <ul>
           <li>LLM-as-a-Judge 기반 다중 모델 벤치마크를 구현했습니다. 익명 쌍대 비교, A/B 순서 교환, Bradley–Terry 집계와 Bootstrap 신뢰구간을 적용했습니다.</li>
           <li>Qwen3.6의 4비트 추론과 Mac, MLX API 서빙을 했으며, QLoRA 학습을 실험했습니다.</li>
@@ -342,7 +345,7 @@
         </ul>
       </div>
       <div class="skill-group">
-        <h3>Backend.</h3>
+        <h3>Backend<span class="point">.</span></h3>
         <ul>
           <li>Java/Spring과 Python/FastAPI로 API와 Worker를 연결하여 운영해본 경험이 있습니다.</li>
           <li>Redis Streams, gRPC, S3를 사용하는 비동기 작업의 상태와 재처리를 다뤘습니다.</li>
@@ -350,7 +353,7 @@
         </ul>
       </div>
       <div class="skill-group">
-        <h3>Tools.</h3>
+        <h3>Tools<span class="point">.</span></h3>
         <ul>
           <li>Git/GitHub로 코드를 관리하고 테스트, 코드 리뷰를 거쳐 변경 사항을 반영할 수 있습니다.</li>
           <li>Langfuse와 WandB로 호출 기록, 프롬프트 버전과 모델 실험을 추적해본 경험이 있습니다.</li>
@@ -360,7 +363,7 @@
     </section>
 
     <section class="secondary-section contact" id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Contact</h2>
+      <h2 id="contact-heading">Contact<span class="point">.</span></h2>
       <ul>
         <li><a href="mailto:sowilloo@naver.com">Email /  sowilloo@naver.com</a></li>
         <li><a href="https://github.com/C0mput33">GitHub /  C0mput33</a></li>

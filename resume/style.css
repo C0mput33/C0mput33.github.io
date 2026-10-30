@@ -135,5 +135,5 @@ footer p { margin-bottom: 6px; }
   a { color: var(--ink); text-decoration-color: #b8bec6; }
 }
 
-/* Plain portfolio prose without decorative list markers. */
-.page ul { list-style: none; padding-left: 0; }
+/* Keep project contributions scannable with the original blue list markers. */
+.page ul { list-style: disc; padding-left: 21px; }
